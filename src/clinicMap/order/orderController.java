@@ -4,15 +4,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class orderController {
@@ -82,7 +86,10 @@ public class orderController {
 	}
 	@RequestMapping(path="/cancel",method=RequestMethod.POST)
 	public void cancel(@RequestParam("AppointmentID")String AppointmentID) {
-		service.deleteorder(AppointmentID);
+		
+		service.deleteorder(AppointmentID.substring(0,15));
+		
+		
 	}
 	@RequestMapping(path="/memberset",method = RequestMethod.POST)
 	public void memberdate(@RequestParam("memberid")int memberid,HttpServletResponse response) throws IOException {
@@ -121,4 +128,12 @@ public class orderController {
 			PrintWriter out = response.getWriter();
 			out.print(jary);
 	}
+	
+	
+	@RequestMapping(path = "/memberedittw",method = RequestMethod.POST)
+	@ResponseBody
+	public void memberedit(@RequestBody String Json){
+		System.out.println("hello"+Json);
+	}
 }
+ 

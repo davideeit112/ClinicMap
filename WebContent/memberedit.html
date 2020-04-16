@@ -25,6 +25,9 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
 <style>
+td{
+width:200px;
+}
 #best {
 	width: 80%;
 	margin: auto;
@@ -168,42 +171,43 @@ textarea {
 	</header>
 	<div id="best" class="typography">
 		<h3 class="mb-30">使用者資料</h3>
-		<form>
 			<div class="readonly">
-				會員編號 <input type="text" id="memberid" name="first_name"
+				會員編號 <input type="text" id="memberID" name="memberID"
 					placeholder="memberid" class="single-input" readonly="readonly">
 			</div>
+		<form id="memberset" method="post">
+		
 			<div class="readonly">
-				會員帳號： <input type="text" id="memberaccount" name="first_name"
+				會員帳號： <input type="text" id="memberAccount" name="memberAccount"
 					placeholder="account" class="single-input" readonly="readonly">
 			</div>
 			<div>
-				會員姓名： <input type="text" id="memberName" name="first_name"
+				會員姓名： <input type="text" id="memberName" name="memberName"
 					placeholder="Name" class="single-input" readonly="readonly">
 			</div>
 			<div class="mt-10">
-				會員密碼： <input type="password" id="memberpwd" name="first_name"
+				會員密碼： <input type="password" id="memberPwd" name="memberPwd"
 					placeholder="pwd" class="single-input">
 			</div>
 
 			<div class="mt-10">
-				Email： <input type="email" id="memberemail" name="first_name"
+				Email： <input type="email" id="memberemail" name="memberemail"
 					placeholder="email" class="single-input">
 			</div>
 			<div class="mt-10">
-				身高： <input type="text" id="memberHeight" name="address"
+				身高： <input type="text" id="memberHeight" name="memberHeight"
 					placeholder="height" class="single-input">
 			</div>
 			<div class="mt-10">
-				體重： <input type="text" id="memberWeight" name="address"
+				體重： <input type="text" id="memberWeight" name="memberWeight"
 					placeholder="memberWeight" class="single-input">
 			</div>
 			<div class="mt-10">
-				會員地址： <input type="text" id="memberaddress" name="address"
+				會員地址： <input type="text" id="memberAddress" name="memberAddress"
 					placeholder="address" class="single-input">
 			</div>
 			<div class="mt-10">
-				會員手機： <input type="text" id="memberPhone" name="address"
+				會員手機： <input type="text" id="memberPhone" name="memberPhone"
 					placeholder="memberPhone" class="single-input">
 			</div>
 			<div class="readonly">
@@ -212,7 +216,7 @@ textarea {
 			</div>
 
 			<div class="readonly">
-				會員認證狀態： <input type="text" id="memberStatus" name="memberGender"
+				會員認證狀態： <input type="text" id="memberStatus" name="memberStatus"
 					placeholder="memberStatus" class="single-input" readonly="readonly">
 			</div>
 
@@ -224,12 +228,12 @@ textarea {
 		<div>
 			<table>
 				<tr>
-					<td><button class="genric-btn default circle arrow">確定</button>
+					<td><button id="submit" class="genric-btn default circle arrow">確定</button>
 						<td></table>
 		</div>
 	</div>
 	<script type="text/javascript">
-$.ajax({
+	$.ajax({
 	
 			url:"memberset",
 	type:"post",
@@ -237,7 +241,7 @@ $.ajax({
 	dataType:"json",
 	success:function(data){
 		console.log(data)
-		var txt="<tr><th>預約編號<th>預約診所<th>預約時間<th>預約號碼<th>預約狀態"
+		var txt="<tr align='center'><th>預約編號<hr><th>預約診所<hr><th>預約時間<hr><th>預約號碼<hr><th>預約狀態<hr>"
 		for (var i =0;i<data.length;i++){
 			
 			$("#memberid").val(data[i].memberid)
@@ -254,14 +258,14 @@ $.ajax({
 			$("#memberStatus").val(data[i].memberstatus)
 			console.log(data[i].orderlist)
 			for(var j=0;j<data[i].orderlist.length;j++){
-				txt+="<tr><td>"+data[i].orderlist[j].AppointmentID+"<td>"+data[i].orderlist[j].clinicName+"<td>"+data[i].orderlist[j].AppointmentTime+"<td>"
+				txt+="<tr align='center'><td>"+data[i].orderlist[j].AppointmentID+"<hr><td>"+data[i].orderlist[j].clinicName+"<hr><td>"+data[i].orderlist[j].AppointmentTime+"<hr><td>"
 					+data[i].orderlist[j].AppointmentNumber
 					if(data[i].orderlist[j].AppointmentStatus=="OS1")
 						{
-						txt+="<td>預約<td><button onclick='cancel("+data[i].orderlist[j].AppointmentID+")' class='genric-btn default circle arrow'>取消</button>"
+						txt+="<hr><td>預約<hr><td><button onclick='cancel("+data[i].orderlist[j].AppointmentID+")' class='genric-btn default circle arrow'>取消</button><hr>"
 						}
 					else{
-						txt+="<td>已完成"
+						txt+="<hr><td>已完成<hr>"
 						}
 				}
 		}
@@ -276,11 +280,31 @@ $.ajax({
 					data:{'AppointmentID':AppointmentID},
 					type:"post",
 					success:function(){
-						console.log("")
+						location.reload();
 						}
 					})
 				}
 </script>
+
+<script>
+
+$("#submit").click(function(){
+	console.log(typeof JSON.parse(JSON.stringify($("#memberset").serializeArray())))
+	console.log()
+	
+	$.ajax({
+		url:"memberedittw",
+		type:"post",
+		
+		data:$("#memberset").serializeArray(),
+		success:function(data){
+			 
+			}
+		 }) 
+})
+
+</script>
+
 	<!-- <script type="text/javascript">
 function autogrow(textarea){
 var adjustedHeight=textarea.clientHeight;
@@ -421,7 +445,7 @@ var adjustedHeight=textarea.clientHeight;
 
 	<!-- Jquery Plugins, main Jquery -->
 	<script src="./assets/js/plugins.js"></script>
-	<script src="./assets/js/main.js"></script>  -->
+	<script src="./assets/js/main.js"></script>
 	<script
 		src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 

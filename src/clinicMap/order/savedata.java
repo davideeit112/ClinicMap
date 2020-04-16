@@ -241,9 +241,19 @@ public class savedata {
 
 	public int deleteorder(String AppointmentID) {
 		Session session = sessionfactory.getCurrentSession();
-		orderbean orbean = session.get(orderbean.class,AppointmentID);
-		orbean.setAppointmentStatus("OS2");
-		session.save(orbean);
+		System.out.println("hello");
+		Query<orderbean> query = session.createQuery("from orderbean where AppointmentID like :AppointmentID",orderbean.class);
+		query.setParameter("AppointmentID", AppointmentID+"%");
+		List<orderbean> list = query.list();
+		System.out.println(AppointmentID);
+		System.out.println(list.size());
+		for(orderbean i:list) {
+			i.setAppointmentStatus("OS2");
+			session.save(i);
+		}
+		
+		
+		System.out.println("finished");
 		return 0;
 	}
 

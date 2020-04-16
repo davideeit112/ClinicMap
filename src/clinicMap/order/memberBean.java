@@ -128,9 +128,7 @@ public class memberBean {
 	private Date memberBirth;
 	private String memberAddress;
 	private int memberHeight;
-
 	private int memberWeight;
-
 	private String memberPhone;
 	private String memberemail;
 	private String memberIdNumber;
