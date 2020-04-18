@@ -45,6 +45,13 @@ public class orderService {
 	public clinicBean clinicquery(int clinicid) {
 		return save.clinicquery(clinicid);
 	}
+	public memberBean insertmember(int memberid, String memberemail, String memberPwd, int memberHeight,
+			int memberWeight, String memberAddress, String memberPhone) {
+		return save.insertmember(memberid,memberemail,memberPwd,memberHeight,memberWeight,memberAddress,memberPhone);		
+	}
+	public memberBean photoupload(int memberId, String savepath) throws IOException {
+		return save.photoupload(memberId,savepath);
+	}
 }
 
 

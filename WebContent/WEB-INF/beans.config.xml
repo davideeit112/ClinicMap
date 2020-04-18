@@ -16,7 +16,7 @@
 		transaction-manager="transactionManager" />
 	<mvc:view-controller path="/"
 		view-name="redirect:preLoginAction.controller" />
-		<mvc:default-servlet-handler/>
+	<mvc:default-servlet-handler />
 
 	<bean id="SQLserverJndiDataSource"
 		class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -37,8 +37,22 @@
 			</props>
 		</property>
 	</bean>
-	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-	    <property name="sessionFactory" ref="sessionFactory"></property>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView"></property>
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<!-- 最大内存大小 -->
+		<property name="maxInMemorySize" value="10240" />
+		<!-- 最大文件大小，-1为不限制大小 -->
+		<property name="maxUploadSize" value="-1" />
+	</bean>
 </beans>

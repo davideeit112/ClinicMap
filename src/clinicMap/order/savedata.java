@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -245,8 +246,7 @@ public class savedata {
 		Query<orderbean> query = session.createQuery("from orderbean where AppointmentID like :AppointmentID",orderbean.class);
 		query.setParameter("AppointmentID", AppointmentID+"%");
 		List<orderbean> list = query.list();
-		System.out.println(AppointmentID);
-		System.out.println(list.size());
+
 		for(orderbean i:list) {
 			i.setAppointmentStatus("OS2");
 			session.save(i);
@@ -274,6 +274,32 @@ public class savedata {
 		Session session = sessionfactory.getCurrentSession();
 		clinicBean cbean = session.get(clinicBean.class, clinicid);
 		return cbean;
+	}
+
+	public memberBean insertmember(int memberid, String memberemail, String memberPwd, int memberHeight,
+			int memberWeight, String memberAddress, String memberPhone) {
+		Session session = sessionfactory.getCurrentSession();
+		memberBean mbean = session.get(memberBean.class, memberid);
+		mbean.setMemberemail(memberemail);
+		mbean.setMemberPwd(memberPwd);
+		mbean.setMemberHeight(memberHeight);
+		mbean.setMemberWeight(memberWeight);
+		mbean.setMemberAddress(memberAddress);
+		mbean.setMemberPhone(memberPhone);
+		session.save(mbean);
+		return mbean;
+	}
+
+	public memberBean photoupload(int memberId, String savepath) throws IOException {
+		Session session = sessionfactory.getCurrentSession();
+		memberBean mbean = session.get(memberBean.class, memberId);
+		InputStream is1 = new FileInputStream(savepath);
+		byte[] photo=new byte[is1.available()];
+		is1.read(photo);
+		is1.close();
+		mbean.setmemberPhoto(photo);
+		session.save(mbean);
+		return mbean;
 	}
 	
 

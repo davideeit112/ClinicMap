@@ -1,5 +1,6 @@
 package clinicMap.order;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -7,22 +8,27 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class orderController {
 	@Autowired
 	private orderService service;
-
+	@Autowired
+	private HttpServletRequest request;
 	@RequestMapping(path = "/ordername", method = RequestMethod.GET)
 	public String orderdate() throws IOException {
 
@@ -107,6 +113,7 @@ public class orderController {
 		mjobj.put("memberstatus", mbean.getMemberStatus());
 		mjobj.put("memberPhone", mbean.getMemberPhone());
 		mjobj.put("memberAccount", mbean.getMemberAccount());
+		mjobj.put("memberPhoto",mbean.getmemberPhoto());
 		
 		JSONArray jary=new JSONArray();
 		
@@ -131,9 +138,35 @@ public class orderController {
 	
 	
 	@RequestMapping(path = "/memberedittw",method = RequestMethod.POST)
+	
+	public void memberedit(HttpServletResponse response,@RequestParam("memberID")int memberid,@RequestParam("memberemail")String memberemail,@RequestParam("memberPwd")String memberPwd
+			,@RequestParam("memberHeight")int memberHeight,@RequestParam("memberWeight")int memberWeight,@RequestParam("memberAddress")String memberAddress,
+			@RequestParam("memberPhone")String memberPhone) throws IOException{
+		memberBean mbean = service.insertmember(memberid,memberemail,memberPwd,memberHeight,memberWeight,memberAddress,memberPhone);
+		response.setContentType("text/html ;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		JSONObject jobj= new JSONObject(mbean);
+		out.print(jobj);
+}
+
+	@RequestMapping(path="/memberphoto",method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public void memberedit(@RequestBody String Json){
-		System.out.println("hello"+Json);
+	public void memberphoto(@RequestParam("photo") MultipartFile files ,@RequestParam("memberid")int memberId,HttpServletResponse response) throws  IOException {
+		System.out.println(files.getOriginalFilename());
+		HttpHeaders header=new HttpHeaders();
+		header.setContentType(MediaType.IMAGE_JPEG);
+		String savepath=request.getSession().getServletContext().getRealPath("/")+files.getOriginalFilename();
+		File savefile=new File(savepath);
+		files.transferTo(savefile);
+		System.out.println(savefile);
+		String filesname = files.getOriginalFilename();
+		if(filesname!=null&& filesname.length()!=0) {
+			memberBean mbean = service.photoupload(memberId,savepath);
+		} 
+		response.setContentType("text/html ;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		
 	}
 }
  
