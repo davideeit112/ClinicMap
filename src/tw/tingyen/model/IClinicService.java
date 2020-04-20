@@ -1,0 +1,11 @@
+package tw.tingyen.model;
+
+import java.sql.Blob;
+
+public interface IClinicService {
+	public Clinic updateClinicProfile(String clinicID,String clinicName,String clinicAccount,
+			String clinicPwd,String clinicAddress,String clinicDescription,Blob clinicPhoto,
+			String clinicPhone,int clinicClass,int clinicType,int clinicTime,String clinicStatus);
+	public Clinic queryClinicProfile(String clinicID);
+	public boolean deleteClinicProfile(String clinicID);
+}
