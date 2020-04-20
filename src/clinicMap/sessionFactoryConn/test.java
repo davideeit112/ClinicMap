@@ -32,7 +32,7 @@ public class test {
 	Session session = sessionfactory.getCurrentSession();
 	Query<clinicBean> query = session.createQuery("from clinicBean",clinicBean.class);
 	List<clinicBean> list = query.list();
-	File file= new File("/Users/apple/Documents/sql.txt");
+	File file= new File("C:\\DataSource\\springWorkSpace\\sql.txt");
 	StringBuilder sbr=new StringBuilder();
 	for (clinicBean cbean:list) {
 		sbr.append("insert clinic(clinicName,clinicAccount,clinicPwd,clinicAddress,clinicPhone,"

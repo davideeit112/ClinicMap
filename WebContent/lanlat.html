@@ -21,27 +21,21 @@ $.ajax({
 	jdata=JSON.parse(data)
 	var i=0
 	var number=[]
-	var clinicaddress=[]
 	var geocoder=new google.maps.Geocoder()
-	for(var j=0;j<jdata.length;j++){
+	for(var j=0;j<1;j++){
 	var address=jdata[j].clinicaddress
 	var clinicId=jdata[j].clinicId
 		number.push(clinicId)
-		clinicaddress.push(jdata[j].clinicaddress)
 		console.log(j)
-	}
-		for(var k=0;k<clinicaddress.length;k++){
+	
 		geocoder.geocode({
-		'address':clinicaddress[k]},function(date,status){
+		'address':address},function(date,status){
 
 			if(status==='OK'){
 				
-				json+=number[i]+","+(date[0].geometry.location+"")+","
+				json+=clinicId+","+(date[0].geometry.location+"")+","
 				i++
 				console.log(i)
-				console.log(k)
-				
-				if(i==10 ){
 					console.log("+++"+json)
 					$.ajax({
 						url:"addlnglat",
@@ -51,13 +45,14 @@ $.ajax({
 						
 							}
 					})
-			}
+			
 					}
 
 				
 		})
-				
 	}
+				
+	
 	
 
  setInterval(function(){
