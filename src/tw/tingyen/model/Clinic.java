@@ -27,7 +27,7 @@ public class Clinic {
 	@Column(name = "clinicDescription")
 	private String clinicDescription;
 	@Column(name = "clinicPhoto")
-	private Blob clinicPhoto;
+	private byte[] clinicPhoto;
 	@Column(name = "clinicPhone")
 	private String clinicPhone;
 	@Column(name = "clinicClass")
@@ -87,11 +87,11 @@ public class Clinic {
 		this.clinicDescription = clinicDescription;
 	}
 
-	public Blob getClinicPhoto() {
+	public byte[] getClinicPhoto() {
 		return clinicPhoto;
 	}
 
-	public void setClinicPhoto(Blob clinicPhoto) {
+	public void setClinicPhoto(byte[] clinicPhoto) {
 		this.clinicPhoto = clinicPhoto;
 	}
 

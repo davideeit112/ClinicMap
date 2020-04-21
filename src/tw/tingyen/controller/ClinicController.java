@@ -1,9 +1,12 @@
 package tw.tingyen.controller;
 
+import org.springframework.http.MediaType;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
-import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -29,10 +32,12 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import tw.tingyen.model.Appointment;
 import tw.tingyen.model.AppointmentService;
@@ -185,19 +190,29 @@ public class ClinicController {
 	}
 	
 	@RequestMapping(path = "/UpdateClinicProfile.do", method = RequestMethod.POST)
-	public void updateClinicProfile(@RequestParam(name = "clinicId")String clinicID, 
+	public String updateClinicProfile(@RequestParam(name = "clinicID")String clinicID, 
 			@RequestParam(name = "clinicName")String clinicName, 
 			@RequestParam(name = "clinicAccount")String clinicAccount, 
 			@RequestParam(name = "clinicPwd")String clinicPwd,
 			@RequestParam(name = "clinicAddress")String clinicAddress, 
 			@RequestParam(name = "clinicDescription")String clinicDescription, 
-			@RequestParam(name = "clinicPhoto")Blob clinicPhoto, 
+			@RequestParam(name = "clinicPhoto")MultipartFile  clinicPhotoFile, 
 			@RequestParam(name = "clinicPhone")String clinicPhone, 
 			@RequestParam(name = "clinicClass")int clinicClass,
 			@RequestParam(name = "clinicType")int clinicType, 
 			@RequestParam(name = "clinicTime")int clinicTime, 
-			@RequestParam(name = "clinicStatus")String clinicStatus) {
+			@RequestParam(name = "clinicStatus")String clinicStatus,HttpServletRequest request) throws IOException {
+		HttpHeaders header=new HttpHeaders();
+		header.setContentType(MediaType.IMAGE_JPEG);
+		String clinicPhotoPath = request.getSession().getServletContext().getRealPath("/")+clinicPhotoFile.getOriginalFilename();	
+		File savefile=new File(clinicPhotoPath);
+		clinicPhotoFile.transferTo(savefile);
+		InputStream is1 = new FileInputStream(clinicPhotoPath);
+		byte[] clinicPhoto=new byte[is1.available()];
+		is1.read(clinicPhoto);
+		is1.close();
 		cService.updateClinicProfile(clinicID, clinicName, clinicAccount, clinicPwd, clinicAddress, clinicDescription, clinicPhoto, clinicPhone, clinicClass, clinicType, clinicTime, clinicStatus);
+		return "ClinicProfile";
 	}
 	
 	@RequestMapping(path = "/DataAnalyze.do", method = RequestMethod.GET)
@@ -282,5 +297,17 @@ public class ClinicController {
 		ClinicOpenStatus cosBean = cosService.getCurrentNumber(clinicID);
 		PrintWriter out = response.getWriter();
 		out.print(cosBean.getClinicCurrentNumber());
+	}
+	
+	@RequestMapping(path = "/GetClinicProfile.do", method = RequestMethod.GET)
+	public void clinicProfile(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		Cookie[] cookieArray = request.getCookies();
+		Cookie cookie = cookieArray[1];
+		String clinicID = cookie.getValue();
+		System.out.println("clinicID:" + clinicID);
+		Clinic cBean = cService.queryClinicProfile(clinicID);
+		JSONObject jsonObj = new JSONObject(cBean);
+		PrintWriter out = response.getWriter();
+		out.print(jsonObj);
 	}
 }

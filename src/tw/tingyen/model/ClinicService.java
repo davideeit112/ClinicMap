@@ -11,7 +11,7 @@ public class ClinicService implements IClinicService {
 	
 	@Override
 	public Clinic updateClinicProfile(String clinicID, String clinicName, String clinicAccount, String clinicPwd,
-			String clinicAddress, String clinicDescription, Blob clinicPhoto, String clinicPhone, int clinicClass,
+			String clinicAddress, String clinicDescription, byte[] clinicPhoto, String clinicPhone, int clinicClass,
 			int clinicType, int clinicTime, String clinicStatus) {
 		return cDao.updateClinicProfile(clinicID, clinicName, clinicAccount, clinicPwd, clinicAddress, clinicDescription, clinicPhoto, clinicPhone, clinicClass, clinicType, clinicTime, clinicStatus);
 	}
