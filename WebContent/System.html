@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<title>Table V01</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="eddiechen/images/icons/favicon.ico" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="eddiechen/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="eddiechen/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="eddiechen/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="eddiechen/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="eddiechen/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="eddiechen/css/util.css">
+<link rel="stylesheet" type="text/css" href="eddiechen/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100">
+					<table>
+						<thead>
+							<tr class="table100-head">
+								<th class="column1">診所執照	</th>	
+								<th class="column2">機構代碼</th>
+								<th class="column3">診所名稱</th>
+								<th class="column4">診所地址</th>
+								<th class="column2">診所狀態</th>
+								<th class="column2">驗證</th>
+							</tr>
+						</thead>
+						<tbody id="clinic">
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!--===============================================================================================-->
+	<script src="eddiechen/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="eddiechen/vendor/bootstrap/js/popper.js"></script>
+	<script src="eddiechen/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="eddiechen/vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="eddiechen/js/main.js"></script>
+	<script type="text/javascript">
+		
+		$.post("loadClinicData", function(data, status) {
+			if (status == "success")
+				$("#clinic").html(data)
+			console.log(data);
+		})
+	</script>
+</body>
+</html>
