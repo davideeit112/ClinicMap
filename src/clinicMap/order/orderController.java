@@ -8,14 +8,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,7 +40,6 @@ public class orderController {
 		System.out.println("hi2");
 		JSONArray arry = new JSONArray();
 		for (clinicBean cbean : list) {
-			System.out.println(cbean.getClinicStatus());
 			if(cbean.getClinicStatus().equals("CS1")) {
 			JSONObject jobj = new JSONObject();
 
@@ -164,8 +160,7 @@ public class orderController {
 			memberBean mbean = service.photoupload(memberId,savepath);
 		} 
 		response.setContentType("text/html ;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		
+
 		
 	}
 }
