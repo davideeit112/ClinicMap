@@ -1,10 +1,7 @@
 package tw.tingyen.model;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Blob;
 
-import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,7 +15,7 @@ public class ClinicDao implements IClinicDao {
 	
 	@Override
 	public Clinic updateClinicProfile(String clinicID, String clinicName, String clinicAccount, String clinicPwd,
-			String clinicAddress, String clinicDescription, Blob clinicPhoto, String clinicPhone, int clinicClass,
+			String clinicAddress, String clinicDescription, byte[] clinicPhoto, String clinicPhone, int clinicClass,
 			int clinicType, int clinicTime, String clinicStatus) {
 		Session session = sessionFactory.getCurrentSession();
 		Clinic cBean = session.get(Clinic.class, clinicID);
