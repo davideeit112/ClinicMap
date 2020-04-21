@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="BIG5">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<link rel="stylesheet"
+	href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<style type="text/css">
+td{
+	padding-right: 20px
+}
+#myModalLabel {
+	text-align: center;
+}
+textarea {
+	background-color: #F8F8F8;
+}
+</style>
+</head>
+<body>
+	<button type="button" data-toggle="modal" data-target="#myModal">評論</button>
+	
+	<form action="/clinicMap/deletemsg.do" method="post">
+		<input type="hidden" name="messageID" value="10017">
+		<input id="Button1" type="submit" value="刪除評論" onclick='return del()'>
+	</form>
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form id="fm" name="fm" action="/clinicMap/message.do" method="post" onclick="return false">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">診所評分</h4>
+					</div>
+					<div class="modal-body">
+						<table>
+							<tr>
+								<td></td>
+								<td><input type="hidden" name="clinicID" value="3801012399"></td>
+							</tr>
+							<tr>
+								<td>評分</td>
+								<td id="stars"><img id="idimg0" src="images/star.png" /> <img
+									id="idimg1" src="images/star.png" /> <img id="idimg2"
+									src="images/star.png" /> <img id="idimg3"
+									src="images/star.png" /> <img id="idimg4"
+									src="images/star.png" /></td>
+							</tr>
+							<tr>
+								<td><br></td>
+							</tr>
+							<tr>
+								<td>評論</td>
+
+								<td><textarea id="text" name="Message" cols="30" rows="5"
+										placeholder="請輸入..." onkeyup="words();"></textarea></td>
+								<td><span id="num">0</span>/50字</td>
+							</tr>
+							<tr>
+								<td><input type="hidden" name="evaluationTime" id="todayDate" /></td>
+								<td><input type="hidden" name="appointmentID" value="0012301"></td>
+								<td><input type="hidden" name="memberID" value="101"></td>
+								<td><input type="hidden" name="Evaluation" id="starmsg" value="0"></td>
+							</tr>
+							
+						</table>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+						<button type="submit" class="btn btn-primary" id="send">送出</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script
+		src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script>
+        var starnum = 0;
+        var clicked = 0;
+        
+        $("#stars").mouseout(mouseoutstars).click(starclick).dblclick(stardbclick);
+        $("img").mouseover(function(){
+            starnum = this.id.charAt(5);
+            if (clicked == 0) {
+                $("img").slice(0, parseInt(starnum) + 1).attr("src", "images/chngstar.png");
+            }  
+        });
+        function mouseoutstars() {
+            if (clicked == 0) {
+                $("img").attr("src", "images/star.png");
+            }
+        }
+        function starclick() {
+            let starscore = parseInt(starnum) + 1;
+            if (clicked == 0) {
+                $("#starmsg").text(starscore);
+                document.getElementById("starmsg").value = starscore;
+                clicked = 1;
+            }
+        }
+        function stardbclick() {
+            clicked = 0;
+            $("img").slice(parseInt(starnum) + 1).attr("src", "images/star.png")
+            $("img").slice(0, parseInt(starnum) + 1).attr("src", "images/chngstar.png");
+        }
+
+        function words() {
+        	var length = document.getElementById("text").value.length;
+        	document.getElementById("num").innerHTML = length;
+        }
+
+		$(document).ready(function() {
+	        $("#send").click(function() {
+	            if($("#starmsg").val()==0){
+	                alert("請給評分");
+	                eval("document.fm['Evaluation'].focus()")
+	            } else if($("#text").val().length>50){
+	                alert("超過字數");
+	                eval("document.fm['Message'].focus()")
+	            } else {
+	                document.fm.submit();
+	            } 
+	        })
+		})
+		function getDate() {
+		    var today = new Date();
+		    var dd = today.getDate();
+		    var mm = today.getMonth()+1; //January is 0!
+		    var yyyy = today.getFullYear();
+		    if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm}
+		    today = yyyy+"-"+mm+"-"+dd;
+		
+		    document.getElementById("todayDate").value = today;
+		}
+		getDate();
+
+		function del() {
+			var delmsg = confirm("確定刪除留言?");
+			if( delmsg ==true) {
+				return true;
+			}
+			else if( delmsg == false)
+			{
+				return false;
+			}
+		}
+    </script>
+</body>
+</html>

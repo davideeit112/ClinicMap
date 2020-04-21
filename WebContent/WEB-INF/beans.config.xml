@@ -12,6 +12,7 @@
 	<context:annotation-config />
 	<context:component-scan base-package="clinicMap" />
 	<mvc:annotation-driven />
+	<mvc:resources mapping="/images/**" location="/WEB-INF/pages/images/"/>
 	<tx:annotation-driven
 		transaction-manager="transactionManager" />
 	<mvc:view-controller path="/"
@@ -50,9 +51,9 @@
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="utf-8" />
-		<!-- 最大内存大小 -->
+		<!-- ?�大�?存大�?-->
 		<property name="maxInMemorySize" value="10240" />
-		<!-- 最大文件大小，-1为不限制大小 -->
+		<!-- ?�大�?件大小�?-1为�??�制大�? -->
 		<property name="maxUploadSize" value="-1" />
 	</bean>
 </beans>
