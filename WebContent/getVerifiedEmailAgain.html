@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Get Verified Email Again</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+    <style>
+        .errMsg {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 style="color:purple">沒收到驗證信 或 驗證信過期 ?</h2>
+    <p>請在下方輸入您的帳號與email信箱，我們將寄送給您一個新的驗證信<br />收到後，請盡快進行驗證</p>
+
+    <form>
+        <table>
+            <tr>
+                <td>請輸入帳號：</td>
+                <td><input type="text" name="getAgain_account" id="getAgain_account"/></td>
+                <td id="accountMsg" class="errMsg"></td>
+            </tr>
+            <tr>
+                <td>請輸入email:</td>
+                <td><input type="email" name="getAgain_email" id="getAgain_email"/></td>
+                <td id="emailMsg" class="errMsg"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">
+                    <button id="notRecieve">沒收到驗證信</button>
+                    <button id="invalid">驗證信過期</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <a href="loginMember.html">回登入頁(測試用)</a>
+
+    <script>
+        var checkAccount = false, checkEmail = false;
+
+        $("#getAgain_account").blur(function () {
+            let account = $("#getAgain_account").val();
+            if (account == "") {
+                $("#accountMsg").html("");
+            } else {
+                $.ajax({
+                    url: "isAccountExist",
+                    type: "post",
+                    data: {
+                        "loginLevel":"member", 
+                        "account": account },
+                    success: function (exist) {
+                        checkAccount = eval(exist);
+                        $("#accountMsg").html(checkAccount ? "" : "帳號不存在");
+                    }
+                });
+            }
+        });
+
+        $("#getAgain_email").blur(function () {
+            let email = $("#getAgain_email").val();
+            if (email == "") {
+                $("#emailMsg").html("");
+            } else {
+                $.ajax({
+                    url: "isEmailExist",
+                    type: "post",
+                    data: { "email": email },
+                    success: function (exist) {
+                        checkEmail = eval(exist);
+                        $("#emailMsg").html(checkEmail ? "" : "email不存在");
+                    }
+                });
+            }
+        });
+
+        $("#notRecieve").click(function () {
+            getAgain("notRecieve");
+        });
+
+        $("#invalid").click(function () {
+            getAgain("invalid");
+        });
+
+        function getAgain(action) {
+            let account = $("#getAgain_account").val();
+            let email = $("#getAgain_email").val();
+
+            if (account == "" || email == "") {
+                //做些錯誤提示
+                alert("帳號和信箱都要填喔");
+            } else {
+                //都有填
+                //檢查，然後寄送
+                if (checkAccount && checkEmail) {
+                    $.ajax({
+                        url: "getEmailAgainPage",
+                        type: "post",
+                        data: {
+                            "action": action,
+                            "account": account,
+                            "email": email
+                        }
+                    });
+                    //如果改成這樣，是不是就不用controller回傳的問題
+                    //只是，如果controller出現問題，底下的動作還是會做
+                    checkAccount = false;
+                    checkEmail = false;
+                    alert("已經寄送新的驗證信");
+                    window.location.href = "login.html";
+
+
+                    // $.ajax({
+                    //     url: "getEmailAgainPage",
+                    //     type: "post",
+                    //     data: {
+                    //         "action":action,
+                    //         "account": account,
+                    //         "email": email
+                    //     },
+                    //     success: function (data) {
+                    //         checkAccount = false;
+                    //         checkEmail = false;
+                    //         alert("已經寄送新的驗證信");
+                    //         window.location.href = "login.html";
+                    //     }
+                    // });
+                } else {
+                    alert("資料有誤，請檢查");
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
