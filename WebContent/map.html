@@ -173,7 +173,7 @@ html, body {
               map: map,
               position:{lat: 25.0339007, lng: 121.5433982},
               icon:{
-            	  path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+            	  url:'images/self.png',
             	  scale:5 
                   }})
         var geocoder = new google.maps.Geocoder();
@@ -215,7 +215,7 @@ html, body {
 						var marker= new google.maps.Marker({
 							map:map,
 							icon:{
-				            	  url:"http://maps.google.com/mapfiles/ms/micons/hospitals.png",
+				            	  url:'images/local0421.png',
 				            	  scale:3	 
 				                  },
 							position:{lat:parseFloat(cliniclat),lng:parseFloat(cliniclng)}

@@ -11,7 +11,7 @@ public class ClinicDao implements IClinicDao {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public Clinic updateClinicProfile(String clinicID, String clinicName, String clinicAccount, String clinicPwd,
+	public Clinic updateClinicProfile(int clinicID, String clinicName, String clinicAccount, String clinicPwd,
 			String clinicAddress, String clinicDescription, byte[] clinicPhoto, String clinicPhone, String clinicClass,
 			String clinicType, String clinicTime, String clinicStatus) {
 		Session session = sessionFactory.getCurrentSession();

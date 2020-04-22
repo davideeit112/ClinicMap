@@ -190,7 +190,7 @@ public class ClinicController {
 	}
 	
 	@RequestMapping(path = "/UpdateClinicProfile.do", method = RequestMethod.POST)
-	public String updateClinicProfile(@RequestParam(name = "clinicID")String clinicID, 
+	public String updateClinicProfile(@RequestParam(name = "clinicID")int clinicID, 
 			@RequestParam(name = "clinicName")String clinicName, 
 			@RequestParam(name = "clinicAccount")String clinicAccount, 
 			@RequestParam(name = "clinicPwd")String clinicPwd,

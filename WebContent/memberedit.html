@@ -25,8 +25,15 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
 <style>
+#myModalLabel {
+	text-align: center;
+}
+textarea {
+	background-color: #F8F8F8;
+}
 td{
 width:200px;
+	padding-right: 20px
 }
 #best {
 	width: 80%;
@@ -83,7 +90,7 @@ textarea {
 }
 </style>
 <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
-</script>
+
   <script src="https://cdn.bootcss.com/croppie/2.6.2/croppie.js"></script>
 </head>
 <body>
@@ -240,6 +247,7 @@ textarea {
 						<td></table>
 		</div>
 	</div>
+	
 	<script type="text/javascript">
 	function arrayBufferToBase64(buffer) {
 	    let binary = '';
@@ -291,10 +299,10 @@ textarea {
 					+data[i].orderlist[j].AppointmentNumber
 					if(data[i].orderlist[j].AppointmentStatus=="OS1")
 						{
-						txt+="<hr><td>預約<hr><td><button onclick='cancel("+data[i].orderlist[j].AppointmentID+")' class='genric-btn default circle arrow'>取消</button><hr> "
+						txt+="<hr><td>預約<hr><td><button onclick='cancel("+data[i].orderlist[j].AppointmentID+")' class='genric-btn default circle arrow'style='color:red'>取消</button><hr> "
 						}
 					else{
-						txt+="<hr><td>已完成<hr>"
+						txt+="<hr><td>已完成<hr><td><button type='button'  data-toggle='modal' data-target='#myModal'class='genric-btn default circle arrow' onclick='getclinicID("+data[i].orderlist[j].clinicID+",\""+data[i].orderlist[j].clinicName+"\",\""+data[i].orderlist[j].AppointmentID+"\")' >評論</button><hr>"
 						}
 				}
 		}
@@ -389,6 +397,143 @@ var adjustedHeight=textarea.clientHeight;
 }
 
 </script> -->
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form id="fm" name="fm" action="/clinicMap/message.do" method="post" onclick="return false">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="myModalLabel">診所評分</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<table>
+							<tr>
+								<td></td>
+								<td><input type="hidden" id="clinicID" name="clinicID" value="1036"></td>
+							</tr>
+							<tr>
+								<td>評分</td>
+								<td id="stars"><img class="imgshow" id="idimg0" src="images/star.png" /> <img
+									id="idimg1" class="imgshow" src="images/star.png" /> <img id="idimg2"
+									class="imgshow" src="images/star.png" /> <img id="idimg3" class="imgshow"
+									src="images/star.png" /> <img id="idimg4" class="imgshow"
+									src="images/star.png" /></td>
+							</tr>
+							<tr>
+								<td><br></td>
+							</tr>
+							<tr>
+								<td>評論</td>
+
+								<td><textarea id="text" name="Message" cols="25" rows="5"
+										placeholder="請輸入..." onkeyup="words();"></textarea></td>
+								<td><span id="num">0</span>/50字</td>
+							</tr>
+							<tr>
+								<td><input type="hidden" name="evaluationTime" id="todayDate" /></td>
+								<td><input type="hidden" id="appointmentID" name="appointmentID" value="103620200416015452"></td>
+								<td><input type="hidden"id="clinicID" name="clinicID" value="1309"></td>
+								<td><input type="hidden" name="memberID" value="101"></td>
+								<td><input type="hidden" name="Evaluation" id="starmsg" value="0"></td>
+							</tr>
+							
+						</table>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class='genric-btn default circle arrow' data-dismiss="modal">關閉</button>
+						<button type="submit" class='genric-btn default circle arrow' id="send">送出</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script
+		src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script>
+        var starnum = 0;
+        var clicked = 0;
+        function getclinicID(clinicid,clinicName,Appointmentid){
+        
+			$("#clinicID").val(clinicid)
+			$("#myModalLabel").text(clinicName+"-評分")
+			$("#appointmentID").val(Appointmentid)
+			
+            }
+        $("#stars").mouseout(mouseoutstars).click(starclick).dblclick(stardbclick);
+        $(".imgshow").mouseover(function(){
+            starnum = this.id.charAt(5);
+            if (clicked == 0) {
+                $(".imgshow").slice(0, parseInt(starnum) + 1).attr("src", "images/chngstar.png");
+            }  
+        });
+        function mouseoutstars() {
+            if (clicked == 0) {
+                $(".imgshow").attr("src", "images/star.png");
+            }
+        }
+        function starclick() {
+            let starscore = parseInt(starnum) + 1;
+            if (clicked == 0) {
+                $("#starmsg").text(starscore);
+                document.getElementById("starmsg").value = starscore;
+                clicked = 1;
+            }
+        }
+        function stardbclick() {
+            clicked = 0;
+            $(".imgshow").slice(parseInt(starnum) + 1).attr("src", "images/star.png")
+            $(".imgshow").slice(0, parseInt(starnum) + 1).attr("src", "images/chngstar.png");
+        }
+
+        function words() {
+        	var length = document.getElementById("text").value.length;
+        	document.getElementById("num").innerHTML = length;
+        }
+
+		$(document).ready(function() {
+	        $("#send").click(function() {
+	            if($("#starmsg").val()==0){
+	                alert("請給評分");
+	                eval("document.fm['Evaluation'].focus()")
+	            } else if($("#text").val().length>50){
+	                alert("超過字數");
+	                eval("document.fm['Message'].focus()")
+	            } else {
+	                document.fm.submit();
+	            } 
+	        })
+		})
+		function getDate() {
+		    var today = new Date();
+		    var dd = today.getDate();
+		    var mm = today.getMonth()+1; //January is 0!
+		    var yyyy = today.getFullYear();
+		    if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm}
+		    today = yyyy+"-"+mm+"-"+dd;
+		
+		    document.getElementById("todayDate").value = today;
+		}
+		getDate();
+
+		function del() {
+			var delmsg = confirm("確定刪除留言?");
+			if( delmsg ==true) {
+				return true;
+			}
+			else if( delmsg == false)
+			{
+				return false;
+			}
+		}
+    </script>
 	<footer>
 		<!-- Footer Start-->
 		<div class="footer-area footer-padding footer-bg"

@@ -12,7 +12,7 @@
 	<context:annotation-config />
 	<context:component-scan base-package="clinicMap" />
 	<mvc:annotation-driven />
-	<mvc:resources mapping="/images/**" location="/WEB-INF/pages/images/"/>
+	<mvc:resources mapping="/images/**" location="/WEB-INF/clinicMap/images/"/>
 	<tx:annotation-driven
 		transaction-manager="transactionManager" />
 	<mvc:view-controller path="/"
@@ -51,9 +51,7 @@
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="utf-8" />
-		<!-- ?€å¤§å?å­˜å¤§å°?-->
 		<property name="maxInMemorySize" value="10240" />
-		<!-- ?€å¤§æ?ä»¶å¤§å°ï?-1ä¸ºä??åˆ¶å¤§å? -->
 		<property name="maxUploadSize" value="-1" />
 	</bean>
 </beans>

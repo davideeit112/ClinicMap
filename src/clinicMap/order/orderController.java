@@ -123,6 +123,7 @@ public class orderController {
 			clinicBean cbean = service.clinicquery(obean.getClinicID());
 			jobj.put("clinicName", cbean.getClinicName());
 			jobj.put("AppointmentNumber",obean.getAppointmentNumber());
+			jobj.put("clinicID", cbean.getClinicId());
 			ojary.put(jobj);
 		}
 			mjobj.put("orderlist", ojary);

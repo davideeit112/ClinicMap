@@ -8,7 +8,7 @@ public class ClinicService implements IClinicService {
 	private ClinicDao cDao;
 	
 	@Override
-	public Clinic updateClinicProfile(String clinicID, String clinicName, String clinicAccount, String clinicPwd,
+	public Clinic updateClinicProfile(int clinicID, String clinicName, String clinicAccount, String clinicPwd,
 			String clinicAddress, String clinicDescription, byte[] clinicPhoto, String clinicPhone, String clinicClass,
 			String clinicType, String clinicTime, String clinicStatus) {
 		return cDao.updateClinicProfile(clinicID, clinicName, clinicAccount, clinicPwd, clinicAddress, clinicDescription, clinicPhoto, clinicPhone, clinicClass, clinicType, clinicTime, clinicStatus);
@@ -23,5 +23,6 @@ public class ClinicService implements IClinicService {
 	public boolean deleteClinicProfile(String clinicID) {
 		return cDao.deleteClinicProfile(clinicID);
 	}
+
 
 }

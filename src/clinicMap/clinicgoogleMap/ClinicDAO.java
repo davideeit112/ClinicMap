@@ -24,31 +24,31 @@ public class ClinicDAO {
 	}
 	
 	
-	public List<Clinic> selectmesData(String mes) {
+	public List<Clinicdavid> selectmesData(String mes) {
 		Session sd = sessionFactory.getCurrentSession();
-		String newsqlstr = "from Clinic where clinicName like '%"+mes+"%'";
-		Query<Clinic> query = sd.createQuery(newsqlstr, Clinic.class);
-		List<Clinic> list = query.list();
+		String newsqlstr = "from Clinicdavid where clinicName like '%"+mes+"%'";
+		Query<Clinicdavid> query = sd.createQuery(newsqlstr, Clinicdavid.class);
+		List<Clinicdavid> list = query.list();
 		return list;
  
 		
 	}
 	
 	
-	public List<Clinic> selectData(String clinicType) {
+	public List<Clinicdavid> selectData(String clinicType) {
 		Session sd = sessionFactory.getCurrentSession();
-		String newsqlstr = "from Clinic where clinicType like '%"+clinicType+"%'";
-		Query<Clinic> query = sd.createQuery(newsqlstr, Clinic.class);
-		List<Clinic> list = query.list();
+		String newsqlstr = "from Clinicdavid where clinicType like '%"+clinicType+"%'";
+		Query<Clinicdavid> query = sd.createQuery(newsqlstr, Clinicdavid.class);
+		List<Clinicdavid> list = query.list();
 		return list;
  
 		
 	}
 	
 	
-	public Clinic queryData(String clinicID) {
+	public Clinicdavid queryData(String clinicID) {
 		Session sd = sessionFactory.getCurrentSession();
-		Clinic myClinicBean = sd.get(Clinic.class, clinicID);
+		Clinicdavid myClinicBean = sd.get(Clinicdavid.class, clinicID);
 		if(myClinicBean==null) {
 			return null;
 		}
@@ -56,17 +56,17 @@ public class ClinicDAO {
 	}
 	
 	
-	public List<Clinic> queryAllData() {
+	public List<Clinicdavid> queryAllData() {
 		Session sd = sessionFactory.getCurrentSession();
-		Query<Clinic> query = sd.createQuery("From Clinic", Clinic.class);
-		List<Clinic> list = query.list();
+		Query<Clinicdavid> query = sd.createQuery("From Clinicdavid", Clinicdavid.class);
+		List<Clinicdavid> list = query.list();
 		return list;
 
 	}
 	
-	public Clinic updateData(String clinicID,String clinicName,String clinicAddress,String clinicLng,String clinicLat) {
+	public Clinicdavid updateData(String clinicID,String clinicName,String clinicAddress,String clinicLng,String clinicLat) {
 		Session sd = sessionFactory.getCurrentSession();
-		Clinic myClinicBean = sd.get(Clinic.class, clinicID);
+		Clinicdavid myClinicBean = sd.get(Clinicdavid.class, clinicID);
 		if (myClinicBean != null) {
 			myClinicBean.setClinicID(clinicID);
 			myClinicBean.setClinicLng(clinicLng);
