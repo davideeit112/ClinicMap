@@ -1,5 +1,6 @@
-package clinicMap.tingyen.controller;
+package tw.tingyen.controller;
 
+import org.springframework.http.MediaType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -32,21 +33,20 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import clinicMap.tingyen.model.Appointment;
-import clinicMap.tingyen.model.AppointmentService;
-import clinicMap.tingyen.model.Clinic;
-import clinicMap.tingyen.model.ClinicOpenStatus;
-import clinicMap.tingyen.model.ClinicOpenStatusService;
-import clinicMap.tingyen.model.ClinicService;
-import clinicMap.tingyen.model.Member;
-import clinicMap.tingyen.model.MemberService;
+import tw.tingyen.model.Appointment;
+import tw.tingyen.model.AppointmentService;
+import tw.tingyen.model.Clinic;
+import tw.tingyen.model.ClinicOpenStatus;
+import tw.tingyen.model.ClinicOpenStatusService;
+import tw.tingyen.model.ClinicService;
+import tw.tingyen.model.Member;
+import tw.tingyen.model.MemberService;
 
 @Controller
 public class ClinicController {
@@ -80,7 +80,7 @@ public class ClinicController {
 		Date date = new Date();
 		String today = sdFormat.format(date);
 
-		Cookie cookie1 = new Cookie("clinicId", "201332546");
+		Cookie cookie1 = new Cookie("clinicId", "1000");
 		response.addCookie(cookie1);
 
 		Cookie[] cookieArray = request.getCookies(); 
@@ -180,38 +180,52 @@ public class ClinicController {
 		Cookie[] cookieArray = request.getCookies();
 		Cookie cookie = cookieArray[1];
 		System.out.println("clinicId:" + cookie.getValue());
-		Clinic cBean = cService.queryClinicProfile(Integer.parseInt(cookie.getValue()));
+		Clinic cBean = cService.queryClinicProfile(Integer.valueOf(cookie.getValue()));
 		String strBean = "";
 		strBean += cBean.getClinicID() + "," + cBean.getClinicName()+"," + cBean.getClinicAccount() + "," +cBean.getClinicPwd() + "," + 
 		cBean.getClinicAddress() + "," + cBean.getClinicDescription() + "," + cBean.getClinicPhoto() + "," + cBean.getClinicPhone() + "," +
-		cBean.getClinicClass() + "," + cBean.getClinicType() + "," + cBean.getClinicTime() + "," + cBean.getClinicStatus();
+		cBean.getClinicClass() + "," + cBean.getClinicType() +  "," + cBean.getClinicStatus();
 		PrintWriter out = response.getWriter();
 		out.print(strBean);
 	}
 	
 	@RequestMapping(path = "/UpdateClinicProfile.do", method = RequestMethod.POST)
-	public String updateClinicProfile(@RequestParam(name = "clinicID")int clinicID, 
+	public String updateClinicProfile(@RequestParam(name = "clinicID")String clinicID, 
 			@RequestParam(name = "clinicName")String clinicName, 
 			@RequestParam(name = "clinicAccount")String clinicAccount, 
 			@RequestParam(name = "clinicPwd")String clinicPwd,
 			@RequestParam(name = "clinicAddress")String clinicAddress, 
 			@RequestParam(name = "clinicDescription")String clinicDescription, 
 			@RequestParam(name = "clinicPhoto")MultipartFile  clinicPhotoFile, 
+			@RequestParam(name = "clinicLicense")MultipartFile  clinicLicenseFile, 
+			@RequestParam(name = "clinicEmail")String clinicEmail,
 			@RequestParam(name = "clinicPhone")String clinicPhone, 
 			@RequestParam(name = "clinicClass")String clinicClass,
 			@RequestParam(name = "clinicType")String clinicType, 
-			@RequestParam(name = "clinicTime")String clinicTime, 
 			@RequestParam(name = "clinicStatus")String clinicStatus,HttpServletRequest request) throws IOException {
-		HttpHeaders header=new HttpHeaders();
-		header.setContentType(MediaType.IMAGE_JPEG);
-		String clinicPhotoPath = request.getSession().getServletContext().getRealPath("/")+clinicPhotoFile.getOriginalFilename();	
-		File savefile=new File(clinicPhotoPath);
-		clinicPhotoFile.transferTo(savefile);
-		InputStream is1 = new FileInputStream(clinicPhotoPath);
-		byte[] clinicPhoto=new byte[is1.available()];
-		is1.read(clinicPhoto);
-		is1.close();
-		cService.updateClinicProfile(clinicID, clinicName, clinicAccount, clinicPwd, clinicAddress, clinicDescription, clinicPhoto, clinicPhone, clinicClass, clinicType, clinicTime, clinicStatus);
+
+			HttpHeaders header=new HttpHeaders();
+			header.setContentType(MediaType.IMAGE_JPEG);
+			String clinicPhotoPath = request.getSession().getServletContext().getRealPath("/")+clinicPhotoFile.getOriginalFilename();	
+			File savefile=new File(clinicPhotoPath);
+			clinicPhotoFile.transferTo(savefile);
+			InputStream is1 = new FileInputStream(clinicPhotoPath);
+			byte[] clinicPhoto=new byte[is1.available()];
+			is1.read(clinicPhoto);
+			is1.close();
+
+			HttpHeaders header1=new HttpHeaders();
+			header1.setContentType(MediaType.IMAGE_JPEG);
+			String clinicLicensePath = request.getSession().getServletContext().getRealPath("/")+clinicLicenseFile.getOriginalFilename();	
+			File savefile1=new File(clinicLicensePath);
+			clinicLicenseFile.transferTo(savefile1);
+			InputStream is2 = new FileInputStream(clinicLicensePath);
+			byte[] clinicLicense=new byte[is2.available()];
+			is2.read(clinicLicense);
+			is2.close();
+		
+		
+		cService.updateClinicProfile(Integer.valueOf(clinicID), clinicName, clinicAccount, clinicPwd, clinicAddress, clinicDescription, clinicPhoto, clinicLicense, clinicEmail, clinicPhone, clinicClass, clinicType, clinicStatus);
 		return "ClinicProfile";
 	}
 	
@@ -270,7 +284,7 @@ public class ClinicController {
 	
 	@RequestMapping(path = "/UpdateOpenStatus.do", method = RequestMethod.GET)
 	public void updateOpenStatus(@RequestParam(name="openStatus")String openStatus, 
-			@RequestParam(name="currentNum")String currentNum,HttpServletRequest request) {
+			@RequestParam(name="currentNum")String currentNum,	HttpServletRequest request) {
 		Cookie[] cookieArray = request.getCookies();
 		Cookie cookie = cookieArray[1];
 		String clinicID = cookie.getValue();
@@ -286,7 +300,27 @@ public class ClinicController {
 		System.out.println(clinicID);
 		System.out.println("status:"+openStatus);
 		System.out.println("Num:"+currentNum);
-		cosService.updateStatus(clinicID,openStatusBoolean, Integer.valueOf(currentNum));
+		cosService.updateStatus(clinicID,openStatusBoolean, Integer.valueOf(currentNum),openStatus);
+	}
+	
+	@RequestMapping(path = "/saveCurrentNum.do", method = RequestMethod.GET)
+	public void saveCurrentNum(	@RequestParam(name="currentNum")String currentNum,HttpServletRequest request) {
+		Cookie[] cookieArray = request.getCookies();
+		Cookie cookie = cookieArray[1];
+		String clinicID = cookie.getValue();
+		System.out.println("currentNum:" + Integer.valueOf(currentNum)+1);
+		cosService.saveCurrentNum(clinicID, Integer.valueOf(currentNum)+1);
+	}
+	
+	@RequestMapping(path = "/GetCurrentStatus.do", method = RequestMethod.GET)
+	public void getCurrentStatus(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		Cookie[] cookieArray = request.getCookies();
+		Cookie cookie = cookieArray[1];
+		String clinicID = cookie.getValue();
+		ClinicOpenStatus cosBean = cosService.getCurrentNumber(clinicID);
+		System.out.println(cosBean.getOpenDescription());
+		PrintWriter out = response.getWriter();
+		out.print(cosBean.getOpenDescription());
 	}
 	
 	@RequestMapping(path = "/GetCurrentNumber.do", method = RequestMethod.GET)
@@ -305,7 +339,7 @@ public class ClinicController {
 		Cookie cookie = cookieArray[1];
 		String clinicID = cookie.getValue();
 		System.out.println("clinicID:" + clinicID);
-		Clinic cBean = cService.queryClinicProfile(Integer.parseInt(clinicID));
+		Clinic cBean = cService.queryClinicProfile(Integer.valueOf(clinicID));
 		JSONObject jsonObj = new JSONObject(cBean);
 		PrintWriter out = response.getWriter();
 		out.print(jsonObj);
