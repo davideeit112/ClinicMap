@@ -1,4 +1,4 @@
-package clinicMap.tingyen.model;
+package tw.tingyen.model;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,9 +11,10 @@ public class ClinicDao implements IClinicDao {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public Clinic updateClinicProfile(int clinicID, String clinicName, String clinicAccount, String clinicPwd,
-			String clinicAddress, String clinicDescription, byte[] clinicPhoto, String clinicPhone, String clinicClass,
-			String clinicType, String clinicTime, String clinicStatus) {
+	public Clinic updateClinicProfile(int clinicID,String clinicName,String clinicAccount,
+			String clinicPwd,String clinicAddress,String clinicDescription,byte[] clinicPhoto,
+			byte[] clinicLicense, String clinicEmail,String clinicPhone,String clinicClass,
+			String clinicType,String clinicStatus) {
 		Session session = sessionFactory.getCurrentSession();
 		Clinic cBean = session.get(Clinic.class, clinicID);
 		cBean.setClinicName(clinicName);
@@ -23,9 +24,10 @@ public class ClinicDao implements IClinicDao {
 		cBean.setClinicDescription(clinicDescription);
 		cBean.setClinicPhoto(clinicPhoto);
 		cBean.setClinicPhone(clinicPhone);
+		cBean.setClinicLicense(clinicLicense);
+		cBean.setClinicEmail(clinicEmail);
 		cBean.setClinicClass(clinicClass);
 		cBean.setClinicType(clinicType);
-		cBean.setClinicTime(clinicTime);
 		cBean.setClinicStatus(clinicStatus);
 		return cBean;
 	}
@@ -38,7 +40,7 @@ public class ClinicDao implements IClinicDao {
 	}
 
 	@Override
-	public boolean deleteClinicProfile(String clinicID) {
+	public boolean deleteClinicProfile(int clinicID) {
 		Session session = sessionFactory.getCurrentSession();
 		Clinic cBean = session.get(Clinic.class, clinicID);
 		if(cBean != null) {
