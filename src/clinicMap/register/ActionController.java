@@ -1,4 +1,4 @@
-﻿package clinicMap.register;
+package clinicMap.register;
 
 import java.io.IOException;
 import java.util.Date;
@@ -128,13 +128,11 @@ public class ActionController {
 			e.printStackTrace();
 		}
 	}
-	
-//*************************************
 	@RequestMapping(path = "/verifiedEmail", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String emailVerified(@RequestParam("code") String code) {
 		
 		//之後再改成 Y/N 啟動成功，丟到不同頁面???
-		Member member = mDao.getInfoWithCode(code);
+		Memberde member = mDao.getInfoWithCode(code);
 		if(member!=null) { //不是過期後又重複點同一封 驗證信
 			long deadLine = member.getMemberRegisterDeadline();
 			
@@ -152,7 +150,6 @@ public class ActionController {
 		}
 		return "verified out of time, please get verified emai again";
 	}
-
 	@RequestMapping(path = "forgetPwdPage", method = RequestMethod.POST)
 	public void forgetPwd(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
 		//產生tempCode 的初始資料
@@ -192,38 +189,36 @@ public class ActionController {
 			e.printStackTrace();
 		}
 	}
-
-
-//*******************************************
-	@RequestMapping(path = "/isIdNumExist", method = RequestMethod.POST)
-	public void checkIdNumRepeat(@RequestParam("IdNum") String IdNum, HttpServletResponse response){
-		try {
-			response.getWriter().print(mDao.checkIdNumExistDao(IdNum));
-		} catch (IOException e) {
-			e.printStackTrace();
+	//*******************************************
+		@RequestMapping(path = "/isIdNumExist", method = RequestMethod.POST)
+		public void checkIdNumRepeat(@RequestParam("IdNum") String IdNum, HttpServletResponse response){
+			try {
+				response.getWriter().print(mDao.checkIdNumExistDao(IdNum));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-	}
 
-	
-//*******************************************
-	@RequestMapping(path = "/getEmailAgainPage", method = RequestMethod.POST)
-	public void getEmailAgain(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
-
-		String codeAgain = uuidCode();
-		mDao.setActiveStatus(codeAgain, account);
-
-		//更改 deadline的時間
-		mDao.updateDeadline(account, new Date().getTime());
 		
-		//重新寄出驗證信的狀況
-		sendEmail("verified", email, codeAgain);
-		
-		try {
-			response.getWriter().print("");
-		} catch (IOException e) {
-			e.printStackTrace();
+	//*******************************************
+		@RequestMapping(path = "/getEmailAgainPage", method = RequestMethod.POST)
+		public void getEmailAgain(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
+
+			String codeAgain = uuidCode();
+			mDao.setActiveStatus(codeAgain, account);
+
+			//更改 deadline的時間
+			mDao.updateDeadline(account, new Date().getTime());
+			
+			//重新寄出驗證信的狀況
+			sendEmail("verified", email, codeAgain);
+			
+			try {
+				response.getWriter().print("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-	}
 	
 	@RequestMapping(path = "/queryAllMembers", method = RequestMethod.POST)
 	public void queryAllM(HttpServletResponse response) {

@@ -1,4 +1,4 @@
-﻿package clinicMap.register;
+package clinicMap.register;
 
 import java.util.List;
 
@@ -25,25 +25,24 @@ public class MemberDAO {
 	public Object checkLogin(String type, String account, String pwd) {
 		Session session = sessionFactory.getCurrentSession();
 		String hqlStr = "";
-		
+		System.out.println(account+" "+type+" "+pwd);
 		if(type.equals("member")) {
 			hqlStr = "from Memberde where memberAccount = :account and memberPwd = :pwd";
+			Query<Memberde> query = session.createQuery(hqlStr, Memberde.class);
+			query.setParameter("account", account);
+			query.setParameter("pwd", pwd);
+			return query.uniqueResult();
 		}
-		if(type.equals("clinic")) {
+		
 			hqlStr = "from Clinicchuder where clinicAccount = :account and clinicPwd = :pwd";
-		}
-		
-		Query<Memberde> query = session.createQuery(hqlStr, Memberde.class);
-		query.setParameter("account", account);
-		query.setParameter("pwd", pwd);
-		System.out.println("acc:" + account);
-		System.out.println("pwd:" + pwd);
-		Memberde m = session.get(Memberde.class, 102);
-		System.out.println("acc:" + m.getMemberAccount());
-		System.out.println("photo:" + m.getMemberPhoto());
+			Query<Clinicchuder> query = session.createQuery(hqlStr, Clinicchuder.class);
+			query.setParameter("account", account);
+			query.setParameter("pwd", pwd);
+			return query.uniqueResult();
 		
 		
-		return query.uniqueResult();
+
+
 	}
 		
 	public void doRegisterM(Memberde m) {
@@ -190,9 +189,6 @@ public class MemberDAO {
 		
 		return query.uniqueResult();
 	}
-
-
-//***************************************
 	public boolean checkIdNumExistDao(String IdNum){
 		Session session = sessionFactory.getCurrentSession();
 		String hqlStr = "from Member where memberIdNumber = :IdNum";
