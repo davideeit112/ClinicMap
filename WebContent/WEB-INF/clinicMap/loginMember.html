@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<style type="text/css">
+table{
+margin: auto;
+margin-top:50px;
+}
+</style>
+</head>
+<body>
+    <div>
+        <form><!--還有東西沒做-->
+       <table>
+           <tr>
+               <td>登入身份:</td>
+               <td colspan="2">
+                   <label><input type="radio" name="loginLevel" id="member" value="member" checked/>會員</label>
+                   <label><input type="radio" name="loginLevel" id="clinic" value="clinic"/>診所</label>
+               </td>
+            </tr>
+           <tr>
+               <td>帳號：</td>
+               <td><input type="text" id="account" name="account"></td>
+               <td><label id="accountErrorMsg"></label></td>
+           </tr>
+           <tr>
+               <td>密碼：</td>
+               <td><input type="password" id="pwd" name="pwd"></td>
+               <td><label id="pwdErrorMsg"></label></td>
+           </tr>
+           <tr>
+               <td></td>
+               <!--還有東西沒做-->
+               <td colspan="2">
+                   
+               </td>
+           </tr>
+       </table> 
+    </form>
+
+    <table>
+        <tr>
+            <td></td>
+            <td colspan="2">
+                <label><input type="checkbox" name="rm" id="rm">記住密碼</label>
+                <button id="login">登入</button>
+                <button id="clear">清除</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <!--還有東西沒做-->
+                <a href="RegisterPage">尚未註冊</a>
+                <a href="forgetPassword.html">忘記密碼</a>
+                <a href="getVerifiedEmailAgain.html">重寄驗證信</a>
+            </td>
+        </tr>
+    </table>         
+    </div>
+
+    <script>
+        var loginLevel = $("input[name=loginLevel]:checked").val();
+        $("body").css("background-color", "lightblue");
+        // console.log(loginLevel);
+
+        $("input[name=loginLevel]").change(function() {
+            loginLevel = $("input[name=loginLevel]:checked").val();
+            // console.log(loginLevel);
+            if(loginLevel=="member") {
+                $("body").css("background-color", "lightblue");
+            }else {
+                $("body").css("background-color", "lightgreen");
+            }
+        });
+
+        var rm = true;
+
+        if ($.cookie("rememberMe") == undefined) { 
+            console.log("no a"); 
+            rm = false;
+            $("#rm").prop("checked", false);
+        } else{
+        	$("#rm").prop("checked", true);
+            $("#account").val($.cookie("account"));
+            $.ajax({
+                url:"getPwdForRm",
+                type:"post",
+                data:{
+                    "loginLevel": $("input[name=loginLevel]:checked").val(),
+                    "account": $("#account").val()
+                },
+                success:function(data){
+                    $("#pwd").val(data);
+                }
+            });
+            console.log("has a");
+        }
+        
+        $("#rm").change(function () {
+            if (this.checked) {
+                rm = true;
+            } else {
+                rm = false;
+            }
+        });
+
+
+        //login button
+        $("#login").click(function(){
+            $.ajax({
+                url:"loginPage",
+                type:"post",
+                data:{
+                    "loginLevel":$("input[name=loginLevel]:checked").val(),
+                    "account":$("#account").val(),
+                    "pwd":$("#pwd").val()
+                },
+                success:function(result){
+                    //如果只有輸入帳號，沒有密碼，要alert(要輸入密碼)
+                    //然後才是下面的部分
+ 
+                    let direct = result.split(",");
+                    if(direct.length!=2){
+                        //沒找到帳密
+                        alert("帳號或密碼不正確");
+                    }else {
+                        //有帳密，看啟用狀態
+                        if(direct[1]=="true"){
+                           
+                            console.log($("#account").val())
+                            $.cookie("account", $("#account").val(), {expires:30,path:"/clinicMap"});
+                            console.log($.cookie("account"))
+                            alert("已啟用，歡迎登入");
+                            //有勾rm，登入成功後，把資料存入cookie
+                            if(rm){
+                                $.cookie("account", $("#account").val(), {expires:360});
+                                $.cookie("rememberMe", true, {expires:360});
+                            }else {
+                                //把cookie清掉
+                                
+                                $.removeCookie("rememberMe");
+                            }
+
+                            //html還沒做
+                            if(loginLevel=="member"){
+                                console.log("M");
+                                window.location.href = "googleMap/";
+                            }else {
+                                console.log("C");
+                                // window.location.href = "clinicProfile.html";
+                            }
+                        }else {
+                            alert("帳號還沒啟用");
+                            //html還沒做
+                            // window.location.href = "getEmailAgain.html";
+                        }
+                    }
+                }
+            });
+            
+        });
+
+        $("#clear").click(function(){
+            $("#account").val("");
+            $("#pwd").val("");
+        });
+    </script>
+</body>
+</html>

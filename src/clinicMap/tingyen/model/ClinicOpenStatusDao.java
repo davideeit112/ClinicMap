@@ -1,4 +1,4 @@
-package tw.tingyen.model;
+package clinicMap.tingyen.model;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public class ClinicOpenStatusDao implements IClinicOpenStatusDao {
 	@Autowired
 	private SessionFactory sessionFactory;
-	@Override
+	
 	public ClinicOpenStatus updateStatus(String clinicID,boolean openStatus,int currentNum,String openDescription) {
 		Session session = sessionFactory.getCurrentSession();
 		if(session.get(ClinicOpenStatus.class,clinicID) == null) {
@@ -38,6 +38,11 @@ public class ClinicOpenStatusDao implements IClinicOpenStatusDao {
 		ClinicOpenStatus clinicStatusBean = session.get(ClinicOpenStatus.class,clinicID);
 		clinicStatusBean.setClinicCurrentNumber(currentNum);
 		return clinicStatusBean;
+	}
+	@Override
+	public ClinicOpenStatus updateStatus(String clinicID, boolean openStatus, int currentNum) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

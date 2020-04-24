@@ -27,18 +27,18 @@ public class MemberDAO {
 		String hqlStr = "";
 		
 		if(type.equals("member")) {
-			hqlStr = "from Member where memberAccount = :account and memberPwd = :pwd";
+			hqlStr = "from Memberde where memberAccount = :account and memberPwd = :pwd";
 		}
 		if(type.equals("clinic")) {
-			hqlStr = "from Clinic where clinicAccount = :account and clinicPwd = :pwd";
+			hqlStr = "from Clinicchuder where clinicAccount = :account and clinicPwd = :pwd";
 		}
 		
-		Query<Member> query = session.createQuery(hqlStr, Member.class);
+		Query<Memberde> query = session.createQuery(hqlStr, Memberde.class);
 		query.setParameter("account", account);
 		query.setParameter("pwd", pwd);
 		System.out.println("acc:" + account);
 		System.out.println("pwd:" + pwd);
-		Member m = session.get(Member.class, 101);
+		Memberde m = session.get(Memberde.class, 102);
 		System.out.println("acc:" + m.getMemberAccount());
 		System.out.println("photo:" + m.getMemberPhoto());
 		
@@ -46,26 +46,26 @@ public class MemberDAO {
 		return query.uniqueResult();
 	}
 		
-	public void doRegisterM(Member m) {
+	public void doRegisterM(Memberde m) {
 		Session session = sessionFactory.getCurrentSession();		
 		session.save(m);
 	}
 
 	public void doRegisterC(String account, String email){
 		Session session = sessionFactory.getCurrentSession();
-		String hqlStr = "update Clinic set clinicEmail = :email where clinicAccount = :account";
+		String hqlStr = "update Clinicchuder set clinicEmail = :email where clinicAccount = :account";
 		Query query = session.createQuery(hqlStr);
 		query.setParameter("email", email);
 		query.setParameter("account", account);
 		query.executeUpdate();
 	}
 	
-	public Member getInfoWithCode(String code) {
+	public Memberde getInfoWithCode(String code) {
 		//時間上的判定，要帶入給sql做，還是先抓出來，再controller裡面做??
 		
 		Session session = sessionFactory.getCurrentSession();
-		String hqlStr = "from Member where memberVerifiedCode = :code";
-		Query<Member> query = session.createQuery(hqlStr, Member.class);
+		String hqlStr = "from Memberde where memberVerifiedCode = :code";
+		Query<Memberde> query = session.createQuery(hqlStr, Memberde.class);
 		query.setParameter("code", code);
 		
 		System.out.println("Get Info with code");
@@ -75,7 +75,7 @@ public class MemberDAO {
 	//時間內驗證email，將狀態(memberStatus)改為 啟用(1)
 	public void setActiveStatus(String code) {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlStr = "update Member set memberStatus = :status where memberVerifiedCode = :code";
+		String hqlStr = "update Memberde set memberStatus = :status where memberVerifiedCode = :code";
 		Query query = session.createQuery(hqlStr);
 		query.setParameter("status", "MS1");
 		query.setParameter("code", code);
@@ -87,7 +87,7 @@ public class MemberDAO {
 	//驗證email超過時間，將驗證碼改掉(memberVerifiedCode)
 	public void setActiveStatus(String codeNew, String account) {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlStr = "update Member set memberVerifiedCode = :codeNew where memberAccount = :account";
+		String hqlStr = "update Memberde set memberVerifiedCode = :codeNew where memberAccount = :account";
 		Query query = session.createQuery(hqlStr);
 		query.setParameter("codeNew", codeNew);
 		query.setParameter("account", account);		
@@ -110,15 +110,15 @@ public class MemberDAO {
 	//目前先假定是 只有 Member的情況
 	public String getCodeWithAccount(String account){
 		Session session = sessionFactory.getCurrentSession();
-		String hqlStr = "from Member where memberAccount = :account";
-		Query<Member> query = session.createQuery(hqlStr, Member.class);
+		String hqlStr = "from Memberde where memberAccount = :account";
+		Query<Memberde> query = session.createQuery(hqlStr, Memberde.class);
 		query.setParameter("account", account);
 		return query.uniqueResult().getMemberVerifiedCode();
 	}
 
 	public void updateDeadline(String account, long newDeadline){
 		Session session = sessionFactory.getCurrentSession();
-		String hqlStr = "update Member set memberRegisterDeadline = :deadline where memberAccount = :account";
+		String hqlStr = "update Memberde set memberRegisterDeadline = :deadline where memberAccount = :account";
 		Query query = session.createQuery(hqlStr);
 		query.setParameter("deadline", newDeadline);
 		query.setParameter("account", account);
@@ -129,7 +129,7 @@ public class MemberDAO {
 	//忘記密碼時，設定的暫時密碼
 	public void setTempPwd(String account, String tempPwd) {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlStr = "update Member set memberPwd = :tempPwd where memberAccount = :account";
+		String hqlStr = "update Memberde set memberPwd = :tempPwd where memberAccount = :account";
 		Query query = session.createQuery(hqlStr);
 		query.setParameter("tempPwd", tempPwd);
 		query.setParameter("account", account);
@@ -142,10 +142,10 @@ public class MemberDAO {
 		Session session = sessionFactory.getCurrentSession();
 		String hqlStr = "";
 		if(loginLevel.equals("member")) {
-			hqlStr = "from Member where memberAccount = :account";
+			hqlStr = "from Memberde where memberAccount = :account";
 		}
 		if(loginLevel.equals("clinic")) {
-			hqlStr = "from Clinic where clinicAccount = :account";
+			hqlStr = "from Clinicchuder where clinicAccount = :account";
 		}
 		 
 		Query query = session.createQuery(hqlStr);
@@ -159,7 +159,7 @@ public class MemberDAO {
 	//重新寄信時，email是否已經存在
 	public boolean checkEmailExistDao(String email) {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlStr = "from Member where memberEmail = :email";
+		String hqlStr = "from Memberde where memberEmail = :email";
 		Query query = session.createQuery(hqlStr);
 		query.setParameter("email", email);
 		List list = query.list();
@@ -168,9 +168,9 @@ public class MemberDAO {
 	}
 
 	//members
-	public List<Member> queryAllMember() {
+	public List<Memberde> queryAllMember() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Member> query = session.createQuery("from Member", Member.class);
+		Query<Memberde> query = session.createQuery("from Memberde", Memberde.class);
 		return query.list();
 	}
 
@@ -179,10 +179,10 @@ public class MemberDAO {
 		String hqlStr = "";
 		
 		if(type.equals("member")) {
-			hqlStr = "from Member where memberAccount = :account";
+			hqlStr = "from memberde where memberAccount = :account";
 		}
 		if(type.equals("clinic")) {
-			hqlStr = "from Clinic where clinicAccount = :account";
+			hqlStr = "from Clinicchuder where clinicAccount = :account";
 		}
 		
 		Query query = session.createQuery(hqlStr);

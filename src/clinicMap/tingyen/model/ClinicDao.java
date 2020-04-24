@@ -1,4 +1,4 @@
-package tw.tingyen.model;
+package clinicMap.tingyen.model;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -248,12 +248,11 @@ public class savedata {
 		List<orderbean> list = query.list();
 
 		for(orderbean i:list) {
-			i.setAppointmentStatus("OS2");
+			i.setAppointmentStatus("OS5");
 			session.save(i);
 		}
 		
 		
-		System.out.println("finished");
 		return 0;
 	}
 

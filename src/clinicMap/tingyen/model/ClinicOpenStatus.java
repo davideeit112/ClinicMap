@@ -1,4 +1,4 @@
-package tw.tingyen.model;
+package clinicMap.tingyen.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,15 +11,12 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "ClinicOpenStatus")
 public class ClinicOpenStatus {
-	@Id
-	@Column(name = "clinicID")
+	@Id @Column(name="clinicID")
 	private String clinicID;
-	@Column(name = "clinicOpenStatus")
+	@Column(name="clinicOpenStatus")
 	private boolean clinicOpenStatus;
-	@Column(name = "clinicCurrentNumber")
+	@Column(name="clinicCurrentNumber")
 	private int clinicCurrentNumber;
-	@Column(name = "openDescription")
-	private String openDescription;
 
 	public String getClinicID() {
 		return clinicID;
@@ -29,7 +26,7 @@ public class ClinicOpenStatus {
 		this.clinicID = clinicID;
 	}
 
-	public boolean isClinicOpenStatus() {
+	public boolean getClinicOpenStatus() {
 		return clinicOpenStatus;
 	}
 
@@ -45,12 +42,14 @@ public class ClinicOpenStatus {
 		this.clinicCurrentNumber = clinicCurrentNumber;
 	}
 
-	public String getOpenDescription() {
-		return openDescription;
+	public void setOpenDescription(String openDescription) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public void setOpenDescription(String openDescription) {
-		this.openDescription = openDescription;
+	public char[] getOpenDescription() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

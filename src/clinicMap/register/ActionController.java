@@ -47,14 +47,14 @@ public class ActionController {
 				checklogin = true;
 				//有資料 => 檢查啟用狀態
 				if(loginLevel.equals("member")) {
-					Member member = (Member)testReturn;
+					Memberde member = (Memberde)testReturn;
 					if(member.getMemberStatus().equals("MS1")) {
 						checkstatus = true;
 						
 						//建立cookie
 						Cookie memberAccountCookie = new Cookie("memberID", Integer.toString(member.getMemberID()));
 						memberAccountCookie.setMaxAge(-1); //-1:browser結束即關閉
-						memberAccountCookie.setPath("/");
+						memberAccountCookie.setPath("/clinicMap");
 						response.addCookie(memberAccountCookie);
 
 						System.out.println("Member : already active");
@@ -62,14 +62,14 @@ public class ActionController {
 						System.out.println("Member : not active yet");
 					}
 				}else {
-					Clinic clinic = (Clinic)testReturn;
+					Clinicchuder clinic = (Clinicchuder)testReturn;
 					if(clinic.getClinicStatus().equals("CS1")) {
 						checkstatus = true;
 						
 						//建立cookie
 						Cookie clinicAccountCookie = new Cookie("clinicID", Integer.toString(clinic.getClinicID()));
 						clinicAccountCookie.setMaxAge(-1); //-1:browser結束即關閉
-						clinicAccountCookie.setPath("/");
+						clinicAccountCookie.setPath("/clinicMap");
 						response.addCookie(clinicAccountCookie);
 
 						System.out.println("Clinic : already active");
@@ -93,7 +93,7 @@ public class ActionController {
 		
 		//之後再加格式的檢查
 		
-		Member m = new Member();
+		Memberde m = new Memberde();
 		m.setMemberAccount(account);
 		m.setMemberName(name);
 		m.setMemberPwd(pwd);
@@ -133,7 +133,7 @@ public class ActionController {
 	public @ResponseBody String emailVerified(@RequestParam("code") String code) {
 		
 		//之後再改成 Y/N 啟動成功，丟到不同頁面???
-		Member member = mDao.getInfoWithCode(code);
+		Memberde member = mDao.getInfoWithCode(code);
 		if(member!=null) { //不是過期後又重複點同一封 驗證信
 			long deadLine = member.getMemberRegisterDeadline();
 			
@@ -229,10 +229,10 @@ public class ActionController {
 	
 	@RequestMapping(path = "/queryAllMembers", method = RequestMethod.POST)
 	public void queryAllM(HttpServletResponse response) {
-		List<Member> members = mDao.queryAllMember();
+		List<Memberde> members = mDao.queryAllMember();
 		
 		JSONArray json = new JSONArray();
-		for(Member m : members) {
+		for(Memberde m : members) {
 			JSONObject jobj = new JSONObject(m);
 			json.put(jobj);
 		}
@@ -250,10 +250,10 @@ public class ActionController {
 		if(result == null) { System.out.println("Error??");}
 		else {
 			if(loginLevel.equals("member")) {
-				Member m = (Member)result;
+				Memberde m = (Memberde)result;
 				response.getWriter().print(m.getMemberPwd());
 			}else {
-				Clinic c = (Clinic)result;
+				Clinicchuder c = (Clinicchuder)result;
 				response.getWriter().print(c.getClinicPwd());
 			}
 		}
@@ -326,5 +326,13 @@ public class ActionController {
 		       throw new RuntimeException(e);
 		    }
 	}
-	
+	//網址
+	@RequestMapping(path = "/loginIn")
+	public String login() {
+		return "loginMember";
+	}
+	@RequestMapping(path="/RegisterPage")
+	public String RegisterPage() {
+		return "register";
+	}
 }

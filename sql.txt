@@ -161,6 +161,12 @@ Insert Into SysManagement ( sysAccount, sysPwd) Values ('Tost180.', 'Mouton180.'
 Go
 SET IDENTITY_INSERT [dbo].[Clinic] ON 
 GO
+create table ClinicOpenStatus(
+clinicID varchar(20) primary key FOREIGN KEY REFERENCES Clinic(clinicID),
+clinicOpenStatus bit,
+openDescription varchar(5),
+clinicCurrentNumber int,
+)
 INSERT [dbo].[Clinic] ([clinicID], [clinicName], [clinicAccount], [clinicPwd], [clinicAddress], [clinicDescription], [clinicPhoto], [clinicPhone], [clinicEmail], [clinicClass], [clinicType], [clinicTime], [cliniclat], [cliniclng], [clinicStatus]) VALUES (1000, N'佳音診所', N'3501022914', N'35010229147', N'臺北市大安區復興南路一段２６１之３號１樓', NULL, NULL, N'227054430', NULL, N'西醫診所', N'1003 ', NULL, N'25.0363023', N'121.5439015', N'CS0')
 GO
 INSERT [dbo].[Clinic] ([clinicID], [clinicName], [clinicAccount], [clinicPwd], [clinicAddress], [clinicDescription], [clinicPhoto], [clinicPhone], [clinicEmail], [clinicClass], [clinicType], [clinicTime], [cliniclat], [cliniclng], [clinicStatus]) VALUES (1001, N'通化延吉診所', N'3501023199', N'35010231998', N'臺北市大安區信義路四段２６５巷３６號', NULL, NULL, N'27059009', NULL, N'西醫專科診所', N'1021 ', NULL, N'25.0348561', N'121.5551716', N'CS0')

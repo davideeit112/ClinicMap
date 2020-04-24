@@ -1,4 +1,4 @@
-package tw.tingyen.model;
+package clinicMap.tingyen.model;
 
 import java.sql.Blob;
 

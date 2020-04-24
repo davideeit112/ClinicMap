@@ -153,9 +153,6 @@ public class orderController {
 		HttpHeaders header=new HttpHeaders();
 		header.setContentType(MediaType.IMAGE_JPEG);
 		String savepath=request.getSession().getServletContext().getRealPath("/")+files.getOriginalFilename();
-		File savefile=new File(savepath);
-		files.transferTo(savefile);
-		System.out.println(savefile);
 		String filesname = files.getOriginalFilename();
 		if(filesname!=null&& filesname.length()!=0) {
 			memberBean mbean = service.photoupload(memberId,savepath);
@@ -163,6 +160,14 @@ public class orderController {
 		response.setContentType("text/html ;charset=UTF-8");
 
 		
+	}
+	@RequestMapping(path="/orderSystem")
+	public String order() {
+		return "map";
+	}
+	@RequestMapping(path="/MemberProfile")
+	public String memberProfile() {
+		return "memberedit";
 	}
 }
  

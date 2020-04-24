@@ -58,7 +58,8 @@ public class EMessageDao {
 		}
 	}
 	public int query3Clinic() {
-		String sqlstr="select top 3 clinicId ,avg(Evaluation) as ta from EMessage group by Clinicid order by ta DESC";
+	String sqlstr="select clinicID from EMessage group by Clinicid order by EVALUATIONTIME desc";
+	
 	Session session = sessionfactory.getCurrentSession();
 	Query<EMessage> query = session.createQuery(sqlstr,EMessage.class);
 	query.list();
@@ -82,7 +83,7 @@ public class EMessageDao {
 	public List<EMessage> querymsg1() {
 		Session session = sessionfactory.getCurrentSession();
 		System.out.println("2.");
-		Query<EMessage> query = session.createQuery("from EMessage where clinicID=1000 order by evaluationTime desc", EMessage.class);
+		Query<EMessage> query = session.createQuery("from EMessage where clinicID=1393 order by evaluationTime desc", EMessage.class);
 		System.out.println("2..");
 		List<EMessage> list = query.list();
 		System.out.println(list);
@@ -91,7 +92,7 @@ public class EMessageDao {
 
 	public List<EMessage> querymsg2() {
 		Session session = sessionfactory.getCurrentSession();
-		Query<EMessage> query = session.createQuery("from EMessage where clinicID=1001 order by evaluationTime desc", EMessage.class);
+		Query<EMessage> query = session.createQuery("from EMessage where clinicID=1502 order by evaluationTime desc", EMessage.class);
 		List<EMessage> list = query.list();
 		System.out.println(list);
 		return list;

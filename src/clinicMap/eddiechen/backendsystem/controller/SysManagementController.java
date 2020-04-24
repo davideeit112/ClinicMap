@@ -34,7 +34,7 @@ public class SysManagementController {
 
 	@RequestMapping(path = "/Login", method = RequestMethod.GET)
 	public String processAction() {
-		return "Login";
+		return "backLogin";
 	}
 
 	@RequestMapping(path = "/checkLogin", method = RequestMethod.POST)

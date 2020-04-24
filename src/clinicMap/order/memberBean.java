@@ -167,5 +167,21 @@ public class memberBean {
 	private String memberGender;
 	private byte[] memberPhoto;
 	private String memberStatus;
+	private String memberVerifiedCode;
+	private Long memberRegisterDeadline;
+	@Column(name = "memberVerifiedCode")
+	public String getMemberVerifiedCode() {
+		return memberVerifiedCode;
+	}
+	public void setMemberVerifiedCode(String memberVerifiedCode) {
+		this.memberVerifiedCode = memberVerifiedCode;
+	}
+	@Column(name="memberRegisterDeadline")
+	public Long getMemberRegisterDeadline() {
+		return memberRegisterDeadline;
+	}
+	public void setMemberRegisterDeadline(Long memberRegisterDeadline) {
+		this.memberRegisterDeadline = memberRegisterDeadline;
+	}
 
 }
