@@ -15,6 +15,10 @@
         .errMsg {
             color: red;
         }
+
+        .need2edit {
+            background-color: yellow;
+        }
     </style>
 </head>
 
@@ -36,7 +40,7 @@
 
     <script>
         var checkAccount, checkName, checkPwd, checkPwdAgain, checkBirth, checkAddress,
-            checkHeight, checkWeight, checkPhone, checkIdNum, checkGender = false, checkEmail;
+            checkHeight, checkWeight, checkPhone, checkIdNum, checkGender = true, checkEmail;
 
         $("#register").click(function () {
             if($("input[name=loginLevel]:checked").val()=="member"){
@@ -49,22 +53,68 @@
                         type:"post",
                         data:$("form").serializeArray(),
                         success:function(data){
-
+                            alert("註冊成功，已送驗證信到您的信箱");
+                            window.location.href = "loginMember.html";
                         }
                     });
-                // if(true){
-                //     $.ajax({
-                //         url:"memberRegisterPage",
-                //         type:"post",
-                //         data:$("form").serializeArray(),
-                //         success:function(data){
-
-                //         }
-                //     });
-                    // console.log($("form").serializeArray());
+                
                 } else {
-                    alert("somthing missing, need to check");
-                    //ajax：把沒填的地方顯示
+                    alert("資料有誤");
+                    
+                    if(!checkAccount){
+                        $("#memberAccount").addClass("need2edit");
+                        ($("#memberAccount").val()=="")?$("#accountErrMsg").html("此欄位不能空白"):$("#accountErrMsg").html("需要修改"); 
+                    }
+                    
+                    if(!checkName){
+                        $("#memberName").addClass("need2edit");
+                        ($("#memberName").val()=="")?$("#nameErrMsg").html("此欄位不能空白"):$("#nameErrMsg").html("需要修改");
+                    }
+                    
+                    if(!checkPwd){
+                        $("#memberPwd").addClass("need2edit");
+                        ($("#memberPwd").val()=="")?$("#pwdErrMsg").html("此欄位不能空白"):$("#pwdErrMsg").html("需要修改");
+                    }
+
+                    if(!checkPwdAgain){
+                        $("#memberPwdCheck").addClass("need2edit");
+                        ($("#memberPwdCheck").val()=="")?$("#pwdCheckErrMsg").html("此欄位不能空白"):$("#pwdCheckErrMsg").html("需要修改"); 
+                    }
+
+                    if(!checkBirth){
+                        $("#memberBirth").addClass("need2edit");
+                        ($("#memberBirth").val()=="")?$("#birthErrMsg").html("此欄位不能空白"):$("#birthErrMsg").html("需要修改"); 
+                    }
+
+                    if(!checkAddress){
+                        $("#memberAddress").addClass("need2edit");
+                        ($("#memberAddress").val()=="")?$("#addressErrMsg").html("此欄位不能空白"):$("#addressErrMsg").html("需要修改");
+                    }
+
+                    if(!checkHeight){
+                        $("#memberHeight").addClass("need2edit");
+                        ($("#memberHeight").val()=="")?$("#heightErrMsg").html("此欄位不能空白"):$("#heightErrMsg").html("需要修改");  
+                    }
+
+                    if(!checkWeight){
+                        $("#memberWeight").addClass("need2edit");
+                        ($("#memberWeight").val()=="")?$("#weightErrMsg").html("此欄位不能空白"):$("#weightErrMsg").html("需要修改");
+                    }
+
+                    if(!checkPhone){
+                        $("#memberPhone").addClass("need2edit");
+                        ($("#memberPhone").val()=="")?$("#phoneErrMsg").html("此欄位不能空白"):$("#phoneErrMsg").html("需要修改"); 
+                    }
+
+                    if(!checkIdNum){
+                        $("#memberIdNumber").addClass("need2edit");
+                        ($("#memberIdNumber").val()=="")?$("#IdNumErrMsg").html("此欄位不能空白"):$("#IdNumErrMsg").html("需要修改");  
+                    }
+
+                    if(!checkEmail){
+                        $("#email").addClass("need2edit");
+                        ($("#email").val()=="")?$("#emailErrMsg").html("此欄位不能空白"):$("#emailErrMsg").html("需要修改");
+                    }
                 }
             }else {
                 console.log("acc:" + checkAccount);
@@ -82,7 +132,15 @@
                         }
                     });
                 }else {
-                    alert("something error");
+                    alert("資料有誤");
+                    if(!checkAccount){
+                        if($("#memberAccount").val()==""){ $("#accountErrMsg").html("此欄位不能空白"); }
+                        else { $("#memberAccount").addClass("need2edit"); $("#accountErrMsg").html("需要修改"); }   
+                    }
+                    if(!checkEmail){
+                        if($("#email").val()==""){ $("#emailErrMsg").html("此欄位不能空白"); }
+                        else { $("#email").addClass("need2edit"); $("#emailErrMsg").html("需要修改"); }   
+                    }
                 }
             }
             
@@ -98,6 +156,21 @@
             $("#memberWeight").val("80");
             $("#memberPhone").val("0911234678");
             $("#memberName").val("wu");
+            // checkAccount = true, checkName = true, checkPwd = true, checkPwdAgain = true, checkBirth = true, checkAddress = true,
+            // checkHeight = true, checkWeight = true, checkPhone = true, checkIdNum = true, checkGender = true, checkEmail = true;
+
+            // $("#accountErrMsg").html("<img src='correct.png'>"); //因為unique，要自己輸入
+            $("#nameErrMsg").html("<img src='correct.png'>");
+            $("#pwdErrMsg").html("<img src='correct.png'>");
+            $("#pwdCheckErrMsg").html("<img src='correct.png'>");
+            $("#birthErrMsg").html("<img src='correct.png'>");
+            $("#addressErrMsg").html("<img src='correct.png'>");
+            $("#heightErrMsg").html("<img src='correct.png'>");
+            $("#weightErrMsg").html("<img src='correct.png'>");
+            $("#phoneErrMsg").html("<img src='correct.png'>");
+            // $("#IdNumErrMsg").html("<img src='correct.png'>"); //因為unique，要自己輸入
+            // $("#genderErrMsg").html("<img src='correct.png'>");
+            $("#emailErrMsg").html("<img src='correct.png'>");
         }
         //-------------------------------------
         //初始化的註冊表格，預設是 "會員"
@@ -147,7 +220,7 @@
                             "account": $("#clinicAccount").val()
                         },
                         success: function (repeat) {
-                            $("#accountErrMsg").html(eval(repeat) ? "" : "無此機構代碼");
+                            $("#accountErrMsg").html(eval(repeat) ? "<img src='correct.png'>" : "無此機構代碼");
                             if (eval(repeat)) { checkAccount = true; } else { checkAccount = false; }
                             console.log("checkAccount:" + checkAccount);
                         }
@@ -166,6 +239,7 @@
                         msg = "Error";
                     } else {
                         checkEmail = true;
+                        msg = "<img src='correct.png'>";
                     }
                 }
                 $("#emailErrMsg").html(msg);
@@ -183,20 +257,36 @@
         function checkFormat() {
             //會員帳號
             $("#memberAccount").blur(function () {
-                //這裡還要做格式的判斷
-                //然後才是ajax判斷有沒有重複
-                $.ajax({
-                    url: "isAccountExist", //連結到spring做資料庫的 memberAccount的搜尋
-                    type: "post",
-                    data: {
-                        "loginLevel": "member",
-                        "account": $("#memberAccount").val()
-                    },
-                    success: function (repeat) {
-                        $("#accountErrMsg").html(eval(repeat) ? "帳號重複" : "");
-                        if (!eval(repeat)) { checkAccount = true; } else { checkAccount = false; }
+                let patternParam = '[a-zA-Z]+[a-zA-Z0-9]*'; //只能英文的驗證，不能"空白"、"數字"
+                let pattern = new RegExp(patternParam);
+                let msg = "";
+                checkAccount = false;
+
+                if($("#memberAccount").val()!=""){
+                    if(!pattern.test($("#memberAccount").val())){
+                        msg = "帳號只能輸入英文和數字";
+                    }else {
+                        $.ajax({
+                            url: "isAccountExist", //連結到spring做資料庫的 memberAccount的搜尋
+                            type: "post",
+                            data: {
+                                "loginLevel": "member",
+                                "account": $("#memberAccount").val()
+                            },
+                            success: function (repeat) {
+                                checkAccount = !eval(repeat);
+                                msg = (checkAccount)?"<img src='correct.png'>":"帳號重複";
+                                if(checkAccount){$("#memberAccount").removeClass("need2edit");}
+                            }
+                        }).always(function(){//接在ajax之後，因為ajax最後做，所以會先執行外面的$("#accountErrMsg").html(msg);
+                        //所以當ajax做完後，東西沒辦法再丟出去顯示，所以要用.always去讓他不管如何都會做這件事
+                        //下面的 IdNum也要改成這樣
+                            $("#accountErrMsg").html(msg);
+                        });
                     }
-                });
+                }
+                // $("#imageTest").attr("src", msg);
+                $("#accountErrMsg").html(msg);
             });
 
             //會員姓名
@@ -214,6 +304,8 @@
                     } else {
                         //不為空白，且格式正確
                         checkName = true;
+                        $("#memberName").removeClass("need2edit");
+                        msg = "<img src='correct.png'>";
                     }
                 }
                 $("#nameErrMsg").html(msg);
@@ -237,6 +329,8 @@
                         msg = "密碼格式不合";
                     } else {
                         checkPwd = true;
+                        $("#memberPwd").removeClass("need2edit");
+                        msg = "<img src='correct.png'>";
                     }
                 }
                 $("#pwdErrMsg").html(msg);
@@ -251,6 +345,8 @@
                         msg = "密碼不一致";
                     } else {
                         checkPwdAgain = true;
+                        $("#memberPwdCheck").removeClass("need2edit");
+                        msg = "<img src='correct.png'>";
                     }
                 }
                 $("#pwdCheckErrMsg").html(msg);
@@ -259,13 +355,19 @@
                 checkPwdAgain = false;
                 if($("#memberPwdCheck").val() == "" && $("#memberPwd").val() != ""){
                     msg = "請確認密碼";
+                }else if($("#memberPwd").val() != $("#memberPwdCheck").val()) {
+                    msg = "密碼不一致";
+                }else {
+                    checkPwdAgain = true;
+                    $("#memberPwdCheck").removeClass("need2edit");
+                    msg = "<img src='correct.png'>";
                 }
                 $("#pwdCheckErrMsg").html(msg);
             });
 
             //會員生日
             //電腦打字時的格式 與 時間 的驗證
-            $("#memberBirth").blur(function () {
+            $("#memberBirth").change(function () {
                 let patternParam = '[0-9]{1,4}/[0-9]{1,2}/[0-9]{1,2}';
                 let pattern = new RegExp(patternParam);
 
@@ -296,7 +398,7 @@
                     } else { //pattern的格式檢查
                         errMsg = "格式不正確";
                     }
-                    if (errMsg == "") { checkBirth = true; }
+                    if (errMsg == "") { checkBirth = true; errMsg = "<img src='correct.png'>";$("#memberBirth").removeClass("need2edit");}
                 }
                 $("#birthErrMsg").html(errMsg);
             });
@@ -304,10 +406,14 @@
             //會員住址
             //只要註冊時 不為空就好??
             $("#memberAddress").blur(function () {
+                let msg = "";
                 checkAddress = false;
                 if ($("#memberAddress").val() != "") {
                     checkAddress = true;
+                    $("#memberAddress").removeClass("need2edit");
+                    msg = "<img src='correct.png'>";
                 }
+                $("#addressErrMsg").html(msg);
             });
 
             //會員身高(cm)
@@ -332,6 +438,8 @@
                             msg = "請輸入1~255之間的數值";
                         } else {
                             checkHeight = true;
+                            $("#memberHeight").removeClass("need2edit");
+                            msg = "<img src='correct.png'>";
                         }
                     }
                 }
@@ -361,6 +469,8 @@
                             msg = "請輸入1~255之間的數值";
                         } else {
                             checkWeight = true;
+                            $("#memberWeight").removeClass("need2edit");
+                            msg = "<img src='correct.png'>";
                         }
                     }
                 }
@@ -380,6 +490,8 @@
                         msg = "格式不正確";
                     } else {
                         checkPhone = true;
+                        $("#memberPhone").removeClass("need2edit");
+                        msg = "<img src='correct.png'>";
                     }
                 }
                 $("#phoneErrMsg").html(msg);
@@ -394,13 +506,22 @@
                 let msg = "";
                 checkIdNum = false;
 
-                // if($("#memberIdNumber").val()!="" && (!pattern.test($("#memberIdNumber").val()) || $("#memberIdNumber").val().length!=10)){
-
                 if ($("#memberIdNumber").val() != "") {
                     if (!pattern.test($("#memberIdNumber").val())) {
                         msg = "格式錯誤";
                     } else {
-                        checkIdNum = true;
+                        $.ajax({
+                            url:"isIdNumExist",
+                            type:"post",
+                            data:{ "IdNum":$("#memberIdNumber").val() },
+                            success:function(repeat){
+                                checkIdNum = !eval(repeat);
+                                msg = (checkIdNum)?"<img src='correct.png'>":"資料重覆";
+                                if(checkAccount){$("#memberAccount").removeClass("need2edit");}
+                            }
+                        }).always(function(){
+                            $("#IdNumErrMsg").html(msg);
+                        });
                     }
                 }
                 $("#IdNumErrMsg").html(msg);
@@ -409,10 +530,10 @@
             //性別
             //改成radio，讀值就好
             //test:
-            $("input[name=memberGender]").change(function () {
-                gender = $("input[name=memberGender]:checked").val();
-                checkGender = true;
-            });
+            // $("input[name=memberGender]").change(function () {
+            //     gender = $("input[name=memberGender]:checked").val();
+            //     checkGender = true;
+            // });
 
             //電子信箱 ==> 改用 input type="email"取讓他檢查就好??，但是送出時的 "不能空白"要再檢查???
             $("#email").blur(function () {
@@ -426,6 +547,8 @@
                         msg = "格式錯誤";
                     } else {
                         checkEmail = true;
+                        $("#email").removeClass("need2edit");
+                        msg = "<img src='correct.png'>";
                     }
                 }
                 $("#emailErrMsg").html(msg);

@@ -1,4 +1,4 @@
-package clinicMap.register;
+﻿package clinicMap.register;
 
 import java.io.IOException;
 import java.util.Date;
@@ -129,11 +129,12 @@ public class ActionController {
 		}
 	}
 	
+//*************************************
 	@RequestMapping(path = "/verifiedEmail", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String emailVerified(@RequestParam("code") String code) {
 		
 		//之後再改成 Y/N 啟動成功，丟到不同頁面???
-		Memberde member = mDao.getInfoWithCode(code);
+		Member member = mDao.getInfoWithCode(code);
 		if(member!=null) { //不是過期後又重複點同一封 驗證信
 			long deadLine = member.getMemberRegisterDeadline();
 			
@@ -148,15 +149,8 @@ public class ActionController {
 				mDao.setActiveStatus(code);
 				return "Verified Success";
 			}
-			
-			mDao.setActiveStatus(uuidCode(), member.getMemberAccount());
-//			mDao.setActiveStatus(uuidCode(), code);
-			return "verified out of time, please get verified emai again";
-		}else {
-			//表示之前的註冊驗證已經超過時間，但user要用同一封(舊的)email再次點擊驗證連結
-			//目前會有問題 => 還沒測試新版的
-			return "this email is too old";
 		}
+		return "verified out of time, please get verified emai again";
 	}
 
 	@RequestMapping(path = "forgetPwdPage", method = RequestMethod.POST)
@@ -198,22 +192,26 @@ public class ActionController {
 			e.printStackTrace();
 		}
 	}
+
+
+//*******************************************
+	@RequestMapping(path = "/isIdNumExist", method = RequestMethod.POST)
+	public void checkIdNumRepeat(@RequestParam("IdNum") String IdNum, HttpServletResponse response){
+		try {
+			response.getWriter().print(mDao.checkIdNumExistDao(IdNum));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
+//*******************************************
 	@RequestMapping(path = "/getEmailAgainPage", method = RequestMethod.POST)
-	public void getEmailAgain(@RequestParam("action") String action, @RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
-		String codeAgain = "";
-		
-		if(action.equals("notRecieve")) {
-			//蓋掉舊的code
-			codeAgain = uuidCode();
-			mDao.setActiveStatus(codeAgain, account);
-		}
-		
-		if(action.equals("invalid")) {
-			//取出code
-			codeAgain = mDao.getCodeWithAccount(account);
-		}
-		
+	public void getEmailAgain(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
+
+		String codeAgain = uuidCode();
+		mDao.setActiveStatus(codeAgain, account);
+
 		//更改 deadline的時間
 		mDao.updateDeadline(account, new Date().getTime());
 		
