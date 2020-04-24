@@ -38,4 +38,7 @@ public class SysManagementService {
 	public void changeStatus(int clinicID) {
 		sysManagementDao.changeStatus(clinicID);
 	}
+	public void changeStatus2(int clinicID) {
+		  sysManagementDao.changeStatus2(clinicID);
+		 }
 }

@@ -127,4 +127,12 @@ public class SysManagementDao {
 		session.update(clinic);
 		System.out.println("1233333");
 	}
+	 public void changeStatus2(int clinicID) {
+		  Session session = sessionFactory.getCurrentSession();
+		  Clinicchen clinic = session.get(Clinicchen.class, clinicID);
+		  clinic.setClinicStatus("CS2");
+
+		  session.update(clinic);
+		  System.out.println("1233333");
+		 }
 }
