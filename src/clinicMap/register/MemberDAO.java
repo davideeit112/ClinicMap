@@ -1,4 +1,4 @@
-package clinicMap.register;
+﻿package clinicMap.register;
 
 import java.util.List;
 
@@ -189,5 +189,19 @@ public class MemberDAO {
 		query.setParameter("account", account);
 		
 		return query.uniqueResult();
+	}
+
+
+//***************************************
+	public boolean checkIdNumExistDao(String IdNum){
+		Session session = sessionFactory.getCurrentSession();
+		String hqlStr = "from Member where memberIdNumber = :IdNum";
+		Query query = session.createQuery(hqlStr);
+		query.setParameter("IdNum", IdNum);
+		
+		if(query.uniqueResult()!=null) {
+			return true;
+		}
+		return false;
 	}
 }

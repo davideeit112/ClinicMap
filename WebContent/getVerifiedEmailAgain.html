@@ -19,8 +19,9 @@
     <h2 style="color:purple">沒收到驗證信 或 驗證信過期 ?</h2>
     <p>請在下方輸入您的帳號與email信箱，我們將寄送給您一個新的驗證信<br />收到後，請盡快進行驗證</p>
 
-    <form>
+    
         <table>
+            <form>
             <tr>
                 <td>請輸入帳號：</td>
                 <td><input type="text" name="getAgain_account" id="getAgain_account"/></td>
@@ -31,15 +32,16 @@
                 <td><input type="email" name="getAgain_email" id="getAgain_email"/></td>
                 <td id="emailMsg" class="errMsg"></td>
             </tr>
+        </form>
             <tr>
                 <td></td>
                 <td colspan="2">
-                    <button id="notRecieve">沒收到驗證信</button>
-                    <button id="invalid">驗證信過期</button>
+                    <button id="sendVEmailAgain">寄送驗證信</button>
+                    <!-- <button id="invalid">驗證信過期</button> -->
                 </td>
             </tr>
         </table>
-    </form>
+   
     <a href="loginMember.html">回登入頁(測試用)</a>
 
     <script>
@@ -58,7 +60,7 @@
                         "account": account },
                     success: function (exist) {
                         checkAccount = eval(exist);
-                        $("#accountMsg").html(checkAccount ? "" : "帳號不存在");
+                        $("#accountMsg").html(checkAccount ? "<img src='correct.png'>" : "帳號不存在");
                     }
                 });
             }
@@ -75,21 +77,13 @@
                     data: { "email": email },
                     success: function (exist) {
                         checkEmail = eval(exist);
-                        $("#emailMsg").html(checkEmail ? "" : "email不存在");
+                        $("#emailMsg").html(checkEmail ? "<img src='correct.png'>" : "email不存在");
                     }
                 });
             }
         });
 
-        $("#notRecieve").click(function () {
-            getAgain("notRecieve");
-        });
-
-        $("#invalid").click(function () {
-            getAgain("invalid");
-        });
-
-        function getAgain(action) {
+        $("#sendVEmailAgain").click(function () {
             let account = $("#getAgain_account").val();
             let email = $("#getAgain_email").val();
 
@@ -104,7 +98,6 @@
                         url: "getEmailAgainPage",
                         type: "post",
                         data: {
-                            "action": action,
                             "account": account,
                             "email": email
                         }
@@ -114,29 +107,12 @@
                     checkAccount = false;
                     checkEmail = false;
                     alert("已經寄送新的驗證信");
-                    window.location.href = "login.html";
-
-
-                    // $.ajax({
-                    //     url: "getEmailAgainPage",
-                    //     type: "post",
-                    //     data: {
-                    //         "action":action,
-                    //         "account": account,
-                    //         "email": email
-                    //     },
-                    //     success: function (data) {
-                    //         checkAccount = false;
-                    //         checkEmail = false;
-                    //         alert("已經寄送新的驗證信");
-                    //         window.location.href = "login.html";
-                    //     }
-                    // });
+                    window.location.href = "loginMember.html";
                 } else {
                     alert("資料有誤，請檢查");
                 }
             }
-        }
+        });
     </script>
 </body>
 
