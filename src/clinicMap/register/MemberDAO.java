@@ -189,6 +189,7 @@ public class MemberDAO {
 		
 		return query.uniqueResult();
 	}
+<<<<<<< HEAD
 	public boolean checkIdNumExistDao(String IdNum){
 		Session session = sessionFactory.getCurrentSession();
 		String hqlStr = "from Member where memberIdNumber = :IdNum";
@@ -200,4 +201,6 @@ public class MemberDAO {
 		}
 		return false;
 	}
+=======
+>>>>>>> parent of f912d0d... 更新clinicMap.register/MemberDAO和Controller，member register相關html
 }

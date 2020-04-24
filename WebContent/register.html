@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> -->
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <style>
+        .errMsg {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>註冊頁</h1>
+    <a href="loginMember.html">回登入頁(測試用)</a>
+    <form>
+        <!-- <form action="memberRegisterPage" method="post"> -->
+        註冊身份:
+        <label><input type="radio" name="loginLevel" id="member" value="member" checked />會員</label>
+        <label><input type="radio" name="loginLevel" id="clinic" value="clinic" />診所</label>
+        <table id="registerInfo"></table>
+        
+    </form>
+    <button id="register">註冊</button>
+
+    <button onclick="TestDemo1()">Demo1</button><br />
+
+
+    <script>
+        var checkAccount, checkName, checkPwd, checkPwdAgain, checkBirth, checkAddress,
+            checkHeight, checkWeight, checkPhone, checkIdNum, checkGender = false, checkEmail;
+
+        $("#register").click(function () {
+            if($("input[name=loginLevel]:checked").val()=="member"){
+                if (checkAccount && checkName && checkPwd && checkPwdAgain && checkBirth
+                && checkAddress && checkHeight && checkWeight && checkPhone && checkIdNum && checkGender && checkEmail) {
+                    // alert("everything is ok to register");
+                    //ajax功能： doRegister
+                    $.ajax({
+                        url:"memberRegisterPage",
+                        type:"post",
+                        data:$("form").serializeArray(),
+                        success:function(data){
+
+                        }
+                    });
+                // if(true){
+                //     $.ajax({
+                //         url:"memberRegisterPage",
+                //         type:"post",
+                //         data:$("form").serializeArray(),
+                //         success:function(data){
+
+                //         }
+                //     });
+                    // console.log($("form").serializeArray());
+                } else {
+                    alert("somthing missing, need to check");
+                    //ajax：把沒填的地方顯示
+                }
+            }else {
+                console.log("acc:" + checkAccount);
+                console.log("email:" + checkEmail);
+                if(checkAccount && checkEmail){
+                    $.ajax({
+                        url:"clinicRegisterPage",
+                        type:"post",
+                        data:{
+                            "clinicAccount":$("#clinicAccount").val(),
+                            "clinicEmail":$("#email").val()
+                        },
+                        success:function(data){
+                            alert("已完成註冊，請等候email通知");
+                        }
+                    });
+                }else {
+                    alert("something error");
+                }
+            }
+            
+        });
+
+        function TestDemo1() {
+            $("#email").val("johnnyproject.test2@gmail.com");
+            $("#memberPwd").val("123456@W");
+            $("#memberPwdCheck").val("123456@W");
+            $("#memberBirth").val("2020/04/22");
+            $("#memberAddress").val("台北市資策會");
+            $("#memberHeight").val("180");
+            $("#memberWeight").val("80");
+            $("#memberPhone").val("0911234678");
+            $("#memberName").val("wu");
+        }
+        //-------------------------------------
+        //初始化的註冊表格，預設是 "會員"
+        var txt = "<tr><td>會員照片：</td><td><input type='text' name='memberPhoto' id='memberPhoto'></td><td class='errMsg' id='photoErrMsg'></td></tr>"
+            + "<tr><td>會員帳號：</td><td><input type='text' name='memberAccount' id='memberAccount'></td><td class='errMsg' id='accountErrMsg'></td></tr>"
+            + "<tr><td>會員姓名：</td><td><input type='text' name='memberName' id='memberName'></td><td class='errMsg' id='nameErrMsg'></td></tr>"
+            + "<tr><td>會員密碼：</td><td><input type='password' name='memberPwd' id='memberPwd'></td><td class='errMsg' id='pwdErrMsg'></td></tr>"
+            //密碼格式的提示
+            + "<tr><td></td><td colspan='2'><font style='color:gray; font-size:13px'>至少6個字且必須包含英文字母、數字、特殊字元[!@#$%^&*]</font></td></tr>"
+            + "<tr><td>確認密碼：</td><td><input type='password' name='memberPwdCheck' id='memberPwdCheck'></td><td class='errMsg' id='pwdCheckErrMsg'></td></tr>"
+            + "<tr><td>會員生日：</td><td><input type='text' name='memberBirth' id='memberBirth'></td><td class='errMsg' id='birthErrMsg'></td></tr>"
+            + "<tr><td>會員住址：</td><td><input type='text' name='memberAddress' id='memberAddress'></td><td class='errMsg' id='addressErrMsg'></td></tr>"
+            + "<tr><td>會員身高(cm)：</td><td><input type='text' name='memberHeight' id='memberHeight' maxlength='3' placeholder='請輸入整數'></td><td class='errMsg' id='heightErrMsg'></td></tr>"
+            + "<tr><td>會員體重(kg)：</td><td><input type='text' name='memberWeight' id='memberWeight' maxlength='3' placeholder='請輸入整數'></td><td class='errMsg' id='weightErrMsg'></td></tr>"
+            + "<tr><td>會員電話：</td><td><input type='text' name='memberPhone' id='memberPhone' maxlength='10' placeholder='格式：09xxxxxxxx'></td><td class='errMsg' id='phoneErrMsg'></td></tr>"
+            + "<tr><td>會員身分證字號：</td><td><input type='text' name='memberIdNumber' id='memberIdNumber' maxlength='10' placeholder='ex：A123456789'></td><td class='errMsg' id='IdNumErrMsg'></td></tr>"
+            + "<tr><td>性別：</td><td><label><input type='radio' name='memberGender' value='male'/>男</label><label><input type='radio' name='memberGender' value='female'/>女</label></td><td id='genderErrMsg'></td></tr>"
+            + "<tr><td>電子信箱：</td><td><input type='email' name='memberEmail' id='email'></td><td id='emailErrMsg' class='errMsg'></td></tr>";
+        $("#registerInfo").html(txt);
+        checkFormat();
+
+        //切換身份，切換註冊表格
+        $("input[name=loginLevel]").change(function () {
+            let loginLevel = $("input[name=loginLevel]:checked").val();
+            if (loginLevel == "member") {
+                $("#registerInfo").html(txt);
+                $("#memberBirth").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "1920:2020",
+                    dateFormat: "yy/mm/dd"
+                });
+                checkFormat();
+            } else {
+                let txtC = "<tr><td>診所機構代碼：</td><td><input type='text' name='clinicAccount' id='clinicAccount'></td><td id='accountErrMsg' class='errMsg'></td></tr>"
+                    + "<tr><td>診所電子信箱：</td><td><input type='email' name='clinicEmail' id='email'></td><td id='emailErrMsg' class='errMsg'></td></tr>";
+                $("#registerInfo").html(txtC);
+
+                
+                //檢查診所機構代碼是否存在
+                $("#clinicAccount").blur(function () {
+                    $.ajax({
+                        url: "isAccountExist",
+                        type: "post",
+                        data: {
+                            "loginLevel": "clinic",
+                            "account": $("#clinicAccount").val()
+                        },
+                        success: function (repeat) {
+                            $("#accountErrMsg").html(eval(repeat) ? "" : "無此機構代碼");
+                            if (eval(repeat)) { checkAccount = true; } else { checkAccount = false; }
+                            console.log("checkAccount:" + checkAccount);
+                        }
+                    });
+                });
+            
+                //檢查email格式??? 還是用 input="email" ???
+                $("#email").blur(function () {
+                let patternParam = '^[a-zA-Z0-9]+[\.]*[a-zA-Z0-9]+@[a-z]+\.[a-z\.]+';
+                let pattern = new RegExp(patternParam);
+                checkEmail = false;
+                let msg = "";
+
+                if ($("#email").val() != "") {
+                    if (!pattern.test($("#email").val())) {
+                        msg = "Error";
+                    } else {
+                        checkEmail = true;
+                    }
+                }
+                $("#emailErrMsg").html(msg);
+                console.log("checkAccount:" + checkAccount);
+            });
+            
+
+            }
+        });
+
+        //----------------------------------------------------------------------------------------
+
+
+        //---------------------------------------------------------------------------------------------------
+        function checkFormat() {
+            //會員帳號
+            $("#memberAccount").blur(function () {
+                //這裡還要做格式的判斷
+                //然後才是ajax判斷有沒有重複
+                $.ajax({
+                    url: "isAccountExist", //連結到spring做資料庫的 memberAccount的搜尋
+                    type: "post",
+                    data: {
+                        "loginLevel": "member",
+                        "account": $("#memberAccount").val()
+                    },
+                    success: function (repeat) {
+                        $("#accountErrMsg").html(eval(repeat) ? "帳號重複" : "");
+                        if (!eval(repeat)) { checkAccount = true; } else { checkAccount = false; }
+                    }
+                });
+            });
+
+            //會員姓名
+            $("#memberName").blur(function () {
+                // let patternParamE = '[a-zA-Z]';
+                // let patternParamC = '[\u4e00-\u9fff]'; //中文的驗證
+                let patternParam = '^[\u4e00-\u9fffa-zA-Z]+$'; //只能中、英文的驗證，不能"空白"、"數字"
+                let pattern = new RegExp(patternParam);
+                let msg = "";
+                checkName = false;
+
+                if ($("#memberName").val() != "") {
+                    if (!pattern.test($("#memberName").val())) {
+                        msg = "只能中文和英文";
+                    } else {
+                        //不為空白，且格式正確
+                        checkName = true;
+                    }
+                }
+                $("#nameErrMsg").html(msg);
+            });
+
+            //會員密碼
+            //檢查長度與格式
+            $("#memberPwd").blur(function () {
+                let patternParam = '.*[a-zA-Z]+.*[0-9]+.*[!@#$%^&*]+.*' + '|'
+                    + '.*[a-zA-Z]+.*[!@#$%^&*]+.*[0-9]+.*' + '|'
+                    + '.*[0-9]+.*[a-zA-Z]+.*[!@#$%^&*]+.*' + '|'
+                    + '.*[0-9]+.*[!@#$%^&*]+.*[a-zA-Z]+.*' + '|'
+                    + '.*[!@#$%^&*]+.*[a-zA-Z]+.*[0-9]+.*' + '|'
+                    + '.*[!@#$%^&*]+.*[0-9]+.*[a-zA-Z]+.*';
+                let pattern = new RegExp(patternParam);
+                let msg = "";
+                checkPwd = false;
+
+                if ($("#memberPwd").val() != "") {
+                    if (!pattern.test($("#memberPwd").val()) || $("#memberPwd").val().length < 6) {
+                        msg = "密碼格式不合";
+                    } else {
+                        checkPwd = true;
+                    }
+                }
+                $("#pwdErrMsg").html(msg);
+            });
+
+            //確認密碼
+            $("#memberPwdCheck").keyup(function () {
+                let msg = "";
+                checkPwdAgain = false;
+                if ($("#memberPwdCheck").val() != "") {
+                    if ($("#memberPwd").val() != $("#memberPwdCheck").val()) {
+                        msg = "密碼不一致";
+                    } else {
+                        checkPwdAgain = true;
+                    }
+                }
+                $("#pwdCheckErrMsg").html(msg);
+            }).blur(function(){
+                let msg = "";
+                checkPwdAgain = false;
+                if($("#memberPwdCheck").val() == "" && $("#memberPwd").val() != ""){
+                    msg = "請確認密碼";
+                }
+                $("#pwdCheckErrMsg").html(msg);
+            });
+
+            //會員生日
+            //電腦打字時的格式 與 時間 的驗證
+            $("#memberBirth").blur(function () {
+                let patternParam = '[0-9]{1,4}/[0-9]{1,2}/[0-9]{1,2}';
+                let pattern = new RegExp(patternParam);
+
+                let errMsg = "";
+                checkBirth = false;
+
+                if ($("#memberBirth").val() != "") {
+                    if (pattern.test($("#memberBirth").val())) {
+                        //檢查時間
+                        let dateAnalysis = $("#memberBirth").val().split("/");
+                        let year = parseInt(dateAnalysis[0]),
+                            month = parseInt(dateAnalysis[1]),
+                            day = parseInt(dateAnalysis[2]);
+
+                        if (day >= 1) {
+                            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+                                if (day > 31) { errMsg = "日期錯誤"; }
+                            } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+                                if (day > 30) { errMsg = "日期錯誤"; }
+                            } else if (month == 2) {
+                                if (((year % 4) == 0 && (year % 100) != 0) || (year % 400) == 0) {
+                                    if (day > 29) { errMsg = "日期錯誤"; }
+                                } else {
+                                    if (day > 28) { errMsg = "日期錯誤"; }
+                                }
+                            } else { errMsg = "月份錯誤"; }
+                        } else { errMsg = "日期錯誤"; }
+                    } else { //pattern的格式檢查
+                        errMsg = "格式不正確";
+                    }
+                    if (errMsg == "") { checkBirth = true; }
+                }
+                $("#birthErrMsg").html(errMsg);
+            });
+
+            //會員住址
+            //只要註冊時 不為空就好??
+            $("#memberAddress").blur(function () {
+                checkAddress = false;
+                if ($("#memberAddress").val() != "") {
+                    checkAddress = true;
+                }
+            });
+
+            //會員身高(cm)
+            // 在<input>內設定長度為3
+            $("#memberHeight").blur(function () {
+                let height = $("#memberHeight").val();
+                let msg = "";
+                checkHeight = false;
+                let check = true;
+
+                if (height != "") {
+                    for (i of height) {
+                        if (i < '0' || i > '9') {
+                            msg = "只能輸入整數數字";
+                            check = false;
+                            break;
+                        }
+                    }
+                    if (check) {
+                        let h = parseInt(height);
+                        if (h <= 0 || h > 255) {
+                            msg = "請輸入1~255之間的數值";
+                        } else {
+                            checkHeight = true;
+                        }
+                    }
+                }
+                $("#heightErrMsg").html(msg);
+            });
+
+            //會員體重(kg)
+            //直接先用 "取整數做"
+            // 在<input>內設定長度為3
+            $("#memberWeight").blur(function () {
+                let weight = $("#memberWeight").val();
+                let msg = "";
+                checkWeight = false;
+                let check = true;
+
+                if (weight != "") {
+                    for (i of weight) {
+                        if (i < '0' || i > '9') {
+                            msg = "只能輸入整數數字";
+                            check = false;
+                            break;
+                        }
+                    }
+                    if (check) {
+                        let w = parseInt(weight);
+                        if (w <= 0 || w > 255) {
+                            msg = "請輸入1~255之間的數值";
+                        } else {
+                            checkWeight = true;
+                        }
+                    }
+                }
+                $("#weightErrMsg").html(msg);
+            });
+
+            //會員電話
+            // 在<input>內設定長度為10
+            $("#memberPhone").blur(function () {
+                let patternParam = '[0]{1}[9]{1}[0-9]{8}';
+                let pattern = new RegExp(patternParam);
+                let msg = "";
+                checkPhone = false;
+
+                if ($("#memberPhone").val() != "") {
+                    if (!pattern.test($("#memberPhone").val())) {
+                        msg = "格式不正確";
+                    } else {
+                        checkPhone = true;
+                    }
+                }
+                $("#phoneErrMsg").html(msg);
+
+            });
+
+            //身分證字號
+            //在<input>內設定長度為10
+            $("#memberIdNumber").blur(function () {
+                let patternParam = '^[a-zA-Z]{1}[1-2]{1}[0-9]{8}';
+                let pattern = new RegExp(patternParam);
+                let msg = "";
+                checkIdNum = false;
+
+                // if($("#memberIdNumber").val()!="" && (!pattern.test($("#memberIdNumber").val()) || $("#memberIdNumber").val().length!=10)){
+
+                if ($("#memberIdNumber").val() != "") {
+                    if (!pattern.test($("#memberIdNumber").val())) {
+                        msg = "格式錯誤";
+                    } else {
+                        checkIdNum = true;
+                    }
+                }
+                $("#IdNumErrMsg").html(msg);
+            });
+
+            //性別
+            //改成radio，讀值就好
+            //test:
+            $("input[name=memberGender]").change(function () {
+                gender = $("input[name=memberGender]:checked").val();
+                checkGender = true;
+            });
+
+            //電子信箱 ==> 改用 input type="email"取讓他檢查就好??，但是送出時的 "不能空白"要再檢查???
+            $("#email").blur(function () {
+                let patternParam = '^[a-zA-Z0-9]+[\.]*[a-zA-Z0-9]+@[a-z]+\.[a-z\.]+';
+                let pattern = new RegExp(patternParam);
+                checkEmail = false;
+                let msg = "";
+
+                if ($("#email").val() != "") {
+                    if (!pattern.test($("#email").val())) {
+                        msg = "格式錯誤";
+                    } else {
+                        checkEmail = true;
+                    }
+                }
+                $("#emailErrMsg").html(msg);
+            });
+
+        }
+
+        //---------------------------------------------------------------------------------------------------
+        //設定datepicker
+        //這是初始化的設定，後面切換的放到切換裡面
+        $("#memberBirth").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1920:2020",
+            dateFormat: "yy/mm/dd"
+        });
+
+    </script>
+</body>
+
+</html>

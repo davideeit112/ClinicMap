@@ -128,6 +128,10 @@ public class ActionController {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> parent of f912d0d... 更新clinicMap.register/MemberDAO和Controller，member register相關html
 	@RequestMapping(path = "/verifiedEmail", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String emailVerified(@RequestParam("code") String code) {
 		
@@ -147,8 +151,15 @@ public class ActionController {
 				mDao.setActiveStatus(code);
 				return "Verified Success";
 			}
+			
+			mDao.setActiveStatus(uuidCode(), member.getMemberAccount());
+//			mDao.setActiveStatus(uuidCode(), code);
+			return "verified out of time, please get verified emai again";
+		}else {
+			//表示之前的註冊驗證已經超過時間，但user要用同一封(舊的)email再次點擊驗證連結
+			//目前會有問題 => 還沒測試新版的
+			return "this email is too old";
 		}
-		return "verified out of time, please get verified emai again";
 	}
 	@RequestMapping(path = "forgetPwdPage", method = RequestMethod.POST)
 	public void forgetPwd(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
@@ -189,6 +200,7 @@ public class ActionController {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
 	//*******************************************
 		@RequestMapping(path = "/isIdNumExist", method = RequestMethod.POST)
 		public void checkIdNumRepeat(@RequestParam("IdNum") String IdNum, HttpServletResponse response){
@@ -218,6 +230,34 @@ public class ActionController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+=======
+	
+	@RequestMapping(path = "/getEmailAgainPage", method = RequestMethod.POST)
+	public void getEmailAgain(@RequestParam("action") String action, @RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
+		String codeAgain = "";
+		
+		if(action.equals("notRecieve")) {
+			//蓋掉舊的code
+			codeAgain = uuidCode();
+			mDao.setActiveStatus(codeAgain, account);
+		}
+		
+		if(action.equals("invalid")) {
+			//取出code
+			codeAgain = mDao.getCodeWithAccount(account);
+		}
+		
+		//更改 deadline的時間
+		mDao.updateDeadline(account, new Date().getTime());
+		
+		//重新寄出驗證信的狀況
+		sendEmail("verified", email, codeAgain);
+		
+		try {
+			response.getWriter().print("");
+		} catch (IOException e) {
+			e.printStackTrace();
+>>>>>>> parent of f912d0d... 更新clinicMap.register/MemberDAO和Controller，member register相關html
 		}
 	
 	@RequestMapping(path = "/queryAllMembers", method = RequestMethod.POST)
