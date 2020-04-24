@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <!-- <meta http-equiv="x-ua-compatible" content="ie=edge"> -->
-<title>Travel HTML-5 Template</title>
+<title>ClinicMap</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="site.webmanifest">
 <link rel="shortcut icon" type="image/x-icon"
 	href="assets/img/favicon.ico">
-
+	
+	
 <!-- CSS here -->
 <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
@@ -59,6 +60,7 @@
 </style>
 
 
+
 </head>
 
 <body>
@@ -91,13 +93,13 @@
 									</ul>
 								</div>
 							</div>
+
 							<div class="col-lg-4">
 								<div class="header-info-right f-right">
 									<ul class="header-social">
-										<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-										<li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-										<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-										<li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
+										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
+										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
 									</ul>
 								</div>
 							</div>
@@ -110,7 +112,7 @@
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="index.html"><img src="../assets/img/logo/logo.png"
+									<a href="../googleMap/"><img src="../assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -119,19 +121,16 @@
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="index.html">Home</a></li>
-											<li><a href="about.html">About US</a></li>
-											<li><a href="packages.html">Package</a></li>
+											<li><a href="../googleMap/">Home</a></li>
+											<li id="order"><a href="../orderSystem">order</a></li>
+											<li><a href="../ClinicComment">HospitalComment</a></li>
 											<li><a href="blog.html">Blog</a>
 												<ul class="submenu">
 													<li><a href="blog.html">Blog</a></li>
 													<li><a href="single-blog.html">Blog Details</a></li>
 												</ul></li>
-											<li><a href="#">Pages</a>
-												<ul class="submenu">
-													<li><a href="elements.html">Element</a></li>
-												</ul></li>
-											<li><a href="contact.html">Contact Us</a></li>
+											<li><a href="#">News</a>
+											<li><a href="contact.html">about Us</a></li>
 										</ul>
 									</nav>
 								</div>
@@ -212,14 +211,16 @@
 											</select>
 										</div>
 									</div>
-									<div class="search-form mb-30">
-										<input type="button" onclick="sub()" value="Search all"  class="button" style="width:215px;"/>
-										<input type="button" onclick="sub2()" value="Search around"  class="button" style="width:215px;"/>
-										<input type="button" id="submit_message" value="Search by input" onClick="messageGo()"  class="button" style="width:215px;"/>   
-	</form>
-									</div>
+									
+									<div></div>
+									<div></div>
 								</form>
-								</br>
+							<div class="search-form mb-30" style="margin-left: 20%;margin-top: 10px">
+										<input type="button" onclick="sub()" value="Search all"  class="button" style="width:215px;height: 50px"/>
+										<input type="button" onclick="sub2()" value="Search around"  class="button" style="width:215px;height: 50px"/>
+										<input type="button" id="submit_message" value="Search by input" onClick="messageGo()"  class="button" style="width:215px;height: 50px"/>   
+
+									</div>
 								<div id="map_canvas" style="width: 1169px;height: 600px;border-radius:10px;">
 							</div>
 						</div>
@@ -300,7 +301,7 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="single-place mb-30">
                             <div class="place-img">
-                                <img src="../assets/img/service/services1.jpg" alt="">
+                                <img src="../assets/img/service/services11.jpg" alt="">
                             </div>
                             <div class="place-cap">
                                 <div class="place-cap-top">
@@ -320,7 +321,7 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="single-place mb-30">
                             <div class="place-img">
-                                <img src="../assets/img/service/services2.jpg" alt="">
+                                <img src="../assets/img/service/services12.jpg" alt="">
                             </div>
                             <div class="place-cap">
                                 <div class="place-cap-top">
@@ -340,7 +341,7 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="single-place mb-30">
                             <div class="place-img">
-                                <img src="../assets/img/service/services2.jpg" alt="">
+                                <img src="../assets/img/service/services13.jpg" alt="">
                             </div>
                             <div class="place-cap">
                                 <div class="place-cap-top">
@@ -767,7 +768,10 @@ function messageGo(){
 	<!-- Jquery Plugins, main Jquery -->
 	<script src="../assets/js/plugins.js"></script>
 	<script src="../assets/js/main.js"></script>
+	<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<!-- <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script> -->
 	<!-- post script -->
+
 	<script type="text/javascript">
 
 $.ajax({
@@ -783,11 +787,12 @@ $.ajax({
 		$("#count1").html(" "+data.length+" 則留言");
 		var avg = 0;
 		avg = value/data.length;
+		
 		$("#avg1").html(avg.toFixed(1));
 		$("#demo").html(data[0].clinicPhoto);
 		$("#demo1").html(data[0].clinicName);
 		$("#demo2").html("02- "+data[0].clinicPhone);
-		console.log(data[0].clinicName);
+		
 		}
 });
 $.ajax({
@@ -804,9 +809,11 @@ $.ajax({
 		var avg = 0;
 		avg = value/data.length;
 		$("#avg2").html(avg.toFixed(1));
-		$("#demoA").html(data[1].clinicPhoto);
-		$("#demo1A").html(data[1].clinicName);
-		$("#demo2A").html("02- "+data[1].clinicPhone);
+		$("#demoA").html(data[0].clinicPhoto);
+		
+		$("#demo1A").html(data[0].clinicName);
+		$("#demo2A").html("02- "+data[0].clinicPhone);
+		console.log(data[0].clinicPhone);
 		}
 });
 $.ajax({
@@ -825,11 +832,45 @@ $.ajax({
 		$("#avg3").html(avg.toFixed(1));
 		$("#demoB").html(data[0].clinicPhoto);
 		$("#demo1B").html(data[0].clinicName);
-		
-		$("#demo2B").html("02- "+data[2].clinicPhone);
+		$("#demo2B").html("02- "+data[0].clinicPhone);
 		}
 });
+
 </script>
 
+	
+	<script type="text/javascript">
+	console.log($.cookie('memberID'))
+if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
+{
+	
+	$("#loginIn").show()
+	$("#loginOut").hide()
+	$("#order").hide()
+	$("#member").hide()
+}else if($.cookie('memberID')!=undefined){
+
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+}else{
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#member").show()
+	
+}
+function loginout(){
+	$.removeCookie('memberID')
+	$.removeCookie('clinicID')
+	location.reload();
+}
+$("#loginOut").click(function(){
+	$.cookie('memberID','',{expires: -1,path:"/clinicMap"})
+	$.cookie('clinicID','',{expires: -1,path:"/clinicMap"})
+	location.reload()
+})
+</script>
 </body>
 </html>

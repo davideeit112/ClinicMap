@@ -48,15 +48,15 @@ public class SysManagementDao {
 
 	public List<Clinicchen> clinicData() {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "from Clinic";
+		String hqlstr = "from Clinicchen";
 		Query<Clinicchen> query = session.createQuery(hqlstr, Clinicchen.class);
 		List<Clinicchen> list = (List<Clinicchen>) query.list();
 		return list;
 	}
 
-	public void savePersonWithPhoto(String photoFilePath, int count) throws IOException {
+	public void savePersonWithPhoto(String photoFilePath) throws IOException {
 		Session session = sessionFactory.getCurrentSession();
-		Clinicchen clinic = session.get(Clinicchen.class, count);
+		Clinicchen clinic = session.get(Clinicchen.class, 3);
 		byte[] photoBytes = readBytesFromFile(photoFilePath);
 		clinic.setClinicPhoto(photoBytes);
 		System.out.println("123");
@@ -90,7 +90,6 @@ public class SysManagementDao {
 	}
 
 	public void emailActivate(int clinicID) {
-		
 		System.out.println("emailinside");
 		HtmlEmail em = new HtmlEmail();
 
@@ -115,23 +114,15 @@ public class SysManagementDao {
 			em.addTo("warcraft0320@gmail.com");
 			em.send();
 			System.out.println("Email send successfully");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void changeStatus(int clinicID) {
 		Session session = sessionFactory.getCurrentSession();
 		Clinicchen clinic = session.get(Clinicchen.class, clinicID);
 		clinic.setClinicStatus("CS1");
-
-		session.update(clinic);
-	}
-	public void changeStatus2(int clinicID) {
-		Session session = sessionFactory.getCurrentSession();
-		Clinicchen clinic = session.get(Clinicchen.class, clinicID);
-		clinic.setClinicStatus("CS2");
 
 		session.update(clinic);
 		System.out.println("1233333");

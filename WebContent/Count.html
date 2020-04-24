@@ -42,24 +42,23 @@
 	.Yearly:hover,.Monthly:hover,.Daily:hover{
 		background-color: #FD7D98;	
 	}
-	.year{
+	.year,.month,.date{
 		margin-top: 50px;
 		margin-left: 100px;
+		margin-bottom:100px;
 		display:none;
 	}
-	.month{
-		margin-top: 50px;
-		margin-left: 100px;
-		display:none;
-	}
-	.date{
-		margin-top: 50px;
-		margin-left: 100px;
-		display:none;
+	.chart,.chartLine{
+		width:800px;
+		height:400px;
+		display: inline-block;
 	}
 	.chart{
-		width:300;
-		height:400;
+		margin-left: 150px;
+	}
+
+	main{
+		margin-bottom: 100px;
 	}
 </style>
 </head>
@@ -106,7 +105,7 @@
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="index.html"><img src="assets/img/logo/logo.png"
+									<a href="ClinicMain.html"><img src="assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -115,19 +114,9 @@
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="index.html">Home</a></li>
-											<li><a href="about.html">About US</a></li>
-											<li><a href="packages.html">Package</a></li>
-											<li><a href="blog.html">Blog</a>
-												<ul class="submenu">
-													<li><a href="blog.html">Blog</a></li>
-													<li><a href="single-blog.html">Blog Details</a></li>
-												</ul></li>
-											<li><a href="#">Pages</a>
-												<ul class="submenu">
-													<li><a href="elements.html">Element</a></li>
-												</ul></li>
-											<li><a href="contact.html">Contact Us</a></li>
+											<li><a href="ClinicMain.html">Appointments</a></li>
+											<li><a href="Count.html">Analyze</a></li>
+											<li><a href="ClinicProfile.html">Profile</a></li>	
 										</ul>
 									</nav>
 								</div>
@@ -219,22 +208,18 @@
 			<input type="date" id="selectDate">
 		</div>
 		<!-- ================================================================================================================== -->
+		<div class="allChartsWrapper">
 		<div class="chart" id="chartContainer">
-			<canvas id="chart" width="400" height="300">			
+			<canvas id="chart">			
 			</canvas>
 		</div>
+		<div class="chartLine" id="chartLineContainer">
+			<canvas id="chartLine">			
+			</canvas>
+		</div>
+		</div>
 		<!-- ================================================================================================================== -->
-		<!-- Support Company End-->
-		<!-- Our Services Start -->
-		<div class="our-services place-padding">
-			<div class="container"></div>
-		</div>
-		<!-- Our Services End -->
-		<!-- Testimonial Start -->
-		<div class="testimonial-area testimonial-padding">
-			<div class="container "></div>
-		</div>
-		<!-- Testimonial End -->
+
 	</main>
 	<footer>
 
@@ -372,7 +357,6 @@
 	<script src="./assets/js/main.js"></script>
 	
 <script>
-
 	$("#Yearly").click(function(){
 		$(this).css("background-color","#FD7D98");
 		$(this).siblings().css("background-color","#FD98AD");
@@ -414,6 +398,31 @@
 				var ctx = document.getElementById("chart").getContext("2d");
 				var chart = new Chart(ctx, {
 			   	 type: 'bar',
+			    	data: {
+			        	labels: ["appointmentNum", "firstTimeNum", "completeDiagnosis", "unReportNum"],
+			        	datasets: [{
+			            	label: '# of Count',
+			            	data: [count[0], count[1],count[2],count[3]],
+			            	backgroundColor: [
+			                    'rgba(255, 99, 132, 0.2)',
+			                    'rgba(54, 162, 235, 0.2)',
+			                    'rgba(255, 206, 86, 0.2)',
+			                    'rgba(75, 192, 192, 0.2)'
+			                ],
+			            	borderColor: [
+			            		'rgba(255,99,132,1)',
+			                    'rgba(54, 162, 235, 1)',
+			                    'rgba(255, 206, 86, 1)',
+			                    'rgba(75, 192, 192, 1)'
+			                ],
+			                borderWidth: 1
+			        	}]
+			    	}
+				});
+				
+				var ctx = document.getElementById("chartLine").getContext("2d");
+				var chart = new Chart(ctx, {
+			   	 type: 'pie',
 			    	data: {
 			        	labels: ["appointmentNum", "firstTimeNum", "completeDiagnosis", "unReportNum"],
 			        	datasets: [{
@@ -485,6 +494,31 @@
 			        	}]
 			    	}
 				});
+				
+				var ctx = document.getElementById("chartLine").getContext("2d");
+				var chart = new Chart(ctx, {
+			   	 type: 'pie',
+			    	data: {
+			        	labels: ["appointmentNum", "firstTimeNum", "completeDiagnosis", "unReportNum"],
+			        	datasets: [{
+			            	label: '# of Count',
+			            	data: [count[0], count[1],count[2],count[3]],
+			            	backgroundColor: [
+			                    'rgba(255, 99, 132, 0.2)',
+			                    'rgba(54, 162, 235, 0.2)',
+			                    'rgba(255, 206, 86, 0.2)',
+			                    'rgba(75, 192, 192, 0.2)'
+			                ],
+			            	borderColor: [
+			            		'rgba(255,99,132,1)',
+			                    'rgba(54, 162, 235, 1)',
+			                    'rgba(255, 206, 86, 1)',
+			                    'rgba(75, 192, 192, 1)'
+			                ],
+			                borderWidth: 1
+			        	}]
+			    	}
+				});
 			}
 		});
 	
@@ -505,6 +539,31 @@
 				var ctx = document.getElementById("chart").getContext("2d");
 				var chart = new Chart(ctx, {
 			   	 type: 'bar',
+			    	data: {
+			        	labels: ["appointmentNum", "firstTimeNum", "completeDiagnosis", "unReportNum"],
+			        	datasets: [{
+			            	label: '# of Count',
+			            	data: [count[0], count[1],count[2],count[3]],
+			            	backgroundColor: [
+			                    'rgba(255, 99, 132, 0.2)',
+			                    'rgba(54, 162, 235, 0.2)',
+			                    'rgba(255, 206, 86, 0.2)',
+			                    'rgba(75, 192, 192, 0.2)'
+			                ],
+			            	borderColor: [
+			            		'rgba(255,99,132,1)',
+			                    'rgba(54, 162, 235, 1)',
+			                    'rgba(255, 206, 86, 1)',
+			                    'rgba(75, 192, 192, 1)'
+			                ],
+			                borderWidth: 1
+			        	}]
+			    	}
+				});
+				
+				var ctx = document.getElementById("chartLine").getContext("2d");
+				var chart = new Chart(ctx, {
+			   	 type: 'pie',
 			    	data: {
 			        	labels: ["appointmentNum", "firstTimeNum", "completeDiagnosis", "unReportNum"],
 			        	datasets: [{

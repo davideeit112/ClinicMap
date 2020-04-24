@@ -26,7 +26,7 @@ public class ClinicOpenStatus {
 		this.clinicID = clinicID;
 	}
 
-	public boolean isClinicOpenStatus() {
+	public boolean getClinicOpenStatus() {
 		return clinicOpenStatus;
 	}
 
@@ -40,6 +40,16 @@ public class ClinicOpenStatus {
 
 	public void setClinicCurrentNumber(int clinicCurrentNumber) {
 		this.clinicCurrentNumber = clinicCurrentNumber;
+	}
+
+	public void setOpenDescription(String openDescription) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public char[] getOpenDescription() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

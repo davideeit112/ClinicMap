@@ -95,9 +95,9 @@
 							<div class="col-lg-8">
 								<div class="header-info-left">
 									<ul>
-										<li>needhelp@gotrip.com</li>
+										<li>clinic@gmail.com</li>
 										<li>666 569 025077</li>
-										<li>broklyn street new york</li>
+										<li>find clinic for you</li>
 									</ul>
 								</div>
 							</div>
@@ -113,7 +113,7 @@
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="index.html"><img src="assets/img/logo/logo.png"
+									<a href="ClinicMain.html"><img src="assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -122,19 +122,9 @@
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="index.html">Home</a></li>
-											<li><a href="about.html">About US</a></li>
-											<li><a href="packages.html">Package</a></li>
-											<li><a href="blog.html">Blog</a>
-												<ul class="submenu">
-													<li><a href="blog.html">Blog</a></li>
-													<li><a href="single-blog.html">Blog Details</a></li>
-												</ul></li>
-											<li><a href="#">Pages</a>
-												<ul class="submenu">
-													<li><a href="elements.html">Element</a></li>
-												</ul></li>
-											<li><a href="contact.html">Contact Us</a></li>
+											<li><a href="ClinicMain.html">Appointments</a></li>
+											<li><a href="Count.html">Analyze</a></li>
+											<li><a href="ClinicProfile.html">Profile</a></li>											
 										</ul>
 									</nav>
 								</div>
@@ -187,7 +177,7 @@
 		<div>
 			<div class="appointments">
 				<table class="todayApp" id="todayApp">
-					<tr><th>AppointmentID</th><th>MemberID</th><th>Name</th><th>appointmentType</th><th>sickDescription</th><th>appointmentTime</th><th>appointmentNumber</th><th>appointmentStatus</th><th><th></tr>
+					<tr id="head"><th>AppointmentID</th><th>MemberID</th><th>Name</th><th>appointmentType</th><th>sickDescription</th><th>appointmentTime</th><th>appointmentNumber</th><th>appointmentStatus</th><th></th><th></th></tr>
 				</table>
 			</div>
 		</div>
@@ -333,7 +323,21 @@
 	<script src="./assets/js/main.js"></script>
 	
 <script>
-$("#headStatus").html("close");
+$.ajax({
+	url:"GetCurrentStatus.do", 
+	type:"GET",
+	success:function(currentStatus) {
+		if(currentStatus != null){
+			$("#headStatus").html(currentStatus);			
+		}
+	}
+});
+
+if($("#headStatus").html()==""){
+	$("#pre,#next").attr('disabled', true);
+	$("#pre,#next").css("background-color","grey");
+}
+
 $("#open,#break,#close").click(function(){
 	var status = $(this).val();
 	console.log(status);
@@ -344,9 +348,19 @@ $("#open,#break,#close").click(function(){
 		url:"UpdateOpenStatus.do?openStatus=" + status + "&currentNum=" + appNum, 
 		type:"GET",
 		success:function(data) {
+			location.reload();
 		}
 	});
+	if($(this).val()=="open"){
+		$("#pre,#next").attr('disabled', false);
+		$("#pre,#next").css("background-color","#2BA5F0");
+	}else{
+		$("#pre,#next").attr('disabled', true);
+		$("#pre,#next").css("background-color","grey");
+	}
+
 })
+
 
 $("#appNum").val(0);
 $.ajax({
@@ -380,71 +394,81 @@ $("#next").click(function() {
 		type:"GET",
 		success:function(data) {
 		}
-	});		
+	});
+	$.ajax({
+		url:"saveCurrentNum.do?currentNumber=" + appNum, 
+		type:"GET",
+		success:function(data) {
+		}
+	});	
 	appNum++;
 	$("#appNum").val(appNum);
 });
 
-$.ajax({
-	url:"todayAppointments.do", 
-	type:"GET",
-	dataType:"json",
-	success:function(beanList) {
-	for(var i in beanList){
-		$("#todayApp").append("<tr><td id='appId'>"+beanList[i].appointmentID+"</td><td id='memberId'>"+
-			beanList[i].memberID+"</td><td>"+beanList[i].memberName+"</td><td id='appType'>"+beanList[i].appointmentType+"</td><td>"+
-			beanList[i].sickDescription+"</td><td>"+beanList[i].appointmentTime+"</td><td>"+
-			beanList[i].appointmentNumber+"</td><td id='appStatus'>"+beanList[i].appointmentStatus+
-			"</td><td><input class='genric-btn success radius  medium' id='report"+i+"' type='button' value='report'></td><td><input class='genric-btn warning radius  medium' id='unreport"+i+"' type='button' value='pass'></td></tr>"
-		);
-	  }
-		var status = document.querySelectorAll("#appStatus");
-		for(var i=0;i<beanList.length;i++){
-			var val = status[i].innerHTML;
-			if(val == "OS3" || val == "OS4"){
-				$("#report"+i+",#unreport"+i).hide();
-			}
-			$("#report"+i).click(function(){
-				var appId = $(this).parent().siblings("#appId").html();
-				var status = $(this).val();
-				$.ajax({
-					url:"updateAppointmentStatus.do?appointmentID="+appId+"&appointmentStatus="+status, 
-					type:"GET",
-					success:function(data) {
+			$.ajax({
+				url:"todayAppointments.do", 
+				type:"GET",
+				dataType:"json",
+				success:function(beanList) {
+					
+					for(var i in beanList){
+						$("#todayApp").append("<tr><td id='appId'>"+beanList[i].appointmentID+"</td><td id='memberId'>"+
+							beanList[i].memberID+"</td><td>"+beanList[i].memberName+"</td><td id='appType'>"+beanList[i].appointmentType+"</td><td>"+
+							beanList[i].sickDescription+"</td><td>"+beanList[i].appointmentTime+"</td><td>"+
+							beanList[i].appointmentNumber+"</td><td id='appStatus'>"+beanList[i].appointmentStatus+
+							"</td><td><input class='genric-btn success radius  medium' id='report"+i+"' type='button' value='report'></td><td><input class='genric-btn warning radius  medium' id='unreport"+i+"' type='button' value='pass'></td></tr>"
+						);
 					  }
-				});
-				location.reload();
-			})
-		}
-		
-		for(var i=0;i<beanList.length;i++){
-			$("#unreport"+i).click(function(){
-				var appId = $(this).parent().siblings("#appId").html();
-				var status = $(this).val();
-				$.ajax({
-					url:"updateAppointmentStatus.do?appointmentID="+appId+"&appointmentStatus="+status,
-					type:"GET",
-					success:function(data) {
-					  }
-				});		
-				location.reload();
-			})
-		}
-		
-		for(var i=0; i<status.length;i++){
-			var val = status[i].innerHTML;
-			if(val == "OS1"){
-				status[i].innerHTML="Appointment";
-			}else if(val=="OS3"){
-				status[i].innerHTML="Reported";
-			}else if(val == "OS4"){
-				status[i].innerHTML="Passed";
-			}else if(val == "OS2"){
-				status[i].innerHTML="Dignosed";
-			}
-		}		
-	}	
-});
+					
+					var status = document.querySelectorAll("#appStatus");
+					for(var i=0;i<beanList.length;i++){
+						var val = status[i].innerHTML;
+						if(val == "OS3" || val == "OS4"){
+							$("#report"+i+",#unreport"+i).hide();
+						}
+						$("#report"+i).click(function(){
+							var appId = $(this).parent().siblings("#appId").html();
+							var status = $(this).val();
+							$.ajax({
+								url:"updateAppointmentStatus.do?appointmentID="+appId+"&appointmentStatus="+status, 
+								type:"GET",
+								success:function(data) {
+								  }
+							});
+							location.reload();
+						})
+					}
+					
+					for(var i=0;i<beanList.length;i++){
+						$("#unreport"+i).click(function(){
+							var appId = $(this).parent().siblings("#appId").html();
+							var status = $(this).val();
+							$.ajax({
+								url:"updateAppointmentStatus.do?appointmentID="+appId+"&appointmentStatus="+status,
+								type:"GET",
+								success:function(data) {
+								  }
+							});		
+							location.reload();
+						})
+					}
+					
+					for(var i=0; i<status.length;i++){
+						var val = status[i].innerHTML;
+						if(val == "OS1"){
+							status[i].innerHTML="Appointment";
+						}else if(val=="OS3"){
+							status[i].innerHTML="Reported";
+						}else if(val == "OS4"){
+							status[i].innerHTML="Passed";
+						}else if(val == "OS2"){
+							status[i].innerHTML="Dignosed";
+						}
+					}
+
+				}	
+			});
+
 </script>
 </body>
 </html>

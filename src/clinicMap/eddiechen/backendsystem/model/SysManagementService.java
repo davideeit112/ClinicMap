@@ -23,8 +23,8 @@ public class SysManagementService {
 		return sysManagementDao.clinicData();
 	}
 	
-	public void savePersonWithPhoto(String photoFilePath, int count) throws IOException {
-		 sysManagementDao.savePersonWithPhoto(photoFilePath, count);
+	public void savePersonWithPhoto(String photoFilePath) throws IOException {
+		 sysManagementDao.savePersonWithPhoto(photoFilePath);
 	}
 	
 	public void readPhotoOfPerson(int clinicID, String photoFilePath) throws IOException {
@@ -35,9 +35,6 @@ public class SysManagementService {
 		sysManagementDao.emailActivate(clinicID);
 	}
 	
-	public void changeStatus2(int clinicID) {
-		sysManagementDao.changeStatus2(clinicID);
-	}
 	public void changeStatus(int clinicID) {
 		sysManagementDao.changeStatus(clinicID);
 	}

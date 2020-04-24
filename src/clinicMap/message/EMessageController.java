@@ -29,7 +29,7 @@ public class EMessageController {
 		this.emsgservice = emsgservice;
 	}
 
-	@RequestMapping(path = "/start.do", method = RequestMethod.GET)
+	@RequestMapping(path = "/ClinicComment", method = RequestMethod.GET)
 	public String start() {
 		return "Board";
 	}
@@ -61,7 +61,6 @@ public class EMessageController {
 
 	@RequestMapping(path = "/msg1.do", method = RequestMethod.POST)
 	public void queryclinic1msg(HttpServletResponse res) throws IOException {
-		System.out.println("test"+emsgservice.query3Clinic());
 		List<EMessage> list = emsgservice.querymsg1();
 		List<memberBean> list2 = emsgservice.querymember();
 		List<clinicBean> list3 = emsgservice.queryclinic();

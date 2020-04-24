@@ -37,7 +37,7 @@
 			margin-top: 30px;
 			display: none;
 		}
-		#clinicPhoto,#clinicPhotoHead{
+		#clinicPhoto,#clinicPhotoHead,#clinicLicense,#clinicLicenseHead{
 			display: none;
 		}
 		main{
@@ -88,7 +88,7 @@
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="index.html"><img src="assets/img/logo/logo.png"
+									<a href="ClinicMain.html"><img src="assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -97,19 +97,9 @@
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="index.html">Home</a></li>
-											<li><a href="about.html">About US</a></li>
-											<li><a href="packages.html">Package</a></li>
-											<li><a href="blog.html">Blog</a>
-												<ul class="submenu">
-													<li><a href="blog.html">Blog</a></li>
-													<li><a href="single-blog.html">Blog Details</a></li>
-												</ul></li>
-											<li><a href="#">Pages</a>
-												<ul class="submenu">
-													<li><a href="elements.html">Element</a></li>
-												</ul></li>
-											<li><a href="contact.html">Contact Us</a></li>
+											<li><a href="ClinicMain.html">Appointments</a></li>
+											<li><a href="Count.html">Analyze</a></li>
+											<li><a href="ClinicProfile.html">Profile</a></li>	
 										</ul>
 									</nav>
 								</div>
@@ -153,7 +143,13 @@
 						
 						<div class="readonly">
 						<div id="show"> <img id="imgshow" src="#" alt="Clinic photo"  width="200"></div>						
-						<h3 id="clinicPhotoHead" class="mt-30">clinicPhoto</h3> <input type="file" id="clinicPhoto" name="clinicPhoto" class="single-input" readonly="readonly">
+						<h3 id="clinicPhotoHead" class="mt-30">clinicPhoto</h3> 
+						<input type="file" id="clinicPhoto" name="clinicPhoto" class="single-input" readonly="readonly">
+						</div>
+						<div class="readonly">
+						<div id="show1"> <img id="imgshow1" src="#" alt="Clinic License"  width="200"></div>						
+						<h3 id="clinicLicenseHead" class="mt-30">clinicLicense</h3> 
+						<input type="file" id="clinicLicense" name="clinicLicense" class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
 							<h3 class="mb-30">clinicID</h3><input name="clinicID" id="clinicID" type="text" placeholder="clinicID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
@@ -177,6 +173,9 @@
 							<h3 class="mt-30">clinicAddress</h3><input name="clinicAddress" id="clinicAddress" type="text" placeholder="clinicAddress" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
+							<h3 class="mt-30">clinicEmail</h3><input name="clinicEmail" id="clinicEmail" type="text" placeholder="clinicEmail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
 							<h3 class="mt-30">clinicPhone</h3><input name="clinicPhone" id="clinicPhone" type="text" placeholder="clinicPhone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
@@ -185,9 +184,7 @@
 						<div class="mt-10">
 							<h3 class="mt-30">clinicType</h3><input name="clinicType" id="clinicType" type="text" placeholder="clinicType" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
-						<div class="mt-10">
-							<h3 class="mt-30">clinicTime</h3><input name="clinicTime" id="clinicTime" type="text" placeholder="clinicTime" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
-						</div>
+						
 						<input class="genric-btn success circle arrow" id="edit" type="submit" value="edit">
 						
 					</form>
@@ -333,7 +330,6 @@
 	<script src="./assets/js/main.js"></script>
 	
 <script>
-$("#photoshow").hide()
 function arrayBufferToBase64(buffer) {
     let binary = '';
     let bytes = new Uint8Array(buffer);
@@ -353,6 +349,11 @@ $.ajax({
 		  $("#photoshow").show("normal");
 		  $('#imgshow').attr("src",'data:image/jpg;base64,'+name);
 		  }	  
+		  var name1 = arrayBufferToBase64(clinicBean.clinicLicense);
+		  if(name!=undefined){
+		  $("#photoshow").show("normal");
+		  $('#imgshow1').attr("src",'data:image/jpg;base64,'+name1);
+		  }	  
 		  $("#clinicID").val(clinicBean.clinicID);
 		  $("#clinicName").val(clinicBean.clinicName);
 		  $("#clinicAccount").val(clinicBean.clinicAccount);
@@ -360,17 +361,17 @@ $.ajax({
 		  $("#clinicAddress").val(clinicBean.clinicAddress);
 		  $("#clinicDescription").val(clinicBean.clinicDescription);
 		  $("#clinicAddress").val(clinicBean.clinicAddress);
+		  $("#clinicEmail").val(clinicBean.clinicEmail);
 		  $("#clinicPhone").val(clinicBean.clinicPhone);
 		  $("#clinicClass").val(clinicBean.clinicClass);
 		  $("#clinicType").val(clinicBean.clinicType);
-		  $("#clinicTime").val(clinicBean.clinicTime);
 		  $("#clinicStatus").val(clinicBean.clinicStatus);
 
 		}
 	});
 
 $("#editProflie").click(function(){
-	$("#clinicPhoto,#clinicPhotoHead,#edit").css("display","block");
+	$("#clinicPhoto,#clinicPhotoHead,#clinicLicense,#clinicLicenseHead,#edit").css("display","block");
 	$(this).css("display","none");
 	$("#clinicName").attr("readonly",false);
 	$("#clinicAccount").attr("readonly",false);
@@ -378,6 +379,7 @@ $("#editProflie").click(function(){
 	$("#clinicDescription").attr("readonly",false);
 	$("#clinicPhone").attr("readonly",false);
 	$("#clinicAddress").attr("readonly",false);
+	$("#clinicEmail").attr("readonly",false);
 	
 });
 

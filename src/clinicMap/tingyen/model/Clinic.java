@@ -1,9 +1,9 @@
 package clinicMap.tingyen.model;
 
+import java.sql.Blob;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 public class Clinic {
 	@Id
 	@Column(name = "clinicID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int clinicID;
 	@Column(name = "clinicName")
 	private String clinicName;
@@ -29,14 +28,16 @@ public class Clinic {
 	private String clinicDescription;
 	@Column(name = "clinicPhoto")
 	private byte[] clinicPhoto;
+	@Column(name = "clinicLicense")
+	private byte[] clinicLicense;
 	@Column(name = "clinicPhone")
 	private String clinicPhone;
+	@Column(name = "clinicEmail")
+	private String clinicEmail;
 	@Column(name = "clinicClass")
 	private String clinicClass;
 	@Column(name = "clinicType")
 	private String clinicType;
-	@Column(name = "clinicTime")
-	private String clinicTime;
 	@Column(name = "clinicStatus")
 	private String clinicStatus;
 
@@ -120,12 +121,20 @@ public class Clinic {
 		this.clinicType = clinicType;
 	}
 
-	public String getClinicTime() {
-		return clinicTime;
+	public byte[] getClinicLicense() {
+		return clinicLicense;
 	}
 
-	public void setClinicTime(String clinicTime) {
-		this.clinicTime = clinicTime;
+	public void setClinicLicense(byte[] clinicLicense) {
+		this.clinicLicense = clinicLicense;
+	}
+
+	public String getClinicEmail() {
+		return clinicEmail;
+	}
+
+	public void setClinicEmail(String clinicEmail) {
+		this.clinicEmail = clinicEmail;
 	}
 
 	public String getClinicStatus() {

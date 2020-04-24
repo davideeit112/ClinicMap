@@ -1,156 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-<meta charset="utf-8" />
-<title>BackEndSystem</title>
-
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript"
-	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<style>
-body {
-	min-height: 100vh;
-	/*background-color: #FFE53B;
-	background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 100%);*/
-}
-
-#table {
-	width: 1500px;
-}
-
-table.dataTable.hover tbody tr:hover,
-table.dataTable.display tbody tr:hover {
-  background-color: red;
-}
-</style>
+<title>Table V01</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="eddiechen/images/icons/favicon.ico" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="eddiechen/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="eddiechen/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="eddiechen/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="eddiechen/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="eddiechen/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="eddiechen/css/util.css">
+<link rel="stylesheet" type="text/css" href="eddiechen/css/main.css">
+<!--===============================================================================================-->
 </head>
 <body>
-	<div class="container-fluid py-5">
-		<form action="Logout" method="post">
-		 <input type="submit" value = "登出" style="float: right; margin-right:20px" class="btn btn-outline-secondary"/>
-		</form>
-		<header class="text-center text-black">
-			<h1 class="display-4" style="font-weight: 550; font-family: italic;">BackEndManagementSystem</h1>
-		</header>
-		<div class="row py-3">
-			<div class="col-lg-10 mx-auto">
-				<div class="card rounded-lg shadow border-0" id="table">
-					<div class="card-body p-5 bg-white rounded-lg"	>
-						<div class="table-responsive rounded-lg">
-							<table id="example" style="width: 100%"
-								class="table table-striped table-bordered rounded-lg">
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>機構代碼</th>
-										<th>診所名稱</th>
-										<th>診所地址</th>
-										<th>診所狀態</th>
-										<th>診所認證</th>
-										<th>診所執照</th>
-									</tr>
-								</thead>
-								<tbody>
 
-								</tbody>
-							</table>
-						</div>
-					</div>
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100">
+					<table>
+						<thead>
+							<tr class="table100-head">
+								<th class="column1">診所執照	</th>	
+								<th class="column2">機構代碼</th>
+								<th class="column3">診所名稱</th>
+								<th class="column4">診所地址</th>
+								<th class="column2">診所狀態</th>
+								<th class="column2">驗證</th>
+							</tr>
+						</thead>
+						<tbody id="clinic">
+
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
+
+
+	<!--===============================================================================================-->
+	<script src="eddiechen/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="eddiechen/vendor/bootstrap/js/popper.js"></script>
+	<script src="eddiechen/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="eddiechen/vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="eddiechen/js/main.js"></script>
 	<script type="text/javascript">
-		 $(function(){
-
-
-		    $(document).ready(function() {
-		    	
-
-				$.ajax({
-					url: "loadClinicData" ,
-					method: "get" ,
-					dataType: "json" , 
-					success: function(data){
-						$('#example').DataTable({
-							"scrollX": true,
-							data:data,
-							columns	:[
-								{'data': 'clinicID'},
-								{'data': 'clinicAccount'},
-								{
-									'data': 'clinicName',
-								 	'searchable': false,
-								 	'sortable': false
-								},
-								{
-									'data': 'clinicAddress',
-									'searchable': false,
-									'sortable': false
-								},
-								{
-									'data': 'clinicStatus',
-									'searchable': false,
-									'sortable': false
-								},
-								{
-									'data': 'clinicEmail',
-									'searchable': false,
-									'sortable': false
-								},
-								{
-									'data': 'clinicLicense',
-									'searchable': false,
-									'sortable': false,
-									'className': 'dt-center'
-								}
-								]	
-
-							});		
-					}
-					
-				})})
-			
-
-		    /* $(document.body).on({ keyup:function(){
-			 $.post("loadClinicData", function(data, status) {
-				if (status == "success")
-					$("#clinic").html(data)
-				}
-			)},
-			 select:function(){
-				$.post("loadClinicData", function(data, status) {
-					if (status == "success")
-						$("#clinic").html(data)
-					})}
-				}	)
-	    	$.post("loadClinicData", function(data, status) {
+		
+		$.post("loadClinicData", function(data, status) {
 			if (status == "success")
 				$("#clinic").html(data)
-				console.log(data);
-			})*/
-				
-		  })
-
-
-		  
-
-			 
-			
-		    
-    </script>
+			console.log(data);
+		})
+	</script>
 </body>
 </html>
