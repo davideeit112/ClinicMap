@@ -33,7 +33,6 @@ import clinicMap.eddiechen.backendsystem.model.SysManagementService;
 @Controller
 @SessionAttributes(names = { "acc", "pwd", "errors" })
 public class SysManagementController {
-
 	private SysManagementService sysService;
 
 	@Autowired
@@ -186,4 +185,5 @@ public class SysManagementController {
 		cookie.setMaxAge(0); 
 		res.addCookie(cookie);
 		return "Login";
-	}}
+	}
+}

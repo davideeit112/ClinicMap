@@ -128,10 +128,7 @@ public class ActionController {
 			e.printStackTrace();
 		}
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> parent of f912d0d... 更新clinicMap.register/MemberDAO和Controller，member register相關html
+
 	@RequestMapping(path = "/verifiedEmail", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String emailVerified(@RequestParam("code") String code) {
 		
@@ -200,7 +197,7 @@ public class ActionController {
 			e.printStackTrace();
 		}
 	}
-<<<<<<< HEAD
+
 	//*******************************************
 		@RequestMapping(path = "/isIdNumExist", method = RequestMethod.POST)
 		public void checkIdNumRepeat(@RequestParam("IdNum") String IdNum, HttpServletResponse response){
@@ -229,8 +226,8 @@ public class ActionController {
 				response.getWriter().print("");
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
-=======
+			}}
+
 	
 	@RequestMapping(path = "/getEmailAgainPage", method = RequestMethod.POST)
 	public void getEmailAgain(@RequestParam("action") String action, @RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
@@ -257,8 +254,7 @@ public class ActionController {
 			response.getWriter().print("");
 		} catch (IOException e) {
 			e.printStackTrace();
->>>>>>> parent of f912d0d... 更新clinicMap.register/MemberDAO和Controller，member register相關html
-		}
+		}}
 	
 	@RequestMapping(path = "/queryAllMembers", method = RequestMethod.POST)
 	public void queryAllM(HttpServletResponse response) {
