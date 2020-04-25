@@ -114,7 +114,7 @@ html, body {
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="../googleMap/"><img src="../assets/img/logo/logo.png"
+									<a href="../googleMap/"><img src="assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -151,7 +151,7 @@ html, body {
 		</div>
 		<!-- Header End -->
 	</header>
-	<div></div>
+	<div><button id="mapshow" class="genric-btn success" style="margin-left:80px ; margin-bottom: 30px" >地圖顯示</button></div>
 	<div id="map"></div>
 	<div id="text"></div>
 	<script async defer
@@ -200,8 +200,8 @@ html, body {
 				var clinicphone=jdata[i].clinicPhone
 				var cliniclat=jdata[i].cliniclat
 				var cliniclng=jdata[i].cliniclng
-				console.log(parseFloat(cliniclng)+" "+cliniclat)
 				var clinictype=jdata[i].clinicType
+				
 				geocodeAddress(name,clinicphone,clinictype,clinicId,cliniclat,cliniclng,address)
 
 				
@@ -221,7 +221,7 @@ html, body {
 							position:{lat:parseFloat(cliniclat),lng:parseFloat(cliniclng)}
 								})
 								google.maps.event.addListener(marker,'mouseover',function(){
-							
+									
 									infowindow=new google.maps.InfoWindow({
 									content:'<h3>'+name+'</h3><p>地址：'+address+'</p><p>聯絡電話：'+clinicphone+'</p><p>診所類別：'+clinictype+''
 									,
@@ -230,7 +230,9 @@ html, body {
 									pixelOffset: new google.maps.Size(0, -10) 
 					        	
 									});
+									
 									infowindow.open(map,marker)
+									
 								
 								
 							})
@@ -246,6 +248,7 @@ html, body {
 									maxWidth:400,
 									pixelOffset: new google.maps.Size(0, -10) 
 									});
+									
 									var txt='<table><tr><th><h3>'+name+'</h3>'
 						        	+'<tr><td>地址：<td>'+address
 						        	+'<tr><td>聯絡電話：<td>'+clinicphone 
