@@ -55,7 +55,10 @@ public class ClinicController {
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd"); 
 		Date date = new Date();
 		String today = sdFormat.format(date);
-
+		
+		Cookie cookie1 = new Cookie("clinicId", "1000");
+		response.addCookie(cookie1);
+		
 		Cookie[] cookieArray = request.getCookies(); 
 		Cookie cookie = cookieArray[0];
 		System.out.println("clinicId:" + cookie.getValue());
@@ -76,16 +79,16 @@ public class ClinicController {
 
 	@RequestMapping(path = "/updateAppointmentStatus.do", method = RequestMethod.GET)
 	public void updateAppointmentStatus(@RequestParam(name = "appointmentID")String appointmentID, @RequestParam(name = "appointmentStatus")String appointmentStatus) { 
-		if (appointmentStatus.equals("report")) {
-			appointmentStatus = "OS3";
-		} else if (appointmentStatus.equals("pass")) {
+		if (appointmentStatus.equals("報到")) {
+			appointmentStatus = "OS2";
+		} else if (appointmentStatus.equals("過號")) {
 			appointmentStatus = "OS4";
 		}
 		aService.updateAppointmentStatus(appointmentID, appointmentStatus);
 	}
 
 	@RequestMapping(path = "/finishAppointment.do", method = RequestMethod.GET)
-	public void finishAppointment(@RequestParam(name = "currentNumber") int currentNumber, HttpServletRequest request) { // 透過目前遷號碼修改預約狀態為已看診
+	public void finishAppointment(@RequestParam(name = "currentNumber") int currentNumber, HttpServletRequest request) {
 		System.out.println(currentNumber);
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
@@ -97,7 +100,7 @@ public class ClinicController {
 		List<Appointment> beanList = aService.queryAllAppointment(cookie.getValue(), today);
 
 		for (Appointment aBean : beanList) {
-			if (aBean.getAppointmentNumber() == currentNumber) {
+			if (aBean.getAppointmentNumber() == currentNumber && aBean.getAppointmentStatus().equals("OS2")){
 				aBean.setAppointmentStatus("OS3");
 			}
 		}
@@ -115,7 +118,7 @@ public class ClinicController {
 		List<Appointment> beanList = aService.queryAllAppointment(cookie.getValue(), today);
 
 		for (Appointment aBean : beanList) {
-			if (aBean.getAppointmentNumber() - currentNumber == 3) {
+			if (aBean.getAppointmentNumber() - currentNumber == 3 && aBean.getAppointmentStatus() != "OS5") {
 				Member mBean = mService.queryMemberById(aBean.getMemberID());				
 				String to = mBean.getMemberEmail();	//user email
 				String from = "yen1996213@gmail.com";	//developer email
@@ -258,26 +261,31 @@ public class ClinicController {
 	@RequestMapping(path = "/UpdateOpenStatus.do", method = RequestMethod.GET)
 	public void updateOpenStatus(@RequestParam(name="openStatus")String openStatus, 
 			@RequestParam(name="currentNum")String currentNum,	HttpServletRequest request) {
-		Cookie[] cookieArray = request.getCookies();
-		Cookie cookie = cookieArray[0];
-		String clinicID = cookie.getValue();
-		boolean openStatusBoolean;
-		if(openStatus.equals("open")) {
-			openStatusBoolean = true;
-		}else if(openStatus.equals("close")){
-			currentNum = "0";
-			openStatusBoolean = false;
-		}else {
-			openStatusBoolean = false;
+		try {
+			Cookie[] cookieArray = request.getCookies();
+			Cookie cookie = cookieArray[0];
+			String clinicID = cookie.getValue();
+			boolean openStatusBoolean;
+			if(openStatus.equals("開診")) {
+				openStatusBoolean = true;
+			}else if(openStatus.equals("休診")){
+				currentNum = "0";
+				openStatusBoolean = false;
+			}else {
+				openStatusBoolean = false;
+			}
+			System.out.println(clinicID);	
+			System.out.println("status:"+openStatus);
+			System.out.println("Num:"+currentNum);
+			cosService.updateStatus(clinicID,openStatusBoolean, Integer.valueOf(currentNum),openStatus);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		System.out.println(clinicID);	
-		System.out.println("status:"+openStatus);
-		System.out.println("Num:"+currentNum);
-		cosService.updateStatus(clinicID,openStatusBoolean, Integer.valueOf(currentNum),openStatus);
+		
 	}
 	
 	@RequestMapping(path = "/saveCurrentNum.do", method = RequestMethod.GET)
-	public void saveCurrentNum(	@RequestParam(name="currentNum")String currentNum,HttpServletRequest request) {
+	public void saveCurrentNum(	@RequestParam(name="currentNumber")String currentNum,HttpServletRequest request) {
 		Cookie[] cookieArray = request.getCookies();
 		Cookie cookie = cookieArray[0];
 		String clinicID = cookie.getValue();
