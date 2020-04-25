@@ -24,6 +24,10 @@
 <link rel="stylesheet" href="assets/css/style.css">
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+	*{
+		font-family: 'Noto Sans TC', sans-serif;
+	}
 		.profile{
 			margin-left:600px; 
 		}
@@ -37,8 +41,12 @@
 			margin-top: 30px;
 			display: none;
 		}
-		#clinicPhoto,#clinicPhotoHead,#clinicLicense,#clinicLicenseHead{
+		#clinicPhoto,#clinicLicense{
 			display: none;
+		}
+		#show,#show1{
+			width:300px;
+			height:300px;
 		}
 		main{
 			margin-bottom: 200px;
@@ -155,6 +163,15 @@
 							<h3 class="mb-30">編號</h3><input name="clinicID" id="clinicID" type="text" placeholder="clinicID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
+							<h3 class="mt-30">類別</h3><input name="clinicClass" id="clinicClass" type="text" placeholder="clinicClass" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">科別</h3><input name="clinicType" id="clinicType" type="text" placeholder="clinicType" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">驗證狀態</h3><input name="clinicStatus" id="clinicStatus" type="text" placeholder="clinicStatus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
 							<h3 class="mt-30">名稱</h3> <input name="clinicName" id="clinicName" type="text" placeholder="clinicName" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
@@ -162,9 +179,6 @@
 						</div>
 						<div class="mt-10">
 							<h3 class="mt-30">密碼</h3><input name="clinicPwd" id="clinicPwd" type="text" placeholder="clinicPwd" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
-						</div>
-						<div class="mt-10">
-							<h3 class="mt-30">驗證狀態</h3><input name="clinicStatus" id="clinicStatus" type="text" placeholder="clinicStatus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
 							<h3 class="mt-30">簡介</h3><input name="clinicDescription" id="clinicDescription" type="text" placeholder="clinicDescription" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
@@ -177,12 +191,6 @@
 						</div>
 						<div class="mt-10">
 							<h3 class="mt-30">電話</h3><input name="clinicPhone" id="clinicPhone" type="text" placeholder="clinicPhone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
-						</div>
-						<div class="mt-10">
-							<h3 class="mt-30">clinicClass</h3><input name="clinicClass" id="clinicClass" type="text" placeholder="clinicClass" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
-						</div>
-						<div class="mt-10">
-							<h3 class="mt-30">clinicType</h3><input name="clinicType" id="clinicType" type="text" placeholder="clinicType" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						
 						<input class="genric-btn success circle arrow" id="edit" type="submit" value="修改">
@@ -371,15 +379,15 @@ $.ajax({
 	});
 
 $("#editProflie").click(function(){
-	$("#clinicPhoto,#clinicPhotoHead,#clinicLicense,#clinicLicenseHead,#edit").css("display","block");
-	$(this).css("display","none");
-	$("#clinicName").attr("readonly",false);
-	$("#clinicAccount").attr("readonly",false);
-	$("#clinicPwd").attr("readonly",false);
-	$("#clinicDescription").attr("readonly",false);
-	$("#clinicPhone").attr("readonly",false);
-	$("#clinicAddress").attr("readonly",false);
-	$("#clinicEmail").attr("readonly",false);
+	$("#clinicPhoto,#clinicLicense,#edit").css("display","block");
+	$(this).css("visibility","hidden");
+	$("#clinicName").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicAccount").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicPwd").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicDescription").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicPhone").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicAddress").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicEmail").attr("readonly",false).css("background-color","#FBEBEF");
 	
 });
 
