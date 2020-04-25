@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Travel HTML-5 Template</title>
+<title>今日預約</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="site.webmanifest">
@@ -45,7 +45,7 @@
 	}
 	.appointments{
 		margin-top: 30px;
-		margin-left:400px;
+		margin-left:500px;
 	}
 	.todayApp{
 		background-color: #F7D8E9;
@@ -122,9 +122,9 @@
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="ClinicMain.html">Appointments</a></li>
-											<li><a href="Count.html">Analyze</a></li>
-											<li><a href="ClinicProfile.html">Profile</a></li>											
+											<li><a href="ClinicMain.html">今日預約</a></li>
+											<li><a href="Count.html">歷史預約統計</a></li>
+											<li><a href="ClinicProfile.html">診所基本資料</a></li>											
 										</ul>
 									</nav>
 								</div>
@@ -161,15 +161,15 @@
 		<!-- slider Area End-->
 		<!-- ================================================================================================================== -->
 	<div class="controller">
-		<input class="genric-btn info radius large" id="open" type="button" value="open"> 
-		<input class="genric-btn danger radius large" id="break" type="button" value="break"> 
-		<input class="genric-btn primary radius large" id="close" type="button"	value="close">
+		<input class="genric-btn info radius large" id="open" type="button" value="開診"> 
+		<input class="genric-btn danger radius large" id="break" type="button" value="休息"> 
+		<input class="genric-btn primary radius large" id="close" type="button"	value="休診">
 		<br>
 		<br>
 			<form class="currentNumbers">
-				<input class="genric-btn success circle arrow" id="pre" type="button" value="Previous"> 
+				<input class="genric-btn success circle arrow" id="pre" type="button" value="上一號"> 
 				<input class="appNum" name="currentNumber" id="appNum" type="text">
-				<input class="genric-btn success circle arrow" id="next" type="button" value="Next">
+				<input class="genric-btn success circle arrow" id="next" type="button" value="下一號">
 			</form>
 	</div>
 		<!-- ================================================================================================================== -->
@@ -177,7 +177,7 @@
 		<div>
 			<div class="appointments">
 				<table class="todayApp" id="todayApp">
-					<tr id="head"><th>AppointmentID</th><th>MemberID</th><th>Name</th><th>appointmentType</th><th>sickDescription</th><th>appointmentTime</th><th>appointmentNumber</th><th>appointmentStatus</th><th></th><th></th></tr>
+					<tr id="head"><th>預約編號</th><th>預約人編號</th><th>預約人</th><th>就診狀態</th><th>病症描述</th><th>預約時間</th><th>預約號碼</th><th>預約狀態</th><th></th><th></th></tr>
 				</table>
 			</div>
 		</div>
@@ -328,15 +328,15 @@ $.ajax({
 	type:"GET",
 	success:function(currentStatus) {
 		if(currentStatus != null){
-			$("#headStatus").html(currentStatus);			
+			$("#headStatus").html(currentStatus);	
+			if($("#headStatus").html()=="" || $("#headStatus").html()=="休息"　||　$("#headStatus").html()=="休診"){
+				$("#pre,#next").attr('disabled', true);
+				$("#pre,#next").css("background-color","grey");
+			}
 		}
 	}
 });
 
-if($("#headStatus").html()==""){
-	$("#pre,#next").attr('disabled', true);
-	$("#pre,#next").css("background-color","grey");
-}
 
 $("#open,#break,#close").click(function(){
 	var status = $(this).val();
@@ -351,7 +351,7 @@ $("#open,#break,#close").click(function(){
 			location.reload();
 		}
 	});
-	if($(this).val()=="open"){
+	if($(this).val()=="開診"){
 		$("#pre,#next").attr('disabled', false);
 		$("#pre,#next").css("background-color","#2BA5F0");
 	}else{
@@ -361,14 +361,14 @@ $("#open,#break,#close").click(function(){
 
 })
 
-
-$("#appNum").val(0);
 $.ajax({
 	url:"GetCurrentNumber.do", 
 	type:"GET",
 	success:function(currentNum) {
 		if(currentNum != null){
 			$("#appNum").val(currentNum);			
+		}else{
+			$("#appNum").val(0);
 		}
 	}
 });
@@ -403,6 +403,7 @@ $("#next").click(function() {
 	});	
 	appNum++;
 	$("#appNum").val(appNum);
+	location.reload();
 });
 
 			$.ajax({
@@ -416,14 +417,14 @@ $("#next").click(function() {
 							beanList[i].memberID+"</td><td>"+beanList[i].memberName+"</td><td id='appType'>"+beanList[i].appointmentType+"</td><td>"+
 							beanList[i].sickDescription+"</td><td>"+beanList[i].appointmentTime+"</td><td>"+
 							beanList[i].appointmentNumber+"</td><td id='appStatus'>"+beanList[i].appointmentStatus+
-							"</td><td><input class='genric-btn success radius  medium' id='report"+i+"' type='button' value='report'></td><td><input class='genric-btn warning radius  medium' id='unreport"+i+"' type='button' value='pass'></td></tr>"
+							"</td><td><input class='genric-btn success radius  medium' id='report"+i+"' type='button' value='報到'></td><td><input class='genric-btn warning radius  medium' id='unreport"+i+"' type='button' value='過號'></td></tr>"
 						);
 					  }
 					
 					var status = document.querySelectorAll("#appStatus");
 					for(var i=0;i<beanList.length;i++){
 						var val = status[i].innerHTML;
-						if(val == "OS3" || val == "OS4"){
+						if(val != "OS1"){
 							$("#report"+i+",#unreport"+i).hide();
 						}
 						$("#report"+i).click(function(){
@@ -456,13 +457,15 @@ $("#next").click(function() {
 					for(var i=0; i<status.length;i++){
 						var val = status[i].innerHTML;
 						if(val == "OS1"){
-							status[i].innerHTML="Appointment";
-						}else if(val=="OS3"){
-							status[i].innerHTML="Reported";
+							status[i].innerHTML="已預約";
+						}else if(val=="OS2"){
+							status[i].innerHTML="已報到";
 						}else if(val == "OS4"){
-							status[i].innerHTML="Passed";
-						}else if(val == "OS2"){
-							status[i].innerHTML="Dignosed";
+							status[i].innerHTML="已過號";
+						}else if(val == "OS3"){
+							status[i].innerHTML="已看診";
+						}else if(val == "OS5"){
+							status[i].innerHTML="已取消";
 						}
 					}
 

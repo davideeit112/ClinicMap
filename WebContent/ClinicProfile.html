@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Travel HTML-5 Template</title>
+<title>基本資料</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="site.webmanifest">
@@ -97,9 +97,9 @@
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="ClinicMain.html">Appointments</a></li>
-											<li><a href="Count.html">Analyze</a></li>
-											<li><a href="ClinicProfile.html">Profile</a></li>	
+											<li><a href="ClinicMain.html">今日預約</a></li>
+											<li><a href="Count.html">歷史預約統計</a></li>
+											<li><a href="ClinicProfile.html">診所基本資料</a></li>	
 										</ul>
 									</nav>
 								</div>
@@ -127,7 +127,7 @@
 					<div class="row">
 						<div class="col-xl-12">
 							<div class="hero-cap text-center">
-								<h2 id="headStatus">Profile</h2>
+								<h2 id="headStatus">診所基本資料</h2>
 							</div>
 						</div>
 					</div>
@@ -136,47 +136,47 @@
 		</div>
 		<!-- slider Area End-->	
 		<!-- ================================================================================================================== -->
-				<input id="editProflie" class="genric-btn success circle arrow" type="button" value="Edit Profile">
+				<input id="editProflie" class="genric-btn success circle arrow" type="button" value="修改基本資料">
 				<div class="col-lg-8 col-md-8">
 
 					<form action="UpdateClinicProfile.do" class="profile" id="clinicProfile" method="post" enctype="multipart/form-data"  accept="image/gif, image/jpeg, image/png" >
 						
 						<div class="readonly">
-						<div id="show"> <img id="imgshow" src="#" alt="Clinic photo"  width="200"></div>						
-						<h3 id="clinicPhotoHead" class="mt-30">clinicPhoto</h3> 
+						<h3 id="clinicPhotoHead" class="mt-30">診所照片</h3> 
 						<input type="file" id="clinicPhoto" name="clinicPhoto" class="single-input" readonly="readonly">
+						<div id="show"> <img id="imgshow" src="#" alt="Clinic photo"  width="200"></div>																		
 						</div>
 						<div class="readonly">
-						<div id="show1"> <img id="imgshow1" src="#" alt="Clinic License"  width="200"></div>						
-						<h3 id="clinicLicenseHead" class="mt-30">clinicLicense</h3> 
+						<h3 id="clinicLicenseHead" class="mt-30">診所執照</h3> 
 						<input type="file" id="clinicLicense" name="clinicLicense" class="single-input" readonly="readonly">
+						<div id="show1"> <img id="imgshow1" src="#" alt="Clinic License"  width="200"></div>																		
 						</div>
 						<div class="mt-10">
-							<h3 class="mb-30">clinicID</h3><input name="clinicID" id="clinicID" type="text" placeholder="clinicID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+							<h3 class="mb-30">編號</h3><input name="clinicID" id="clinicID" type="text" placeholder="clinicID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
-							<h3 class="mt-30">clinicName</h3> <input name="clinicName" id="clinicName" type="text" placeholder="clinicName" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+							<h3 class="mt-30">名稱</h3> <input name="clinicName" id="clinicName" type="text" placeholder="clinicName" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
-							<h3 class="mt-30">clinicAccount</h3><input name="clinicAccount" id="clinicAccount" type="text" placeholder="clinicAccount" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+							<h3 class="mt-30">帳號</h3><input name="clinicAccount" id="clinicAccount" type="text" placeholder="clinicAccount" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
-							<h3 class="mt-30">clinicPwd</h3><input name="clinicPwd" id="clinicPwd" type="text" placeholder="clinicPwd" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+							<h3 class="mt-30">密碼</h3><input name="clinicPwd" id="clinicPwd" type="text" placeholder="clinicPwd" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
-							<h3 class="mt-30">clinicStatus</h3><input name="clinicStatus" id="clinicStatus" type="text" placeholder="clinicStatus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+							<h3 class="mt-30">驗證狀態</h3><input name="clinicStatus" id="clinicStatus" type="text" placeholder="clinicStatus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
-							<h3 class="mt-30">clinicDescription</h3><input name="clinicDescription" id="clinicDescription" type="text" placeholder="clinicDescription" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+							<h3 class="mt-30">簡介</h3><input name="clinicDescription" id="clinicDescription" type="text" placeholder="clinicDescription" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
-							<h3 class="mt-30">clinicAddress</h3><input name="clinicAddress" id="clinicAddress" type="text" placeholder="clinicAddress" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+							<h3 class="mt-30">地址</h3><input name="clinicAddress" id="clinicAddress" type="text" placeholder="clinicAddress" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
-							<h3 class="mt-30">clinicEmail</h3><input name="clinicEmail" id="clinicEmail" type="text" placeholder="clinicEmail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+							<h3 class="mt-30">電子郵件</h3><input name="clinicEmail" id="clinicEmail" type="text" placeholder="clinicEmail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
-							<h3 class="mt-30">clinicPhone</h3><input name="clinicPhone" id="clinicPhone" type="text" placeholder="clinicPhone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+							<h3 class="mt-30">電話</h3><input name="clinicPhone" id="clinicPhone" type="text" placeholder="clinicPhone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						<div class="mt-10">
 							<h3 class="mt-30">clinicClass</h3><input name="clinicClass" id="clinicClass" type="text" placeholder="clinicClass" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
@@ -185,7 +185,7 @@
 							<h3 class="mt-30">clinicType</h3><input name="clinicType" id="clinicType" type="text" placeholder="clinicType" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
 						</div>
 						
-						<input class="genric-btn success circle arrow" id="edit" type="submit" value="edit">
+						<input class="genric-btn success circle arrow" id="edit" type="submit" value="修改">
 						
 					</form>
 					
