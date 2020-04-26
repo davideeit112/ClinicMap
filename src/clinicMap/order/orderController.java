@@ -35,14 +35,13 @@ public class orderController {
 
 	@RequestMapping(path = "/mapshow", method = RequestMethod.POST)
 	public void mapshow(HttpServletResponse response) throws IOException {
-		System.out.println("hi");
 		List<clinicBean> list = service.query();
-		System.out.println("hi2");
 		JSONArray arry = new JSONArray();
 		for (clinicBean cbean : list) {
+			System.out.println(cbean.getClinicStatus());
 			if(cbean.getClinicStatus().equals("CS2")) {
 			JSONObject jobj = new JSONObject();
-
+System.out.println("dd");
 			jobj.put("clinicaddress", cbean.getClinicAddress());
 			jobj.put("clinicId", cbean.getClinicId());
 			jobj.put("clinicPhone", cbean.getClinicphone());

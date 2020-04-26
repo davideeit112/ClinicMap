@@ -87,9 +87,7 @@ public class savedata {
 
 	public List<clinicBean> query() {
 		Session session = sessionfactory.getCurrentSession();
-		System.out.println("hi3");
 		Query<clinicBean> query = session.createQuery("from clinicBean", clinicBean.class);
-		System.out.println("h4");
 		List<clinicBean> list = query.list();
 		System.out.println(list.size());
 		return list;

@@ -26,6 +26,8 @@ public class MemberDAO {
 		Session session = sessionFactory.getCurrentSession();
 		String hqlStr = "";
 		System.out.println(account+" "+type+" "+pwd);
+
+
 		if(type.equals("member")) {
 			hqlStr = "from Memberde where memberAccount = :account and memberPwd = :pwd";
 			Query<Memberde> query = session.createQuery(hqlStr, Memberde.class);

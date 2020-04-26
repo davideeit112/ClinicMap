@@ -43,6 +43,11 @@ div {
 	margin-top: 15%;
 	margin-left: 5%;
 }
+#list{
+	position:static;
+	width:60%;
+	margin:auto
+}
 /* Optional: Makes the sample page fill the window. */
 html, body {
 	height: 100%;
@@ -151,9 +156,29 @@ html, body {
 		</div>
 		<!-- Header End -->
 	</header>
-	<div><button id="mapshow" class="genric-btn success" style="margin-left:80px ; margin-bottom: 30px" >地圖顯示</button></div>
+	<div><button id="mapshow" class="genric-btn success" style="margin-left:80px ; margin-bottom: 30px" >列表顯示</button></div>
+	<div id=list></div>
 	<div id="map"></div>
 	<div id="text"></div>
+	<script type="text/javascript">
+	var show=true
+	$("#list").hide()
+	$("#mapshow").click(function(){
+	if(show==true){
+		$("#map").hide()
+		$("#text").hide()
+		$("#list").show()
+		$("#mapshow").html("地圖顯示")
+		show=false
+	}else{
+			$("#map").show()
+			$("#text").show();
+			$("#list").hide();
+			$("#mapshow").html("列表顯示")
+			show=true
+	}
+	})
+	</script>
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLb-8YJfW7kBJxh9Pw_FJZ0oM0gGzdnuE&callback=initMap&libraries=geometry">
     </script>
@@ -187,26 +212,35 @@ html, body {
           infowindow.open(map,marker);
     	  */
       }
+	var listtxt="<table align><tr><td align='center'>診所名稱<td align='center'>診所地址<td align='center'>診所電話<td align='center'>診所預約"
 		$.ajax({
 			url:'mapshow',
 			type:'post',
+			dataType:"json",
 			success:function(data){
+				console.log(data)
+			for(var i=0 ;i<data.length;i++){
+				var name=data[i].clinicName
+				var address=data[i].clinicaddress
+				var clinicId=data[i].clinicId
+				var clinicphone=data[i].clinicPhone
+				var cliniclat=data[i].cliniclat
+				var cliniclng=data[i].cliniclng
+				var clinictype=data[i].clinicType
 				
-			jdata=JSON.parse(data)
-			for(var i=0 ;i<jdata.length;i++){
-				var name=jdata[i].clinicName
-				var address=jdata[i].clinicaddress
-				var clinicId=jdata[i].clinicId
-				var clinicphone=jdata[i].clinicPhone
-				var cliniclat=jdata[i].cliniclat
-				var cliniclng=jdata[i].cliniclng
-				var clinictype=jdata[i].clinicType
-				
+				listtxt+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center">'
+				if($.cookie('clinicid')==undefined){
+				listtxt+='<button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+				}else{
+					listtxt+="已預約"
+				}
 				geocodeAddress(name,clinicphone,clinictype,clinicId,cliniclat,cliniclng,address)
-
+				
 				
 			
 				}
+				listtxt+="</table>"
+			$("#list").html(listtxt)
 				}
 			})
 			function geocodeAddress(name,clinicphone,clinictype,clinicId,cliniclat,cliniclng,address){
