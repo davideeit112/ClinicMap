@@ -68,6 +68,26 @@
 </head>
 
 <body>
+
+<!-- Load Facebook SDK for JavaScript -->
+      <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+            version          : 'v6.0'
+          });
+        };
+
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/zh_TW/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+      
+      
 	<!-- Preloader Start -->
 	<div id="preloader-active">
 		<div
@@ -229,7 +249,7 @@
 
 		<!-- Footer Start-->
 		<div class="footer-area footer-padding footer-bg"
-			data-background="assets/img/service/clinicfooter_bg.jpg">
+			data-background="assets/img/service/clinicFooterBg.jpg">
 			<div class="container">
 				<div class="row d-flex justify-content-between">
 					<div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
@@ -238,7 +258,7 @@
 								<!-- logo -->
 								<div class="footer-logo">
 									<a href="index.html"><img
-										src="assets/img/logo/logo2_footer.png" alt=""></a>
+										src="assets/img/logo/cliniclogo2_footer.png" alt=""></a>
 								</div>
 								<div class="footer-tittle">
 									<div class="footer-pera">
