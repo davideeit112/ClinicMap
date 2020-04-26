@@ -68,7 +68,6 @@
 </head>
 
 <body>
-
 <!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
       <script>
@@ -86,8 +85,15 @@
         js.src = 'https://connect.facebook.net/zh_TW/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));</script>
-      
-      
+
+      <!-- Your customer chat code -->
+      <div class="fb-customerchat"
+        attribution=setup_tool
+        page_id="112427227114340"
+ 		 theme_color="#20cef5"
+  		logged_in_greeting="歡迎來到ClinicMap，有甚麼需要為您服務的嗎?"
+  		logged_out_greeting="歡迎來到ClinicMap，有甚麼需要為您服務的嗎?">
+      </div>
 	<!-- Preloader Start -->
 	<div id="preloader-active">
 		<div
