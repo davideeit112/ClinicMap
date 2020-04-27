@@ -71,7 +71,7 @@
 	main{
 		margin-bottom: 100px;
 	}
-	#headerTop,#footer{
+	#headerTop{
 		background-color: #C8083F;
 	}
 </style>
@@ -113,7 +113,7 @@
 			<div class="preloader-inner position-relative">
 				<div class="preloader-circle"></div>
 				<div class="preloader-img pere-text">
-					<img src="assets/img/logo/cliniclogo.png" alt="">
+					<img src="assets/img/logo/logo.png" alt="">
 				</div>
 			</div>
 		</div>
@@ -147,7 +147,7 @@
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="ClinicMain.html"><img src="assets/img/logo/cliniclogo.png"
+									<a href="ClinicMain.html"><img src="assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -234,7 +234,7 @@
 								<!-- logo -->
 								<div class="footer-logo">
 									<a href="index.html"><img
-										src="assets/img/logo/cliniclogo2_footer.png" alt=""></a>
+										src="assets/img/logo/logo2_footer.png" alt=""></a>
 								</div>
 								<div class="footer-tittle">
 									<div class="footer-pera">
@@ -399,9 +399,9 @@ $.ajax({
 	url:"GetCurrentNumber.do", 
 	type:"GET",
 	success:function(currentNum) {
-		if(currentNum != null){
-			$("#appNum").val(currentNum);			
-		}else{
+		if(currentNum != ""){
+			$("#appNum").val(currentNum);
+		}else if(currentNum == ""){
 			$("#appNum").val(0);
 		}
 	}
@@ -486,6 +486,15 @@ $("#next").click(function() {
 							});		
 							location.reload();
 						})
+					}
+					var type = document.querySelectorAll("#appType");
+					for(var i=0; i<status.length;i++){
+						var val = type[i].innerHTML;
+						if(val == "OT1"){
+							type[i].innerHTML="複診";
+						}else if(val=="OT2"){
+							type[i].innerHTML="初診";
+						}
 					}
 					
 					for(var i=0; i<status.length;i++){

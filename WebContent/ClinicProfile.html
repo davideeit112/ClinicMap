@@ -51,6 +51,9 @@
 		main{
 			margin-bottom: 200px;
 		}
+		#headerTop{
+			background-color: #C8083F;
+		}
 </style>
 </head>
 
@@ -88,7 +91,7 @@
 			<div class="preloader-inner position-relative">
 				<div class="preloader-circle"></div>
 				<div class="preloader-img pere-text">
-					<img src="assets/img/logo/cliniclogo.png" alt="">
+					<img src="assets/img/logo/logo.png" alt="">
 				</div>
 			</div>
 		</div>
@@ -98,15 +101,15 @@
 		<!-- Header Start -->
 		<div class="header-area">
 			<div class="main-header ">
-				<div class="header-top top-bg d-none d-lg-block">
+				<div id="headerTop" class="header-top top-bg d-none d-lg-block">
 					<div class="container">
 						<div class="row justify-content-between align-items-center">
 							<div class="col-lg-8">
 								<div class="header-info-left">
 									<ul>
-										<li>needhelp@gotrip.com</li>
+										<li>clinic@gmail.com</li>
 										<li>666 569 025077</li>
-										<li>broklyn street new york</li>
+										<li>find clinic for you</li>
 									</ul>
 								</div>
 							</div>
@@ -241,7 +244,7 @@
 								<!-- logo -->
 								<div class="footer-logo">
 									<a href="index.html"><img
-										src="assets/img/logo/cliniclogo2_footer.png" alt=""></a>
+										src="assets/img/logo/logo2_footer.png" alt=""></a>
 								</div>
 								<div class="footer-tittle">
 									<div class="footer-pera">
@@ -378,6 +381,16 @@ $.ajax({
 	type:"GET",
 	dataType:"json",
 	success:function(clinicBean){
+		  var status = "";
+		  if(clinicBean.clinicStatus == "CS0"){
+			  status = "未認證";
+		  }else if(clinicBean.clinicStatus == "CS1"){
+			  status = "申請中";
+		  }else if(clinicBean.clinicStatus == "CS2"){
+			  status = "已認證";
+		  }else if(clinicBean.clinicStatus == "CS3"){
+			  status = "已認證且贊助";
+		  }
 		  var name = arrayBufferToBase64(clinicBean.clinicPhoto);
 		  if(name!=undefined){
 		  $("#photoshow").show("normal");
@@ -399,7 +412,7 @@ $.ajax({
 		  $("#clinicPhone").val(clinicBean.clinicPhone);
 		  $("#clinicClass").val(clinicBean.clinicClass);
 		  $("#clinicType").val(clinicBean.clinicType);
-		  $("#clinicStatus").val(clinicBean.clinicStatus);
+		  $("#clinicStatus").val(status);
 
 		}
 	});
@@ -408,13 +421,15 @@ $("#editProflie").click(function(){
 	$("#clinicPhoto,#clinicLicense,#edit").css("display","block");
 	$(this).css("visibility","hidden");
 	$("#clinicName").attr("readonly",false).css("background-color","#FBEBEF");
-	$("#clinicAccount").attr("readonly",false).css("background-color","#FBEBEF");
 	$("#clinicPwd").attr("readonly",false).css("background-color","#FBEBEF");
 	$("#clinicDescription").attr("readonly",false).css("background-color","#FBEBEF");
 	$("#clinicPhone").attr("readonly",false).css("background-color","#FBEBEF");
 	$("#clinicAddress").attr("readonly",false).css("background-color","#FBEBEF");
-	$("#clinicEmail").attr("readonly",false).css("background-color","#FBEBEF");
-	
+	$("#clinicEmail").attr("readonly",false).css("background-color","#FBEBEF");	
+});
+
+$("#edit").click(function(){
+	window.alert()
 });
 
 </script>
