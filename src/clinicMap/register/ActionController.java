@@ -189,7 +189,7 @@ public class ActionController {
 			e.printStackTrace();
 		}
 	}
-	//*******************************************
+
 		@RequestMapping(path = "/isIdNumExist", method = RequestMethod.POST)
 		public void checkIdNumRepeat(@RequestParam("IdNum") String IdNum, HttpServletResponse response){
 			try {
@@ -199,8 +199,7 @@ public class ActionController {
 			}
 		}
 
-		
-	//*******************************************
+
 		@RequestMapping(path = "/getEmailAgainPage", method = RequestMethod.POST)
 		public void getEmailAgain(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
 
@@ -249,6 +248,39 @@ public class ActionController {
 				Clinicchuder c = (Clinicchuder)result;
 				response.getWriter().print(c.getClinicPwd());
 			}
+		}
+	}
+	
+	@RequestMapping(path = "/testPhoto", method = RequestMethod.POST)
+	public void uploadPhoto(@RequestParam("mPhoto") MultipartFile filePhoto, @RequestParam("mAccount") String mAccount, HttpServletRequest request, HttpServletResponse response) {
+		String fileName = filePhoto.getOriginalFilename();
+		String filepath = request.getSession().getServletContext().getRealPath("/") + fileName;
+	
+//		System.out.println("name:" + fileName);
+//		System.out.println("path:" + filepath);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_JPEG);
+		
+		try {
+			filePhoto.transferTo(new File(filepath));
+			
+			if (fileName != null && fileName.length() != 0) {
+				InputStream is1 = new FileInputStream(filepath);
+				byte[] b = new byte[is1.available()];
+				is1.read(b);
+				is1.close();
+
+				Memberde m = new Memberde();
+				m.setMemberAccount(mAccount);
+				m.setMemberPhoto(b);
+				mDao.photoupload(m);
+//				System.out.println("photo path:" + filepath);
+				
+				response.getWriter().print("");
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 	

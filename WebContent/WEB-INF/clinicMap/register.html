@@ -20,6 +20,13 @@
         .need2edit {
             background-color: yellow;
         }
+
+        #pDiv {
+            width:100px;
+            height:100px;
+            background-color:blue;
+            display: none;
+        }
     </style>
 </head>
 
@@ -52,13 +59,19 @@
                         type:"post",
                         data:$("form").serializeArray(),
                         success:function(data){
-                            alert("註冊成功，已送驗證信到您的信箱");
-                            window.location.href = "loginMember.html";
                         }
                     });
+                    savePhoto();
+                    alert("註冊成功，已送驗證信到您的信箱");
+                    window.location.href = "loginMember.html";
                 } else {
                     alert("資料有誤");
                     
+                    // if(!checkPhoto){
+                    //     $("#memberPhoto").addClass("need2edit");
+                    //     ($("#memberPhoto").val()=="")?$("#photoErrMsg").html("此欄位不能空白"):$("#photoErrMsg").html("需要修改"); 
+                    // }
+
                     if(!checkAccount){
                         $("#memberAccount").addClass("need2edit");
                         ($("#memberAccount").val()=="")?$("#accountErrMsg").html("此欄位不能空白"):$("#accountErrMsg").html("需要修改"); 
@@ -124,9 +137,9 @@
                             "clinicEmail":$("#email").val()
                         },
                         success:function(data){
-                            alert("已完成註冊，請等候email通知");
                         }
                     });
+                    alert("已完成註冊，請等候email通知");
                 }else {
                     alert("資料有誤");
                     if(!checkAccount){
@@ -140,6 +153,23 @@
                 }
             }
         });
+
+        function savePhoto() {
+            var selectFile = $("#memberPhoto").get(0).files[0];
+            let formdata = new FormData();
+            formdata.append("mPhoto", selectFile);
+            formdata.append("mAccount", $("#memberAccount").val());
+//             console.log("mAcc:" + $("#memberAccount").val());
+            $.ajax({
+                url: "testPhoto",
+                type: "post",
+                processData: false,
+                data: formdata,
+                contentType: false,
+                success: function () {
+                }
+            });
+        }
 
         function TestDemo1() {
             $("#email").val("johnnyproject.test2@gmail.com");
@@ -171,7 +201,9 @@
         //-------------------------------------
         //初始化的註冊表格，預設是 "會員"
         // var txt = "<tr><td>會員照片：</td><td><input type='text' name='memberPhoto' id='memberPhoto'></td><td class='errMsg' id='photoErrMsg'></td></tr>"
-        var txt = "<tr><td>會員帳號：</td><td><input type='text' name='memberAccount' id='memberAccount'></td><td class='errMsg' id='accountErrMsg'></td></tr>"
+        var txt = "<tr><td></td><td><div id='pDiv'><img id='photo'/></div></td>s</tr>"
+            + "<tr><td>會員照片：</td><td><input type='file' name='memberPhoto' id='memberPhoto'/></td><td class='errMsg' id='photoErrMsg'></td></tr>"
+            + "<tr><td>會員帳號：</td><td><input type='text' name='memberAccount' id='memberAccount'></td><td class='errMsg' id='accountErrMsg'></td></tr>"
             + "<tr><td>會員姓名：</td><td><input type='text' name='memberName' id='memberName'></td><td class='errMsg' id='nameErrMsg'></td></tr>"
             + "<tr><td>會員密碼：</td><td><input type='password' name='memberPwd' id='memberPwd'></td><td class='errMsg' id='pwdErrMsg'></td></tr>"
             //密碼格式的提示
@@ -243,6 +275,21 @@
         });
 
         function checkFormat() {
+            //會員照片
+            $("#memberPhoto").change(function (e) {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    
+                    reader.onload = function (e) {
+                        $("#photo").attr("src", e.target.result).width(100).height(100);
+                        $("#pDiv").show();
+                        // console.log("src:" + e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                    // checkPhoto = true; 
+                }
+            });
+            
             //會員帳號
             $("#memberAccount").blur(function () {
                 let patternParam = '[a-zA-Z]+[a-zA-Z0-9]*'; //只能英文的驗證，不能"空白"、"數字"

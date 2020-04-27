@@ -109,13 +109,13 @@ public class MemberDAO {
 //	}
 	
 	//目前先假定是 只有 Member的情況
-	public String getCodeWithAccount(String account){
-		Session session = sessionFactory.getCurrentSession();
-		String hqlStr = "from Memberde where memberAccount = :account";
-		Query<Memberde> query = session.createQuery(hqlStr, Memberde.class);
-		query.setParameter("account", account);
-		return query.uniqueResult().getMemberVerifiedCode();
-	}
+//	public String getCodeWithAccount(String account){
+//		Session session = sessionFactory.getCurrentSession();
+//		String hqlStr = "from Memberde where memberAccount = :account";
+//		Query<Memberde> query = session.createQuery(hqlStr, Memberde.class);
+//		query.setParameter("account", account);
+//		return query.uniqueResult().getMemberVerifiedCode();
+//	}
 
 	public void updateDeadline(String account, long newDeadline){
 		Session session = sessionFactory.getCurrentSession();
@@ -193,7 +193,7 @@ public class MemberDAO {
 	}
 	public boolean checkIdNumExistDao(String IdNum){
 		Session session = sessionFactory.getCurrentSession();
-		String hqlStr = "from Member where memberIdNumber = :IdNum";
+		String hqlStr = "from Memberde where memberIdNumber = :IdNum";
 		Query query = session.createQuery(hqlStr);
 		query.setParameter("IdNum", IdNum);
 		
@@ -201,5 +201,14 @@ public class MemberDAO {
 			return true;
 		}
 		return false;
+	}
+	
+	public void photoupload(Memberde m) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlStr = "update Memberde set memberPhoto = :photo where memberAccount = :account";
+		Query query = session.createQuery(hqlStr);
+		query.setParameter("photo", m.getMemberPhoto());
+		query.setParameter("account", m.getMemberAccount());
+		query.executeUpdate();
 	}
 }
