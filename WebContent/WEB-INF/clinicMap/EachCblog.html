@@ -137,7 +137,7 @@
               <div class="row">
                   <div class="col-xl-12">
                       <div class="hero-cap text-center">
-                          <h2>¯d¨¥°Ï </h2>
+                          <h2>ï¿½dï¿½ï¿½ï¿½ï¿½ </h2>
                       </div>
                   </div>
               </div>
@@ -166,7 +166,7 @@
                   </div>
                </div>
                <div class="comments-area">
-               <h2 style="padding-bottom: 20px">¯d¨¥°Ï</h2>
+               <h2 style="padding-bottom: 20px">ï¿½dï¿½ï¿½ï¿½ï¿½</h2>
                   <div class="comment-list">
                      
                   	<div id="mes">
@@ -191,7 +191,7 @@
                            </div>
                         </div>
                         <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                           type="submit" data-toggle="modal" data-target="#myModal">§Ö³t¬d¸ß</button>
+                           type="submit" data-toggle="modal" data-target="#myModal">ï¿½Ö³tï¿½dï¿½ï¿½</button>
                      </form>
                      
                      <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -212,8 +212,8 @@
 						<input type="hidden" id="cid">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 20px">Ãö³¬</button>
-						<button id="gotoreserve" type ="button" class="btn btn-default" data-dismiss="modal" onclick="clickgo()">¬d¬Ý</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 20px">ï¿½ï¿½ï¿½ï¿½</button>
+						<button id="gotoreserve" type ="button" class="btn btn-default" data-dismiss="modal" onclick="clickgo()">ï¿½dï¿½ï¿½</button>
 					</div>
 			</div>
 		</div>
@@ -222,23 +222,23 @@
                      
                   </aside>
                   <aside class="single_sidebar_widget post_category_widget">
-                     <h4 class="widget_title">¤ÀÃþ</h4>
+                     <h4 class="widget_title">ï¿½ï¿½ï¿½ï¿½</h4>
                      <ul class="list cat-list">
                         <li>
                            <a href="/clinicMap/allboard.do" class="d-flex">
-                              <p>¯d¨¥ª©</p>
+                              <p>ï¿½dï¿½ï¿½ï¿½ï¿½</p>
                            </a>
                         </li>
                         <li>
                            <a href="/clinicMap/xxx" class="d-flex">
-                              <p>±MÄæ</p>
+                              <p>ï¿½Mï¿½ï¿½</p>
                            </a>
                         </li>
 
                      </ul>
                   </aside>
                   <aside class="single_sidebar_widget popular_post_widget">
-                     <h3 class="widget_title">³Ì·sµû½×</h3>
+                     <h3 class="widget_title">ï¿½Ì·sï¿½ï¿½ï¿½ï¿½</h3>
                      
                      <div id="topmsg">
                      
@@ -411,11 +411,11 @@
     			value += data[i].Evaluation;
     			$("#ph").html(data[i].clinicPhoto);
 				$("#name").html(data[i].clinicName);
-				$("#descript").html(data[i].descript);
+				$("#descript").html(data[i].ClinicDescription);
 				$(".feature-img").html("<img class='img-fluid' src='images/clinic" + data[i].clinicId + ".jpg' id='ph'>");
 			}
 
-			$("#count").append(data.length+" «h");
+			$("#count").append(data.length+" ï¿½h");
 			var avg = 0;
 			avg = value/data.length;
 			$("#avg").append(avg.toFixed(1));
@@ -453,19 +453,19 @@ $.ajax({
 		for (var i = 0; i < data.length; i++) {
 			if (clinicName == data[i].clinicName || clinicName == (" "+data[i].clinicName)){
 				$("#clname").html(data[i].clinicName);
-				$("#clinicPh").html("¹q¸Ü: 02- "+data[i].clinicPhone);
-				$("#clavg").html("µû¤À: "+data[i].ave+" /5");
-				$("#total").html("¯d¨¥: "+data[i].total+" «h");
+				$("#clinicPh").html("ï¿½qï¿½ï¿½: 02- "+data[i].clinicPhone);
+				$("#clavg").html("ï¿½ï¿½ï¿½ï¿½: "+data[i].ave+" /5");
+				$("#total").html("ï¿½dï¿½ï¿½: "+data[i].total+" ï¿½h");
 				$("#cid").val(data[i].clinicId);
 				$("#gotoreserve").show();
 				//console.log(data);
 				//console.log(data[i].clinicName);
 				break;
 			} else {
-				$("#clname").html("µL¦¹¶E©Òµû»ù");
-				$("#clinicPh").html("¹q¸Ü: ");
-				$("#clavg").html("µû¤À: ");
-				$("#total").html("¯d¨¥: ");
+				$("#clname").html("ï¿½Lï¿½ï¿½ï¿½Eï¿½Òµï¿½ï¿½ï¿½");
+				$("#clinicPh").html("ï¿½qï¿½ï¿½: ");
+				$("#clavg").html("ï¿½ï¿½ï¿½ï¿½: ");
+				$("#total").html("ï¿½dï¿½ï¿½: ");
 				$("#gotoreserve").hide();
 			}
 		}

@@ -133,7 +133,7 @@ public class EMessageController {
 					JSONObject obj1 = new JSONObject();
 					if (ebean.getMemberID() == mbean.getMemberID() && ebean.getClinicID() == cbean.getClinicId()) {
 						obj1.put("clinicId", cbean.getClinicId());
-						obj1.put("descript", cbean.getClinicDescription());
+						obj1.put("ClinicDescription", cbean.getClinicDescription());
 						obj1.put("clinicName", cbean.getClinicName());
 						obj1.put("clinicPhone", cbean.getClinicphone());
 						obj1.put("messageID", ebean.getMessageID());
