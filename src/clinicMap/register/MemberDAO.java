@@ -203,12 +203,12 @@ public class MemberDAO {
 		return false;
 	}
 	
-	public void photoupload(Memberde m) {
+	public void photoupload(String account, byte[] photo) {
 		Session session = sessionFactory.getCurrentSession();
 		String hqlStr = "update Memberde set memberPhoto = :photo where memberAccount = :account";
 		Query query = session.createQuery(hqlStr);
-		query.setParameter("photo", m.getMemberPhoto());
-		query.setParameter("account", m.getMemberAccount());
+		query.setParameter("photo", photo);
+		query.setParameter("account", account);
 		query.executeUpdate();
 	}
 }
