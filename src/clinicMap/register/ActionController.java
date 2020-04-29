@@ -1,10 +1,12 @@
-package clinicMap.register;
+﻿package clinicMap.register;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
