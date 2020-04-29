@@ -15,11 +15,12 @@
 		font-family: 'Noto Sans TC', sans-serif;
 	}
 		.login-wrapper{
-			margin-left:40%;
-			margin-top:15%;
+            /* margin-left: 40%;
+			margin-top:15%; */
+            position: absolute; left:40%; top: 20%;
 			border-radius:20px;
 			width:400px;
-			height:300px;
+			height:330px;
 			background-color: rgba(255,255,255,0.2);
 			box-shadow: 0 0 10px black;
 		}
@@ -28,17 +29,31 @@
 			margin-left: 30px;
 		}
 		.functions{
-			text-align: center;
-			margin-left: 80px;
 			margin-top: 15px;
-			
 		}
+        .checkbox{
+            margin-left: 150px; 
+		}
+        .login-btn{
+            margin-left: 125px; 
+        }
+        .links{
+            text-align: center;
+        }
+        a{
+        color:white;
+        }
+        h3{
+        margin-left: 130px;
+        color: purple;
+      }
     </style>
 </head>
 
 <body>
     <div class="login-wrapper" id="login-wrapper">
         <form class="login">
+            <h3>登入</h3>
             <table>
                 <tr>
                     <td>登入身份:</td>
@@ -71,21 +86,31 @@
                 <td></td>
                 <td colspan="2">
                 	<div class="checkbox">
-                    <label><input type="checkbox" name="rm" id="rm">記住密碼</label>
+                    <label><input type="checkbox" name="show_password" id="show_password">顯示密碼</label>
+                    <label><input type="checkbox" name="rm" id="rm">記住我的密碼</label>
                     </div>
+                    <div class="login-btn">
                     <button class="btn btn-primary" id="login">登入</button>
                     <button class="btn btn-warning" id="clear">清除</button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <!--還有東西沒做-->
-                    <a href="register.html">尚未註冊</a>
-                    <a href="forgetPassword.html">忘記密碼</a>
-                    <a href="getVerifiedEmailAgain.html">重寄驗證信</a>
+                    </div>
                 </td>
             </tr>
         </table>
+        </div>
+        <div class="links">
+            <tr >
+                <td colspan="5">
+                    <!--還有東西沒做-->
+                    </br>
+                    <a href="register.html">尚未註冊?</a>
+                    <a>&nbsp;</a>
+                    <a href="forgetPassword.html">忘記密碼?</a>
+                    <a>&nbsp;</a>
+                    <a href="getVerifiedEmailAgain.html">重發驗證信?</a>
+                    <a>&nbsp;&nbsp;</a>
+                    <a href="index.html">回首頁</a>
+                </td>
+            </tr>
         </div>
     </div>
 
@@ -111,7 +136,6 @@
         });
 
         var rm = true;
-
         if ($.cookie("account") == null && $.cookie("rm") == null) {
             console.log("no a");
             rm = false;
@@ -140,7 +164,24 @@
             }
         });
 
-
+	// 先取得 #password1 及產生一個文字輸入框
+	var $password = $('#pwd'), 
+		$passwordInput = $('<input type="text" name="' + $password.attr('pwd') + '" class="' + $password.attr('form-control') + '" />');
+ 
+	// 當勾選顯示密碼框時
+	$('#show_password').click(function(){
+		// 如果是勾選則...
+		if(this.checked){
+			// 用 $passwordInput 來取代 $password
+			// 並把 $passwordInput 的值設為 $password 的值
+			$password.replaceWith($passwordInput.val($password.val()));
+		}else{
+			// 用 $password 來取代 $passwordInput
+			// 並把 $password 的值設為 $passwordInput 的值
+			$passwordInput.replaceWith($password.val($passwordInput.val()));
+		}
+	});
+        
         //login button
         $("#login").click(function () {
             if ($("#account").val() == "" || $("#pwd").val() == "") {

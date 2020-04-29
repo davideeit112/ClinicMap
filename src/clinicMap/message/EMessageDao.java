@@ -25,14 +25,12 @@ public class EMessageDao {
 		try {
 			Session session = sessionfactory.getCurrentSession();
 			EMessage msg = new EMessage();
-			System.out.println("11");
 			msg.setClinicID(emessage.getClinicID());
 			msg.setAppointmentID(emessage.getAppointmentID());
 			msg.setMemberID(emessage.getMemberID());
 			msg.setEvaluation(emessage.getEvaluation());
 			msg.setMessage(emessage.getMessage());
 			msg.setEvaluationTime(emessage.getEvaluationTime());
-			System.out.println("22");
 			session.save(emessage);
 			return true;
 		} catch (Exception e) {
@@ -57,13 +55,20 @@ public class EMessageDao {
 			return false;
 		}
 	}
-	public int query3Clinic() {
-	String sqlstr="select clinicID from EMessage group by Clinicid order by EVALUATIONTIME desc";
 	
-	Session session = sessionfactory.getCurrentSession();
-	Query<EMessage> query = session.createQuery(sqlstr,EMessage.class);
-	query.list();
-	return query.list().size();
+	public boolean inputreplymsg(ReplyBean rbean) {
+		try {
+			Session session = sessionfactory.getCurrentSession();
+			ReplyBean rmsg = new ReplyBean();
+			rmsg.setClinicID(rbean.getClinicID());
+			rmsg.setMessageID(rbean.getMessageID());
+			rmsg.setReplyMessage(rbean.getReplyMessage());
+			session.save(rbean);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
 	}
 
 	public List<clinicBean> queryclinic() {
@@ -79,37 +84,61 @@ public class EMessageDao {
 		List<memberBean> list = query.list();
 		return list;
 	}
-
-	public List<EMessage> querymsg1() {
+	
+	public List<EMessage> querymsg() {
 		Session session = sessionfactory.getCurrentSession();
-		System.out.println("2.");
-		Query<EMessage> query = session.createQuery("from EMessage where clinicID=1393 order by evaluationTime desc", EMessage.class);
-		System.out.println("2..");
+		Query<EMessage> query = session.createQuery("from EMessage order by messageID desc", EMessage.class);
 		List<EMessage> list = query.list();
-		System.out.println(list);
-		return list;
-	}
-
-	public List<EMessage> querymsg2() {
-		Session session = sessionfactory.getCurrentSession();
-		Query<EMessage> query = session.createQuery("from EMessage where clinicID=1502 order by evaluationTime desc", EMessage.class);
-		List<EMessage> list = query.list();
-		System.out.println(list);
+//		System.out.println(list);
 		return list;
 	}
 	
-	public List<EMessage> querymsg3() {
+	public List<EMessage> queryitem() {
 		Session session = sessionfactory.getCurrentSession();
-		Query<EMessage> query = session.createQuery("from EMessage where clinicID=1036 order by evaluationTime desc", EMessage.class);
+		Query<EMessage> query = session.createQuery("from EMessage order by clinicID", EMessage.class);
 		List<EMessage> list = query.list();
-		System.out.println(list);
+//		System.out.println(list);
 		return list;
-	}	
+	}
+
+	public List<ResultBean> total() {
+		Session session = sessionfactory.getCurrentSession();
+		Query<ResultBean> query = session.createQuery("from ResultBean", ResultBean.class);
+		List<ResultBean> list = query.list();
+//		System.out.println(list);
+		return list;
+	}
 	
-//	public List<ReplyBean> queryreply(){
+//	public List<EMessage> querymsg1() {
 //		Session session = sessionfactory.getCurrentSession();
-//		Query<ReplyBean> query = session.createQuery("from ReplyBean", ReplyBean.class);
-//		List<ReplyBean> list = query.list();
+//		System.out.println("2.");
+//		Query<EMessage> query = session.createQuery("from EMessage where clinicID='1000' order by evaluationTime desc", EMessage.class);
+//		System.out.println("2..");
+//		List<EMessage> list = query.list();
+//		System.out.println(list);
 //		return list;
 //	}
+//
+//	public List<EMessage> querymsg2() {
+//		Session session = sessionfactory.getCurrentSession();
+//		Query<EMessage> query = session.createQuery("from EMessage where clinicID='1001' order by evaluationTime desc", EMessage.class);
+//		List<EMessage> list = query.list();
+//		System.out.println(list);
+//		return list;
+//	}
+//	
+//	public List<EMessage> querymsg3() {
+//		Session session = sessionfactory.getCurrentSession();
+//		Query<EMessage> query = session.createQuery("from EMessage where clinicID='1002' order by evaluationTime desc", EMessage.class);
+//		List<EMessage> list = query.list();
+//		System.out.println(list);
+//		return list;
+//	}	
+	
+	public List<ReplyBean> queryreply(){
+		Session session = sessionfactory.getCurrentSession();
+		Query<ReplyBean> query = session.createQuery("from ReplyBean", ReplyBean.class);
+		List<ReplyBean> list = query.list();
+		return list;
+	}
 }

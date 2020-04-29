@@ -1,119 +1,181 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Get Verified Email Again</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
     <style>
-        .errMsg {
-            color: red;
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap");
+      * {
+        font-family: "Noto Sans TC", sans-serif;
+      }
+      .vermail-wrapper {
+        position: absolute; left:40%; top: 20%;
+        border-radius: 20px;
+        width: 400px;
+        height: 330px;
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 10px black;
+      }
+      .vermail {
+        padding-top: 20px;
+        margin-left: 30px;
+      }
+      .functions {
+        text-align: center;
+        margin-left: 80px;
+        margin-top: 15px;
+      }
+      .description{
+        text-align: center;
+      }
+      .links{
+            text-align: center;
         }
+      .login-btn{
+            margin-left: 125px; 
+      }
+      a{
+        color:white;
+        }
+      h3{
+        text-align: center;
+        color: purple;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <h2 style="color:purple">沒收到驗證信 或 驗證信過期 ?</h2>
-    <p>請在下方輸入您的帳號與email信箱，我們將寄送給您一個新的驗證信<br />收到後，請盡快進行驗證</p>
+  <body>
+    <div class="vermail-wrapper" id="vermail-wrapper">
+    </br>  
+    <h3>沒收到驗證信/驗證信過期?</h3>
+    <p class="description">
+        請輸入申請會員時填寫的帳號與email信箱<br />
+        在收到驗證信後30分鐘內進行驗證<br />
+    </p>
 
-    
-        <table>
-            <form>
-            <tr>
-                <td>請輸入帳號：</td>
-                <td><input type="text" name="getAgain_account" id="getAgain_account"/></td>
-                <td id="accountMsg" class="errMsg"></td>
-            </tr>
-            <tr>
-                <td>請輸入email:</td>
-                <td><input type="email" name="getAgain_email" id="getAgain_email"/></td>
-                <td id="emailMsg" class="errMsg"></td>
-            </tr>
-        </form>
-            <tr>
-                <td></td>
-                <td colspan="2">
-                    <button id="sendVEmailAgain">寄送驗證信</button>
-                    <!-- <button id="invalid">驗證信過期</button> -->
-                </td>
-            </tr>
-        </table>
-   
-    <a href="loginMember.html">回登入頁(測試用)</a>
+    <table class="vermail">
+      <form>
+        <tr>
+          <td>請輸入帳號：</td>
+          <td>
+            <input type="text" name="getAgain_account" id="getAgain_account" />
+          </td>
+          <td id="accountMsg" class="errMsg"></td>
+        </tr>
+        <tr>
+          <td>請輸入email:</td>
+          <td>
+            <input type="email" name="getAgain_email" id="getAgain_email" />
+          </td>
+          <td id="emailMsg" class="errMsg"></td>
+        </tr>
+      </form>
+      <tr>
+        <td></td>
+        <td colspan="2">
+        </br>
+        <div class="login-btn">
+          <button id="sendVEmailAgain" class="btn btn-primary">重發驗證信</button>
+          <!-- <button id="invalid">驗證信過期</button> -->
+        </div>
+        </td>
+      </tr>
+
+      <tr class="links">
+        <td colspan="5">
+            <!--還有東西沒做-->
+          </br>
+            <a href="loginMember.html">重新登入</a>
+            <a>&emsp;</a>
+            <a href="index.html">回首頁</a>
+        </td>
+    </tr>
+    </table>
+    </div>
 
     <script>
-        var checkAccount = false, checkEmail = false;
+      var loginLevel = $("input[name=loginLevel]:checked").val();
+      $("body").css("background-image","url(assets/img/service/memberLoginC.jpg)");
+      
+      var checkAccount = false,
+        checkEmail = false;
 
-        $("#getAgain_account").blur(function () {
-            let account = $("#getAgain_account").val();
-            if (account == "") {
-                $("#accountMsg").html("");
-            } else {
-                $.ajax({
-                    url: "isAccountExist",
-                    type: "post",
-                    data: {
-                        "loginLevel":"member", 
-                        "account": account },
-                    success: function (exist) {
-                        checkAccount = eval(exist);
-                        $("#accountMsg").html(checkAccount ? "<img src='correct.png'>" : "帳號不存在");
-                    }
-                });
-            }
-        });
+      $("#getAgain_account").blur(function () {
+        let account = $("#getAgain_account").val();
+        if (account == "") {
+          $("#accountMsg").html("");
+        } else {
+          $.ajax({
+            url: "isAccountExist",
+            type: "post",
+            data: {
+              loginLevel: "member",
+              account: account,
+            },
+            success: function (exist) {
+              checkAccount = eval(exist);
+              $("#accountMsg").html(
+                checkAccount ? "<img src='correct.png'>" : "帳號不存在"
+              );
+            },
+          });
+        }
+      });
 
-        $("#getAgain_email").blur(function () {
-            let email = $("#getAgain_email").val();
-            if (email == "") {
-                $("#emailMsg").html("");
-            } else {
-                $.ajax({
-                    url: "isEmailExist",
-                    type: "post",
-                    data: { "email": email },
-                    success: function (exist) {
-                        checkEmail = eval(exist);
-                        $("#emailMsg").html(checkEmail ? "<img src='correct.png'>" : "email不存在");
-                    }
-                });
-            }
-        });
+      $("#getAgain_email").blur(function () {
+        let email = $("#getAgain_email").val();
+        if (email == "") {
+          $("#emailMsg").html("");
+        } else {
+          $.ajax({
+            url: "isEmailExist",
+            type: "post",
+            data: { email: email },
+            success: function (exist) {
+              checkEmail = eval(exist);
+              $("#emailMsg").html(
+                checkEmail ? "<img src='correct.png'>" : "email不存在"
+              );
+            },
+          });
+        }
+      });
 
-        $("#sendVEmailAgain").click(function () {
-            let account = $("#getAgain_account").val();
-            let email = $("#getAgain_email").val();
+      $("#sendVEmailAgain").click(function () {
+        let account = $("#getAgain_account").val();
+        let email = $("#getAgain_email").val();
 
-            if (account == "" || email == "") {
-                //做些錯誤提示
-                alert("帳號和信箱都要填喔");
-            } else {
-                //都有填
-                //檢查，然後寄送
-                if (checkAccount && checkEmail) {
-                    $.ajax({
-                        url: "getEmailAgainPage",
-                        type: "post",
-                        data: {
-                            "account": account,
-                            "email": email
-                        }
-                    });
-                    //如果改成這樣，是不是就不用controller回傳的問題
-                    //只是，如果controller出現問題，底下的動作還是會做
-                    checkAccount = false;
-                    checkEmail = false;
-                    alert("已經寄送新的驗證信");
-                    window.location.href = "loginMember.html";
-                } else {
-                    alert("資料有誤，請檢查");
-                }
-            }
-        });
+        if (account == "" || email == "") {
+          //做些錯誤提示
+          alert("帳號和信箱都要填喔");
+        } else {
+          //都有填
+          //檢查，然後寄送
+          if (checkAccount && checkEmail) {
+            $.ajax({
+              url: "getEmailAgainPage",
+              type: "post",
+              data: {
+                account: account,
+                email: email,
+              },
+            });
+            //如果改成這樣，是不是就不用controller回傳的問題
+            //只是，如果controller出現問題，底下的動作還是會做
+            checkAccount = false;
+            checkEmail = false;
+            alert("已經寄送新的驗證信");
+            window.location.href = "loginMember.html";
+          } else {
+            alert("資料有誤，請檢查");
+          }
+        }
+      });
     </script>
-</body>
-
+  </body>
 </html>

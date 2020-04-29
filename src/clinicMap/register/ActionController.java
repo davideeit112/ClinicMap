@@ -133,6 +133,7 @@ public class ActionController {
 			e.printStackTrace();
 		}
 	}
+	
 	@RequestMapping(path = "/verifiedEmail", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String emailVerified(@RequestParam("code") String code) {
 		
@@ -155,6 +156,7 @@ public class ActionController {
 		}
 		return "verified out of time, please get verified emai again";
 	}
+	
 	@RequestMapping(path = "forgetPwdPage", method = RequestMethod.POST)
 	public void forgetPwd(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
 		//產生tempCode 的初始資料
@@ -195,34 +197,34 @@ public class ActionController {
 		}
 	}
 
-		@RequestMapping(path = "/isIdNumExist", method = RequestMethod.POST)
-		public void checkIdNumRepeat(@RequestParam("IdNum") String IdNum, HttpServletResponse response){
-			try {
-				response.getWriter().print(mDao.checkIdNumExistDao(IdNum));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	@RequestMapping(path = "/isIdNumExist", method = RequestMethod.POST)
+	public void checkIdNumRepeat(@RequestParam("IdNum") String IdNum, HttpServletResponse response){
+		try {
+			response.getWriter().print(mDao.checkIdNumExistDao(IdNum));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	}
 
 
-		@RequestMapping(path = "/getEmailAgainPage", method = RequestMethod.POST)
-		public void getEmailAgain(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
+	@RequestMapping(path = "/getEmailAgainPage", method = RequestMethod.POST)
+	public void getEmailAgain(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
 
-			String codeAgain = uuidCode();
-			mDao.setActiveStatus(codeAgain, account);
+		String codeAgain = uuidCode();
+		mDao.setActiveStatus(codeAgain, account);
 
-			//更改 deadline的時間
-			mDao.updateDeadline(account, new Date().getTime());
+		//更改 deadline的時間
+		mDao.updateDeadline(account, new Date().getTime());
 			
-			//重新寄出驗證信的狀況
-			sendEmail("verified", email, codeAgain);
+		//重新寄出驗證信的狀況
+		sendEmail("verified", email, codeAgain);
 			
-			try {
-				response.getWriter().print("");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			response.getWriter().print("");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	}
 	
 	@RequestMapping(path = "/queryAllMembers", method = RequestMethod.POST)
 	public void queryAllM(HttpServletResponse response) {
@@ -256,34 +258,35 @@ public class ActionController {
 		}
 	}
 	
-	@RequestMapping(path = "/testPhoto", method = RequestMethod.POST)
-	public void uploadPhoto(@RequestParam("mPhoto") MultipartFile filePhoto, @RequestParam("mAccount") String mAccount, HttpServletRequest request, HttpServletResponse response) {
-		String fileName = filePhoto.getOriginalFilename();
-		String filepath = request.getSession().getServletContext().getRealPath("/") + fileName;
-	
-//		System.out.println("name:" + fileName);
-//		System.out.println("path:" + filepath);
-		
-		
+	//註冊時，沒有上傳圖片
+	//圖片在 WebContent/WEB-INF/clinicMap/images/memberDefaultPhoto.jpg
+	@RequestMapping(path = "/testPhotoNone", method = RequestMethod.POST)
+	public void uploadPhotoNone(@RequestParam("mAccount") String mAccount, HttpServletResponse response) {
 		try {
-			filePhoto.transferTo(new File(filepath));
+			System.out.println("photo empty");
+			InputStream is1 = new FileInputStream("../../../WebContent/WEB-INF/clinicMap/images/memberDefaultPhoto.jpg");
+			byte[] photo = new byte[is1.available()];
+			is1.read(photo);
+			is1.close();
 			
-			if (fileName != null && fileName.length() != 0) {
-				InputStream is1 = new FileInputStream(filepath);
-				byte[] b = new byte[is1.available()];
-				is1.read(b);
-				is1.close();
-
-				Memberde m = new Memberde();
-				m.setMemberAccount(mAccount);
-				m.setMemberPhoto(b);
-				mDao.photoupload(m);
-//				System.out.println("photo path:" + filepath);
-				
-				response.getWriter().print("");
-			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			mDao.photoupload(mAccount, photo);
+			
+			response.getWriter().print("");
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//註冊時，有上傳圖片
+	@RequestMapping(path = "/testPhoto", method = RequestMethod.POST)
+	public void uploadPhoto(@RequestParam("mPhoto") MultipartFile filePhoto, @RequestParam("mAccount") String mAccount, HttpServletResponse response) {
+		try {
+			byte[] photo = filePhoto.getBytes();
+			mDao.photoupload(mAccount, photo);
+			
+			response.getWriter().print("");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	

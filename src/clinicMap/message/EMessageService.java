@@ -27,6 +27,10 @@ public class EMessageService {
 		return emsgdao.deletemessage(messageID);
 	}
 	
+	public boolean inputreplymsg(ReplyBean rbean) {
+		return emsgdao.inputreplymsg(rbean);
+	}
+	
 	public List<memberBean> querymember() {
 		return emsgdao.querymember();
 	}
@@ -35,21 +39,35 @@ public class EMessageService {
 		return emsgdao.queryclinic();
 	}
 	
-	public List<EMessage> querymsg1() {
-		return emsgdao.querymsg1();
-	}
-	
-	public List<EMessage> querymsg2() {
-		return emsgdao.querymsg2();
-	}
-	
-	public List<EMessage> querymsg3() {
-		return emsgdao.querymsg3();
-	}
-	public int query3Clinic() {
-		return emsgdao.query3Clinic();
-	}
-//	public List<ReplyBean> queryreply(){
-//		return emsgdao.queryreply();
+//	public List<EMessage> queryallclinic(int clinicID) {
+//		return emsgdao.queryallclinic(clinicID);
 //	}
+	
+	public List<EMessage> queryitem() {
+		return emsgdao.queryitem();
+	}
+	
+	public List<ResultBean> total() {
+		return emsgdao.total();
+	}
+	
+	public List<EMessage> querymsg() {
+		return emsgdao.querymsg();
+	}
+	
+//	public List<EMessage> querymsg1() {
+//		return emsgdao.querymsg1();
+//	}
+//	
+//	public List<EMessage> querymsg2() {
+//		return emsgdao.querymsg2();
+//	}
+//	
+//	public List<EMessage> querymsg3() {
+//		return emsgdao.querymsg3();
+//	}
+	
+	public List<ReplyBean> queryreply(){
+		return emsgdao.queryreply();
+	}
 }

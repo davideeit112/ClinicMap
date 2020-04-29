@@ -14,12 +14,20 @@ import org.springframework.stereotype.Component;
 @Table(name = "Reply_Message")
 public class ReplyBean {
 	private int messageID;
-	private int memberID;
+	private int clinicID;
 	private String replyMessage;
+	
+	public ReplyBean(int messageID, int clinicID, String replyMessage) {
+		this.messageID = messageID;
+		this.clinicID = clinicID;
+		this.replyMessage = replyMessage;
+	}
 
+	public ReplyBean() {
+	}
+	
 	@Id
 	@Column(name="messageID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getMessageID() {
 		return messageID;
 	}
@@ -28,13 +36,13 @@ public class ReplyBean {
 		this.messageID = messageID;
 	}
 
-	@Column(name="memberID")
-	public int getMemberID() {
-		return memberID;
+	@Column(name="clinicID")
+	public int getClinicID() {
+		return clinicID;
 	}
 
-	public void setMemberID(int memberID) {
-		this.memberID = memberID;
+	public void setClinicID(int clinicID) {
+		this.clinicID = clinicID;
 	}
 
 	@Column(name="replyMessage")
