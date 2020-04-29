@@ -46,7 +46,7 @@ div {
 
 #list {
 	position: static;
-	width: 50%;
+	width: 70%;
 	margin: auto
 }
 /* Optional: Makes the sample page fill the window. */
@@ -72,16 +72,13 @@ html, body {
 
 #mean {
 	display: inline-block;
-	
-}
-#listchose,#listchose1{
-display: inline-block;
-margin-top: 0px;
-margin-left: 10px;
-
 }
 
-
+#listchose, #listchose1 {
+	display: inline-block;
+	margin-top: 0px;
+	margin-left: 10px;
+}
 </style>
 <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
 </head>
@@ -181,21 +178,35 @@ margin-left: 10px;
 	<div class="single-element-widget mt-30" id="listchose">
 		<div class="default-select" id="default-select1">
 			<select id="listvalue" onchange="change()">
-				<option value="5">每頁5筆資料</option>
-				<option value="10" selected="selected">每頁10筆資料</option>
-				<option value="15">每頁15筆資料</option>
-				<option value="20">每頁20筆資料</option>
 				<option value="25">每頁25筆資料</option>
+				<option value="50" selected="selected">每頁50筆資料</option>
+				<option value="75">每頁75筆資料</option>
+				<option value="100">每頁100筆資料</option>
 			</select>
-			
+
 		</div>
 	</div>
-		<div  id="listchose1">
-		<div  id="select">
-			<select id="pagevalue">
-			</select>
-			
-		</div>
+	<div id="listchose1" class="btn-group">
+	 <button type="button" class="genric-btn success" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+    請選擇頁數
+  </button>
+  <div id="pagedown" class="dropdown-menu" style="overflow: scroll;height: 300px">
+    <a class="dropdown-item" href="#"  onclick=pageclick(1,50)>page1</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(2,50)>page2</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(3,50)>page3</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(4,50)>page4</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(5,50)>page5</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(6,50)>page6</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(7,50)>page7</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(8,50)>page8</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(9,50)>page9</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(10,50)>page10</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(11,50)>page11</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(12,50)>page12</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(13,50)>page13</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(14,50)>page14</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(15,50)>page15</a>
+  </div>
 	</div>
 	<br>
 	<div id=list></div>
@@ -204,17 +215,22 @@ margin-left: 10px;
 	<script type="text/javascript">
 	var pagedata
 	pagedown=$("#pagevalue")
-	pagedown.append("<option value='0'>第頁</option>")
-	
+	//////////////////轉換筆數的事件////////
 	function change(){
 		var pagecount=$("#listvalue").val()
-		$("#pagevalue").html("<option value='1'>第2頁</option>")
+		console.log(pagedata.length)
+		var pagetxt=""
 		/*  $("#default-select").find(".nice-select").html("<option value='1'>第2頁</option>"+"<option value='2'>第3頁</option>")*/
 		datanum=pagedata.length/pagecount
+		for(var i =1;i<=datanum;i++)
+			{
+				pagetxt+="<a class='dropdown-item'"+i+" onclick=pageclick("+i+","+pagecount+")>page"+i+"</a>"
+			}
+		$("#pagedown").html(pagetxt)
 		var pagenow=pagecount*0
-		var listtext="<table align><tr><td align='center'>診所名稱<td align='center'>診所地址<td align='center'>診所電話<td align='center'>診所預約<td align='center'>症狀描述"
+		var listtext="<table><tr><td align='center'>診所名稱<td align='center'>診所地址<td align='center'>診所電話<td align='center'>症狀描述<td align='center'>診所預約"
 	
-		for (var i=pagenow;i<pagenow+pagecount;i++){
+		for (var i=0;i<pagenow+pagecount;i++){
 			var name=pagedata[i].clinicName
 			var address=pagedata[i].clinicaddress
 			var clinicId=pagedata[i].clinicId
@@ -223,18 +239,67 @@ margin-left: 10px;
 			var cliniclng=pagedata[i].cliniclng
 			var clinictype=pagedata[i].clinicType
 			
-			listtext+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center">'+'<td><input type="text" id="description"><tr><td id="orderbutton">'
+			listtext+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center"><input type="text" id="description'+clinicId+'">'
 			if($.cookie('clinicid')==undefined){
-			listtext+='<button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+			listtext+='<td align="center" id="orderbutton"><button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
 			}else{
-				listtxt+='<button class="genric-btn success">已預約</button><td id="cancelbutton">'
+		
+				listtext+='<td align="center"><button class="genric-btn success">已預約</button>'
 			}
 			}
 			listtext+="</table>"
 			$("#list").html(listtext)
 		}
+	//////////////////翻頁的事件////////
+	function pageclick(page,pagecount){
+
+	var pagemin=(page-1)*pagecount
+	var pageMax=pagemin+pagecount
+	var lastpage=pagedata.length/pagecount
+	if(page==lastpage){
+		pageMax= pagedata.length
+		for (var i=pagemin;i<pageMax;i++){
+			var name=pagedata[i].clinicName
+			var address=pagedata[i].clinicaddress
+			var clinicId=pagedata[i].clinicId
+			var clinicphone=pagedata[i].clinicPhone
+			var cliniclat=pagedata[i].cliniclat
+			var cliniclng=pagedata[i].cliniclng
+			var clinictype=pagedata[i].clinicType
+			
+			listtext+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center"><input type="text" id="description'+clinicId+'">'
+			if($.cookie('clinicid')==undefined){
+			listtext+='<td align="center" id="orderbutton"><button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+			}else{
+		
+				listtext+='<td align="center"><button class="genric-btn success">已預約</button>'
+			}
+			}
+		}
+	else{
+	var listtext="<table><tr><td align='center'>診所名稱<td align='center'>診所地址<td align='center'>診所電話<td align='center'>症狀描述<td align='center'>診所預約"
+
+	for (var i=pagemin;i<pageMax;i++){
+		var name=pagedata[i].clinicName
+		var address=pagedata[i].clinicaddress
+		var clinicId=pagedata[i].clinicId
+		var clinicphone=pagedata[i].clinicPhone
+		var cliniclat=pagedata[i].cliniclat
+		var cliniclng=pagedata[i].cliniclng
+		var clinictype=pagedata[i].clinicType
+		
+		listtext+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center"><input type="text" id="description'+clinicId+'">'
+		if($.cookie('clinicid')==undefined){
+		listtext+='<td align="center" id="orderbutton"><button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+		}else{
 	
-	
+			listtext+='<td align="center"><button class="genric-btn success">已預約</button>'
+		}
+		}
+	}
+		listtext+="</table>"
+		$("#list").html(listtext)
+		}
 	$("#listchose").hide();
 	$("#listchose1").hide();
 	var show=true
@@ -292,7 +357,7 @@ margin-left: 10px;
           infowindow.open(map,marker);
     	  */
       }
-	var listtxt="<table align><tr><td align='center'>診所名稱<td align='center'>診所地址<td align='center'>診所電話<td align='center'>診所預約"
+	var listtxt="<table align><tr><td align='center'>診所名稱<td align='center'>診所地址<td align='center'>診所電話<td align='center'>症狀描述<td align='center'>診所預約"
 		$.ajax({
 			url:'mapshow',
 			type:'post',
@@ -307,12 +372,12 @@ margin-left: 10px;
 				var cliniclat=data[i].cliniclat
 				var cliniclng=data[i].cliniclng
 				var clinictype=data[i].clinicType
-				if(i<10){
-				listtxt+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center">'
+				if(i<50){
+				listtxt+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center"><input type="text" id="description'+clinicId+'">'
 				if($.cookie('clinicid')==undefined){
-				listtxt+='<button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+				listtxt+='<td align="center" id="orderbutton"><button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
 				}else{
-					listtxt+='<button class="genric-btn success">已預約</button><td id="cancelbutton">'
+					listtxt+='<td align="center"><button  class="genric-btn success">已預約</button><td id="cancelbutton">'
 				}
 			}
 				geocodeAddress(name,clinicphone,clinictype,clinicId,cliniclat,cliniclng,address)
@@ -372,7 +437,7 @@ margin-left: 10px;
 						        	+'<tr><td>症狀描述:<td><input type="text" id="description"><tr><td id="orderbutton">'
 									if($.cookie('clinicid')==undefined){
 										console.log($.cookie('clinicid')+'hi')
-										txt+='<button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+										txt+='<button class="genric-btn success"  onclick=order('+clinicId+') >預約</button>'
 									}else{
 											txt+='<button class="genric-btn success">已預約</button><td id="cancelbutton">'
 											}
@@ -389,13 +454,15 @@ margin-left: 10px;
  				$.ajax({
 					url:'ordertime',
 					type:'post',
-					data:{'clinicid':clinicid,'memberid':$.cookie('memberID'),'description':$('#description').val()},
+					data:{'clinicid':clinicid,'memberid':$.cookie('memberID'),'description':$('#description'+clinicid).val()},
 					success:function(data){
+						
 						alert("你的預約號碼為："+data)
 						peopleNumber(clinicid)
 						$("#orderbutton").empty()
 						$.cookie('clinicid',clinicid,{expires:1})
 						$("#orderbutton").html('<button class="genric-btn success">已預約</button>')
+						location.reload();
 					/* 	$("cancelbutton").empty()
 						$("cancelbutton").html('<button class="genric-btn success" onclick="cancel('+$.cookie('memberid')+')">取消預約</button>')
 				 */		}
