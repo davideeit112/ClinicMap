@@ -261,7 +261,7 @@ public class savedata {
 	}
 	public List<orderbean> orderquery(int memberid) {
 		Session session = sessionfactory.getCurrentSession();
-		Query<orderbean> query = session.createQuery("from orderbean where memberid=:memberid",orderbean.class);
+		Query<orderbean> query = session.createQuery("from orderbean where memberid=:memberid order by appointmentTime DESC ",orderbean.class);
 		query.setParameter("memberid", memberid);
 		List<orderbean> list = query.list();
 		return list;

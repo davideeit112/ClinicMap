@@ -292,8 +292,8 @@ textarea {
 					+data[i].orderlist[j].AppointmentNumber
 					if(data[i].orderlist[j].AppointmentStatus=="OS1")
 						{
-						txt+="<hr><td>預約<hr><td><button onclick='cancel("+data[i].orderlist[j].AppointmentID+")' class='genric-btn default circle arrow'style='color:red'>取消</button><hr> "
-						}
+						txt+="<hr><td>預約<hr><td><button class='genric-btn default circle arrow'  data-toggle='modal' data-target='#mycancel' onclick='AppointmentIDget("+data[i].orderlist[j].AppointmentID+")'>取消</button><hr> "
+						}//onclick='cancel("+data[i].orderlist[j].AppointmentID+")'
 					else if(data[i].orderlist[j].AppointmentStatus=="OS5"){
 						txt+="<hr><td>已取消<hr>"
 						}
@@ -310,13 +310,16 @@ textarea {
 		}
 	
 })
-			function cancel(AppointmentID){
+			function cancel(){
+				appID=$("#AppointmentID").val()
+				console.log(appID)
 				$.removeCookie('clinicid')
 				$.ajax({
 					url:"cancel",
-					data:{'AppointmentID':AppointmentID},
+					data:{'AppointmentID':appID},
 					type:"post",
 					success:function(data){
+						alert("已成功取消")
 						location.reload();
 						}
 					})
@@ -396,9 +399,38 @@ var adjustedHeight=textarea.clientHeight;
     }
 
 }
-
+<cancel視窗>
 </script> -->
-
+<!--      取消視窗    -->
+<div class="modal fade" id="mycancel" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="myModalLabel">你確定取消</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<input type=text id="AppointmentID" hidden="hidden">
+						取消後，如果要重新掛號，需重新排隊
+					</div>
+					<div class="modal-footer">
+						<button type="button" class='genric-btn default circle arrow' onclick='cancel()'>送出</button>
+						<button type="button" class='genric-btn default circle arrow' data-dismiss="modal">關閉</button>
+						
+					</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+function AppointmentIDget(AppointmentID){
+	$("#AppointmentID").val(AppointmentID)
+}
+</script>
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">

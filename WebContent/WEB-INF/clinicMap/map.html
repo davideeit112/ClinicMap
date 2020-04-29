@@ -43,10 +43,11 @@ div {
 	margin-top: 15%;
 	margin-left: 5%;
 }
-#list{
-	position:static;
-	width:60%;
-	margin:auto
+
+#list {
+	position: static;
+	width: 70%;
+	margin: auto
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
@@ -67,6 +68,16 @@ html, body {
 	font-family: 'Roboto', 'sans-serif';
 	line-height: 30px;
 	padding-left: 10px;
+}
+
+#mean {
+	display: inline-block;
+}
+
+#listchose, #listchose1 {
+	display: inline-block;
+	margin-top: 0px;
+	margin-left: 10px;
 }
 </style>
 <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
@@ -100,13 +111,17 @@ html, body {
 									</ul>
 								</div>
 							</div>
-						
+
 							<div class="col-lg-4">
 								<div class="header-info-right f-right">
 									<ul class="header-social">
-										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
-										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
-										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
+										<li id='member'><a href="/clinicMap/MemberProfile"
+											id="memberName"></a></li>
+										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In
+												<i class="fas fa-sign-in-alt"></i>
+										</a></li>
+										<li id='loginOut'><a href="#">Login Out <i
+												class="fas fa-sign-out-alt"></i></a></li>
 									</ul>
 								</div>
 							</div>
@@ -119,7 +134,7 @@ html, body {
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="../googleMap/"><img src="assets/img/logo/logo.png"
+									<a href="googleMap/"><img src="assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -128,7 +143,7 @@ html, body {
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="../googleMap/">Home</a></li>
+											<li><a href="googleMap/">Home</a></li>
 											<li id="order"><a href="../orderSystem">order</a></li>
 											<li><a href="../ClinicComment">HospitalComment</a></li>
 											<li><a href="blog.html">Blog</a>
@@ -156,11 +171,137 @@ html, body {
 		</div>
 		<!-- Header End -->
 	</header>
-	<div><button id="mapshow" class="genric-btn success" style="margin-left:80px ; margin-bottom: 30px" >列表顯示</button></div>
+	<div id="mean">
+		<button id="mapshow" class="genric-btn success"
+			style="margin-left: 80px; margin-bottom: 30px">列表顯示</button>
+	</div>
+	<div class="single-element-widget mt-30" id="listchose">
+		<div class="default-select" id="default-select1">
+			<select id="listvalue" onchange="change()">
+				<option value="25">每頁25筆資料</option>
+				<option value="50" selected="selected">每頁50筆資料</option>
+				<option value="75">每頁75筆資料</option>
+				<option value="100">每頁100筆資料</option>
+			</select>
+
+		</div>
+	</div>
+	<div id="listchose1" class="btn-group">
+	 <button type="button" class="genric-btn success" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+    請選擇頁數
+  </button>
+  <div id="pagedown" class="dropdown-menu" style="overflow: scroll;height: 300px">
+    <a class="dropdown-item" href="#"  onclick=pageclick(1,50)>page1</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(2,50)>page2</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(3,50)>page3</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(4,50)>page4</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(5,50)>page5</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(6,50)>page6</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(7,50)>page7</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(8,50)>page8</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(9,50)>page9</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(10,50)>page10</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(11,50)>page11</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(12,50)>page12</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(13,50)>page13</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(14,50)>page14</a>
+    <a class="dropdown-item" href="#"  onclick=pageclick(15,50)>page15</a>
+  </div>
+	</div>
+	<br>
 	<div id=list></div>
 	<div id="map"></div>
 	<div id="text"></div>
 	<script type="text/javascript">
+	var pagedata
+	pagedown=$("#pagevalue")
+	//////////////////轉換筆數的事件////////
+	function change(){
+		var pagecount=$("#listvalue").val()
+		console.log(pagedata.length)
+		var pagetxt=""
+		/*  $("#default-select").find(".nice-select").html("<option value='1'>第2頁</option>"+"<option value='2'>第3頁</option>")*/
+		datanum=pagedata.length/pagecount
+		for(var i =1;i<=datanum;i++)
+			{
+				pagetxt+="<a class='dropdown-item'"+i+" onclick=pageclick("+i+","+pagecount+")>page"+i+"</a>"
+			}
+		$("#pagedown").html(pagetxt)
+		var pagenow=pagecount*0
+		var listtext="<table><tr><td align='center'>診所名稱<td align='center'>診所地址<td align='center'>診所電話<td align='center'>症狀描述<td align='center'>診所預約"
+	
+		for (var i=0;i<pagenow+pagecount;i++){
+			var name=pagedata[i].clinicName
+			var address=pagedata[i].clinicaddress
+			var clinicId=pagedata[i].clinicId
+			var clinicphone=pagedata[i].clinicPhone
+			var cliniclat=pagedata[i].cliniclat
+			var cliniclng=pagedata[i].cliniclng
+			var clinictype=pagedata[i].clinicType
+			
+			listtext+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center"><input type="text" id="description'+clinicId+'">'
+			if($.cookie('clinicid')==undefined){
+			listtext+='<td align="center" id="orderbutton"><button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+			}else{
+		
+				listtext+='<td align="center"><button class="genric-btn success">已預約</button>'
+			}
+			}
+			listtext+="</table>"
+			$("#list").html(listtext)
+		}
+	//////////////////翻頁的事件////////
+	function pageclick(page,pagecount){
+
+	var pagemin=(page-1)*pagecount
+	var pageMax=pagemin+pagecount
+	var lastpage=pagedata.length/pagecount
+	if(page==lastpage){
+		pageMax= pagedata.length
+		for (var i=pagemin;i<pageMax;i++){
+			var name=pagedata[i].clinicName
+			var address=pagedata[i].clinicaddress
+			var clinicId=pagedata[i].clinicId
+			var clinicphone=pagedata[i].clinicPhone
+			var cliniclat=pagedata[i].cliniclat
+			var cliniclng=pagedata[i].cliniclng
+			var clinictype=pagedata[i].clinicType
+			
+			listtext+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center"><input type="text" id="description'+clinicId+'">'
+			if($.cookie('clinicid')==undefined){
+			listtext+='<td align="center" id="orderbutton"><button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+			}else{
+		
+				listtext+='<td align="center"><button class="genric-btn success">已預約</button>'
+			}
+			}
+		}
+	else{
+	var listtext="<table><tr><td align='center'>診所名稱<td align='center'>診所地址<td align='center'>診所電話<td align='center'>症狀描述<td align='center'>診所預約"
+
+	for (var i=pagemin;i<pageMax;i++){
+		var name=pagedata[i].clinicName
+		var address=pagedata[i].clinicaddress
+		var clinicId=pagedata[i].clinicId
+		var clinicphone=pagedata[i].clinicPhone
+		var cliniclat=pagedata[i].cliniclat
+		var cliniclng=pagedata[i].cliniclng
+		var clinictype=pagedata[i].clinicType
+		
+		listtext+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center"><input type="text" id="description'+clinicId+'">'
+		if($.cookie('clinicid')==undefined){
+		listtext+='<td align="center" id="orderbutton"><button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+		}else{
+	
+			listtext+='<td align="center"><button class="genric-btn success">已預約</button>'
+		}
+		}
+	}
+		listtext+="</table>"
+		$("#list").html(listtext)
+		}
+	$("#listchose").hide();
+	$("#listchose1").hide();
 	var show=true
 	$("#list").hide()
 	$("#mapshow").click(function(){
@@ -168,12 +309,16 @@ html, body {
 		$("#map").hide()
 		$("#text").hide()
 		$("#list").show()
+		$("#listchose").show();
+		$("#listchose1").show();
 		$("#mapshow").html("地圖顯示")
 		show=false
 	}else{
 			$("#map").show()
 			$("#text").show();
 			$("#list").hide();
+			$("#listchose").hide();
+			$("#listchose1").hide();
 			$("#mapshow").html("列表顯示")
 			show=true
 	}
@@ -212,13 +357,13 @@ html, body {
           infowindow.open(map,marker);
     	  */
       }
-	var listtxt="<table align><tr><td align='center'>診所名稱<td align='center'>診所地址<td align='center'>診所電話<td align='center'>診所預約"
+	var listtxt="<table align><tr><td align='center'>診所名稱<td align='center'>診所地址<td align='center'>診所電話<td align='center'>症狀描述<td align='center'>診所預約"
 		$.ajax({
 			url:'mapshow',
 			type:'post',
 			dataType:"json",
 			success:function(data){
-				console.log(data)
+				pagedata=data
 			for(var i=0 ;i<data.length;i++){
 				var name=data[i].clinicName
 				var address=data[i].clinicaddress
@@ -227,13 +372,14 @@ html, body {
 				var cliniclat=data[i].cliniclat
 				var cliniclng=data[i].cliniclng
 				var clinictype=data[i].clinicType
-				
-				listtxt+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center">'
+				if(i<50){
+				listtxt+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center"><input type="text" id="description'+clinicId+'">'
 				if($.cookie('clinicid')==undefined){
-				listtxt+='<button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+				listtxt+='<td align="center" id="orderbutton"><button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
 				}else{
-					listtxt+="已預約"
+					listtxt+='<td align="center"><button  class="genric-btn success">已預約</button><td id="cancelbutton">'
 				}
+			}
 				geocodeAddress(name,clinicphone,clinictype,clinicId,cliniclat,cliniclng,address)
 				
 				
@@ -291,7 +437,7 @@ html, body {
 						        	+'<tr><td>症狀描述:<td><input type="text" id="description"><tr><td id="orderbutton">'
 									if($.cookie('clinicid')==undefined){
 										console.log($.cookie('clinicid')+'hi')
-										txt+='<button class="genric-btn success" onclick=order('+clinicId+') >預約</button>'
+										txt+='<button class="genric-btn success"  onclick=order('+clinicId+') >預約</button>'
 									}else{
 											txt+='<button class="genric-btn success">已預約</button><td id="cancelbutton">'
 											}
@@ -308,13 +454,15 @@ html, body {
  				$.ajax({
 					url:'ordertime',
 					type:'post',
-					data:{'clinicid':clinicid,'memberid':$.cookie('memberID'),'description':$('#description').val()},
+					data:{'clinicid':clinicid,'memberid':$.cookie('memberID'),'description':$('#description'+clinicid).val()},
 					success:function(data){
+						
 						alert("你的預約號碼為："+data)
 						peopleNumber(clinicid)
 						$("#orderbutton").empty()
 						$.cookie('clinicid',clinicid,{expires:1})
 						$("#orderbutton").html('<button class="genric-btn success">已預約</button>')
+						location.reload();
 					/* 	$("cancelbutton").empty()
 						$("cancelbutton").html('<button class="genric-btn success" onclick="cancel('+$.cookie('memberid')+')">取消預約</button>')
 				 */		}

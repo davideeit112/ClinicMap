@@ -41,7 +41,6 @@ public class orderController {
 			System.out.println(cbean.getClinicStatus());
 			if(cbean.getClinicStatus().equals("CS2")) {
 			JSONObject jobj = new JSONObject();
-System.out.println("dd");
 			jobj.put("clinicaddress", cbean.getClinicAddress());
 			jobj.put("clinicId", cbean.getClinicId());
 			jobj.put("clinicPhone", cbean.getClinicphone());
@@ -85,10 +84,12 @@ System.out.println("dd");
 		service.insertlnglat(list);
 	}
 	@RequestMapping(path="/cancel",method=RequestMethod.POST)
-	public void cancel(@RequestParam("AppointmentID")String AppointmentID) {
+	public void cancel(@RequestParam("AppointmentID")String AppointmentID,HttpServletResponse response) throws IOException {
 		
 		service.deleteorder(AppointmentID.substring(0,15));
-		
+		response.setContentType("text/html ;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print("/");
 		
 	}
 	@RequestMapping(path="/memberset",method = RequestMethod.POST)
