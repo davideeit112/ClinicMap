@@ -1,4 +1,4 @@
-package clinicMap.register;
+﻿package clinicMap.register;
 
 import java.awt.PageAttributes.MediaType;
 import java.io.File;
@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
