@@ -1,27 +1,30 @@
 package clinicMap.rss;
 
-import java.util.List;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+@Controller
 public class RssToDB {
+	private SessionFactory sessionfactory;
 
-	public static void main(String[] args) throws Exception {
-		new RssToDB().parse();
-	}
+	@Autowired
+	public void test(@Qualifier("sessionFactory") SessionFactory sessionfactory) {
+		this.sessionfactory = sessionfactory;}
 
-	public void parse() throws Exception {
+	@RequestMapping(path="/rssget",method = RequestMethod.GET)
+	public String parse() throws Exception {
 
 		URL url = new URL("https://www.mohw.gov.tw/rss-16-1.html");
 		SAXReader sax = new SAXReader();
@@ -30,12 +33,7 @@ public class RssToDB {
 		Element channel = (Element) doc.getRootElement().element("channel");
 
 		Iterator<Element> i = channel.elementIterator("item");
-
-		StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().configure().build();
-		SessionFactory factory = new MetadataSources(serviceRegistry).buildMetadata().buildSessionFactory();
-
-		Session session = factory.getCurrentSession();
-		session.beginTransaction();
+		Session session = sessionfactory.getCurrentSession();
 
 		// 先用NEWSID排序
 		//List<Item> list = new ArrayList<Item>();
@@ -92,5 +90,10 @@ public class RssToDB {
 
 		session.getTransaction().commit();
 		session.close();
+		return "blog";
+	}
+	@RequestMapping(path="/rssdetail",method = RequestMethod.GET)
+	public String blogdetail() {
+		return "single-blog";
 	}
 }
