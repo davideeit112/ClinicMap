@@ -49,7 +49,7 @@ public class EcpayDao {
 		obj.setTradeDesc("test Description");
 		obj.setItemName("ClinicMap廣告贊助");
 		obj.setReturnURL("http://211.23.128.214:5000");
-		obj.setClientBackURL("http://localhost:8080/SpringAllForOne/changeStatusAfterPay?id=" + id);
+		obj.setClientBackURL("http://localhost:8080/clinicMap/changeStatusAfterPay?id=" + id);
 //		obj.setOrderResultURL("http://localhost:8080/SpringAllForOne/Test.jsp");
 		System.out.println(id);
 		obj.setNeedExtraPaidInfo("N");
@@ -83,7 +83,7 @@ public class EcpayDao {
 		obj.setTradeDesc("DriverPayment");
 		obj.setItemName("司機接送");
 		obj.setReturnURL("http://211.23.128.214:5000");
-		obj.setClientBackURL("http://localhost:8080/SpringAllForOne/Test.jsp");
+		obj.setClientBackURL("http://localhost:8080/clinicMap/TestForPayment.html");
 //		obj.setOrderResultURL("http://localhost:8080/SpringAllForOne/Test.jsp");
 		System.out.println(id);
 		obj.setNeedExtraPaidInfo("N");

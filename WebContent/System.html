@@ -5,7 +5,7 @@
 <title>BackEndSystem</title>
 
 <!-- bootstrap 4 -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -103,9 +103,9 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover
 	                                     var date = Alldate.getDate();
 										 var finaldate = year + "-" + month + "-" + date;
 	 									 $("#datepicker").val(finaldate);
-	 									document.getElementById("datepicker").addEventListener("invalid", function(){
+	 									/*document.getElementById("datepicker").addEventListener("invalid", function(){
 												$("#check").val("請遵照yyyy-mm-dd");
-		 									});
+		 									});*/
 	 	 </script>
 
 
@@ -113,7 +113,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover
 
 	<script type="text/javascript">
 		    $(document).ready(function() {
-
+				console.log("HI");
 				$.ajax({
 					url: "loadClinicData" ,
 					method: "get" ,
