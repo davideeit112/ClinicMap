@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TestForPayment</title>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+	
+	<form action="AdPayment" method="post">
+		<input type="submit" value="訂閱" />
+	</form>
+
+	<div class="Payment"></div>
+	
+	<script>
+		$.ajax({
+			url:"AdPayment",
+			datatype:"html",
+			method:"post",
+			success:function(data){
+					$("Payment").val(data)
+				}
+
+			})
+	</script>
+</body>
+</html>
