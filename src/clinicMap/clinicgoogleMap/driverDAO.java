@@ -29,4 +29,21 @@ public class driverDAO {
 		return list;
 	}
 	
+	public boolean DLogin(driver driver) {
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			String hqlstr = "from driver where driveraccount=:driveraccount and driverpassword=:driverpassword";
+			Query<driver> query = session.createQuery(hqlstr, driver.class);
+			query.setParameter("driveraccount", driver.getdriveraccount());
+			query.setParameter("driverpassword", driver.getdriverpassword());
+			driver dacc = query.uniqueResult();
+			if (dacc != null) {
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
 }
