@@ -56,7 +56,14 @@
     background: -moz-linear-gradient(top, #998f00, #d4b800);
     background: linear-gradient(to bottom, #998f00, #d4b800);
 }
-
+.place-img{
+	width:380px;
+	height: 200px;
+}
+.favourite-place .single-place .place-cap {
+    padding: 28px 40px;
+    border: 3px solid #f0f1f2;
+}
 </style>
 
 
@@ -289,71 +296,16 @@
                     <div class="col-lg-12">
                         <div class="section-tittle text-center">
                             <span></span>
-                            <h2>診所評論列表</h2>
+                            <h2>熱門診所</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-place mb-30">
-                            <div class="place-img">
-                                <img src="../assets/img/service/services11.jpg" alt="">
-                            </div>
-                            <div class="place-cap">
-                                <div class="place-cap-top">
-                                    <span><i class="fas fa-star"></i><span id="avg1"></span></span>
-                                    <h3><a href="/clinicMap/blog.do" id="demo1"></a></h3>
-                                    <p class="dolor"> <span id="demo2"></span></p>
-                                </div>
-                                <div class="place-cap-bottom">
-                                    <ul>
-                                        <li><i class="fa fa-user" id="count1"></i></li>
-                                        <li><i class="fas fa-map-marker-alt">台北市 大安區</i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                
+                    <div class="row" id="allclinic">
+                    
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-place mb-30">
-                            <div class="place-img">
-                                <img src="../assets/img/service/services12.jpg" alt="">
-                            </div>
-                            <div class="place-cap">
-                                <div class="place-cap-top">
-                                    <span><i class="fas fa-star"></i><span id="avg2"></span> </span>
-                                    <h3><a href="/clinicMap/blog2.do" id="demo1A"></a></h3>
-                                    <p class="dolor"><span id="demo2A"></span></p>
-                                </div>
-                                <div class="place-cap-bottom">
-                                    <ul>
-                                        <li><i class="fa fa-user" id="count2"></i></li>
-                                        <li><i class="fas fa-map-marker-alt">台北市 大安區</i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-place mb-30">
-                            <div class="place-img">
-                                <img src="../assets/img/service/services13.jpg" alt="">
-                            </div>
-                            <div class="place-cap">
-                                <div class="place-cap-top">
-                                    <span><i class="fas fa-star"></i><span id="avg3"></span> </span>
-                                    <h3><a href="/clinicMap/blog3.do" id="demo1B"></a></h3>
-                                    <p class="dolor"><span id="demo2B"></span></p>
-                                </div>
-                                <div class="place-cap-bottom">
-                                    <ul>
-                                        <li><i class="fa fa-user"  id="count3"></i></li>
-                                        <li><i class="fas fa-map-marker-alt">台北市 大安區</i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                       
                 </div>
             </div>
         </div>
@@ -769,69 +721,27 @@ function messageGo(){
 	<!-- post script -->
 
 	<script type="text/javascript">
+	
+//留言前三診所-----------------------------------
 
 $.ajax({
-	url:"/clinicMap/msg.do",
+	url:"/clinicMap/top3msgblog.do",
 	type:"POST",
 	dataType:"json",
 	success:
 		function(data){
-		var value = 0;
-		for (var i = 0; i < data.length; i++) {
-			value += data[i].Evaluation;
-		}
-		$("#count1").html(" "+data.length+" 則留言");
-		var avg = 0;
-		avg = value/data.length;
-		
-		$("#avg1").html(avg.toFixed(1));
-		$("#demo").html(data[0].clinicPhoto);
-		$("#demo1").html(data[0].clinicName);
-		$("#demo2").html("02- "+data[0].clinicPhone);
-		
-		}
+			for (var i = 0; i < 3; i++) {
+				$("#allclinic").append("<div class='col-xl-4 col-lg-4 col-md-6'><div class='single-place mb-30'>"
+									+"<div class='place-img'><img class='clinicimg' src='images/clinic"+ data[i].clinicID +".jpg''></div>"
+									+"<div class='place-cap'><div class='place-cap-top'><span><i class='fas fa-star'>&nbsp"+ data[i].ave +"</i>"
+									+"<span id='avg1'></span></span><h3><a href='/clinicMap/blog."+ data[i].clinicID +"'>"+ data[i].clinicName +"</a></h3>"
+									+"<p class='dolor'><span>02- "+ data[i].clinicPhone +"</span></p></div>"
+									+"<div class='place-cap-bottom'><ul><li><i class='fa fa-user'>&nbsp&nbsp"+ data[i].total +"&nbsp則留言"+"</i></li>"
+									+"<li><i class='fas fa-map-marker-alt'>台北市 大安區</i></li></ul></div></div></div>");
+			}
+		}	
 });
-$.ajax({
-	url:"/clinicMap/msg2.do",
-	type:"POST",
-	dataType:"json",
-	success:
-		function(data){
-		var value = 0;
-		for (var i = 0; i < data.length; i++) {
-			value += data[i].Evaluation;
-		}
-		$("#count2").html(" "+data.length+" 則留言");
-		var avg = 0;
-		avg = value/data.length;
-		$("#avg2").html(avg.toFixed(1));
-		$("#demoA").html(data[0].clinicPhoto);
-		
-		$("#demo1A").html(data[0].clinicName);
-		$("#demo2A").html("02- "+data[0].clinicPhone);
-		console.log(data[0].clinicPhone);
-		}
-});
-$.ajax({
-	url:"/clinicMap/msg3.do",
-	type:"POST",
-	dataType:"json",
-	success:
-		function(data){
-		var value = 0;
-		for (var i = 0; i < data.length; i++) {
-			value += data[i].Evaluation;
-		}
-		$("#count3").html(" "+data.length+" 則留言");
-		var avg = 0;
-		avg = value/data.length;
-		$("#avg3").html(avg.toFixed(1));
-		$("#demoB").html(data[0].clinicPhoto);
-		$("#demo1B").html(data[0].clinicName);
-		$("#demo2B").html("02- "+data[0].clinicPhone);
-		}
-});
-
+//留言前三診所-----------------------------------
 </script>
 
 	
