@@ -53,4 +53,11 @@ public class positionService implements IpositionService{
 		return hb1;
 	}
 	
+	@Override
+	public List<position> selectthisorderid(String drivername,String clinicName,String thispricetotal) {
+		List<position> hb1 = hpositionDao.selectthisorderid(drivername,clinicName,thispricetotal);
+		return hb1;
+		
+	}
+	
 }

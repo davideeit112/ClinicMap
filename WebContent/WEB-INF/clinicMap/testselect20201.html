@@ -13,9 +13,9 @@ html, body {
 </style>
 
 </head>
-<body >
-	<input type="button" onclick="sub1()" value="啟動傳送目的地&自己位置&確認司機&價錢(確認申請)" />
+<body >	
 	<input type="button" onclick="test()" value="司機確認"/>
+	<input type="button" onclick="sub1()" value="啟動傳送目的地&自己位置&確認司機&價錢(確認申請)" />
 	<input type="button" onclick="timework()" value="開始目標導航航" />
 	</br>
 	</br>
@@ -36,6 +36,11 @@ html, body {
 			var a = -1;
 			var drivernamechose;
 			var pricetotal;
+			var positionidcheck;
+			var forclinicname;  //準備接收預約面的資料
+			var forcliniclat;   //準備接收預約面的資料
+			var forcliniclng;   //準備接收預約面的資料
+			
 
 //初始化地圖區-----------------------------------------------------------------------------------------------------------------------------
 			function initMap() {
@@ -64,8 +69,7 @@ html, body {
 							var lat1 =parseFloat(checkboxdata[i].drivernowlat)
 							var lng1 =parseFloat(checkboxdata[i].drivernowlng)					
 							var name =checkboxdata[i].drivername
-							console.log(lat1);
-							console.log(lng1);					
+							console.log();				
 							addMarker2(name,lat1,lng1)					
 							}
 
@@ -74,12 +78,15 @@ html, body {
 
 				})
 //-----------------------------------------------標記司機位置
+
+
+
 //-----------------------------------------------計算路程價錢
+                forprice();				
+//-----------------------------------------------計算路程價錢		
 
-                forprice();
 
-				
-//-----------------------------------------------計算路程價錢			
+
 			}
 //初始化地圖區-----------------------------------------------------------------------------------------------------------------------------
 
@@ -108,7 +115,7 @@ html, body {
 //時間計時器---------------------------------------------------------------------------------------------------------------------
 			function timework() {
 				setInterval(function() {
-					sub2();
+					sub3();
 				}, 3000); //1000毫秒=1秒
 			}
 //時間計時器---------------------------------------------------------------------------------------------------------------------
@@ -180,16 +187,6 @@ html, body {
 				//允許抓目前位置，回傳經緯度
 				function success(position) {
 
-					//var marker = new google.maps.Marker({
-					//	map : map,
-					//	title : '自己的位置',
-					//	icon : 'images/self.png',
-					//	position : {
-					//		lat : position.coords.latitude,
-					//		lng : position.coords.longitude
-					//	}
-					//});
-					//markers.push(marker); //存到markers陣列裡 準備後面被全部刪除
 					
 					var guestlat = position.coords.latitude;
 					var guestlng = position.coords.longitude;
@@ -213,7 +210,6 @@ html, body {
 						pricetotal=Math.round(price);
 						console.log('我的價錢是'+pricetotal+'元');
 						}
-
 					
 				}
 				navigator.geolocation.getCurrentPosition(success, error);//跟使用者拿所在位置的權限
@@ -275,11 +271,11 @@ html, body {
 
 						
 						orderdata.push(drivernamechose);
-						orderdata.push("新長安診所");
+						orderdata.push("早安診所");
 						orderdata.push(mylat);
 						orderdata.push(mylng);
-						orderdata.push("null");
-						orderdata.push("null");
+						orderdata.push("25.112298");
+						orderdata.push("121.531862");
 						orderdata.push("25.0207385");
 						orderdata.push("121.5535137");
 						orderdata.push(pricetotal);
@@ -291,9 +287,10 @@ html, body {
 							url : "neworder?orderdata=" + orderdata,
 							dataType : "json",
 							success : function(checkboxdata) {
-								//var myorderid=checkboxdata.positionID;
-								//console.log('我的訂單編號是：'+myorderid);
-								console.log('成功，完成新增');
+							
+								positionidcheck=checkboxdata[0].positionID;
+								console.log('我的訂單編號是：'+positionidcheck);
+								console.log('成功，完成新增外送訂單');
 							}
 						})
 
@@ -309,15 +306,65 @@ html, body {
 
 
 
+
+//重新放置自己位置---------------------------------------------------------------------------------------------------------------------------
+function sub2() {
+	     clearMarkers();
+
+			if (navigator.geolocation) {
+
+				//不提供定位，或是發生其它錯誤
+				function error() {
+					alert('無法取得你的位置');
+				}
+
+				//允許抓目前位置，回傳經緯度
+				function success(position) {
+
+					var mylat = position.coords.latitude;  //自己的經度
+					var mylng = position.coords.longitude;  //自己的緯度		
+					var orderid =positionidcheck;	   
+					var orderdata= [];
+					
+					orderdata.push(orderid);  
+					orderdata.push(mylat);
+					orderdata.push(mylng);
+			
+					//存到資料庫
+					$.ajax({
+						type : "POST",
+						url : "updatemy?orderdata=" + orderdata,
+						dataType : "json",
+						success : function(checkboxdata) {
+						
+							console.log('完成位置更新');
+						}
+					})
+
+				}
+				navigator.geolocation.getCurrentPosition(success, error);//跟使用者拿所在位置的權限
+
+			} else {
+				alert('你的裝置不支援定位功能')
+			}
+
+}
+//重新放置自己位置---------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 //清除路線後繪製路線-----------------------------------------------------------------------------------------------------------------------
-			function sub2() {
+			function sub3() {
                 //重新確認自己位置並存入資料庫
-				sub1();
+				sub2();
 				//查詢自己&司機位置
-				var id = '101';
+	
 				$.ajax({
 					type : "POST",
-					url : "selectall?id=" + id,
+					url : "selectall?positionidcheck=" + positionidcheck,
 					dataType : "json",
 					success : function(myiddata) {
 
@@ -327,12 +374,8 @@ html, body {
 					    var lng1 = parseFloat(myiddata.guestlng)				   					
 						var lat2 = parseFloat(myiddata.driverlat)
 						var lng2 = parseFloat(myiddata.driverlng)
-						//var lat3 = parseFloat(myiddata.destinationlat)//目的地
-						//var lng3 = parseFloat(myiddata.destinationlng)//目的地
-						
-						// var lat2 =25.112298  //測試用
-						//var lng2 =121.531862 //測試用	
-						console.log(lat1+lng1+lat2+lng2);
+	
+	
 						doworkgps(lat1, lng1, lat2, lng2);
 					}
 				})

@@ -1,5 +1,6 @@
 package clinicMap.clinicgoogleMap;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -75,8 +76,17 @@ public class positionDAO {
 	
 	public position neworderinData(position Pposition) {
 		Session sd = sessionFactory.getCurrentSession();
-		sd.save(Pposition);	    
+		sd.save(Pposition);	   
 		return null;
+	}
+	
+	public List<position> selectthisorderid(String drivername,String clinicName,String thispricetotal) {
+		Session sd = sessionFactory.getCurrentSession();
+		String newsqlstr = "from position where drivername like '%"+drivername+"%' and  clinicName like '%"+clinicName+"%' and thispricetotal like '%"+thispricetotal+"%' ";
+		Query<position> query = sd.createQuery(newsqlstr, position.class);
+		List<position> list = query.list();
+		return list;
+			
 	}
 
 }
