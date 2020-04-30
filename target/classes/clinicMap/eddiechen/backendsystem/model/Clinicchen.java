@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "Clinic")
+@Table(name = "Clinicchen")
 @Component
 
 public class Clinicchen {
@@ -21,53 +21,44 @@ public class Clinicchen {
 	private String clinicAddress;
 	private String clinicDescription;
 	private byte[] clinicPhoto;
+	private byte[] clinicLicense;
+
 	private String clinicPhone;
 	private String clinicClass;
 	private String clinicType;
 	private String clinicTime;
-	private String cliniclat;
-	@Column(name = "Cliniclat")
-	public String getCliniclat() {
-		return cliniclat;
-	}
-
-	public void setCliniclat(String cliniclat) {
-		this.cliniclat = cliniclat;
-	}
-	@Column(name = "cliniclng")
-	public String getCliniclng() {
-		return cliniclng;
-	}
-
-	public void setCliniclng(String cliniclng) {
-		this.cliniclng = cliniclng;
-	}
-
-	private String cliniclng;
 	private String clinicStatus;
 	private String clinicEmail;
+
+	private String cliniclat;
+	private String cliniclng;
 
 	public Clinicchen() {
 
 	}
 
-	public Clinicchen(String clinicName, String clinicAccount, String clinicPwd, String clinicAddress, String clinicDescription, 
-			byte[] clinicPhoto, String clinicPhone, String clinicClass, String clinicType, String clinicTime, String clinicStatus, String clinicEmail ) {
+	public Clinicchen(String clinicName, String clinicAccount, String clinicPwd, String clinicAddress,
+			String clinicDescription, byte[] clinicPhoto, byte[] clinicLicense, String clinicPhone, String clinicClass,
+			String clinicType, String clinicTime, String clinicStatus, String clinicEmail, String cliniclat, String cliniclng) {
 		this.clinicName = clinicName;
 		this.clinicAccount = clinicAccount;
 		this.clinicPwd = clinicPwd;
 		this.clinicAddress = clinicAddress;
 		this.clinicDescription = clinicDescription;
 		this.clinicPhoto = clinicPhoto;
+		this.clinicLicense = clinicLicense;
 		this.clinicPhone = clinicPhone;
 		this.clinicClass = clinicClass;
 		this.clinicType = clinicType;
 		this.clinicTime = clinicTime;
 		this.clinicStatus = clinicStatus;
 		this.clinicEmail = clinicEmail;
+		this.cliniclat = cliniclat;
+		this.cliniclng = cliniclng;
 	}
 
-	@Id@Column(name = "clinicID")
+	@Id
+	@Column(name = "clinicID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getClinicID() {
 		return clinicID;
@@ -76,8 +67,8 @@ public class Clinicchen {
 	public void setClinicID(int clinicID) {
 		this.clinicID = clinicID;
 	}
-	
-	@Column(name="clinicName")
+
+	@Column(name = "clinicName")
 	public String getClinicName() {
 		return clinicName;
 	}
@@ -85,8 +76,8 @@ public class Clinicchen {
 	public void setClinicName(String clinicName) {
 		this.clinicName = clinicName;
 	}
-	
-	@Column(name="clinicAccount")
+
+	@Column(name = "clinicAccount")
 	public String getClinicAccount() {
 		return clinicAccount;
 	}
@@ -95,7 +86,7 @@ public class Clinicchen {
 		this.clinicAccount = clinicAccount;
 	}
 
-	@Column(name="clinicPwd")
+	@Column(name = "clinicPwd")
 	public String getClinicPwd() {
 		return clinicPwd;
 	}
@@ -103,8 +94,8 @@ public class Clinicchen {
 	public void setClinicPwd(String clinicPwd) {
 		this.clinicPwd = clinicPwd;
 	}
-	
-	@Column(name="clinicAddress")
+
+	@Column(name = "clinicAddress")
 	public String getClinicAddress() {
 		return clinicAddress;
 	}
@@ -112,8 +103,8 @@ public class Clinicchen {
 	public void setClinicAddress(String clinicAddress) {
 		this.clinicAddress = clinicAddress;
 	}
-	
-	@Column(name="clinicDescription")
+
+	@Column(name = "clinicDescription")
 	public String getClinicDescription() {
 		return clinicDescription;
 	}
@@ -122,7 +113,7 @@ public class Clinicchen {
 		this.clinicDescription = clinicDescription;
 	}
 
-	@Column(name="clinicPhoto")
+	@Column(name = "clinicPhoto")
 	public byte[] getClinicPhoto() {
 		return clinicPhoto;
 	}
@@ -131,7 +122,16 @@ public class Clinicchen {
 		this.clinicPhoto = clinicPhoto;
 	}
 
-	@Column(name="clinicPhone")
+	@Column(name = "clinicLicense")
+	public byte[] getClinicLicense() {
+		return clinicLicense;
+	}
+
+	public void setClinicLicense(byte[] clinicLicense) {
+		this.clinicLicense = clinicLicense;
+	}
+
+	@Column(name = "clinicPhone")
 	public String getClinicPhone() {
 		return clinicPhone;
 	}
@@ -140,7 +140,7 @@ public class Clinicchen {
 		this.clinicPhone = clinicPhone;
 	}
 
-	@Column(name="clinicClass")
+	@Column(name = "clinicClass")
 	public String getClinicClass() {
 		return clinicClass;
 	}
@@ -149,7 +149,7 @@ public class Clinicchen {
 		this.clinicClass = clinicClass;
 	}
 
-	@Column(name="clinicType")
+	@Column(name = "clinicType")
 	public String getClinicType() {
 		return clinicType;
 	}
@@ -158,7 +158,7 @@ public class Clinicchen {
 		this.clinicType = clinicType;
 	}
 
-	@Column(name="clinicTime")
+	@Column(name = "clinicTime")
 	public String getClinicTime() {
 		return clinicTime;
 	}
@@ -167,7 +167,7 @@ public class Clinicchen {
 		this.clinicTime = clinicTime;
 	}
 
-	@Column(name="clinicStatus")
+	@Column(name = "clinicStatus")
 	public String getClinicStatus() {
 		return clinicStatus;
 	}
@@ -176,13 +176,31 @@ public class Clinicchen {
 		this.clinicStatus = clinicStatus;
 	}
 
-	@Column(name="clinicEmail")
+	@Column(name = "clinicEmail")
 	public String getClinicEmail() {
 		return clinicEmail;
 	}
 
 	public void setClinicEmail(String clinicEmail) {
 		this.clinicEmail = clinicEmail;
+	}
+	
+	@Column(name="clinicLat")
+	public String getCliniclat() {
+		return cliniclat;
+	}
+
+	public void setCliniclat(String cliniclat) {
+		this.cliniclat = cliniclat;
+	}
+	
+	@Column(name="clinicLng")
+	public String getCliniclng() {
+		return cliniclng;
+	}
+
+	public void setCliniclng(String cliniclng) {
+		this.cliniclng = cliniclng;
 	}
 
 }

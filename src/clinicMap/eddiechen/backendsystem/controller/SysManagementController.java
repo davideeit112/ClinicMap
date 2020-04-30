@@ -57,7 +57,7 @@ public class SysManagementController {
 		}
 
 		if (errors != null && !errors.isEmpty()) {
-			return new ModelAndView("redirect:/Login.html");
+			return new ModelAndView("redirect:/backLogin.html");
 		}
 
 		//model.addAttribute("acc", acc);
@@ -75,7 +75,7 @@ public class SysManagementController {
 
 		errors.put("msg", "username or password is not correct.");
 
-		return new ModelAndView("redirect:/Login.html");
+		return new ModelAndView("redirect:/backLogin.html");
 	}
 
 	@RequestMapping(path = "/loadClinicData", method = RequestMethod.GET)
@@ -83,7 +83,7 @@ public class SysManagementController {
 		
 		Cookie[] cookies = req.getCookies();
 		if(cookies == null) {
-			RequestDispatcher rd = req.getRequestDispatcher("Login.html");
+			RequestDispatcher rd = req.getRequestDispatcher("backLogin.html");
 			rd.forward(req, res);
 		}
 		if(cookies[0].getValue().equals("Tost180.")) {
@@ -135,7 +135,7 @@ public class SysManagementController {
 					+ c.getClinicEmail() + "' name='clinicEmail'> <input type='hidden' value = '" + c.getClinicID()
 					+ "' name = 'clinicID'><input type = 'submit' value = '信箱認證' class='btn btn-light'> </form>"
 					
-								+ "<button type='button' data-toggle='modal' data-target='#" + c.getClinicID() + "1' id = '" + c.getClinicID() + "1' class='btn btn-light' style='margin-top:5px'>詳細資料</button>"
+						+ "<button type='button' data-toggle='modal' data-target='#" + c.getClinicID() + "1' id = '" + c.getClinicID() + "1' class='btn btn-light' style='margin-top:5px'>詳細資料</button>"
 						+ "<div class='modal fade' id ='" + c.getClinicID() + "' role='dialog'>"
 						+ "		<div class='modal-dialog'>" 
 						+ "			<div class='modal-content' style='width:500px;'>"  
@@ -321,7 +321,7 @@ public class SysManagementController {
 		for(int count = 1005; count<=1100; count ++){
 		sysService.savePersonWithPhoto(photoFilePathToRead, count);
 		}
-		return "Login";
+		return "backLogin";
 	}
 
 //	@RequestMapping(path="/readPhoto", method = RequestMethod.GET)
@@ -355,7 +355,7 @@ public class SysManagementController {
 		cookie.setPath("/");
 		cookie.setMaxAge(0); 
 		res.addCookie(cookie);
-		return "Login";
+		return "backLogin";
 	}
 	
 	@RequestMapping(path="/updateData", method = RequestMethod.POST)
