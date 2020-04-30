@@ -158,7 +158,7 @@
 									<div class="input-group mb-3">
 										<input type="text" class="form-control"
 											placeholder='Search Keyword' onfocus="this.placeholder = ''"
-											onblur="this.placeholder = 'Search Keyword'" name="search" id="search">
+											onblur="this.placeholder = 'Search Keyword'" name="search" id="search" onclick="search()">
 										<div class="input-group-append">
 											<button class="btns" type="button" id="searchb">
 												<i class="ti-search"></i>
@@ -168,6 +168,7 @@
 								</div>
 								<button	class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" onclick="search()">Search</button>
 									<div id="s"></div>
+									<div id="select"></div>
 							
 						</aside>
 						</div>
@@ -313,7 +314,7 @@
 			dataType:"json",
 			success:function(data){
 				//console.log(data);
-				for(var i=0;i<data.length;i++){
+				for(var i=0;i<5;i++){
 					var day=data[i].day;
 					week=data[i].week;
 					title=data[i].title;
@@ -324,10 +325,20 @@
 					day+"</h3><p>"+week+"</p></div></div><div class='blog_details'><a class='d-inline-block' href="+
 					"'single-blog.html?blog="+i+"'><h2>"+title+"</h2></a><p>"+descrip+"</p></div></article>";
 
-
-					
 					$("#ajin").append(blogstr);
 					}
+
+				var selectstr="<br /><select style='width:100%;font-size:150%' id='pageselect' onChange='page(this.options[this.selectedIndex].value)';>";
+				
+				for(var j=1;j<=data[0].pages;j++){
+					selectstr = selectstr + "<option value='"+(j-1)+"'>第"+j+"頁</option>";
+					}
+
+				selectstr=selectstr+"</select>";
+
+				$("#select").append(selectstr);
+
+				
 			}
 		})
 		
@@ -336,6 +347,43 @@
 				url:"search",
 				data:{'search':$('#search').val()},
 				type:"POST",
+				dataType:"json",
+				success:function(data){
+					
+					console.log(data);
+
+					document.getElementById("select").innerHTML="";
+					document.getElementById("ajin").innerHTML="";
+					
+					for(var i=0;i<data.length;i++){
+						var day=data[i].day;
+						week=data[i].week;
+						title=data[i].title;
+						descrip = data[i].des;
+						id = data[i].id-1;
+						
+						var blogstr="<article class='blog_item'> <div class='blog_item_img'> "+
+						" <div class='blog_item_date'><h3>"+
+						day+"</h3><p>"+week+"</p></div></div><div class='blog_details'><a class='d-inline-block' href="+
+						"'single-blog.html?blog="+id+"'><h2>"+title+"</h2></a><p>"+descrip+"</p></div></article>";
+
+						$("#ajin").append(blogstr);
+						
+					}
+					var back = '<br /><button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" onclick="window.location.reload()">返回</button>';
+					document.getElementById("s").innerHTML="";
+					$("#s").append(back);
+
+				}
+			})
+
+		}
+		
+		function page(s){
+			$.ajax({
+				url:"rsspage",
+				type:"POST",
+				data:{'page': s},
 				dataType:"json",
 				success:function(data){
 					
@@ -358,14 +406,10 @@
 						$("#ajin").append(blogstr);
 						
 					}
-					var back = '<br /><button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" onclick="window.location.reload()">返回</button>';
-					
-					$("#s").append(back);
 
 				}
 			})
-
-		}
+			}
 		
 
         </script>
