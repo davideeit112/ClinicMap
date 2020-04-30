@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import clinicMap.eddiechen.backendsystem.model.Clinicchen;
 import clinicMap.eddiechen.ecpay.payment.integration.AllInOne;
 import clinicMap.eddiechen.ecpay.payment.integration.domain.AioCheckOutALL;
 import clinicMap.eddiechen.ecpay.payment.integration.domain.AioCheckOutCVS;
@@ -62,7 +63,7 @@ public class EcpayDao {
 	
 	public static void changeStatus(int clinicID) {
 		Session session = sessionFactory.getCurrentSession();
-		Clinic clinic = session.get(Clinic.class, clinicID);
+		Clinicchen clinic = session.get(Clinicchen.class, clinicID);
 		clinic.setClinicStatus("CS3");
 
 		session.update(clinic);

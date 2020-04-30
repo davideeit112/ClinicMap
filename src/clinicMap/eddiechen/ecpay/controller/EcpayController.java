@@ -37,8 +37,8 @@ public class EcpayController {
 	}
 	
 	
-	@RequestMapping(path="/changeStatus", method=RequestMethod.GET)
-	public String changeStatus(@RequestParam("id") String id, HttpServletRequest req, HttpServletResponse res) throws IOException {
+	@RequestMapping(path="/changeStatusAfterPay", method=RequestMethod.GET)
+	public String changeStatusAfterPay(@RequestParam("id") String id, HttpServletRequest req, HttpServletResponse res) throws IOException {
 
 		EcpayService.changeStatus(1001);
 		
