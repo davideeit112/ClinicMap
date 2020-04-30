@@ -32,6 +32,27 @@ public class EMessageController {
 		this.emsgservice = emsgservice;
 	}
 
+	@RequestMapping(path = "/top3msgblog.do", method = RequestMethod.POST)
+	public void top3msgclinic(HttpServletResponse res, HttpServletRequest request) throws IOException {
+		List<ResultBean> list = emsgservice.top3blog();
+		List<clinicBean> list2 = emsgservice.queryclinic();
+		JSONArray jarray = new JSONArray();
+		for (ResultBean rbean : list) {
+			for (clinicBean cbean : list2) {
+				if (rbean.getClinicID() == cbean.getClinicId()) {
+					JSONObject obj = new JSONObject(rbean);
+					obj.put("clinicPhone", cbean.getClinicphone());
+					obj.put("clinicName", cbean.getClinicName());
+					obj.put("clinicPhoto", cbean.getClinicPhoto());
+					jarray.put(obj);
+				}
+			}
+		}
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		out.print(jarray);
+	}
+
 	@RequestMapping(path = "/allboard.do", method = RequestMethod.GET)
 	public String allboard() {
 		return "AllBoard";
@@ -78,7 +99,6 @@ public class EMessageController {
 	
 	@RequestMapping(path = "/search.do", method = RequestMethod.POST)
 	public void search(HttpServletResponse res, HttpServletRequest request) throws IOException {
-//		String cname = request.getParameter("cname");
 		List<ResultBean> list = emsgservice.total();
 		List<clinicBean> list2 = emsgservice.queryclinic();
 		JSONArray jarray = new JSONArray();
@@ -96,11 +116,6 @@ public class EMessageController {
 				} 
 			}
 		}
-//		if(jarray.isEmpty()) {
-//			JSONObject obj2 = new JSONObject();
-//			obj2.put("clinicName", "�L���E�Ҹ��");
-//			jarray.put(obj2);
-//		}
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		out.print(jarray);
@@ -155,114 +170,6 @@ public class EMessageController {
 		out.print(jarray);
 	}
 	
-//	@RequestMapping(path = "/blog1.do", method = RequestMethod.GET)
-//	public String start1() {
-//		return "Cblog";
-//	}
-//
-//	@RequestMapping(path = "/msg1.do", method = RequestMethod.POST)
-//	public void queryallmsg(HttpServletResponse res) throws IOException {
-//		List<EMessage> list = emsgservice.querymsg1();
-//		List<memberBean> list2 = emsgservice.querymember();
-//		List<clinicBean> list3 = emsgservice.queryclinic();
-//		JSONArray jarray = new JSONArray();
-//		for (EMessage ebean  : list) {
-//			for (memberBean mbean : list2) {
-//				for (clinicBean cbean : list3) {
-//					JSONObject obj1 = new JSONObject();
-//					if (ebean.getMemberID() == mbean.getMemberID() && ebean.getClinicID() == cbean.getClinicId()) {
-//						obj1.put("clinicPhoto", cbean.getClinicPhoto());
-//						obj1.put("clinicName", cbean.getClinicName());
-//						obj1.put("clinicPhone", cbean.getClinicphone());
-//						obj1.put("messageID", ebean.getMessageID());
-//						obj1.put("MemberID", ebean.getMemberID());
-//						obj1.put("Evaluation", ebean.getEvaluation());
-//						obj1.put("Message", ebean.getMessage());
-//						obj1.put("evaluationTime", ebean.getEvaluationTime());
-//						obj1.put("messageName", mbean.getMemberAccount());
-//						jarray.put(obj1);
-//					}
-////				System.out.println(ebean.getMessage().length());
-//				}
-//			}
-//		}
-//		res.setContentType("text/html;charset=UTF-8");
-//		PrintWriter out = res.getWriter();
-//		out.print(jarray);
-//	}
-//
-//	@RequestMapping(path = "/blog2.do", method = RequestMethod.GET)
-//	public String start2() {
-//		return "Cblog2";
-//	}
-//
-//	@RequestMapping(path = "/msg2.do", method = {RequestMethod.POST,RequestMethod.GET})
-//	public void queryclinic2msg(HttpServletResponse res) throws IOException {
-//		List<EMessage> list = emsgservice.querymsg2();
-//		List<memberBean> list2 = emsgservice.querymember();
-//		List<clinicBean> list3 = emsgservice.queryclinic();
-//		JSONArray jarray = new JSONArray();
-//		for (EMessage ebean  : list) {
-//			for (memberBean mbean : list2) {
-//				for (clinicBean cbean : list3) {
-//					JSONObject obj1 = new JSONObject();
-//					if (ebean.getMemberID() == mbean.getMemberID() && ebean.getClinicID() == cbean.getClinicId()) {
-//						obj1.put("clinicPhoto", cbean.getClinicPhoto());
-//						obj1.put("clinicName", cbean.getClinicName());
-//						obj1.put("clinicPhone", cbean.getClinicphone());
-//						obj1.put("messageID", ebean.getMessageID());
-//						obj1.put("MemberID", ebean.getMemberID());
-//						obj1.put("Evaluation", ebean.getEvaluation());
-//						obj1.put("Message", ebean.getMessage());
-//						obj1.put("evaluationTime", ebean.getEvaluationTime());
-//						obj1.put("messageName", mbean.getMemberAccount());
-//						jarray.put(obj1);
-//					}
-////				System.out.println(ebean.getMessage().length());
-//				}
-//			}
-//		}
-//		res.setContentType("text/html;charset=UTF-8");
-//		PrintWriter out = res.getWriter();
-//		out.print(jarray);
-//	}
-//
-//	@RequestMapping(path = "/blog3.do", method = RequestMethod.GET)
-//	public String start3() {
-//		return "Cblog3";
-//	}
-//
-//	@RequestMapping(path = "/msg3.do", method = RequestMethod.POST)
-//	public void queryclinic3msg(HttpServletResponse res) throws IOException {
-//		List<EMessage> list = emsgservice.querymsg3();
-//		List<memberBean> list2 = emsgservice.querymember();
-//		List<clinicBean> list3 = emsgservice.queryclinic();
-//		JSONArray jarray = new JSONArray();
-//		for (EMessage ebean : list) {
-//			for (memberBean mbean : list2) {
-//				for (clinicBean cbean : list3) {
-//					JSONObject obj1 = new JSONObject();
-//					if (ebean.getMemberID() == mbean.getMemberID() && ebean.getClinicID() == cbean.getClinicId()) {
-//						obj1.put("clinicPhoto", cbean.getClinicPhoto());
-//						obj1.put("clinicName", cbean.getClinicName());
-//						obj1.put("clinicPhone", cbean.getClinicphone());
-//						obj1.put("messageID", ebean.getMessageID());
-//						obj1.put("MemberID", ebean.getMemberID());
-//						obj1.put("Evaluation", ebean.getEvaluation());
-//						obj1.put("Message", ebean.getMessage());
-//						obj1.put("evaluationTime", ebean.getEvaluationTime());
-//						obj1.put("messageName", mbean.getMemberAccount());
-//						jarray.put(obj1);
-//					}
-////				System.out.println(ebean.getMessage());
-//				}
-//			}
-//		}
-//		res.setContentType("text/html;charset=UTF-8");
-//		PrintWriter out = res.getWriter();
-//		out.print(jarray);
-//	}
-
 	@RequestMapping(path = "/order.do", method = RequestMethod.GET)
 	public String intoappointment() {
 		return "Appointment";
@@ -286,38 +193,6 @@ public class EMessageController {
 			System.out.println("input success...");
 		}
 		return "memberedit";
-	}
-
-	@RequestMapping(path = "/deletemsg.do", method = RequestMethod.POST)
-	public String processdelmessage(@RequestParam("messageID") int messageID, Model model,
-			RedirectAttributes redirectAttributes) {
-		model.addAttribute("messageID", messageID);
-		boolean checkdel = emsgservice.deletemessage(messageID);
-		if (checkdel == true) {
-			System.out.println("del success...");
-			redirectAttributes.addAttribute("id", messageID);
-			return "redirect:/start.do";
-		}
-		System.out.println("delfalse");
-		return "redirect:/start.do";
-	}
-
-	@RequestMapping(path = "/replymsg.do", method = RequestMethod.GET)
-	public void processreplymessage(@RequestParam("messageID") int messageID, @RequestParam("clinicID") int clinicID,
-			@RequestParam("replyMessage") String replyMessage, Model model, RedirectAttributes redirectAttributes) {
-		model.addAttribute("messageID", messageID);
-		model.addAttribute("clinicID", clinicID);
-		model.addAttribute("replyMessage", replyMessage);
-		System.out.println("3");
-		boolean check = emsgservice.inputreplymsg(new ReplyBean(clinicID, clinicID, replyMessage));
-		System.out.println("4");
-		if (check == true) {
-			System.out.println("input success...");
-//			redirectAttributes.addAttribute("id", clinicID);
-//			return "redirect:/start.do";
-		}
-		System.out.println("empty");
-//		return "redirect:/start.do";
 	}
 
 	@RequestMapping(path = "/msgtop3.do", method = RequestMethod.POST)
