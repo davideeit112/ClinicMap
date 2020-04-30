@@ -23,8 +23,8 @@ public class SysManagementService {
 		return sysManagementDao.clinicData();
 	}
 	
-	public void savePersonWithPhoto(String photoFilePath) throws IOException {
-		 sysManagementDao.savePersonWithPhoto(photoFilePath);
+	public void savePersonWithPhoto(String photoFilePath, int count) throws IOException {
+		 sysManagementDao.savePersonWithPhoto(photoFilePath, count);
 	}
 	
 	public void readPhotoOfPerson(int clinicID, String photoFilePath) throws IOException {
@@ -35,10 +35,20 @@ public class SysManagementService {
 		sysManagementDao.emailActivate(clinicID);
 	}
 	
+	public void changeStatus2(int clinicID) {
+		sysManagementDao.changeStatus2(clinicID);
+	}
 	public void changeStatus(int clinicID) {
 		sysManagementDao.changeStatus(clinicID);
 	}
-	public void changeStatus2(int clinicID) {
-		  sysManagementDao.changeStatus2(clinicID);
-		 }
+	
+	public void updateData(int clinicid, String clinicname,String clinicaccount, String clinicpwd,String clinicaddress,  String clinicdescription, String clinicphone, String clinicemail, String clinicclass,  String clinictype, String clinictime, String cliniclat, String cliniclng, String clinicstatus) {
+		sysManagementDao.updateData(clinicid, clinicname, clinicaccount, clinicpwd, clinicaddress, clinicdescription, clinicphone, clinicemail, clinicclass, clinictype, clinictime, cliniclat, cliniclng, clinicstatus);
+	}
+	
+	public void updateAnnouncement(String id, String type, String text) {
+		sysManagementDao.updateAnnouncement(id, type, text);
+
+	}
+	
 }

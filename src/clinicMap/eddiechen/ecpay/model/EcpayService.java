@@ -10,7 +10,18 @@ public class EcpayService {
 	}
 	
 
-	public static String genAioCheckOutALL(String clinicAccount) {
-		return EcpayDao.genAioCheckOutALL(clinicAccount);
+	public static String genAdPayment(String id) {
+		return EcpayDao.genAdPayment(id);
 	}
+	
+	public static String genTexiPayment(String id, String pricetotal) {
+		return EcpayDao.genTexiPayment(id, pricetotal);
+	}
+	
+	
+	public static void changeStatus(int clinicID) {
+		 EcpayDao.changeStatus(clinicID);
+	}
+	
+
 }
