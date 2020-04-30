@@ -17,6 +17,7 @@ import clinicMap.eddiechen.ecpay.payment.integration.AllInOne;
 import clinicMap.eddiechen.ecpay.payment.integration.domain.AioCheckOutALL;
 import clinicMap.eddiechen.ecpay.payment.integration.domain.AioCheckOutCVS;
 import clinicMap.eddiechen.ecpay.payment.integration.domain.InvoiceObj;
+import clinicMap.tingyen.model.Clinic;
 
 @Repository
 public class EcpayDao {

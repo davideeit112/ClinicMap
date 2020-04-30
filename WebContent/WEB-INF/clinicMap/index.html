@@ -571,11 +571,12 @@
 	$("#like").text(selectval);
 	$.ajax({
 		type : "POST",				
-		url : "/clinicMap/checkboxvalues", 
+		url : "checkboxvalues?selectval=" + selectval, 
 		dataType : "json",
-		data:{"selectval":selectval},
 
 		success : function(checkboxdata) {
+
+			
 			console.log(checkboxdata.length);	
 			for (var i = 0; i < checkboxdata.length; i++) {
 				
@@ -840,6 +841,7 @@ $.ajax({
 	
 	<script type="text/javascript">
 	console.log($.cookie('memberID'))
+	console.log($.cookie('clinicID'))
 if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
 {
 	
@@ -854,7 +856,11 @@ if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
 	$("#order").show()
 	$("#member").show()
 	$("#memberName").text($.cookie("account"))
+}else if($.cookie('clinicID')!=undefined){
+	console.log("hello")
+	location.href="clinicProfile"
 }else{
+	console.log("helloq")
 	$("#loginIn").hide()
 	$("#loginOut").show()
 	$("#member").show()
