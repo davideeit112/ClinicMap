@@ -126,9 +126,19 @@
 									</ul>
 								</div>
 							</div>
-							<div class="col-lg-4">
-								<div class="header-info-right f-right"></div>
+							
+						<div class="col-lg-4">
+								<div class="header-info-right f-right">
+									<ul class="header-social">
+										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
+										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
+										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
+									</ul>
+								</div>
 							</div>
+						</div>
+					</div>
+				</div>
 						</div>
 					</div>
 				</div>
@@ -138,7 +148,7 @@
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="ClinicMain.html"><img src="assets/img/logo/cliniclogo.png"
+									<a href="clinicMain"><img src="assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -147,9 +157,9 @@
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="ClinicMain.html">今日預約</a></li>
-											<li><a href="Count.html">歷史預約統計</a></li>
-											<li><a href="ClinicProfile.html">診所基本資料</a></li>	
+											<li><a href="clinicMain">今日預約</a></li>
+											<li><a href="count">歷史預約統計</a></li>
+											<li><a href="clinicProfile">診所基本資料</a></li>	
 										</ul>
 									</nav>
 								</div>
@@ -623,5 +633,46 @@
 	
 	});
    	</script>
+   	<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+   	<script>
+if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
+{
+	
+	$("#loginIn").show()
+	$("#loginOut").hide()
+	$("#order").hide()
+	$("#member").hide()
+}else if($.cookie('memberID')!=undefined){
+	console.log("hi")
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+	console.log($.cookie("account"))
+}else if($.cookie('clinicID'!=undefined)){
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+}
+else{
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#member").show()
+	
+}
+function loginout(){
+	$.removeCookie('memberID')
+	$.removeCookie('clinicID')
+	location.reload();
+}
+$("#loginOut").click(function(){
+	$.cookie('memberID','',{expires: -1,path:"/clinicMap"})
+	$.cookie('clinicID','',{expires: -1,path:"/clinicMap"})
+	location.href="googleMap/"
+})
+</script>
 </body>
 </html>
