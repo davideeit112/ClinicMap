@@ -49,7 +49,7 @@ public class SysManagementDao {
 
 	public List<Clinicchen> clinicData() {
 		Session session = sessionFactory.getCurrentSession();
-		String hqlstr = "from Clinic";
+		String hqlstr = "from Clinicchen";
 		Query<Clinicchen> query = session.createQuery(hqlstr, Clinicchen.class);
 		List<Clinicchen> list = (List<Clinicchen>) query.list();
 		return list;
