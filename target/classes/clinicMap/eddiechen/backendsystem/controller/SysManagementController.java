@@ -203,7 +203,7 @@ public class SysManagementController {
 			// StringBuilder data = new StringBuilder();
 			String clinicStatus;
 			List<Clinicchen> data1 = sysService.clinicData();
-
+			System.out.println("hello");
 			JSONArray js = new JSONArray();
 			for (Clinicchen c : data1) {
 //				String photoFilePathToSave = ("D:\\DataSource\\WORKSPACE\\FinalWorkSpace\\SpringBackEndSystem\\WebContent\\eddiechen\\imgs\\" + c.getClinicAccount() + ".jpg");
