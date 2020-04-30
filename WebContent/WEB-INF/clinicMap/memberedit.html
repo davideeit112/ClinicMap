@@ -715,7 +715,10 @@ if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
 	$("#member").show()
 	$("#memberName").text($.cookie("account"))
 	console.log($.cookie("account"))
-}else{
+}else if($.cookie('clinicID'!=undefined)){
+	location.href="clinicProfile"
+}
+else{
 	$("#loginIn").hide()
 	$("#loginOut").show()
 	$("#member").show()
