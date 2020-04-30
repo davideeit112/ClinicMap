@@ -11,6 +11,7 @@ public class EcpayService {
 	
 
 	public static String genAdPayment(String id) {
+		System.out.println("00");
 		return EcpayDao.genAdPayment(id);
 	}
 	

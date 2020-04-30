@@ -19,11 +19,5 @@ public class ItemService {
 		return idao.ItemList();
 	}
 	
-	public void RssToDB() throws Exception {
-		idao.RssToDB();
-	}
 	
-	public void clearDB() {
-		idao.clearDB();
-	}
 }

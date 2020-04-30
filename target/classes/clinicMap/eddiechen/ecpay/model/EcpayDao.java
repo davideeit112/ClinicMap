@@ -39,21 +39,26 @@ public class EcpayDao {
 	public static String genAdPayment(String id){
 //		Session session  = EcpayDao.sessionFactory.getCurrentSession();
 		AioCheckOutALL obj = new AioCheckOutALL();
-		
+		System.out.println("11");
 		Date date = Calendar.getInstance().getTime();  
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");  
-		String strDate = dateFormat.format(date);  
+		String strDate = dateFormat.format(date); 
+		System.out.println("22");
 		obj.setMerchantTradeNo(id);
 		obj.setMerchantTradeDate(strDate);
 		obj.setTotalAmount("100");
 		obj.setTradeDesc("test Description");
 		obj.setItemName("ClinicMap廣告贊助");
 		obj.setReturnURL("http://211.23.128.214:5000");
+		System.out.println("33");
 		obj.setClientBackURL("http://localhost:8080/clinicMap/changeStatusAfterPay?id=" + id);
 //		obj.setOrderResultURL("http://localhost:8080/SpringAllForOne/Test.jsp");
 		System.out.println(id);
+		System.out.println("4444");
 		obj.setNeedExtraPaidInfo("N");
+		System.out.println("66666");
 		String form = all.aioCheckOut(obj, null);
+		System.out.println(form);
 //		Sponsor s = new Sponsor();
 //		s.setClinicAccount(clinicAccount);
 //		s.setTradeID(id);
