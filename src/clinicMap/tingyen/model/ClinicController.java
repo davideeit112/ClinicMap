@@ -317,30 +317,12 @@ public class ClinicController {
 	@RequestMapping(path = "/GetClinicProfile.do", method = RequestMethod.GET)
 	public void clinicProfile(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		Cookie[] cookieArray = request.getCookies();
-		Cookie cookie = cookieArray[2];
+		Cookie cookie = cookieArray[0];
 		String clinicID = cookie.getValue();
-		System.out.println("hello");
 		System.out.println("clinicID:" + clinicID);
-		System.out.println(Integer.parseInt(clinicID));
-		Clinic cBean = cService.queryClinicProfile(Integer.parseInt(clinicID));
-		
+		Clinic cBean = cService.queryClinicProfile(Integer.valueOf(clinicID));
 		JSONObject jsonObj = new JSONObject(cBean);
 		PrintWriter out = response.getWriter();
 		out.print(jsonObj);
-	}
-	///////網址傳送區////////
-	@RequestMapping(path="/ClinicProfile" ,method = RequestMethod.GET)
-	public String clinicProfile() {
-		return "ClinicProfile";
-		
-	}
-	@RequestMapping(path="/ClinicMain" ,method = RequestMethod.GET)
-	public String clinicMain() {
-		return "ClinicMain";
-		
-	}
-	@RequestMapping(path="/Count" , method =RequestMethod.GET)
-	public String clinicCount() {
-		return "Counnt";
 	}
 }
