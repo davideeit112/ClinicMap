@@ -82,6 +82,7 @@ public class RssListController {
 			jobj.put("week", d2[0]);
 			jobj.put("day", d2[2]);
 			jobj.put("des", des4[0]);
+			jobj.put("pages", 4+list.size()/5);
 
 			array.put(jobj);
 		}
