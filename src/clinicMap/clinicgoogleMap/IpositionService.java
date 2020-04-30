@@ -15,6 +15,8 @@ public interface IpositionService {
 	public List<position> selectAllOrderData(String drivername);
 	//新增訂單資料
 	public position neworderinData(position Pposition);
+	//使用者端查訂單id
+	public List<position> selectthisorderid(String drivername,String clinicName,String thispricetotal);
 }
 
 

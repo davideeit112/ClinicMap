@@ -115,8 +115,9 @@ public class testcontrollerclinic {
 		String[] tokens = mylatlng.split(",");
 		System.out.println(tokens[0]);
 		System.out.println(tokens[1]);
-		int id = 101;
-	    service2.updateguestData(id, tokens[0], tokens[1]);
+		System.out.println(tokens[2]);
+		int i = Integer.parseInt(tokens[0]);
+	    service2.updateguestData(i, tokens[1], tokens[2]);
 	}
 
 	@RequestMapping(value = "/updatedestination", method = RequestMethod.POST)
@@ -136,14 +137,15 @@ public class testcontrollerclinic {
 		String[] tokens = driverlatlng.split(",");
 		System.out.println(tokens[0]);
 		System.out.println(tokens[1]);
-		int id = 101;
-		service2.updatedriverData(id, tokens[0], tokens[1]);
+		System.out.println(tokens[2]);
+		int i = Integer.parseInt(tokens[0]);
+		service2.updatedriverData(i, tokens[1], tokens[2]);
 	}
 
 	@RequestMapping(value = "/selectall", method = RequestMethod.POST)
-	public void selectid(@RequestParam(value = "id") int id, HttpServletResponse res) throws IOException {
-		int forid = id;
-		System.out.println(forid);
+	public void selectid(@RequestParam(value = "positionidcheck") int positionidcheck, HttpServletResponse res) throws IOException {
+		int forid = positionidcheck;
+		System.out.println("我選定的單號"+forid);
 		position qa = service2.selectpositionData(forid);
 		
 		JSONObject jaray = new JSONObject();
@@ -157,9 +159,8 @@ public class testcontrollerclinic {
 	    jaray.put("destinationlat", qa.getdestinationlat());
 	    jaray.put("destinationlng", qa.getdestinationlng());
 	    
-		System.out.println(jaray.isEmpty()+"test");
 
-			
+	    
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = res.getWriter();
 	
@@ -169,7 +170,7 @@ public class testcontrollerclinic {
 	
 	
 	@RequestMapping(value = "/neworder", method = RequestMethod.POST)
-	public void newfororder(@RequestParam(value = "orderdata") String orderdata) throws IOException {
+	public void newfororder(@RequestParam(value = "orderdata") String orderdata,HttpServletResponse res) throws IOException {
 		position Pposition = new position();		
 		String[] data = orderdata.split(",");
 		Pposition.setdrivername(data[0]);
@@ -182,7 +183,19 @@ public class testcontrollerclinic {
 		Pposition.setdestinationlng(data[7]);
 		Pposition.setthispricetotal(data[8]);
 		service2.neworderinData(Pposition);
-	
+		
+		
+		List<position> forid=service2.selectthisorderid(data[0],data[1],data[8]);
+		
+		JSONArray jaray = new JSONArray();
+		for (position i : forid) {
+			JSONObject jso = new JSONObject();
+			jso.put("positionID", i.getpositionID());	
+			jaray.put(jso);
+		}
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		out.print(jaray);	                   
 	}
 //--------------------------------------------------------------------------------------------------	
 	@RequestMapping(value = "/selectorder", method = RequestMethod.POST)
@@ -195,19 +208,17 @@ public class testcontrollerclinic {
 		
 		for (position i : qa) {
 			JSONObject jso = new JSONObject();
-			jso.put("getpositionID", i.getpositionID());
-			jso.put("getdrivername", i.getdrivername());
-			jso.put("getclinicName", i.getclinicName());
-			jso.put("getguestlat", i.getguestlat());
-			jso.put("getguestlng", i.getguestlng());
-			jso.put("getdriverlat", i.getdriverlat());
-			jso.put("getdriverlng", i.getdriverlng());
-			jso.put("getdestinationlat", i.getdestinationlat());
-			jso.put("getdestinationlng", i.getdestinationlng());		
+			jso.put("positionID", i.getpositionID());
+			jso.put("drivername", i.getdrivername());
+			jso.put("clinicName", i.getclinicName());
+			jso.put("guestlat", i.getguestlat());
+			jso.put("guestlng", i.getguestlng());
+			jso.put("driverlat", i.getdriverlat());
+			jso.put("driverlng", i.getdriverlng());
+			jso.put("destinationlat", i.getdestinationlat());
+			jso.put("destinationlng", i.getdestinationlng());		
 			jaray.put(jso);
 		}
-		
-	
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		out.print(jaray);
