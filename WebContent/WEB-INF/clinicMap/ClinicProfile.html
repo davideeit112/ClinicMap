@@ -1,0 +1,505 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>歷史統計</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="site.webmanifest">
+<link rel="shortcut icon" type="image/x-icon"
+	href="assets/img/favicon.ico">
+
+<!-- CSS here -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/css/flaticon.css">
+<link rel="stylesheet" href="assets/css/slicknav.css">
+<link rel="stylesheet" href="assets/css/animate.min.css">
+<link rel="stylesheet" href="assets/css/magnific-popup.css">
+<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="assets/css/themify-icons.css">
+<link rel="stylesheet" href="assets/css/slick.css">
+<link rel="stylesheet" href="assets/css/nice-select.css">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+	*{
+		font-family: 'Noto Sans TC', sans-serif;
+	}
+	#open,#break,#close{
+		width:100px;
+		text-align: center;
+	}
+	.appNum{
+		border-width: 0;
+		width:30px;
+		text-align: center;
+		font-size:20pt;
+	}
+	.controller{
+		float: left;
+		margin-left:50px;
+		margin-top: 30px;
+
+	}
+	.currentNumbers{
+		padding-left: 25px;
+	}
+	.appointments{
+		margin-top: 30px;
+		margin-left:500px;
+	}
+	.todayApp{
+		background-color: #F7D8E9;
+	}
+	.todayApp th{
+		background-color: #F7ACBC;
+		padding-left: 20px;
+		padding-top:10px;
+	}
+	.todayApp td{
+		font-size: 18px;
+		padding-left: 20px;
+		padding-top:10px;
+		text-align: center;
+	}
+	.todayApp tr:hover{
+		background-color: #FCEEF6;
+	}
+	main{
+		margin-bottom: 100px;
+	}
+	#headerTop{
+		background-color: #C8083F;
+	}
+</style>
+</head>
+
+<body>
+	
+<!-- Load Facebook SDK for JavaScript -->
+      <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+            version          : 'v6.0'
+          });
+        };
+
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/zh_TW/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+
+      <!-- Your customer chat code -->
+      <div class="fb-customerchat"
+        attribution=setup_tool
+        page_id="112427227114340"
+ 		 theme_color="#20cef5"
+  		logged_in_greeting="您好！歡迎來到ClinicMap，您可以使用左下角的常見問題功能列，或是直接將您遇到的問題發送給我們，我們會盡快提供協助。"
+  		logged_out_greeting="您好！歡迎來到ClinicMap，您可以使用左下角的常見問題功能列，或是直接將您遇到的問題發送給我們，我們會盡快提供協助。">
+      </div>
+
+	<!-- Preloader Start -->
+	<div id="preloader-active">
+		<div
+			class="preloader d-flex align-items-center justify-content-center">
+			<div class="preloader-inner position-relative">
+				<div class="preloader-circle"></div>
+				<div class="preloader-img pere-text">
+					<img src="assets/img/logo/logo.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Preloader Start -->
+	<header>
+		<!-- Header Start -->
+		<div class="header-area">
+			<div class="main-header ">
+				<div id="headerTop" class="header-top top-bg d-none d-lg-block">
+					<div class="container">
+						<div class="row justify-content-between align-items-center">
+							<div class="col-lg-8">
+								<div class="header-info-left">
+									<ul>
+										<li>clinic@gmail.com</li>
+										<li>666 569 025077</li>
+										<li>find clinic for you</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="header-info-right f-right">
+									<ul class="header-social">
+										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
+										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
+										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="header-bottom  header-sticky">
+					<div class="container">
+						<div class="row align-items-center">
+							<!-- Logo -->
+							<div class="col-xl-2 col-lg-2 col-md-1">
+								<div class="logo">
+									<a href="clinicMain"><img src="assets/img/logo/logo.png"
+										alt=""></a>
+								</div>
+							</div>
+							<div class="col-xl-10 col-lg-10 col-md-10">
+								<!-- Main-menu -->
+								<div class="main-menu f-right d-none d-lg-block">
+									<nav>
+										<ul id="navigation">
+											<li><a href="clinicMain">今日預約</a></li>
+											<li><a href="count">歷史預約統計</a></li>
+											<li><a href="clinicProfile">診所基本資料</a></li>											
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- Mobile Menu -->
+							<div class="col-12">
+								<div class="mobile_menu d-block d-lg-none"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header>
+	<main>
+
+		<!-- slider Area Start-->
+		<div class="slider-area ">
+			<!-- Mobile Menu -->
+			<div class="single-slider slider-height2 d-flex align-items-center"
+				data-background="assets/img/hero/currentNumber.jpg">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="hero-cap text-center">
+								<h2 id="headStatus">診所基本資料</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- slider Area End-->	
+		<!-- ================================================================================================================== -->
+				<input id="editProflie" class="genric-btn success circle arrow" type="button" value="修改基本資料">
+				<div class="col-lg-8 col-md-8">
+
+					<form action="UpdateClinicProfile.do" class="profile" id="clinicProfile" method="post" enctype="multipart/form-data"  accept="image/gif, image/jpeg, image/png" >
+						
+						<div class="readonly">
+						<h3 id="clinicPhotoHead" class="mt-30">診所照片</h3> 
+						<input type="file" id="clinicPhoto" name="clinicPhoto" class="single-input" readonly="readonly">
+						<div id="show"> <img id="imgshow" src="#" alt="Clinic photo"  width="200"></div>																		
+						</div>
+						<div class="readonly">
+						<h3 id="clinicLicenseHead" class="mt-30">診所執照</h3> 
+						<input type="file" id="clinicLicense" name="clinicLicense" class="single-input" readonly="readonly">
+						<div id="show1"> <img id="imgshow1" src="#" alt="Clinic License"  width="200"></div>																		
+						</div>
+						<div class="mt-10">
+							<h3 class="mb-30">編號</h3><input name="clinicID" id="clinicID" type="text" placeholder="clinicID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">類別</h3><input name="clinicClass" id="clinicClass" type="text" placeholder="clinicClass" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">科別</h3><input name="clinicType" id="clinicType" type="text" placeholder="clinicType" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">驗證狀態</h3><input name="clinicStatus" id="clinicStatus" type="text" placeholder="clinicStatus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">名稱</h3> <input name="clinicName" id="clinicName" type="text" placeholder="clinicName" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">帳號</h3><input name="clinicAccount" id="clinicAccount" type="text" placeholder="clinicAccount" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">密碼</h3><input name="clinicPwd" id="clinicPwd" type="text" placeholder="clinicPwd" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">簡介</h3><input name="clinicDescription" id="clinicDescription" type="text" placeholder="clinicDescription" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">地址</h3><input name="clinicAddress" id="clinicAddress" type="text" placeholder="clinicAddress" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">電子郵件</h3><input name="clinicEmail" id="clinicEmail" type="text" placeholder="clinicEmail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						<div class="mt-10">
+							<h3 class="mt-30">電話</h3><input name="clinicPhone" id="clinicPhone" type="text" placeholder="clinicPhone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required	class="single-input" readonly="readonly">
+						</div>
+						
+						<input class="genric-btn success circle arrow" id="edit" type="submit" value="修改">
+						
+					</form>
+					
+				</div>
+
+		<!-- ================================================================================================================== -->
+
+	</main>
+	<footer>
+
+		<!-- Footer Start-->
+		<div class="footer-area footer-padding footer-bg"
+			data-background="assets/img/service/clinicFooterBg.jpg">
+			<div class="container">
+				<div class="row d-flex justify-content-between">
+					<div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+						<div class="single-footer-caption mb-50">
+							<div class="single-footer-caption mb-30">
+								<!-- logo -->
+								<div class="footer-logo">
+									<a href="index.html"><img
+										src="assets/img/logo/logo2_footer.png" alt=""></a>
+								</div>
+								<div class="footer-tittle">
+									<div class="footer-pera">
+										<p>Lorem iaspsum doldfor sit amvset, consectetur
+											adipisicing cvelit csed do eiusmod tempor incididucvccnt ut
+											labovre.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+						<div class="single-footer-caption mb-50">
+							<div class="footer-tittle">
+								<h4>Quick Links</h4>
+								<ul>
+									<li><a href="#">About</a></li>
+									<li><a href="#"> Offers & Discounts</a></li>
+									<li><a href="#"> Get Coupon</a></li>
+									<li><a href="#"> Contact Us</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+						<div class="single-footer-caption mb-50">
+							<div class="footer-tittle">
+								<h4>New Products</h4>
+								<ul>
+									<li><a href="#">Woman Cloth</a></li>
+									<li><a href="#">Fashion Accessories</a></li>
+									<li><a href="#"> Man Accessories</a></li>
+									<li><a href="#"> Rubber made Toys</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+						<div class="single-footer-caption mb-50">
+							<div class="footer-tittle">
+								<h4>Support</h4>
+								<ul>
+									<li><a href="#">Frequently Asked Questions</a></li>
+									<li><a href="#">Terms & Conditions</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+									<li><a href="#">Report a Payment Issue</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Footer bottom -->
+				<div class="row pt-padding">
+					<div class="col-xl-7 col-lg-7 col-md-7">
+						<div class="footer-copy-right">
+							<p>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								Copyright &copy;
+								<script>
+									document.write(new Date().getFullYear());
+								</script>
+								All rights reserved | This template is made with <i
+									class="ti-heart" aria-hidden="true"></i> by <a
+									href="https://colorlib.com" target="_blank">Colorlib</a>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							</p>
+						</div>
+					</div>
+					<div class="col-xl-5 col-lg-5 col-md-5">
+						<!-- social -->
+						<div class="footer-social f-right">
+							<a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i
+								class="fab fa-facebook-f"></i></a> <a href="#"><i
+								class="fab fa-behance"></i></a> <a href="#"><i
+								class="fas fa-globe"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Footer End-->
+
+	</footer>
+
+	<!-- JS here -->
+
+	<!-- All JS Custom Plugins Link Here here -->
+	<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+
+	<!-- Jquery, Popper, Bootstrap -->
+	<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="./assets/js/popper.min.js"></script>
+	<script src="./assets/js/bootstrap.min.js"></script>
+	<!-- Jquery Mobile Menu -->
+	<script src="./assets/js/jquery.slicknav.min.js"></script>
+
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script src="./assets/js/owl.carousel.min.js"></script>
+	<script src="./assets/js/slick.min.js"></script>
+	<!-- One Page, Animated-HeadLin -->
+	<script src="./assets/js/wow.min.js"></script>
+	<script src="./assets/js/animated.headline.js"></script>
+	<script src="./assets/js/jquery.magnific-popup.js"></script>
+
+	<!-- Scrollup, nice-select, sticky -->
+	<script src="./assets/js/jquery.scrollUp.min.js"></script>
+	<script src="./assets/js/jquery.nice-select.min.js"></script>
+	<script src="./assets/js/jquery.sticky.js"></script>
+
+	<!-- contact js -->
+	<script src="./assets/js/contact.js"></script>
+	<script src="./assets/js/jquery.form.js"></script>
+	<script src="./assets/js/jquery.validate.min.js"></script>
+	<script src="./assets/js/mail-script.js"></script>
+	<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script src="./assets/js/plugins.js"></script>
+	<script src="./assets/js/main.js"></script>
+	
+<script>
+function arrayBufferToBase64(buffer) {
+    let binary = '';
+    let bytes = new Uint8Array(buffer);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+}
+$.ajax({
+	url:"GetClinicProfile.do",
+	type:"GET",
+	dataType:"json",
+	success:function(clinicBean){
+		  var status = "";
+		  if(clinicBean.clinicStatus == "CS0"){
+			  status = "未認證";
+		  }else if(clinicBean.clinicStatus == "CS1"){
+			  status = "申請中";
+		  }else if(clinicBean.clinicStatus == "CS2"){
+			  status = "已認證";
+		  }else if(clinicBean.clinicStatus == "CS3"){
+			  status = "已認證且贊助";
+		  }
+		  var name = arrayBufferToBase64(clinicBean.clinicPhoto);
+		  if(name!=undefined){
+		  $("#photoshow").show("normal");
+		  $('#imgshow').attr("src",'data:image/jpg;base64,'+name);
+		  }	  
+		  var name1 = arrayBufferToBase64(clinicBean.clinicLicense);
+		  if(name!=undefined){
+		  $("#photoshow").show("normal");
+		  $('#imgshow1').attr("src",'data:image/jpg;base64,'+name1);
+		  }	  
+		  $("#clinicID").val(clinicBean.clinicID);
+		  $("#clinicName").val(clinicBean.clinicName);
+		  $("#clinicAccount").val(clinicBean.clinicAccount);
+		  $("#clinicPwd").val(clinicBean.clinicPwd);
+		  $("#clinicAddress").val(clinicBean.clinicAddress);
+		  $("#clinicDescription").val(clinicBean.clinicDescription);
+		  $("#clinicAddress").val(clinicBean.clinicAddress);
+		  $("#clinicEmail").val(clinicBean.clinicEmail);
+		  $("#clinicPhone").val(clinicBean.clinicPhone);
+		  $("#clinicClass").val(clinicBean.clinicClass);
+		  $("#clinicType").val(clinicBean.clinicType);
+		  $("#clinicStatus").val(status);
+
+		}
+	});
+
+$("#editProflie").click(function(){
+	$("#clinicPhoto,#clinicLicense,#edit").css("display","block");
+	$(this).css("visibility","hidden");
+	$("#clinicName").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicPwd").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicDescription").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicPhone").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicAddress").attr("readonly",false).css("background-color","#FBEBEF");
+	$("#clinicEmail").attr("readonly",false).css("background-color","#FBEBEF");	
+});
+
+$("#edit").click(function(){
+	window.alert()
+});
+
+</script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
+if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
+{
+	
+	$("#loginIn").show()
+	$("#loginOut").hide()
+	$("#order").hide()
+	$("#member").hide()
+}else if($.cookie('memberID')!=undefined){
+	console.log("hi")
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+	console.log($.cookie("account"))
+}else if($.cookie('clinicID'!=undefined)){
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+}
+else{
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#member").show()
+	
+}
+function loginout(){
+	$.removeCookie('memberID')
+	$.removeCookie('clinicID')
+	location.reload();
+}
+$("#loginOut").click(function(){
+	$.cookie('memberID','',{expires: -1,path:"/clinicMap"})
+	$.cookie('clinicID','',{expires: -1,path:"/clinicMap"})
+	location.href="googleMap/"
+})
+</script>
+</body>
+</html>

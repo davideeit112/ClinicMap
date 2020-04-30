@@ -154,14 +154,10 @@ textarea {
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="/clinicMap/googleMap/">Home</a></li>
-											<li id="order"><a href="/clinicMap/orderSystem">order</a></li>
-											<li><a href="/clinicMap/ClinicComment">HospitalComment</a></li>
-											<li><a href="/clinicMap/blog.html">Blog</a>
-												<ul class="submenu">
-													<li><a href="../rssget/">News</a></li>
-													<li><a href="../rssdetail/">News Details</a></li>
-												</ul></li>
+											<li><a href="../googleMap/">Home</a></li>
+											<li id="order"><a href="../orderSystem">order</a></li>
+											<li><a href="../ClinicComment">HospitalComment</a></li>
+											<li><a href="../rssget/">News</a></li>
 											
 											<li><a href="contact.html">about Us</a></li>
 										</ul>
@@ -372,7 +368,7 @@ textarea {
 					var blogstr="<article class='blog_item'> <div class='blog_item_img'> "+
 					" <div class='blog_item_date'><h3>"+
 					day+"</h3><p>"+week+"</p></div></div><div class='blog_details'><a class='d-inline-block' href="+
-					"'single-blog.html?blog="+i+"'><h2>"+title+"</h2></a><p>"+descrip+"</p></div></article>";
+					"'../rssdetail?blog="+i+"'><h2>"+title+"</h2></a><p>"+descrip+"</p></div></article>";
 
 
 					

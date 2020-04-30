@@ -124,11 +124,7 @@
 											<li><a href="../googleMap/">Home</a></li>
 											<li id="order"><a href="../orderSystem">order</a></li>
 											<li><a href="../ClinicComment">HospitalComment</a></li>
-											<li><a href="blog.html">News</a>
-												<ul class="submenu">
-													<li><a href="../rssget/">News</a></li>
-													<li><a href="../rssdetail/">News Details</a></li>
-												</ul></li>
+											<li><a href="../rssget/">News</a></li>
 											
 											<li><a href="contact.html">about Us</a></li>
 										</ul>
@@ -775,7 +771,7 @@ function messageGo(){
 	<script type="text/javascript">
 
 $.ajax({
-	url:"/clinicMap/msg1.do",
+	url:"/clinicMap/msg.do",
 	type:"POST",
 	dataType:"json",
 	success:
@@ -841,6 +837,7 @@ $.ajax({
 	
 	<script type="text/javascript">
 	console.log($.cookie('memberID'))
+	console.log($.cookie('clinicID'))
 if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
 {
 	
@@ -855,7 +852,11 @@ if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
 	$("#order").show()
 	$("#member").show()
 	$("#memberName").text($.cookie("account"))
+}else if($.cookie('clinicID')!=undefined){
+	console.log("hello")
+	location.href="clinicProfile"
 }else{
+	console.log("helloq")
 	$("#loginIn").hide()
 	$("#loginOut").show()
 	$("#member").show()

@@ -19,10 +19,10 @@ public class Appointment {
 	@Column(name = "memberID")
 	private int memberID;
 	@Column(name = "clinicID")
-	private String clinicID;
+	private int clinicID;
 	@Column(name = "appointmentType")
 	private String appointmentType;
-	@Column(name = "sickDescription")
+	@Column(name = "appointmentSickDescription")
 	private String sickDescription;
 	@Column(name = "appointmentTime")
 	private Date appointmentTime;
@@ -47,11 +47,11 @@ public class Appointment {
 		this.memberID = memberID;
 	}
 
-	public String getClinicID() {
+	public int getClinicID() {
 		return clinicID;
 	}
 
-	public void setClinicID(String clinicID) {
+	public void setClinicID(int clinicID) {
 		this.clinicID = clinicID;
 	}
 
