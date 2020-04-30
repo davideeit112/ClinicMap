@@ -21,4 +21,8 @@ public class driverService implements IdriverService{
 		return list;
 	}
 	
+	public boolean DLogin(driver driver) {
+		return hdriverDao.DLogin(driver);
+	}
+	
 }

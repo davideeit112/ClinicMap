@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>基本資料</title>
+<title>歷史統計</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="site.webmanifest">
 <link rel="shortcut icon" type="image/x-icon"
 	href="assets/img/favicon.ico">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
 <!-- CSS here -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
@@ -28,36 +28,57 @@
 	*{
 		font-family: 'Noto Sans TC', sans-serif;
 	}
-		.profile{
-			margin-left:600px; 
-		}
-		#editProflie{
-			margin-left:60%;
-			margin-top: 50px;
-			margin-bottom: 50px;
-		}
-		#edit{
-			margin-left: 45%;
-			margin-top: 30px;
-			display: none;
-		}
-		#clinicPhoto,#clinicLicense{
-			display: none;
-		}
-		#show,#show1{
-			width:300px;
-			height:300px;
-		}
-		main{
-			margin-bottom: 200px;
-		}
-		#headerTop{
-			background-color: #C8083F;
-		}
+	#open,#break,#close{
+		width:100px;
+		text-align: center;
+	}
+	.appNum{
+		border-width: 0;
+		width:30px;
+		text-align: center;
+		font-size:20pt;
+	}
+	.controller{
+		float: left;
+		margin-left:50px;
+		margin-top: 30px;
+
+	}
+	.currentNumbers{
+		padding-left: 25px;
+	}
+	.appointments{
+		margin-top: 30px;
+		margin-left:500px;
+	}
+	.todayApp{
+		background-color: #F7D8E9;
+	}
+	.todayApp th{
+		background-color: #F7ACBC;
+		padding-left: 20px;
+		padding-top:10px;
+	}
+	.todayApp td{
+		font-size: 18px;
+		padding-left: 20px;
+		padding-top:10px;
+		text-align: center;
+	}
+	.todayApp tr:hover{
+		background-color: #FCEEF6;
+	}
+	main{
+		margin-bottom: 100px;
+	}
+	#headerTop{
+		background-color: #C8083F;
+	}
 </style>
 </head>
 
 <body>
+	
 <!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
       <script>
@@ -84,6 +105,7 @@
   		logged_in_greeting="您好！歡迎來到ClinicMap，您可以使用左下角的常見問題功能列，或是直接將您遇到的問題發送給我們，我們會盡快提供協助。"
   		logged_out_greeting="您好！歡迎來到ClinicMap，您可以使用左下角的常見問題功能列，或是直接將您遇到的問題發送給我們，我們會盡快提供協助。">
       </div>
+
 	<!-- Preloader Start -->
 	<div id="preloader-active">
 		<div
@@ -114,7 +136,13 @@
 								</div>
 							</div>
 							<div class="col-lg-4">
-								<div class="header-info-right f-right"></div>
+								<div class="header-info-right f-right">
+									<ul class="header-social">
+										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
+										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
+										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -125,7 +153,7 @@
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="ClinicMain.html"><img src="assets/img/logo/cliniclogo.png"
+									<a href="clinicMain"><img src="assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -134,9 +162,9 @@
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="ClinicMain.html">今日預約</a></li>
-											<li><a href="Count.html">歷史預約統計</a></li>
-											<li><a href="ClinicProfile.html">診所基本資料</a></li>	
+											<li><a href="clinicMain">今日預約</a></li>
+											<li><a href="count">歷史預約統計</a></li>
+											<li><a href="clinicProfile">診所基本資料</a></li>											
 										</ul>
 									</nav>
 								</div>
@@ -152,7 +180,6 @@
 		</div>
 		<!-- Header End -->
 	</header>
-
 	<main>
 
 		<!-- slider Area Start-->
@@ -432,6 +459,47 @@ $("#edit").click(function(){
 	window.alert()
 });
 
+</script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
+if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
+{
+	
+	$("#loginIn").show()
+	$("#loginOut").hide()
+	$("#order").hide()
+	$("#member").hide()
+}else if($.cookie('memberID')!=undefined){
+	console.log("hi")
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+	console.log($.cookie("account"))
+}else if($.cookie('clinicID'!=undefined)){
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+}
+else{
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#member").show()
+	
+}
+function loginout(){
+	$.removeCookie('memberID')
+	$.removeCookie('clinicID')
+	location.reload();
+}
+$("#loginOut").click(function(){
+	$.cookie('memberID','',{expires: -1,path:"/clinicMap"})
+	$.cookie('clinicID','',{expires: -1,path:"/clinicMap"})
+	location.href="googleMap/"
+})
 </script>
 </body>
 </html>

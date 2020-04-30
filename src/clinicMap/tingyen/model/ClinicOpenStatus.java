@@ -17,6 +17,15 @@ public class ClinicOpenStatus {
 	private boolean clinicOpenStatus;
 	@Column(name="clinicCurrentNumber")
 	private int clinicCurrentNumber;
+	@Column(name="openDescription")
+	private String openDescription;
+	public String getOpenDescription() {
+		return openDescription;
+	}
+
+	public void setOpenDescription(String openDescription) {
+		this.openDescription = openDescription;
+	}
 
 	public String getClinicID() {
 		return clinicID;
@@ -42,14 +51,6 @@ public class ClinicOpenStatus {
 		this.clinicCurrentNumber = clinicCurrentNumber;
 	}
 
-	public void setOpenDescription(String openDescription) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public char[] getOpenDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

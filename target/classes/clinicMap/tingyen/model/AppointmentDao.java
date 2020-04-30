@@ -30,8 +30,14 @@ public class AppointmentDao implements IAppointmentDao {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from Appointment where clinicID=" + clinicID +" and Convert(varchar,appointmentTime,120) like '"+today+"%'";
 		System.out.println(hql);
+		List<Appointment> list=null;
+		try {
 		Query<Appointment> query = session.createQuery(hql,Appointment.class);
-		List<Appointment> list = query.list();
+		
+		list = query.list();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return list;
 	}
 
@@ -82,7 +88,9 @@ public class AppointmentDao implements IAppointmentDao {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from Appointment where clinicID=" + clinicID +" and Convert(varchar,appointmentTime,120) like '"+dateForm+"%'";
 		Query<Appointment> query = session.createQuery(hql,Appointment.class);
+		
 		List<Appointment> list = query.list();
+		
 		int appointmentNum = list.size();
 		int firstTimeNum = 0;
 		int completeDiagnosis = 0;

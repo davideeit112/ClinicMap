@@ -12,18 +12,27 @@ public class ClinicOpenStatusDao implements IClinicOpenStatusDao {
 	
 	public ClinicOpenStatus updateStatus(String clinicID,boolean openStatus,int currentNum,String openDescription) {
 		Session session = sessionFactory.getCurrentSession();
+		
+		ClinicOpenStatus clinicStatusBean=null;
+		try {
 		if(session.get(ClinicOpenStatus.class,clinicID) == null) {
-			ClinicOpenStatus clinicStatusBean = new ClinicOpenStatus();
+			clinicStatusBean = new ClinicOpenStatus();
 			clinicStatusBean.setClinicID(clinicID);
 			clinicStatusBean.setClinicOpenStatus(openStatus);
 			clinicStatusBean.setClinicCurrentNumber(currentNum);
 			clinicStatusBean.setOpenDescription(openDescription);
 			session.save(clinicStatusBean);
+			System.out.println("updateStrat");
+			return clinicStatusBean;
 		}
-		ClinicOpenStatus clinicStatusBean = session.get(ClinicOpenStatus.class,clinicID);
+		clinicStatusBean = session.get(ClinicOpenStatus.class,clinicID);
 		clinicStatusBean.setClinicOpenStatus(openStatus);
 		clinicStatusBean.setClinicCurrentNumber(currentNum);
 		clinicStatusBean.setOpenDescription(openDescription);
+		System.out.println("updateStrat2");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return clinicStatusBean;
 	}
 	@Override

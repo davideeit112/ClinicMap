@@ -62,12 +62,12 @@ public class ClinicController {
 		for(Cookie cookie:cookieArray) {
 			cookieMap.put(cookie.getName(), cookie);
 		}
-		Cookie cookie = cookieMap.get("clinicId");
-		System.out.println("clinicId:" + cookie.getValue());
+		Cookie cookie = cookieMap.get("clinicID");
+		System.out.println("clinicID:" + cookie.getValue());
 		System.out.println("today:" + today);
 
 		List<Appointment> beanList = aService.queryAllAppointment(cookie.getValue(), today); 
-
+		System.out.println(beanList.size());
 		JSONArray jsonArray = new JSONArray(); 
 		PrintWriter out = response.getWriter();
 		for (Appointment aBean : beanList) {
@@ -76,6 +76,7 @@ public class ClinicController {
 			jsonObj.put("memberName", mBean.getMemberName());
 			jsonArray.put(jsonObj);
 		}
+		System.out.println("hello");
 		out.print(jsonArray);
 	}
 
@@ -101,7 +102,7 @@ public class ClinicController {
 		for(Cookie cookie:cookieArray) {
 			cookieMap.put(cookie.getName(), cookie);
 		}
-		Cookie cookie = cookieMap.get("clinicId");
+		Cookie cookie = cookieMap.get("clinicID");
 
 		List<Appointment> beanList = aService.queryAllAppointment(cookie.getValue(), today);
 
@@ -123,7 +124,7 @@ public class ClinicController {
 		for(Cookie cookie:cookieArray) {
 			cookieMap.put(cookie.getName(), cookie);
 		}
-		Cookie cookie = cookieMap.get("clinicId");
+		Cookie cookie = cookieMap.get("clinicID");
 
 		List<Appointment> beanList = aService.queryAllAppointment(cookie.getValue(), today);
 
@@ -168,8 +169,8 @@ public class ClinicController {
 		for(Cookie cookie:cookieArray) {
 			cookieMap.put(cookie.getName(), cookie);
 		}
-		Cookie cookie = cookieMap.get("clinicId");
-		System.out.println("clinicId:" + cookie.getValue());
+		Cookie cookie = cookieMap.get("clinicID");
+		System.out.println("clinicID:" + cookie.getValue());
 		Clinic cBean = cService.queryClinicProfile(Integer.valueOf(cookie.getValue()));
 		String strBean = "";
 		strBean += cBean.getClinicID() + "," + cBean.getClinicName()+"," + cBean.getClinicAccount() + "," +cBean.getClinicPwd() + "," + 
@@ -226,8 +227,8 @@ public class ClinicController {
 		for(Cookie cookie:cookieArray) {
 			cookieMap.put(cookie.getName(), cookie);
 		}
-		Cookie cookie = cookieMap.get("clinicId");
-		System.out.println("clinicId:" + cookie.getValue());
+		Cookie cookie = cookieMap.get("clinicID");
+		System.out.println("clinicID:" + cookie.getValue());
 	
 		Map<String, Integer> mapData = aService.analyzeAppointmentData(cookie.getValue(), timeType);		
 		String data = "";
@@ -248,7 +249,7 @@ public class ClinicController {
 		for(Cookie cookie:cookieArray) {
 			cookieMap.put(cookie.getName(), cookie);
 		}
-		Cookie cookie = cookieMap.get("clinicId");
+		Cookie cookie = cookieMap.get("clinicID");
 		Map<String, Integer> map = aService.analyzeAppointmentData(cookie.getValue(), timeType);
 		String dataHead[] = {"預約人數","已診療人數","初診人數","未報到人數"};
 		int dataArray[] = {map.get("預約人數"),map.get("已診療人數"),map.get("初診人數"),map.get("未報到人數")};
@@ -283,13 +284,14 @@ public class ClinicController {
 	@RequestMapping(path = "/UpdateOpenStatus.do", method = RequestMethod.GET)
 	public void updateOpenStatus(@RequestParam(name="openStatus")String openStatus, 
 			@RequestParam(name="currentNum")String currentNum,	HttpServletRequest request) {
+			System.out.println(openStatus);
 		try {
 			Cookie[] cookieArray = request.getCookies();
 			Map<String,Cookie> cookieMap = new HashMap<String,Cookie>();
 			for(Cookie cookie:cookieArray) {
 				cookieMap.put(cookie.getName(), cookie);
 			}
-			Cookie cookie = cookieMap.get("clinicId");
+			Cookie cookie = cookieMap.get("clinicID");
 			String clinicID = cookie.getValue();
 			boolean openStatusBoolean;
 			if(openStatus.equals("開診")) {
@@ -313,7 +315,11 @@ public class ClinicController {
 	@RequestMapping(path = "/saveCurrentNum.do", method = RequestMethod.GET)
 	public void saveCurrentNum(	@RequestParam(name="currentNumber")String currentNum,HttpServletRequest request) {
 		Cookie[] cookieArray = request.getCookies();
-		Cookie cookie = cookieArray[0];
+		Map<String,Cookie> cookieMap = new HashMap<String,Cookie>();
+		for(Cookie cookie:cookieArray) {
+			cookieMap.put(cookie.getName(), cookie);
+		}
+		Cookie cookie = cookieMap.get("clinicID");
 		String clinicID = cookie.getValue();
 		System.out.println("currentNum:" + Integer.valueOf(currentNum)+1);
 		cosService.saveCurrentNum(clinicID, Integer.valueOf(currentNum)+1);
@@ -326,7 +332,7 @@ public class ClinicController {
 		for(Cookie cookie:cookieArray) {
 			cookieMap.put(cookie.getName(), cookie);
 		}
-		Cookie cookie = cookieMap.get("clinicId");
+		Cookie cookie = cookieMap.get("clinicID");
 		String clinicID = cookie.getValue();
 		ClinicOpenStatus cosBean = cosService.getCurrentNumber(clinicID);
 		
@@ -341,7 +347,7 @@ public class ClinicController {
 		for(Cookie cookie:cookieArray) {
 			cookieMap.put(cookie.getName(), cookie);
 		}
-		Cookie cookie = cookieMap.get("clinicId");
+		Cookie cookie = cookieMap.get("clinicID");
 		String clinicID = cookie.getValue();
 		ClinicOpenStatus cosBean = cosService.getCurrentNumber(clinicID);
 		PrintWriter out = response.getWriter();
@@ -351,11 +357,7 @@ public class ClinicController {
 	@RequestMapping(path = "/GetClinicProfile.do", method = RequestMethod.GET)
 	public void clinicProfile(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		Cookie[] cookieArray = request.getCookies();
-		Map<String,Cookie> cookieMap = new HashMap<String,Cookie>();
-		for(Cookie cookie:cookieArray) {
-			cookieMap.put(cookie.getName(), cookie);
-		}
-		Cookie cookie = cookieMap.get("clinicId");
+		Cookie cookie = cookieArray[2];
 		String clinicID = cookie.getValue();
 		System.out.println("clinicID:" + clinicID);
 		Clinic cBean = cService.queryClinicProfile(Integer.valueOf(clinicID));
