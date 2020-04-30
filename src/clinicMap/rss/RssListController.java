@@ -167,6 +167,85 @@ public class RssListController {
 		PrintWriter out = response.getWriter();
 		out.print(array);
 	}
+	
+	@RequestMapping(path = "/rsspage", method = RequestMethod.POST)
+	public void RssPage(@RequestParam("page") String page, HttpServletResponse response) throws Exception {
+
+		List<Item> list = iService.ItemList();
+		
+
+		for (int k = 0; k < list.size(); k++) {
+			for (int j = 0; j < list.size() - k - 1; j++) {
+				if (list.get(j).getNewsId() < list.get(j + 1).getNewsId()) {
+
+					String temp;
+					temp = list.get(j + 1).getTitle();
+					list.get(j + 1).setTitle(list.get(j).getTitle());
+					list.get(j).setTitle(temp);
+
+					temp = list.get(j + 1).getDescrip();
+					list.get(j + 1).setDescrip(list.get(j).getDescrip());
+					list.get(j).setDescrip(temp);
+
+					temp = list.get(j + 1).getLink();
+					list.get(j + 1).setLink(list.get(j).getLink());
+					list.get(j).setLink(temp);
+
+					temp = list.get(j + 1).getDate();
+					list.get(j + 1).setDate(list.get(j).getDate());
+					list.get(j).setDate(temp);
+
+					temp = list.get(j + 1).getDeptname();
+					list.get(j + 1).setDeptname(list.get(j).getDeptname());
+					list.get(j).setDeptname(temp);
+
+					int t = 0;
+					t = list.get(j + 1).getNewsId();
+					list.get(j + 1).setNewsId(list.get(j).getNewsId());
+					list.get(j).setNewsId(t);
+				}
+			}
+		}
+		
+		JSONArray array = new JSONArray();
+		
+		int pageNumber = Integer.parseInt(page);
+		
+		for(int i=0 ; i<5 ; i++) {
+			
+			JSONObject jobj = new JSONObject();
+			
+			int p =pageNumber*5 +i;
+			
+			if(p >= list.size()) {
+				continue;
+			}
+			
+			String date = list.get(p).getDate();
+			String[] d2 = date.split(",| ");
+			
+			String descrip = list.get(p).getDescrip();
+			String[] des2 = descrip.split("<p>");
+			String[] des3 = des2[1].split("</p>");
+			String[] des4 = des3[0].split("<br />");
+
+			jobj.put("title", list.get(p).getTitle());
+			jobj.put("descrip", list.get(p).getDescrip());
+			jobj.put("link", list.get(p).getLink());
+			jobj.put("date", list.get(p).getDate());
+			jobj.put("deptname", list.get(p).getDeptname());
+			jobj.put("week", d2[0]);
+			jobj.put("day", d2[2]);
+			jobj.put("des", des4[0]);
+			jobj.put("id", list.get(p).getId());
+
+			array.put(jobj);
+		}
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(array);
+	}
 }
 
 
