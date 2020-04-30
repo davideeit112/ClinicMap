@@ -57,11 +57,11 @@ public class SysManagementDao {
 
 	public void savePersonWithPhoto(String photoFilePath, int count) throws IOException {
 		Session session = sessionFactory.getCurrentSession();
-		Clinicchen clinic = session.get(Clinicchen.class, count);
+		Clinicchen Clinicchen = session.get(Clinicchen.class, count);
 		byte[] photoBytes = readBytesFromFile(photoFilePath);
-		clinic.setClinicPhoto(photoBytes);
+		Clinicchen.setClinicPhoto(photoBytes);
 		System.out.println("123");
-		session.update(clinic);
+		session.update(Clinicchen);
 		
 
 	}
@@ -79,8 +79,8 @@ public class SysManagementDao {
 
 	public void readPhotoOfPerson(int personId, String photoFilePath) throws IOException {
 		Session session = sessionFactory.getCurrentSession();
-		Clinicchen clinic = (Clinicchen) session.get(Clinicchen.class, personId);
-		byte[] photoBytes = clinic.getClinicPhoto();
+		Clinicchen Clinicchen = (Clinicchen) session.get(Clinicchen.class, personId);
+		byte[] photoBytes = Clinicchen.getClinicPhoto();
 		saveBytesToFile(photoFilePath, photoBytes);
 	}
 
@@ -110,7 +110,7 @@ public class SysManagementDao {
 		try {
 			em.setFrom("clinicofmap@gmail.com");
 			em.setSubject("ClinicMapEmailAuthenticate");
-			String activeUrl = "http://localhost:8080/SpringBackEndSystem/changeStatus?clinicID=" + clinicID;
+			String activeUrl = "http://localhost:8080/clinicMap/changeStatus?clinicID=" + clinicID;
 			em.setHtmlMsg("點擊鏈接激活信箱:" + activeUrl);
 			em.setTextMsg("測試");
 			em.addTo("warcraft0320@gmail.com");
@@ -124,38 +124,38 @@ public class SysManagementDao {
 	
 	public void changeStatus(int clinicID) {
 		Session session = sessionFactory.getCurrentSession();
-		Clinicchen clinic = session.get(Clinicchen.class, clinicID);
-		clinic.setClinicStatus("CS1");
+		Clinicchen Clinicchen = session.get(Clinicchen.class, clinicID);
+		Clinicchen.setClinicStatus("CS1");
 
-		session.update(clinic);
+		session.update(Clinicchen);
 	}
 	
 	public void changeStatus2(int clinicID) {
 		Session session = sessionFactory.getCurrentSession();
-		Clinicchen clinic = session.get(Clinicchen.class, clinicID);
-		clinic.setClinicStatus("CS2");
+		Clinicchen Clinicchen = session.get(Clinicchen.class, clinicID);
+		Clinicchen.setClinicStatus("CS2");
 
-		session.update(clinic);
+		session.update(Clinicchen);
 	}
 	
 	public void updateData(int clinicid, String clinicname,String clinicaccount, String clinicpwd,String clinicaddress,  String clinicdescription, String clinicphone, String clinicemail, String clinicclass,  String clinictype, String clinictime, String cliniclat, String cliniclng, String clinicstatus) {
 		Session session = sessionFactory.getCurrentSession();
-		Clinicchen clinic = session.get(Clinicchen.class, clinicid);
-		clinic.setClinicName(clinicname);
-		clinic.setClinicAccount(clinicaccount);
-		clinic.setClinicPwd(clinicpwd);
-		clinic.setClinicAddress(clinicaddress);
-		clinic.setClinicDescription(clinicdescription);
-		clinic.setClinicPhone(clinicphone);
-		clinic.setClinicEmail(clinicemail);
-		clinic.setClinicClass(clinicclass);
-		clinic.setClinicType(clinictype);
-		clinic.setClinicTime(clinictime);
-		clinic.setCliniclat(cliniclat);
-		clinic.setCliniclng(cliniclng);
-		clinic.setClinicStatus(clinicstatus);
+		Clinicchen Clinicchen = session.get(Clinicchen.class, clinicid);
+		Clinicchen.setClinicName(clinicname);
+		Clinicchen.setClinicAccount(clinicaccount);
+		Clinicchen.setClinicPwd(clinicpwd);
+		Clinicchen.setClinicAddress(clinicaddress);
+		Clinicchen.setClinicDescription(clinicdescription);
+		Clinicchen.setClinicPhone(clinicphone);
+		Clinicchen.setClinicEmail(clinicemail);
+		Clinicchen.setClinicClass(clinicclass);
+		Clinicchen.setClinicType(clinictype);
+		Clinicchen.setClinicTime(clinictime);
+		Clinicchen.setCliniclat(cliniclat);
+		Clinicchen.setCliniclng(cliniclng);
+		Clinicchen.setClinicStatus(clinicstatus);
 
-		session.update(clinic);
+		session.update(Clinicchen);
 	}
 	
 	public void updateAnnouncement(String id, String type, String text) {

@@ -80,7 +80,7 @@ public class SysManagementController {
 
 	@RequestMapping(path = "/loadClinicData", method = RequestMethod.GET)
 	public void loadClinicData(HttpServletResponse res, HttpServletRequest req) throws IOException, ServletException {
-		
+		System.out.println("000");
 		Cookie[] cookies = req.getCookies();
 		if(cookies == null) {
 			RequestDispatcher rd = req.getRequestDispatcher("backLogin.html");
