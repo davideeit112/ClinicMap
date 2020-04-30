@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import clinicMap.order.clinicBean;
 import clinicMap.order.memberBean;
+import clinicMap.tingyen.model.Appointment;
+import clinicMap.tingyen.model.AppointmentStatus;
 
 @Repository
 public class EMessageDao {
@@ -32,9 +34,14 @@ public class EMessageDao {
 			msg.setMessage(emessage.getMessage());
 			msg.setEvaluationTime(emessage.getEvaluationTime());
 			session.save(emessage);
+			System.out.println(emessage.getAppointmentID());
+			Appointment abean = session.get(Appointment.class,emessage.getAppointmentID());
+			
+			abean.setAppointmentStatus("OS6");
+			session.save(abean);
 			return true;
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 			return false;
 		}
 	}

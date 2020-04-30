@@ -51,7 +51,7 @@ public class EMessageController {
 
 	@RequestMapping(path = "/start.do", method = RequestMethod.GET)
 	public String start() {
-		return "Board";
+		return "memberedit";
 	}
 	
 	@RequestMapping(path = "/retotal.do", method = RequestMethod.POST)
@@ -98,7 +98,7 @@ public class EMessageController {
 		}
 //		if(jarray.isEmpty()) {
 //			JSONObject obj2 = new JSONObject();
-//			obj2.put("clinicName", "µL¦¹¶E©Ò¸ê®Æ");
+//			obj2.put("clinicName", "ï¿½Lï¿½ï¿½ï¿½Eï¿½Ò¸ï¿½ï¿½");
 //			jarray.put(obj2);
 //		}
 		res.setContentType("text/html;charset=UTF-8");
@@ -268,7 +268,7 @@ public class EMessageController {
 		return "Appointment";
 	}
 
-	@RequestMapping(path = "/message.do", method = RequestMethod.POST)
+	@RequestMapping(path = "/message", method = RequestMethod.POST)
 	public String processmessage(@RequestParam("clinicID") int clinicID,
 			@RequestParam("appointmentID") String appointmentID, @RequestParam("Evaluation") float Evaluation,
 			@RequestParam("Message") String Message, @RequestParam("memberID") int memberID,
@@ -284,11 +284,8 @@ public class EMessageController {
 				.inputmessage(new EMessage(clinicID, appointmentID, Evaluation, Message, memberID, evaluationTime));
 		if (check == true) {
 			System.out.println("input success...");
-			redirectAttributes.addAttribute("id", clinicID);
-			return "redirect:/start.do";
 		}
-		System.out.println("empty");
-		return "redirect:/start.do";
+		return "memberedit";
 	}
 
 	@RequestMapping(path = "/deletemsg.do", method = RequestMethod.POST)
