@@ -35,26 +35,6 @@ public class RssToDB {
 		Iterator<Element> i = channel.elementIterator("item");
 		Session session = sessionfactory.getCurrentSession();
 
-		// 先用NEWSID排序
-		//List<Item> list = new ArrayList<Item>();
-
-
-//		while (i.hasNext()) {
-//
-//			Element e = i.next();
-//
-//			Item it = new Item();
-//			it.setId(id);
-//			it.setTitle(e.elementText("title"));
-//			it.setDescrip(e.elementText("description"));
-//			it.setLink(e.elementText("link"));
-//			it.setDate(e.elementText("pubDate"));
-//			it.setDeptname(e.elementText("DeptName"));
-//			it.setNewsId(Integer.parseInt(e.elementText("NewsID")));
-//
-//			list.add(it);
-//			id++;
-//		}
 		
 		Query<Item> query1 = session.createQuery("from Item", Item.class);
 
