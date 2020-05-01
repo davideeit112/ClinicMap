@@ -357,7 +357,11 @@ public class ClinicController {
 	@RequestMapping(path = "/GetClinicProfile.do", method = RequestMethod.GET)
 	public void clinicProfile(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		Cookie[] cookieArray = request.getCookies();
-		Cookie cookie = cookieArray[2];
+		Map<String,Cookie> cookieMap = new HashMap<String,Cookie>();
+		for(Cookie cookie:cookieArray) {
+			cookieMap.put(cookie.getName(), cookie);
+		}
+		Cookie cookie = cookieMap.get("clinicID");
 		String clinicID = cookie.getValue();
 		System.out.println("clinicID:" + clinicID);
 		Clinic cBean = cService.queryClinicProfile(Integer.valueOf(clinicID));
