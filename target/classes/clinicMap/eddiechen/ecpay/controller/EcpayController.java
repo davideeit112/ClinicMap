@@ -55,6 +55,8 @@ public class EcpayController {
 	
 	@RequestMapping(path = "/TexiPayment", method = RequestMethod.GET)
 	public void TexiPayment(@RequestParam("pricetotal") String pricetotal, @RequestParam("positionidcheck")String positionidcheck, HttpServletRequest request, HttpServletResponse res) throws IOException {
+		
+		System.out.println("測試"+positionidcheck);
 		EcpayService.initial();
 //		Cookie[] cookies = request.getCookies();
 //		Map<String, String> cookieMap = new HashMap<String, String>();

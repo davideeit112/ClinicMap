@@ -96,19 +96,18 @@ background-attachment: fixed;" >
 			var forclinicname;  //準備接收預約面的資料
 			var forcliniclat;   //準備接收預約面的資料
 			var forcliniclng;   //準備接收預約面的資料
-
+            var selectforpositionidcheck;
 
 			var url = location.href;		
-			 console.log(url);
+		    console.log(url);
+			 
 			 if(url.indexOf('?')!=-1)
 			 {
-			     //之後去分割字串把分割後的字串放進陣列中
-			     var ary1 = url.split('?');
-			  
+			     var ary1 = url.split('&');		  
 			     var id = ary1[1];
 			     console.log("我的id"+id);
-			     changefordisabled=id;  
-			     
+   			     changefordisabled='payedsuccess';  
+			     selectforpositionidcheck= id;
 			 }
 			 submittest();
 			
@@ -380,7 +379,32 @@ function submittest(){
 							
 								positionidcheck=checkboxdata[0].positionID;
 								console.log('我的訂單編號是：'+positionidcheck);
+				
 								console.log('成功，完成新增外送訂單');
+
+
+				                //付款用-----------------             
+								$.ajax({
+									url: "TexiPayment?pricetotal="+pricetotal+"&positionidcheck="+positionidcheck,
+								//	url: "TexiPayment",
+									method: "post",
+								//	data:{
+								//		pricetotal:pricetotal,
+								//		positionidcheck:positionidcheck
+								//		}
+									datatype: "html",
+									success: function(data){
+										    console.log(data);
+											$(".Payment").append(data);
+										}
+									});
+				                //付款用-----------------
+
+
+
+
+								
+								  
 							}
 						})
 
@@ -391,20 +415,7 @@ function submittest(){
 					alert('你的裝置不支援定位功能')
 				}
 
-                //付款用-----------------             
-				$.ajax({
-					url: "TexiPayment?pricetotal=" + pricetotal + "&positionidcheck=" + positionidcheck,
-					method: "post",
-					datatype: "html",
-					success: function(data){
-						    console.log(data);
-							$(".Payment").append(data);
-						}
-					});
-                //付款用-----------------
-
-
-
+			
 				
 			}
 //啟動傳送目的地&自己位置&確認司機&新增進入資料庫(確認申請)------------------------------------------------------------------------------------------------
@@ -467,11 +478,11 @@ function sub2() {
                 //重新確認自己位置並存入資料庫
 				sub2();
 				//查詢自己&司機位置
-				var testa=positionidcheck;
-	            var number=Number(testa);
+				//var testa=selectforpositionidcheck;
+	            //var number=Number(testa);
 				$.ajax({
 					type : "POST",
-					url : "selectall?positionidcheck=" + number,
+					url : "selectall?positionidcheck=" + selectforpositionidcheck,
 					dataType : "json",
 					success : function(myiddata) {
 
