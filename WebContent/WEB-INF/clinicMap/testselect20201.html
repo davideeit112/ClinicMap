@@ -72,7 +72,7 @@ background-attachment: fixed;" >
 	<input class="myButton" type="button" onclick="timework()" value="開始確認司機位置"   disabled="disabled" />
 	<!-- 漸層色用   background:    linear-gradient(#ffd966, #ba6f06);-->
 	</div>
-	
+	<div class="Payment"></div><!-- 用來付款用的欄位 -->
 	<div  class="formap"  style="width: 1130px;height: 680px;background:rgba(0,0,0,0.3);border-radius:15px;">
 	<div   id="map_canvas"  style="width: 1100px;height: 650px;border-radius:10px;">
    </div></div>
@@ -227,7 +227,7 @@ function submittest(){
 				markers.push(marker); //存到markers陣列裡 準備後面被全部刪除
 
 				var infowindow = new google.maps.InfoWindow({
-				    content: '<h1>'+name+'</h1>'+'<input type="radio" value="'+name+'" name="valuefordriver"> <input  type="button" onclick="sub1()" value="確認申請&繳費" /> '
+				    content: '<h1>'+name+'</h1>'+'<input type="radio" value="'+name+'" name="valuefordriver">  <form action="ToAdPayment" method="post">   <input  type="button" onclick="sub1()" value="確認申請&繳費" /> </form>'
 
 				    
 				  });
@@ -373,6 +373,24 @@ function submittest(){
 				} else {
 					alert('你的裝置不支援定位功能')
 				}
+
+
+
+				$.ajax({
+					url: "TexiPayment?pricetotal="+pricetotal,
+					method: "post",
+					datatype: "html",
+					success: function(data){
+						    console.log(data);
+							$(".Payment").append(data);
+						}
+					});
+
+
+
+
+
+				
 			}
 //啟動傳送目的地&自己位置&確認司機&新增進入資料庫(確認申請)------------------------------------------------------------------------------------------------
 
