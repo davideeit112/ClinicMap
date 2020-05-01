@@ -40,7 +40,7 @@ public class AllInOneBase {
 			doc = EcpayFunction.xmlParser(configPath);
 //			/* when using testing code*/
 //			System.out.println("444444");
-//			String paymentConfPath = "../../../D:/DataSource/WORKSPACE/FinalWorkSpace/SpringAllForOne/src/payment_conf.xml";
+//			String paymentConfPath = "D:/DataSource/WORKSPACE/FinalWorkSpace/SpringAllForOne/src/payment_conf.xml";
 //			doc = EcpayFunction.xmlParser(paymentConfPath);
 
 			doc.getDocumentElement().normalize();
