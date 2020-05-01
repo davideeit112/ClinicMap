@@ -26,6 +26,7 @@ public class EcpayController {
 	@RequestMapping(path = "/AdPayment", method = RequestMethod.POST)
 	public void AdPayment(HttpServletRequest request, HttpServletResponse res) throws IOException {
 		EcpayService.initial();
+		
 //		Cookie[] cookies = request.getCookies();
 //		Map<String, String> cookieMap = new HashMap<String,String>();
 //		
@@ -77,7 +78,7 @@ public class EcpayController {
 	@RequestMapping(path= "/ToAdPayment", method=RequestMethod.POST)
 	public ModelAndView ToAdPayment() {
 		
-		return new ModelAndView("redirect:/TestForPayment.html");
+		return new ModelAndView("redirect:/TestForAdPayment.html");
 	}
 	
 	@RequestMapping(path="/ToTexiPayment", method=RequestMethod.POST)
