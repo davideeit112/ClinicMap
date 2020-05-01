@@ -81,7 +81,7 @@ public class EcpayDao {
 		obj.setTradeDesc("DriverPayment");
 		obj.setItemName("司機接送");
 		obj.setReturnURL("http://211.23.128.214:5000");
-		obj.setClientBackURL("http://localhost:8080/clinicMap/testselect20201.html");
+		obj.setClientBackURL("http://localhost:8080/clinicMap/guest?1111");
 		obj.setNeedExtraPaidInfo("N");
 		String form = all.aioCheckOut(obj, null);
 
