@@ -13,8 +13,7 @@ html, body {
 
 
 .myButton{
-background:    #ffd966;
-background:    linear-gradient(#ffd966, #ba6f06);
+background:    #FFDC35;
 border:        1px solid #e69138;
 border-radius: 7px;
 padding:       10px 45px;
@@ -61,6 +60,7 @@ margin-bottom: 20px;
 background-size:100% 100%; 
 
 background-attachment: fixed;">
+<button class="myButton" value="logout" onclick="logout()">登出</button>
     <div style="  background-size:100% 100%; background:rgba(255,255,255,0.3);text-align:center;box-shadow: 4px 0px 4px 0 rgba(0, 0, 0, 0.2), 4px 0px 4px 0 rgba(0, 0, 0, 0.19); ">
 	<div class="text-shadow"><h1>司機接收系統</h1></div>
 	
@@ -75,10 +75,12 @@ background-attachment: fixed;">
    </div></div>
 
 
+<script
+ src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+ src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 
-		<script
-			src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 		<script async defer
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFbyqberG_1L9qz8rFMYDJGGep1iJPAIk&callback=initMap">
   </script>
@@ -88,8 +90,11 @@ background-attachment: fixed;">
 	var map ;
 	var directionsDisplay;
 	var directionsService;
-	var driveridname="阿德外送";
+	//var driveridname='阿德外送';
+	var driveridname=document.cookie.split('=')[1];
+	console.log(driveridname);
     var positionidcheck;
+    var interval;
 
 
 
@@ -105,6 +110,15 @@ background-attachment: fixed;">
        
     }
 //初始化地圖區-----------------------------------
+
+
+
+//登出司機查單畫面回到登入------------------------------
+function logout() {
+ $.removeCookie("drivername");
+ window.location.href = "/clinicMap/driverlogin";
+}
+//登出司機查單畫面回到登入------------------------------
 
 
 
@@ -127,13 +141,18 @@ background-attachment: fixed;">
 
 //時間計時器---------------------------
 function timework() {
-	setInterval(function(){
+
+	interval=setInterval(function(){
+		console.log("我是第一個計時器");
 		sub3(); 
 		},3000);   //2000毫秒=2秒
 }
 
 function timework2() {
+	
+	clearInterval(interval);
 	setInterval(function(){
+		console.log("我是第二個計時器");
 		sub4(); 
 		},3000);   //2000毫秒=2秒
 }
