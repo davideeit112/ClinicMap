@@ -391,10 +391,9 @@ function submittest(){
 					alert('你的裝置不支援定位功能')
 				}
 
-			
                 //付款用-----------------             
 				$.ajax({
-					url: "TexiPayment?pricetotal="+pricetotal+"&positionidcheck="+positionidcheck,
+					url: "TexiPayment?pricetotal=" + pricetotal + "&positionidcheck=" + positionidcheck,
 					method: "post",
 					datatype: "html",
 					success: function(data){
