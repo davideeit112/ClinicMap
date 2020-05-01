@@ -14,7 +14,7 @@ html, body {
 
 
 .myButton{
-background:    #FFD306;
+background:    #FFDC35;
 border:        1px solid #e69138;
 border-radius: 7px;
 padding:       10px 45px;
@@ -65,9 +65,11 @@ background-attachment: fixed;" >
 
     <div style="  background-size:100% 100%; background:rgba(255,255,255,0.3);text-align:center;box-shadow: 4px 0px 4px 0 rgba(0, 0, 0, 0.2), 4px 0px 4px 0 rgba(0, 0, 0, 0.19); ">
 	<div class="text-shadow"><h1>預約司機系統</h1></div>
-	<input class="myButton" type="button" onclick="test()" value="司機確認"/>
-	<input class="myButton" type="button" onclick="sub1()" value="啟動傳送目的地&自己位置&確認司機&價錢(確認申請)" />
-	<input class="myButton" type="button" onclick="timework()" value="開始目標導航航" />
+	<!--<input class="myButton" type="button" onclick="test()" value="司機確認"/>-->
+	<!--<input class="myButton" type="button" onclick="sub1()" value="啟動傳送目的地&自己位置&確認司機&價錢(確認申請)" />-->
+	<h2>本次的費用：</h2><div id="showprice"></div>
+	<h3>請先在地圖司機座標點選後，勾選並完成訂單申請繳費，即可開始導航</h3>
+	<input class="myButton" type="button" onclick="timework()" value="開始確認司機位置"   disabled="disabled" />
 	<!-- 漸層色用   background:    linear-gradient(#ffd966, #ba6f06);-->
 	</div>
 	
@@ -90,11 +92,12 @@ background-attachment: fixed;" >
 			var drivernamechose;
 			var pricetotal;
 			var positionidcheck;
+			var changefordisabled;   //確認繳費，值就會是1111
 			var forclinicname;  //準備接收預約面的資料
 			var forcliniclat;   //準備接收預約面的資料
 			var forcliniclng;   //準備接收預約面的資料
 			
-
+			$("#showprice").text(positionidcheck);
 //初始化地圖區-----------------------------------------------------------------------------------------------------------------------------
 			function initMap() {
 
@@ -143,6 +146,20 @@ background-attachment: fixed;" >
 			}
 //初始化地圖區-----------------------------------------------------------------------------------------------------------------------------
 
+
+
+
+//確認已經繳費，地圖導航解鎖-------------------------------------------------------------------------------------
+function submittest(){
+    if(changefordisabled==1111){
+    	$("#submit").attr("disabled", true);
+    	console.log("已經完成繳費，可以開始確認司機位置");
+        }else{
+        	$("#submit").attr("disabled", false);
+        	console.log("尚未完成繳費，請完成司機確認及繳費");
+            }
+}
+//確認已經繳費，地圖導航解鎖-------------------------------------------------------------------------------------
 
 
 
@@ -210,7 +227,9 @@ background-attachment: fixed;" >
 				markers.push(marker); //存到markers陣列裡 準備後面被全部刪除
 
 				var infowindow = new google.maps.InfoWindow({
-				    content: '<h1>'+name+'</h1>'+'<input type="radio" value="'+name+'" name="valuefordriver">'
+				    content: '<h1>'+name+'</h1>'+'<input type="radio" value="'+name+'" name="valuefordriver"> <input  type="button" onclick="sub1()" value="確認申請&繳費" /> '
+
+				    
 				  });
 
 				  marker.addListener('click',function(){
@@ -296,7 +315,7 @@ background-attachment: fixed;" >
 //啟動傳送目的地&自己位置&確認司機&新增進入資料庫(確認申請)---------------------------------------------------------------------------------------------
 			function sub1() {
 				clearMarkers();// 這邊要先清除地圖上的標註
-
+				test();
 				console.log(drivernamechose);
 				if (navigator.geolocation) {
 
