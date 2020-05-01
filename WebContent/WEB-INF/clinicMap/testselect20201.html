@@ -99,17 +99,15 @@ background-attachment: fixed;" >
             var selectforpositionidcheck;
 
 			var url = location.href;		
-			 console.log(url);
+		    console.log(url);
 			 
 			 if(url.indexOf('?')!=-1)
 			 {
-			     var ary1 = url.split('?');		  
+			     var ary1 = url.split('&');		  
 			     var id = ary1[1];
 			     console.log("我的id"+id);
-
-			     
-			     changefordisabled=id;  
-			     selectforpositionidcheck= zz;
+   			     changefordisabled='payedsuccess';  
+			     selectforpositionidcheck= id;
 			 }
 			 submittest();
 			
@@ -381,7 +379,32 @@ function submittest(){
 							
 								positionidcheck=checkboxdata[0].positionID;
 								console.log('我的訂單編號是：'+positionidcheck);
+				
 								console.log('成功，完成新增外送訂單');
+
+
+				                //付款用-----------------             
+								$.ajax({
+									url: "TexiPayment?pricetotal="+pricetotal+"&positionidcheck="+positionidcheck,
+								//	url: "TexiPayment",
+									method: "post",
+								//	data:{
+								//		pricetotal:pricetotal,
+								//		positionidcheck:positionidcheck
+								//		}
+									datatype: "html",
+									success: function(data){
+										    console.log(data);
+											$(".Payment").append(data);
+										}
+									});
+				                //付款用-----------------
+
+
+
+
+								
+								  
 							}
 						})
 
@@ -393,20 +416,6 @@ function submittest(){
 				}
 
 			
-                //付款用-----------------             
-				$.ajax({
-					url: "TexiPayment?pricetotal="+pricetotal+"&positionidcheck="+positionidcheck,
-					method: "post",
-					datatype: "html",
-					success: function(data){
-						    console.log(data);
-							$(".Payment").append(data);
-						}
-					});
-                //付款用-----------------
-
-
-
 				
 			}
 //啟動傳送目的地&自己位置&確認司機&新增進入資料庫(確認申請)------------------------------------------------------------------------------------------------
