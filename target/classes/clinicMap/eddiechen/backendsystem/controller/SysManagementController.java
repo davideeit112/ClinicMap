@@ -80,13 +80,18 @@ public class SysManagementController {
 
 	@RequestMapping(path = "/loadClinicData", method = RequestMethod.GET)
 	public void loadClinicData(HttpServletResponse res, HttpServletRequest req) throws IOException, ServletException {
-		System.out.println("000");
+		Map<String, String> checkLog = new HashMap<String, String>();
 		Cookie[] cookies = req.getCookies();
-		if(cookies == null) {
+		for(Cookie cook: cookies) {
+			checkLog.put(cook.getName() , cook.getValue());
+		}
+		System.out.println(checkLog.get("LoginOK"));
+		if(checkLog.get("LoginOK") == null) {	
 			RequestDispatcher rd = req.getRequestDispatcher("backLogin.html");
 			rd.forward(req, res);
 		}
-		if(cookies[0].getValue().equals("Tost180.")) {
+		
+		if(checkLog.get("LoginOK").equals("Tost180.")) {
 		
 		// StringBuilder data = new StringBuilder();
 		String clinicStatus;
@@ -331,10 +336,12 @@ public class SysManagementController {
 
 	@RequestMapping(path = "/emailActivate", method = RequestMethod.POST)
 	public ModelAndView email(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		Map<String, String> checkLog = new HashMap<String, String>();
 		Cookie[] cookies = req.getCookies();
-		cookies[0].getValue();
-		String acc = cookies[0].getValue();
-			if(acc == null) {
+		for(Cookie cook: cookies) {
+			checkLog.put(cook.getName() , cook.getValue());
+		}
+			if(checkLog.get("LoginOK") == null) {
 				return new ModelAndView("redirect:/Login.html");
 			}
 		int clinicID = Integer.parseInt(req.getParameter("clinicID"));
@@ -346,7 +353,7 @@ public class SysManagementController {
 	@RequestMapping(path = "/changeStatus", method = RequestMethod.GET)
 	public String changeStatus(HttpServletRequest req, int clinicID) {
 		sysService.changeStatus2(clinicID);
-		return "System";
+		return "ClinicProfile";
 	}
 	
 	@RequestMapping(path="/Logout", method = RequestMethod.POST)

@@ -14,7 +14,7 @@ import clinicMap.eddiechen.ecpay.payment.integration.errorMsg.ErrorMessage;
 import clinicMap.eddiechen.ecpay.payment.integration.exception.EcpayException;
 
 public class PaymentVerifyBase{
-	protected String confPath = "/tw/eddiechen/ecpay/payment/integration/config/EcpayPayment.xml";
+	protected String confPath = "/clinicMap/eddiechen/ecpay/payment/integration/config/EcpayPayment.xml";
 	protected Document doc;
 	public PaymentVerifyBase(){
 		URL fileURL = this.getClass().getResource(confPath);
