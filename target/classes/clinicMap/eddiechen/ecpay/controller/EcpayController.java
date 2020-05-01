@@ -53,7 +53,7 @@ public class EcpayController {
 		return "ToTestForPayment";
 	}
 	
-	@RequestMapping(path = "/TexiPayment", method = RequestMethod.POST)
+	@RequestMapping(path = "/TexiPayment", method = RequestMethod.GET)
 	public void TexiPayment(@RequestParam("pricetotal") String pricetotal, HttpServletRequest request, HttpServletResponse res) throws IOException {
 		EcpayService.initial();
 //		Cookie[] cookies = request.getCookies();
