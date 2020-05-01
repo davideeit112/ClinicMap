@@ -54,7 +54,7 @@ public class EcpayController {
 	}
 	
 	@RequestMapping(path = "/TexiPayment", method = RequestMethod.GET)
-	public void TexiPayment(@RequestParam("pricetotal") String pricetotal, HttpServletRequest request, HttpServletResponse res) throws IOException {
+	public void TexiPayment(@RequestParam("pricetotal") String pricetotal, @RequestParam("positionidcheck")String positionidcheck, HttpServletRequest request, HttpServletResponse res) throws IOException {
 		EcpayService.initial();
 //		Cookie[] cookies = request.getCookies();
 //		Map<String, String> cookieMap = new HashMap<String, String>();
@@ -66,7 +66,7 @@ public class EcpayController {
 		UUID uid = UUID.randomUUID();
 		String uuid = uid.toString().replaceAll("-", "").substring(0, 20);
 		PrintWriter out = res.getWriter();
-		out.print(EcpayService.genTexiPayment(uuid, pricetotal));
+		out.print(EcpayService.genTexiPayment(uuid, pricetotal, positionidcheck));
 		
 	
 		

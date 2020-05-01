@@ -68,7 +68,7 @@ public class EcpayDao {
 		session.update(clinic);
 	}
 	
-	public static String genTexiPayment(String uuid, String priceTotal/*, String clinicID*/) {
+	public static String genTexiPayment(String uuid, String priceTotal, String positionidcheck/*, String clinicID*/) {
 //		Session session  = EcpayDao.sessionFactory.getCurrentSession();
 		AioCheckOutALL obj = new AioCheckOutALL();
 		
@@ -81,7 +81,7 @@ public class EcpayDao {
 		obj.setTradeDesc("DriverPayment");
 		obj.setItemName("司機接送");
 		obj.setReturnURL("http://211.23.128.214:5000");
-		obj.setClientBackURL("http://localhost:8080/clinicMap/guest?1111");
+		obj.setClientBackURL("http://localhost:8080/clinicMap/guest?payedsuccess%"+positionidcheck);
 		obj.setNeedExtraPaidInfo("N");
 		String form = all.aioCheckOut(obj, null);
 

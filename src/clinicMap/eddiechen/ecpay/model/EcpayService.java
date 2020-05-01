@@ -14,8 +14,8 @@ public class EcpayService {
 		return EcpayDao.genAdPayment(uuid);
 	}
 	
-	public static String genTexiPayment(String uuid, String pricetotal/*, String clinicID*/) {
-		return EcpayDao.genTexiPayment(uuid, pricetotal/*, clinicID*/);
+	public static String genTexiPayment(String uuid, String pricetotal, String positionidcheck/*, String clinicID*/) {
+		return EcpayDao.genTexiPayment(uuid, pricetotal, positionidcheck/*, clinicID*/);
 	}
 	
 	
