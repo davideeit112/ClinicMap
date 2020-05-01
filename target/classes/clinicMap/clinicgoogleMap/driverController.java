@@ -49,7 +49,7 @@ public class driverController {
 //					System.out.println("............................."+dr.getdrivername());
 					Cookie dname = new Cookie("drivername", dr.getdrivername());
 					dname.setMaxAge(-1); 
-					dname.setPath("/clinicMap");
+					dname.setPath("/clinicMap/driver");
 					res.addCookie(dname);
 					out.print(dr.getdrivername());
 				}
