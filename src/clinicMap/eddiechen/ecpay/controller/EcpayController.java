@@ -2,10 +2,14 @@ package clinicMap.eddiechen.ecpay.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,51 +26,71 @@ public class EcpayController {
 	@RequestMapping(path = "/AdPayment", method = RequestMethod.POST)
 	public void AdPayment(HttpServletRequest request, HttpServletResponse res) throws IOException {
 		EcpayService.initial();
-		System.out.println("555");
 //		Cookie[] cookies = request.getCookies();
+//		Map<String, String> cookieMap = new HashMap<String,String>();
+//		
 //		for(Cookie c: cookies) {
+//			cookieMap.put(c.getName(), c.getValue());
 //		}
-//		String clinicID = cookie[0].getValue();
+//		
+//		String clinicID = cookieMap.get("clinicID");
+		
 		UUID uid = UUID.randomUUID();
-		String id = uid.toString().replaceAll("-", "").substring(0, 20);
-//		request.setCharacterEncoding("UTF-8");
-//		request.setAttribute("formData", EcpayService.genAdPayment(id));
+		String uuid = uid.toString().replaceAll("-", "").substring(0, 20);
+		
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = res.getWriter();
-		System.out.println(EcpayService.genAdPayment(id));
-		out.write(EcpayService.genAdPayment(id));
+		out.write(EcpayService.genAdPayment(uuid/*, clinicID*/));
 		
 	}
 	
 	
 	@RequestMapping(path="/changeStatusAfterPay", method=RequestMethod.GET)
-	public String changeStatusAfterPay(@RequestParam("id") String uuid, HttpServletRequest req, HttpServletResponse res) throws IOException {
+	public String changeStatusAfterPay(@RequestParam("id") String uuid, /*String clinicID, */HttpServletRequest req, HttpServletResponse res) throws IOException {
 
-		EcpayService.changeStatus(1001);
+		EcpayService.changeStatus(1001/*clinicID*/);
 		
 		return "ToTestForPayment";
 	}
 	
-	@RequestMapping(path = "/TexiPayment", method = RequestMethod.POST)
-	public String TexiPayment(@RequestParam("pricetotal") String pricetotal, HttpServletRequest request, HttpServletResponse res) throws IOException {
+	@RequestMapping(path = "/TexiPayment", method = RequestMethod.GET)
+	public void TexiPayment(@RequestParam("pricetotal") String pricetotal, @RequestParam("positionidcheck")String positionidcheck, HttpServletRequest request, HttpServletResponse res) throws IOException {
+		
+		System.out.println("測試"+positionidcheck);
 		EcpayService.initial();
 //		Cookie[] cookies = request.getCookies();
+//		Map<String, String> cookieMap = new HashMap<String, String>();
+//		
 //		for(Cookie c: cookies) {
+//			cookieMap.put(c.getName(), c.getValue());
 //		}
-//		String clinicID = cookie[0].getValue();
-		UUID uid = UUID.randomUUID();
-		String id = uid.toString().replaceAll("-", "").substring(0, 20);
-//		request.setCharacterEncoding("UTF-8");
-//		request.setAttribute("formData", EcpayService.genTexiPayment(id));
-		PrintWriter out = res.getWriter();
-		out.print(EcpayService.genTexiPayment(id, pricetotal));
-		System.out.println();
 		
-		return "TestTing";
+		UUID uid = UUID.randomUUID();
+		String uuid = uid.toString().replaceAll("-", "").substring(0, 20);
+		PrintWriter out = res.getWriter();
+		out.print(EcpayService.genTexiPayment(uuid, pricetotal, positionidcheck));
+		
+	
+		
 	}
 	
 	@RequestMapping(path= "/ToAdPayment", method=RequestMethod.POST)
 	public ModelAndView ToAdPayment() {
+		
+		return new ModelAndView("redirect:/TestForPayment.html");
+	}
+	
+	@RequestMapping(path="/ToTexiPayment", method=RequestMethod.POST)
+	public ModelAndView ToTexiPayment() {
+		
+		return new ModelAndView("redirect:/TestForPayment.html");
+	}
+	
+	@RequestMapping(path="/TexiPayed", method=RequestMethod.GET)
+	public ModelAndView TexiPayed(HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("TexiPay", "Success");
 		
 		return new ModelAndView("redirect:/TestForPayment.html");
 	}

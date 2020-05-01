@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Sponsor {
 	public int sponsorID;
-	public String clinicAccount;
+	public String clinicID;
 	public String tradeID;
 	public String sponsorTime;
 	
@@ -27,12 +27,12 @@ public class Sponsor {
 		this.sponsorID = sponsorID;
 	}
 	
-	@Column(name = "clinicAccount")
-	public String getClinicAccount() {
-		return clinicAccount;
+	@Column(name = "clinicID")
+	public String getClinicID() {
+		return clinicID;
 	}
-	public void setClinicAccount(String clinicAccount) {
-		this.clinicAccount = clinicAccount;
+	public void setClinicID(String clinicID) {
+		this.clinicID = clinicID;
 	}
 	
 	@Column(name = "tradeID")
