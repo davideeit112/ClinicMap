@@ -90,5 +90,4 @@ public class EMessageDao {
 		List<ResultBean> list = query.list();
 //		System.out.println(list);
 		return list;
-	}
-}
+	}}
