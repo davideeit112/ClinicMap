@@ -13,8 +13,7 @@ html, body {
 
 
 .myButton{
-background:    #ffd966;
-background:    linear-gradient(#ffd966, #ba6f06);
+background:    #FFDC35;
 border:        1px solid #e69138;
 border-radius: 7px;
 padding:       10px 45px;
@@ -88,7 +87,9 @@ background-attachment: fixed;">
 	var map ;
 	var directionsDisplay;
 	var directionsService;
-	var driveridname="阿德外送";
+	var driveridname='阿德外送';
+	//var driveridname=document.cookie.split('=')[1];
+	console.log(driveridname);
     var positionidcheck;
 
 
