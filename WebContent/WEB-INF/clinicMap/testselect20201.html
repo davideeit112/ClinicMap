@@ -96,19 +96,20 @@ background-attachment: fixed;" >
 			var forclinicname;  //準備接收預約面的資料
 			var forcliniclat;   //準備接收預約面的資料
 			var forcliniclng;   //準備接收預約面的資料
-
+            var selectforpositionidcheck;
 
 			var url = location.href;		
 			 console.log(url);
+			 
 			 if(url.indexOf('?')!=-1)
 			 {
-			     //之後去分割字串把分割後的字串放進陣列中
-			     var ary1 = url.split('?');
-			  
+			     var ary1 = url.split('?');		  
 			     var id = ary1[1];
 			     console.log("我的id"+id);
-			     changefordisabled=id;  
+
 			     
+			     changefordisabled=id;  
+			     selectforpositionidcheck= zz;
 			 }
 			 submittest();
 			
@@ -468,11 +469,11 @@ function sub2() {
                 //重新確認自己位置並存入資料庫
 				sub2();
 				//查詢自己&司機位置
-				var testa=positionidcheck;
-	            var number=Number(testa);
+				//var testa=selectforpositionidcheck;
+	            //var number=Number(testa);
 				$.ajax({
 					type : "POST",
-					url : "selectall?positionidcheck=" + number,
+					url : "selectall?positionidcheck=" + selectforpositionidcheck,
 					dataType : "json",
 					success : function(myiddata) {
 
