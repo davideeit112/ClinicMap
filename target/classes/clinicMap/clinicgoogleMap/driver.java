@@ -23,12 +23,10 @@ public class driver {
 
 	}
 	
-	public driver(String driverID,String drivername) {
-		this.driverID = driverID;
-		this.drivername =drivername;
-
-
-	}
+	 public driver(String driveraccount,String driverpassword) {
+		  this.driveraccount = driveraccount;
+		  this.driverpassword = driverpassword;
+		 }
 		
 	@Id
 	@Column(name = "driverID")	

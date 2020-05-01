@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>Driver Login</title>
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
@@ -48,22 +48,26 @@ h3 {
 }
 
 body {
-	background-image: url("");
+
+   background-image:url('images/taxiforground.jpg'); 
+   background-repeat:no-repeat ;
+   background-size:100% 100%; 
+  background-attachment: fixed;
 }
 </style>
 </head>
 <body>
 	<div class="login-wrapper">
 		<form class="login">
-			<h3>¥q¾÷µn¤J</h3>
+			<h3>å¸æ©Ÿç™»å…¥</h3>
 			<table>
 				<tr>
-					<td class="widget_title">±b¸¹¡G</td>
+					<td class="widget_title">å¸³è™Ÿï¼š</td>
 					<td><input class="form-control ui-autocomplete-input"
 						type="text" id="driveraccount" name="driveraccount"></td>
 				</tr>
 				<tr>
-					<td class="widget_title">±K½X¡G</td>
+					<td class="widget_title">å¯†ç¢¼ï¼š</td>
 					<td><input class="form-control ui-autocomplete-input"
 						type="password" id="driverpassword" name="driverpassword"></td>
 				</tr>
@@ -72,14 +76,14 @@ body {
 		<table>
 			<tr>
 				<td></td>
-				<td align="center"><button type="submit" class="genric-btn warning-border radius" onclick="btn()">µn¤J</button></td>
+				<td align="center"><button type="submit" class="genric-btn warning-border radius" onclick="btn()">ç™»å…¥</button></td>
 			</tr>
 		</table>
 	</div>
 	<script type="text/javascript">
 function btn() {
     if ($("#driveraccount").val() == "" || $("#driverpassword").val() == "") {
-        alert("½Ğ¿é¤J±b¸¹±K½X");
+        alert("è«‹è¼¸å…¥å¸³è™Ÿå¯†ç¢¼");
 	} else {
         $.ajax({
             url: "dlogin.do",
@@ -91,9 +95,9 @@ function btn() {
             success: function (data) {
               //console.log("he");
                 if (data==0) {
-                    alert("±b¸¹±K½X¿ù»~");
+                    alert("å¸³è™Ÿå¯†ç¢¼éŒ¯èª¤");
                 } else {
-                	window.location.href = "Success.html"; 
+                	window.location.href = "/clinicMap/driver"; 
                 }
             }
         })
