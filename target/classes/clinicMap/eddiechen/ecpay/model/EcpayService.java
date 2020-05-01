@@ -10,13 +10,12 @@ public class EcpayService {
 	}
 	
 
-	public static String genAdPayment(String id) {
-		System.out.println("00");
-		return EcpayDao.genAdPayment(id);
+	public static String genAdPayment(String uuid/*, String clinicID*/) {
+		return EcpayDao.genAdPayment(uuid);
 	}
 	
-	public static String genTexiPayment(String id, String pricetotal) {
-		return EcpayDao.genTexiPayment(id, pricetotal);
+	public static String genTexiPayment(String uuid, String pricetotal/*, String clinicID*/) {
+		return EcpayDao.genTexiPayment(uuid, pricetotal/*, clinicID*/);
 	}
 	
 	

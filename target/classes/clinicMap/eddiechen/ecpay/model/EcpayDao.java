@@ -36,29 +36,22 @@ public class EcpayDao {
 		all = new AllInOne("");
 	}
 	
-	public static String genAdPayment(String id){
+	public static String genAdPayment(String uuid/*, String clinicID*/){
 //		Session session  = EcpayDao.sessionFactory.getCurrentSession();
 		AioCheckOutALL obj = new AioCheckOutALL();
-		System.out.println("11");
 		Date date = Calendar.getInstance().getTime();  
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");  
 		String strDate = dateFormat.format(date); 
-		System.out.println("22");
-		obj.setMerchantTradeNo(id);
+		obj.setMerchantTradeNo(uuid);
 		obj.setMerchantTradeDate(strDate);
 		obj.setTotalAmount("100");
 		obj.setTradeDesc("test Description");
 		obj.setItemName("ClinicMap廣告贊助");
 		obj.setReturnURL("http://211.23.128.214:5000");
-		System.out.println("33");
-		obj.setClientBackURL("http://localhost:8080/clinicMap/changeStatusAfterPay?id=" + id);
+		obj.setClientBackURL("http://localhost:8080/clinicMap/changeStatusAfterPay?id=" + uuid/*clinicID*/);
 //		obj.setOrderResultURL("http://localhost:8080/SpringAllForOne/Test.jsp");
-		System.out.println(id);
-		System.out.println("4444");
 		obj.setNeedExtraPaidInfo("N");
-		System.out.println("66666");
 		String form = all.aioCheckOut(obj, null);
-		System.out.println(form);
 //		Sponsor s = new Sponsor();
 //		s.setClinicAccount(clinicAccount);
 //		s.setTradeID(id);
@@ -75,26 +68,25 @@ public class EcpayDao {
 		session.update(clinic);
 	}
 	
-	public static String genTexiPayment(String id, String pricetotal) {
+	public static String genTexiPayment(String uuid, String priceTotal/*, String clinicID*/) {
 //		Session session  = EcpayDao.sessionFactory.getCurrentSession();
 		AioCheckOutALL obj = new AioCheckOutALL();
 		
 		Date date = Calendar.getInstance().getTime();  
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");  
 		String strDate = dateFormat.format(date);  
-		obj.setMerchantTradeNo(id);
+		obj.setMerchantTradeNo(uuid);
 		obj.setMerchantTradeDate(strDate);
-		obj.setTotalAmount(pricetotal);
+		obj.setTotalAmount(priceTotal);
 		obj.setTradeDesc("DriverPayment");
 		obj.setItemName("司機接送");
 		obj.setReturnURL("http://211.23.128.214:5000");
-		obj.setClientBackURL("http://localhost:8080/clinicMap/TestForPayment.html");
-//		obj.setOrderResultURL("http://localhost:8080/SpringAllForOne/Test.jsp");
-		System.out.println(id);
+		obj.setClientBackURL("http://localhost:8080/clinicMap/TexiPayed");
 		obj.setNeedExtraPaidInfo("N");
 		String form = all.aioCheckOut(obj, null);
+
 //		Sponsor s = new Sponsor();
-//		s.setClinicAccount(clinicAccount);
+//		s.setClinicID(clinicID);
 //		s.setTradeID(id);
 //		s.setSponsorTime(strDate);
 //		session.save(s);
