@@ -23,13 +23,10 @@ public class driver {
 
 	}
 	
-	public driver(String driverID,String drivername,String driveraccount,String driverpassword,String drivernowlat,String drivernowlng) {
+	public driver(String driverID,String drivername) {
 		this.driverID = driverID;
 		this.drivername =drivername;
-		this.driveraccount = driveraccount;
-		this.driverpassword = driverpassword;
-		this.drivernowlat = drivernowlat;
-		this.drivernowlng = drivernowlng;
+
 
 	}
 		
