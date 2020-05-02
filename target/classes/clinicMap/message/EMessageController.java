@@ -223,4 +223,10 @@ public class EMessageController {
 		PrintWriter out = res.getWriter();
 		out.print(jarray);
 	}
+	
+	////網址列////
+	@RequestMapping(path="/hospitalComment",method = RequestMethod.GET)
+	public String  comment() {
+		return "EachCblog";
+	}
 }
