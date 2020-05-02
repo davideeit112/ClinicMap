@@ -68,8 +68,10 @@ public class positionDAO {
 
 	public List<position> selectAllOrderData(String drivername) {
 		Session sd = sessionFactory.getCurrentSession();
-		String newsqlstr = "from position where drivername like '%"+drivername+"%'";
+		System.out.println(drivername);
+		String newsqlstr = "from position where drivername like :drivername";
 		Query<position> query = sd.createQuery(newsqlstr, position.class);
+		query.setParameter("drivername", "%"+drivername+"%");
 		List<position> list = query.list();
 		return list;
 	}
@@ -82,8 +84,10 @@ public class positionDAO {
 	
 	public List<position> selectthisorderid(String drivername,String clinicName,String thispricetotal) {
 		Session sd = sessionFactory.getCurrentSession();
-		String newsqlstr = "from position where drivername like '%"+drivername+"%' and  clinicName like '%"+clinicName+"%' and thispricetotal like '%"+thispricetotal+"%' ";
+		String newsqlstr = "from position where drivername like :drivername and  clinicName like :clinicName  and thispricetotal like '%"+thispricetotal+"%' ";
 		Query<position> query = sd.createQuery(newsqlstr, position.class);
+		query.setParameter("drivername", "%"+drivername+"%");
+		query.setParameter("clinicName", "%"+clinicName+"%");
 		List<position> list = query.list();
 		return list;
 			

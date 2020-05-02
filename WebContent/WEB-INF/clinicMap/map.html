@@ -308,14 +308,14 @@ html, body {
 	if(show==true){
 		$("#map").hide()
 		$("#text").hide()
-		$("#list").show()
-		$("#listchose").show();
-		$("#listchose1").show();
+		$("#list").show(2000)
+		$("#listchose").show(2000);
+		$("#listchose1").show(2000);
 		$("#mapshow").html("地圖顯示")
 		show=false
 	}else{
-			$("#map").show()
-			$("#text").show();
+			$("#map").show(2000)
+			$("#text").show(2000);
 			$("#list").hide();
 			$("#listchose").hide();
 			$("#listchose1").hide();
@@ -457,12 +457,12 @@ html, body {
 					data:{'clinicid':clinicid,'memberid':$.cookie('memberID'),'description':$('#description'+clinicid).val()},
 					success:function(data){
 						
-						alert("你的預約號碼為："+data)
+						alert("你的預約號碼為："+data+"現在跳轉至租車畫面")
 						peopleNumber(clinicid)
 						$("#orderbutton").empty()
 						$.cookie('clinicid',clinicid,{expires:1})
 						$("#orderbutton").html('<button class="genric-btn success">已預約</button>')
-						location.reload();
+						location.href="/clinicMap/guest";
 					/* 	$("cancelbutton").empty()
 						$("cancelbutton").html('<button class="genric-btn success" onclick="cancel('+$.cookie('memberid')+')">取消預約</button>')
 				 */		}

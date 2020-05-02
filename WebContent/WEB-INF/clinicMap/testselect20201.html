@@ -82,6 +82,7 @@ background-attachment: fixed;" >
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFbyqberG_1L9qz8rFMYDJGGep1iJPAIk&callback=initMap">
 			
 		</script>
+	<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 		<script>
 			var markers = [];
@@ -111,7 +112,7 @@ background-attachment: fixed;" >
 			 }
 			 submittest();
 			
-			$("#showprice").html(positionidcheck);
+			
 //初始化地圖區-----------------------------------------------------------------------------------------------------------------------------
 			function initMap() {
 
@@ -159,7 +160,7 @@ background-attachment: fixed;" >
 
 			}
 //初始化地圖區-----------------------------------------------------------------------------------------------------------------------------
-
+	
 
 
 
@@ -295,6 +296,7 @@ function submittest(){
 						var price = (100 + dis*0.02);
 						pricetotal=Math.round(price);
 						console.log('我的價錢是'+pricetotal+'元');
+						$("#showprice").html(pricetotal+"元");
 						}
 					
 				}
@@ -357,48 +359,62 @@ function submittest(){
 						var mylat = position.coords.latitude;  //自己的經度
 						var mylng = position.coords.longitude;  //自己的緯度						
 						var orderdata= [];
-
-						
-						orderdata.push(drivernamechose);
-						orderdata.push("士林夜市");  ////給值
-						orderdata.push(mylat);
-						orderdata.push(mylng);
-						orderdata.push("25.112298");
-						orderdata.push("121.531862");
-						orderdata.push("25.088652");////給值
-						orderdata.push("121.526470");////給值
-						orderdata.push(pricetotal);
-						
-
-						//存到資料庫
 						$.ajax({
-							type : "POST",
-							url : "neworder?orderdata=" + orderdata,
-							dataType : "json",
-							success : function(checkboxdata) {
-							
-								positionidcheck=checkboxdata[0].positionID;
-								console.log('我的訂單編號是：'+positionidcheck);
-				
-								console.log('成功，完成新增外送訂單');
-
-
-				                //付款用-----------------             
+							url:"cliniclnglat",
+							dataType:"json",
+							data:{"clinicid":$.cookie("clinicid")},
+							type:"post",
+							success:function(data){
+								console.log(drivernamechose)
+								console.log(data.clinicName)
+								console.log(mylat)
+								console.log(mylng)
+								orderdata.push(drivernamechose);
+								orderdata.push(data.clinicName);
+								orderdata.push(mylat);
+								orderdata.push(mylng);
+								orderdata.push("25.112298");
+								orderdata.push("121.531862");
+								orderdata.push(data.clinicLat);////給值
+								orderdata.push(data.clinicLng);////給值
+								orderdata.push(pricetotal);
 								$.ajax({
-									url: "TexiPayment?pricetotal="+pricetotal+"&positionidcheck="+positionidcheck,
-								//	url: "TexiPayment",
-									method: "post",
-								//	data:{
-								//		pricetotal:pricetotal,
-								//		positionidcheck:positionidcheck
-								//		}
-									datatype: "html",
-									success: function(data){
-										    console.log(data);
-											$(".Payment").append(data);
-										}
-									});
-				                //付款用-----------------
+									type : "POST",
+									url : "neworder?orderdata=" + orderdata,
+									dataType : "json",
+									success : function(checkboxdata) {
+									
+										positionidcheck=checkboxdata[0].positionID;
+										console.log('我的訂單編號是：'+positionidcheck);
+						
+										console.log('成功，完成新增外送訂單');
+
+
+						                //付款用-----------------             
+										$.ajax({
+											url: "TexiPayment?pricetotal="+pricetotal+"&positionidcheck="+positionidcheck,
+										//	url: "TexiPayment",
+											method: "post",
+										//	data:{
+										//		pricetotal:pricetotal,
+										//		positionidcheck:positionidcheck
+										//		}
+											datatype: "html",
+											success: function(data){
+												    console.log(data);
+													$(".Payment").append(data);
+												}
+											});
+						                //付款用-----------------
+									}
+							})
+
+						
+
+						
+					
+						//存到資料庫
+						
 
 
 

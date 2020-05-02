@@ -170,10 +170,12 @@ public class testcontrollerclinic {
 	
 	
 	@RequestMapping(value = "/neworder", method = RequestMethod.POST)
-	public void newfororder(@RequestParam(value = "orderdata") String orderdata,HttpServletResponse res) throws IOException {
-		position Pposition = new position();		
+	public void newfororder(@RequestParam("orderdata") String orderdata,HttpServletResponse res) throws IOException {
+		position Pposition = new position();
+		System.out.println("hello"+orderdata+"??");
 		String[] data = orderdata.split(",");
 		Pposition.setdrivername(data[0]);
+		System.out.println(data[0]+data[1]);
 		Pposition.setclinicName(data[1]);
 		Pposition.setguestlat(data[2]);
 		Pposition.setguestlng(data[3]);
@@ -243,8 +245,14 @@ public class testcontrollerclinic {
 		out.print(jaray);
 
 	}
-	
-
+	@RequestMapping(path="/cliniclnglat",method=RequestMethod.POST)
+public void cliniclnglat(@RequestParam("clinicid")String clinicid,HttpServletResponse response) throws IOException {
+		Clinicdavid cbean = service.queryData(clinicid);
+		JSONObject jobj=new JSONObject(cbean);
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(jobj);
+}
 	
 	
 	

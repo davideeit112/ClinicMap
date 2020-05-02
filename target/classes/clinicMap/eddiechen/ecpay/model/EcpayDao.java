@@ -48,7 +48,7 @@ public class EcpayDao {
 		obj.setTradeDesc("test Description");
 		obj.setItemName("ClinicMap廣告贊助");
 		obj.setReturnURL("http://211.23.128.214:5000");
-		obj.setClientBackURL("http://localhost:8080/clinicMap/changeStatusAfterPay?id=" + uuid/*clinicID*/);
+		obj.setClientBackURL("http://clinicmap.tk/changeStatusAfterPay?id=" + uuid/*clinicID*/);
 //		obj.setOrderResultURL("http://localhost:8080/SpringAllForOne/Test.jsp");
 		obj.setNeedExtraPaidInfo("N");
 		String form = all.aioCheckOut(obj, null);
@@ -62,10 +62,15 @@ public class EcpayDao {
 	
 	public static void changeStatus(int clinicID) {
 		Session session = sessionFactory.getCurrentSession();
-		Clinicchen clinic = session.get(Clinicchen.class, clinicID);
-		clinic.setClinicStatus("CS3");
+		try {
+			Clinicchen clinic = session.get(Clinicchen.class, clinicID);
+			System.out.println(clinic.getClinicID());
+			clinic.setClinicStatus("CS3");
+			session.update(clinic);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 
-		session.update(clinic);
 	}
 	
 	public static String genTexiPayment(String uuid, String priceTotal, String positionidcheck/*, String clinicID*/) {
