@@ -112,7 +112,7 @@ background-attachment: fixed;" >
 			 }
 			 submittest();
 			
-			$("#showprice").html(positionidcheck);
+			
 //初始化地圖區-----------------------------------------------------------------------------------------------------------------------------
 			function initMap() {
 
@@ -160,7 +160,7 @@ background-attachment: fixed;" >
 
 			}
 //初始化地圖區-----------------------------------------------------------------------------------------------------------------------------
-
+	
 
 
 
@@ -296,6 +296,7 @@ function submittest(){
 						var price = (100 + dis*0.02);
 						pricetotal=Math.round(price);
 						console.log('我的價錢是'+pricetotal+'元');
+						$("#showprice").html(pricetotal+"元");
 						}
 					
 				}
