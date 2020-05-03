@@ -52,6 +52,11 @@
 		margin-bottom:100px;
 		display:none;
 	}
+	#createData{
+		margin-top: 50px;
+		margin-left: 100px;
+		margin-bottom:100px;
+	}
 	.chart,.chartLine{
 		width:800px;
 		height:400px;
@@ -246,6 +251,7 @@
 			<input type="date" id="selectDate">
 		</div>
 		<!-- ================================================================================================================== -->
+		<input id="createData" class="genric-btn success circle arrow" type="button" value="新增資料">
 		<div id="allApp"></div>
 		<div class="allChartsWrapper">
 		<div class="chart" id="chartContainer">
@@ -396,6 +402,18 @@
 	<script src="./assets/js/main.js"></script>
 	
 <script>
+
+$("#createData").click(function(){
+	$(this).hide();
+	$.ajax({
+		url:"createData.do", 
+		type:"GET",
+		success:function(data) {
+			
+		}
+	});
+});
+
 	$("#Yearly").click(function(){
 		$(this).css("background-color","#FD7D98");
 		$(this).siblings().css("background-color","#FD98AD");

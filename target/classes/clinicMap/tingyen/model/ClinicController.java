@@ -51,6 +51,9 @@ public class ClinicController {
 	@Autowired
 	private ClinicOpenStatusService cosService;
 	
+	@Autowired
+	private AppointmentDao aDao;
+	
 	@RequestMapping(path = "/todayAppointments.do", method = RequestMethod.GET)
 	public void todayAppointment(HttpServletRequest request, HttpServletResponse response) throws IOException { 
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -369,6 +372,12 @@ public class ClinicController {
 		PrintWriter out = response.getWriter();
 		out.print(jsonObj);
 	}
+	
+	@RequestMapping(path = "/createData.do", method = RequestMethod.GET)
+	public void createData() {
+		aDao.createData();
+	}
+	
 	@RequestMapping(path="/clinicMain",method=RequestMethod.GET)
 	public String clinicMain() {
 		return "ClinicMain";

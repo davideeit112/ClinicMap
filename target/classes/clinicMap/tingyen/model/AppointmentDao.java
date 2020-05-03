@@ -1,8 +1,11 @@
 package clinicMap.tingyen.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -115,5 +118,31 @@ public class AppointmentDao implements IAppointmentDao {
 		analyzeData.put("unReportNum", unReportNum);
 		analyzeData.put("unReportNum", deleteApp);
 		return analyzeData;
+	}
+	
+	public void createData() {
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			for(int i=0;i<10000;i++) {
+				Appointment aBean = new Appointment();
+				Random rd = new Random();
+				String[] appointmentType = {"OT1","OT2"};
+				String[] appointmentStatus = {"OS1","OS2","OS3","OS4","OS5"};
+				int appointmentID = rd.nextInt();
+				SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
+				Date date = sdf.parse("2020-"+ (rd.nextInt(4)+1) + "-" + (rd.nextInt(30)+1));
+				aBean.setAppointmentID("" + rd.nextInt(20000));
+				aBean.setMemberID(101);
+				aBean.setClinicID(1001);
+				aBean.setAppointmentType(appointmentType[rd.nextInt(2)]);
+				aBean.setAppointmentTime(date);
+				aBean.setAppointmentNumber(rd.nextInt(20)+1);
+				aBean.setAppointmentStatus(appointmentStatus[rd.nextInt(5)]);
+				session.save(aBean);
+			}	
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
 	}
 }
