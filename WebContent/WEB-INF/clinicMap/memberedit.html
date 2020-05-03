@@ -125,7 +125,7 @@ textarea {
 										<li>find clinic for you</li>
 									</ul>
 								</div>
-							</div>
+							</div></div></div>
 
 							<div class="col-lg-4">
 								<div class="header-info-right f-right">
@@ -145,7 +145,7 @@ textarea {
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="googleMap/"><img src="assets/img/logo/logo.png"
+									<a href="/clinicMap/googleMap/"><img src="/clinicMap/assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -234,7 +234,7 @@ textarea {
 		<div>
 			<table>
 				<tr>
-					<td><button id="submit" class="genric-btn default circle arrow">確定</button>
+					<td><button id="membersubmit" class="genric-btn default circle arrow">確定</button>
 						<td></table>
 		</div>
 	</div>
@@ -333,7 +333,7 @@ textarea {
 	 }
 	 return formData;
 }
-$("#submit").click(function(){
+$("#membersubmit").click(function(){
 	var data=$("#memberset").serializeArray()
 	
 	$.ajax({
