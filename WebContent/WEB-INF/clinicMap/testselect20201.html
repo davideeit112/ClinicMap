@@ -366,17 +366,20 @@ function submittest(){
 							type:"post",
 							success:function(data){
 								console.log(drivernamechose)
-								console.log(data.clinicName)
+								console.log(data.clinicName)  						
 								console.log(mylat)
 								console.log(mylng)
 								orderdata.push(drivernamechose);
-								orderdata.push(data.clinicName);
+								orderdata.push(data.clinicName);   ///目的地名稱值25.088651, 121.526676	
+								//orderdata.push("士林夜市");
 								orderdata.push(mylat);
 								orderdata.push(mylng);
 								orderdata.push("25.112298");
 								orderdata.push("121.531862");
-								orderdata.push(data.clinicLat);////給值
-								orderdata.push(data.clinicLng);////給值
+								orderdata.push(data.clinicLat);////目的地給值
+								//orderdata.push("25.088651");
+								orderdata.push(data.clinicLng);////目的地給值
+								//orderdata.push("121.526676");
 								orderdata.push(pricetotal);
 								$.ajax({
 									type : "POST",
