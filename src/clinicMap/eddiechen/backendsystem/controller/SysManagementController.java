@@ -2,6 +2,10 @@ package clinicMap.eddiechen.backendsystem.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -387,4 +391,17 @@ public class SysManagementController {
 		sysService.updateAnnouncement(id, type, text);
 		return new ModelAndView("redirect:/System.html");
 	}
+	                       
+	@RequestMapping(path="/AnnouncementText", method=RequestMethod.POST)
+	public void AnnouncementText(HttpServletResponse res) throws IOException {
+		System.out.println("0000");
+		String text = sysService.UpdateAnnouncementText();
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		System.out.println(text);
+		out.write(text);
+		
+	}
+	
+	
 }

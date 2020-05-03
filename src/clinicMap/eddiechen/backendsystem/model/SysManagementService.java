@@ -51,4 +51,9 @@ public class SysManagementService {
 
 	}
 	
+	public String UpdateAnnouncementText() {
+		return sysManagementDao.UpdateAnnouncementText();
+	}
+	
+	
 }
