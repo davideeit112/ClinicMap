@@ -38,7 +38,6 @@ public class orderController {
 		List<clinicBean> list = service.query();
 		JSONArray arry = new JSONArray();
 		for (clinicBean cbean : list) {
-			System.out.println(cbean.getClinicStatus());
 			if(cbean.getClinicStatus().equals("CS2")) {
 			JSONObject jobj = new JSONObject();
 			jobj.put("clinicaddress", cbean.getClinicAddress());
@@ -50,7 +49,6 @@ public class orderController {
 			jobj.put("clinicName", cbean.getClinicName());
 			arry.put(jobj);
 			
-//				System.out.println(cbean.getClinicName()+" "+i[0]+" "+cbean.getClinicphone()+cbean.getClinicType());
 			}
 		}
 		response.setContentType("text/html ;charset=UTF-8");
