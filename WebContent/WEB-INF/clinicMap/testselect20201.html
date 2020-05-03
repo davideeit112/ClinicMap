@@ -98,6 +98,7 @@ background-attachment: fixed;" >
 			var forcliniclat;   //準備接收預約面的資料
 			var forcliniclng;   //準備接收預約面的資料
             var selectforpositionidcheck;
+            var forname;
 
 			var url = location.href;		
 		    console.log(url);
@@ -110,8 +111,28 @@ background-attachment: fixed;" >
    			     changefordisabled='payedsuccess';  
 			     selectforpositionidcheck= id;
 			 }
+
+
+			 
 			 submittest();
+
+
+				$.ajax({
+					url:"cliniclnglat",
+					dataType:"json",
+					data:{"clinicid":$.cookie("clinicid")},
+					type:"post",
+					success:function(data){
+						forclinicname=data.clinicName;
+						forcliniclat=data.clinicLat;
+						forcliniclng=data.clinicLng;	
+
+
+					}		
+					})
+		
 			
+		
 			
 //初始化地圖區-----------------------------------------------------------------------------------------------------------------------------
 			function initMap() {
@@ -133,10 +154,6 @@ background-attachment: fixed;" >
 					success : function(checkboxdata) {
 						
 						for (var i = 0; i < checkboxdata.length; i++) {
-							console.log(checkboxdata[i].drivername);
-							console.log(checkboxdata[i].drivernowlat);
-							console.log(checkboxdata[i].drivernowlng);
-
 							var lat1 =parseFloat(checkboxdata[i].drivernowlat)
 							var lng1 =parseFloat(checkboxdata[i].drivernowlng)					
 							var name =checkboxdata[i].drivername
@@ -244,7 +261,7 @@ function submittest(){
 				markers.push(marker); //存到markers陣列裡 準備後面被全部刪除
 
 				var infowindow = new google.maps.InfoWindow({
-				    content: '<h1>'+name+'</h1>'+'  <form action="ToAdPayment" method="post">   <input  type="button" onclick="sub1('+name+')" value="確認申請&繳費" /> </form>'
+				    content: '<h1>'+name+'</h1>'+'  <form action="ToAdPayment" method="post">   <input  type="button"  id="'+name+'" onclick="sub1(this)"  name="確認申請&繳費" value="'+name+'" /> </form>'
                  //<input type="radio" onclick="test()" value="'+name+'" name="valuefordriver">
 				    
 				  });
@@ -276,12 +293,11 @@ function submittest(){
 				//允許抓目前位置，回傳經緯度
 				function success(position) {
 
-					
+		
 					var guestlat = position.coords.latitude;
 					var guestlng = position.coords.longitude;
 					var guestorigin = new google.maps.LatLng(guestlat,guestlng);
-					//var driverorigin = new google.maps.LatLng(destinationlat,destinationlng);
-					var driverorigin = new google.maps.LatLng(25.112298,121.531862);
+					var driverorigin = new google.maps.LatLng(forcliniclat,forcliniclng);
 					var service = new google.maps.DistanceMatrixService();
 					
 					service.getDistanceMatrix(
@@ -291,9 +307,10 @@ function submittest(){
 							    travelMode: 'DRIVING',
 							    unitSystem: google.maps.UnitSystem.METRIC,
 							  }, callback);
+
 					  
 					function callback(response, status) {
-						var dis=response.rows[0].elements[0].distance.value;
+						var dis=response.rows[0].elements[0].distance.value
 						console.log('總距離是'+dis+'公尺');   //這邊設定是公尺
 						var price = (100 + dis*0.02);
 						pricetotal=Math.round(price);
@@ -328,15 +345,19 @@ function submittest(){
 
 
 
-
-
 //啟動傳送目的地&自己位置&確認司機&新增進入資料庫(確認申請)---------------------------------------------------------------------------------------------
-			function sub1(name) {
+			function sub1(myObj) {
 				clearMarkers();// 這邊要先清除地圖上的標註
+			
+			
+			//	$("input").click(function(){
+			//           console.log('測試的'+$(this).val());
+			  //         forname=$(this).val();
+			 //       
+			//      });
+				forname=myObj.id;
+
 				
-				//test();
-				
-				//console.log(drivernamechose);
 				if (navigator.geolocation) {
 
 					//不提供定位，或是發生其它錯誤
@@ -367,21 +388,17 @@ function submittest(){
 							data:{"clinicid":$.cookie("clinicid")},
 							type:"post",
 							success:function(data){
-								console.log(name)
+								console.log(forname)
 								console.log(data.clinicName)  						
-								console.log(mylat)
-								console.log(mylng)
-								orderdata.push(name);
-								orderdata.push(data.clinicName);   ///目的地名稱值25.088651, 121.526676	
-								//orderdata.push("士林夜市");
+
+								orderdata.push(forname);
+								orderdata.push(data.clinicName);   
 								orderdata.push(mylat);
 								orderdata.push(mylng);
 								orderdata.push("25.112298");
 								orderdata.push("121.531862");
 								orderdata.push(data.clinicLat);////目的地給值
-								//orderdata.push("25.088651");
 								orderdata.push(data.clinicLng);////目的地給值
-								//orderdata.push("121.526676");
 								orderdata.push(pricetotal);
 								$.ajax({
 									type : "POST",
