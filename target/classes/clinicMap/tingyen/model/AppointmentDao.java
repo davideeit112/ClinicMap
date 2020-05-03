@@ -94,19 +94,26 @@ public class AppointmentDao implements IAppointmentDao {
 		int appointmentNum = list.size();
 		int firstTimeNum = 0;
 		int completeDiagnosis = 0;
+		int unReportNum = 0;
+		int deleteApp = 0;
 		for(Appointment aBean : list) {
 			if(aBean.getAppointmentType().equals("OT2")) {
 				firstTimeNum++;
 			}else if(aBean.getAppointmentStatus().equals("OS3")) {
 				completeDiagnosis++;
+			}else if(aBean.getAppointmentStatus().equals("OS5")) {
+				deleteApp++;
+			}else if(aBean.getAppointmentStatus().equals("OS4")) {
+				unReportNum++;
 			}
 		}
-		int unReportNum = appointmentNum - completeDiagnosis;
+		
 		Map<String,Integer> analyzeData = new HashMap<String,Integer>();
 		analyzeData.put("appointmentNum", appointmentNum);
 		analyzeData.put("firstTimeNum", firstTimeNum);
 		analyzeData.put("completeDiagnosis", completeDiagnosis);
 		analyzeData.put("unReportNum", unReportNum);
+		analyzeData.put("unReportNum", deleteApp);
 		return analyzeData;
 	}
 }

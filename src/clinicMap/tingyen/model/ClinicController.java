@@ -232,7 +232,7 @@ public class ClinicController {
 	
 		Map<String, Integer> mapData = aService.analyzeAppointmentData(cookie.getValue(), timeType);		
 		String data = "";
-		data += mapData.get("appointmentNum") + "," + mapData.get("firstTimeNum") + "," + mapData.get("completeDiagnosis") + "," + mapData.get("unReportNum");
+		data += mapData.get("appointmentNum") + "," + mapData.get("firstTimeNum") + "," + mapData.get("completeDiagnosis") + "," + mapData.get("unReportNum") + "," + mapData.get("deleteApp");
 		PrintWriter out = response.getWriter();
 		out.print(data);
 	}

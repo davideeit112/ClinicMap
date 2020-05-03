@@ -46,7 +46,7 @@
 	.Yearly:hover,.Monthly:hover,.Daily:hover{
 		background-color: #FD7D98;	
 	}
-	.year,.month,.date{
+	.year,.month,.date,#allApp{
 		margin-top: 50px;
 		margin-left: 100px;
 		margin-bottom:100px;
@@ -246,6 +246,7 @@
 			<input type="date" id="selectDate">
 		</div>
 		<!-- ================================================================================================================== -->
+		<div id="allApp"></div>
 		<div class="allChartsWrapper">
 		<div class="chart" id="chartContainer">
 			<canvas id="chart">			
@@ -399,6 +400,7 @@
 		$(this).css("background-color","#FD7D98");
 		$(this).siblings().css("background-color","#FD98AD");
 		$("#year-wrapper").css("display","block");
+		$("#allApp").css("display","block");
 		$("#month-wrapper").css("display","none");
 		$("#date-wrapper").css("display","none");
 	});
@@ -407,6 +409,7 @@
 		$(this).css("background-color","#FD7D98");
 		$(this).siblings().css("background-color","#FD98AD");
 		$("#month-wrapper").css("display","block");
+		$("#allApp").css("display","block");
 		$("#year-wrapper").css("display","none");
 		$("#date-wrapper").css("display","none");
 	});
@@ -416,6 +419,7 @@
 		$(this).css("background-color","#FD7D98");
 		$(this).siblings().css("background-color","#FD98AD");
 		$("#date-wrapper").css("display","block");
+		$("#allApp").css("display","block");
 		$("#year-wrapper").css("display","none");
 		$("#month-wrapper").css("display","none");
 	});
@@ -433,14 +437,15 @@
 			success:function(data) {
 				var count = data.split(",");
 				console.log(count);
+				$("#allApp").html("總預約人數:"+count[0]);
 				var ctx = document.getElementById("chart").getContext("2d");
 				var chart = new Chart(ctx, {
 			   	 type: 'bar',
 			    	data: {
-			        	labels: ["預約人數", "初診人數", "結束看診人數", "過號人數"],
+			        	labels: ["初診人數", "結束看診人數", "過號人數", "預約取消人數"],
 			        	datasets: [{
 			            	label: '#人數',
-			            	data: [count[0], count[1],count[2],count[3]],
+			            	data: [count[1], count[2],count[3],count[4]],
 			            	backgroundColor: [
 			                    'rgba(255, 99, 132, 0.2)',
 			                    'rgba(54, 162, 235, 0.2)',
@@ -462,10 +467,10 @@
 				var chart = new Chart(ctx, {
 			   	 type: 'pie',
 			    	data: {
-			        	labels: ["預約人數", "初診人數", "結束看診人數", "過號人數"],
+			        	labels: ["初診人數", "結束看診人數", "過號人數", "預約取消人數"],
 			        	datasets: [{
 			            	label: '#人數',
-			            	data: [count[0], count[1],count[2],count[3]],
+			            	data: [count[1], count[2],count[3],count[4]],
 			            	backgroundColor: [
 			                    'rgba(255, 99, 132, 0.2)',
 			                    'rgba(54, 162, 235, 0.2)',
@@ -512,10 +517,10 @@
 				var chart = new Chart(ctx, {
 			   	 type: 'bar',
 			    	data: {
-			        	labels: ["預約人數", "初診人數", "結束看診人數", "過號人數"],
+			        	labels: ["初診人數", "結束看診人數", "過號人數", "預約取消人數"],
 			        	datasets: [{
 			            	label: '#人數',
-			            	data: [count[0], count[1],count[2],count[3]],
+			            	data: [count[1], count[2],count[3],count[4]],
 			            	backgroundColor: [
 			                    'rgba(255, 99, 132, 0.2)',
 			                    'rgba(54, 162, 235, 0.2)',
@@ -537,10 +542,10 @@
 				var chart = new Chart(ctx, {
 			   	 type: 'pie',
 			    	data: {
-			        	labels: ["預約人數", "初診人數", "結束看診人數", "過號人數"],
+			        	labels: ["初診人數", "結束看診人數", "過號人數", "預約取消人數"],
 			        	datasets: [{
 			            	label: '#人數',
-			            	data: [count[0], count[1],count[2],count[3]],
+			            	data: [count[1], count[2],count[3],count[4]],
 			            	backgroundColor: [
 			                    'rgba(255, 99, 132, 0.2)',
 			                    'rgba(54, 162, 235, 0.2)',
@@ -578,10 +583,10 @@
 				var chart = new Chart(ctx, {
 			   	 type: 'bar',
 			    	data: {
-			        	labels: ["預約人數", "初診人數", "結束看診人數", "過號人數"],
+			        	labels: ["初診人數", "結束看診人數", "過號人數", "預約取消人數"],
 			        	datasets: [{
 			            	label: '#人數',
-			            	data: [count[0], count[1],count[2],count[3]],
+			            	data: [count[1], count[2],count[3],count[4]],
 			            	backgroundColor: [
 			                    'rgba(255, 99, 132, 0.2)',
 			                    'rgba(54, 162, 235, 0.2)',
@@ -603,10 +608,10 @@
 				var chart = new Chart(ctx, {
 			   	 type: 'pie',
 			    	data: {
-			        	labels: ["預約人數", "初診人數", "結束看診人數", "過號人數"],
+			        	labels: ["初診人數", "結束看診人數", "過號人數", "預約取消人數"],
 			        	datasets: [{
 			            	label: '#人數',
-			            	data: [count[0], count[1],count[2],count[3]],
+			            	data: [count[1], count[2],count[3],count[4]],
 			            	backgroundColor: [
 			                    'rgba(255, 99, 132, 0.2)',
 			                    'rgba(54, 162, 235, 0.2)',
