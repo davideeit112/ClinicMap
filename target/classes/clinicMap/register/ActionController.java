@@ -368,4 +368,12 @@ public class ActionController {
 	public String RegisterPage() {
 		return "register";
 	}
+	@RequestMapping(path="/forgetpwd")
+	public String forgetpwd() {
+		return "forgetPassword";
+	}
+	@RequestMapping(path="/getEmail")
+	public String getVerifiedEmailAgain() {
+		return "getVerifiedEmailAgain";
+	}
 }

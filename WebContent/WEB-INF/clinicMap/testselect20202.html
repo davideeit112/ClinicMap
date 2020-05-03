@@ -77,21 +77,21 @@ background-attachment: fixed;">
 
 <script
  src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
- src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 
 
 		<script async defer
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFbyqberG_1L9qz8rFMYDJGGep1iJPAIk&callback=initMap">
   </script>
-
+<script
+ src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		<script>
     var markers = []; 
 	var map ;
 	var directionsDisplay;
 	var directionsService;
 	//var driveridname='阿德外送';
-	var driveridname=document.cookie.split('=')[1];
+	var driveridname=$.cookie("drivername")
 	console.log(driveridname);
     var positionidcheck;
     var interval;
@@ -207,7 +207,7 @@ function timework2() {
 						var destinationlng =parseFloat(checkboxdata[i].destinationlng)
 
 						$("#order").append(
-					            "訂單編號:"+positionID+" 診所名稱:"+clinicName+"<button  class='myButton'  onclick='sub2("+positionID+")'>確認並傳送自己定位</button></br>");
+					            "<h2>訂單編號:"+positionID+"  診所名稱:"+clinicName+"   <button  class='myButton'  onclick='sub2("+positionID+")'>確認並傳送自己定位</button></h2></br>");
 						}
 
 						console.log('finish');

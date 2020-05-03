@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>MemberProfiles</title>
-<meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/x-icon"
 	href="assets/img/favicon.ico">
@@ -36,6 +35,7 @@
 }
 textarea {
 	background-color: #F8F8F8;
+	resize: none;
 }
 td{
 width:200px;
@@ -78,24 +78,6 @@ html, body {
 	padding: 0;
 }
 
-textarea {
-	resize: none;
-}
-
-#floating-panel {
-	position: absolute;
-	top: 10px;
-	left: 25%;
-	z-index: 5;
-	background-color: #fff;
-	padding: 5px;
-	border: 1px solid #999;
-	text-align: center;
-	font-family: 'Roboto', 'sans-serif';
-	line-height: 30px;
-	padding-left: 10px;
-}
-
 #login-title{
 	font: bold;
 	color: white;
@@ -103,18 +85,11 @@ textarea {
 	margin-bottom: 10px
 }
 
-/* .checkbox{
-    margin-left: 180px; 
-} */
 
 .login-btn{
-    /* margin-left: 125px;  */
 	text-align: center;
 }
 
-/* .btn-url{
-	color:rgb(0, 150, 255);
-} */
 
 .btn-url:hover{
 	color:rgb(0, 0, 255);
@@ -149,23 +124,22 @@ textarea {
 	</div>
 	<!-- Preloader Start -->
 	<header>
-		<!-- Header Start -->
-		<div class="header-area">
-			<div class="main-header ">
-				<div class="header-top top-bg d-none d-lg-block">
-					<div class="container">
-						<div class="row justify-content-between align-items-center">
-							<div class="col-lg-8">
-								<div class="header-info-left">
-									<ul>
-										<li>clinic@gmail.com</li>
-										<li>02 6631 6666</li>
-										<li>find clinic for you</li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="col-lg-4">
+      <!-- Header Start -->
+     <div class="header-area">
+          <div class="main-header ">
+              <div class="header-top top-bg d-none d-lg-block">
+                 <div class="container">
+                  <div class="row justify-content-between align-items-center">
+                      <div class="col-lg-8">
+                          <div class="header-info-left">
+                              <ul>                          
+                                  <li>needhelp@gotrip.com</li>
+                                  <li>666 569 025077</li>
+                                  <li>broklyn street new york</li>
+                              </ul>
+                          </div>
+                      </div>
+                    <div class="col-lg-4">
 								<div class="header-info-right f-right">
 									<ul class="header-social">
 										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
@@ -183,7 +157,7 @@ textarea {
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="googleMap/"><img src="assets/img/logo/logo.png"
+									<a href="/clinicMap/googleMap/"><img src="/clinicMap/assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -192,20 +166,25 @@ textarea {
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="../googleMap/">Home</a></li>
-											<li id="order"><a href="orderSystem">order</a></li>
-											<li><a href="../ClinicComment">HospitalComment</a></li>
-											<li><a href="blog.html">Blog</a>
-												<ul class="submenu">
-													<li><a href="../rssget/">News</a></li>
-													<li><a href="../rssdetail/">News Details</a></li>
-												</ul></li>
+											<li><a href="/clinicMap/googleMap/">Home</a></li>
+											<li id="order"><a href="/clinicMap/orderSystem">order</a></li>
+											<li><a href="/clinicMap/hospitalComment">HospitalComment</a></li>
+											<li><a href="/clinicMap/rssget/">News</a></li>
 											
-											<li><a href="contact.html">about Us</a></li>
+											<li><a href="/clinicMap/contact.html">about Us</a></li>
 										</ul>
 									</nav>
 								</div>
 							</div>
+							<!-- Mobile Menu -->
+							<div class="col-12">
+								<div class="mobile_menu d-block d-lg-none"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- Header End -->
 	</header>
 	<main>
@@ -245,11 +224,11 @@ textarea {
 		<div class="links">
             <tr >
                 <td>
-                    <a class="btn-url" href="register.html">尚未註冊?</a>
+                    <a class="btn-url" href="/clinicMap/RegisterPage">尚未註冊?</a>
                     <a>&emsp;</a>
-                    <a class="btn-url" href="forgetPassword.html">忘記密碼?</a>
+                    <a class="btn-url" href="/clinicMap/forgetpwd">忘記密碼?</a>
                     <a>&emsp;</a>
-                    <a class="btn-url" href="getVerifiedEmailAgain.html">重發驗證信?</a>
+                    <a class="btn-url" href="/clinicMap/getEmail">重發驗證信?</a>
                 </td>
             </tr>
 		</div>
@@ -361,7 +340,6 @@ $('#show_password').click(function(){
 								$.removeCookie("rememberMe");
 							}
 
-							//html還沒做
 							if (loginLevel == "member") {
 								console.log("M");
 								window.location.href = "MemberProfile";
@@ -371,8 +349,6 @@ $('#show_password').click(function(){
 							}
 						} else {
 							alert("帳號還沒啟用");
-							//html還沒做
-							// window.location.href = "getEmailAgain.html";
 						}
 					}
 				}
@@ -480,19 +456,7 @@ $('#show_password').click(function(){
 	 }
 	 return formData;
 }
-$("#submit").click(function(){
-	var data=$("#memberset").serializeArray()
-	
-	$.ajax({
-		url:"memberedittw",
-		type:"post",
-		data:serializeObject(data),
-		success:function(data){
-			
-			location.reload();
-			}
-		 }) 
-})
+
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
