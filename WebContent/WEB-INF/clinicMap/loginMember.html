@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>MemberProfiles</title>
-<meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/x-icon"
 	href="assets/img/favicon.ico">
@@ -36,6 +35,7 @@
 }
 textarea {
 	background-color: #F8F8F8;
+	resize: none;
 }
 td{
 width:200px;
@@ -78,24 +78,6 @@ html, body {
 	padding: 0;
 }
 
-textarea {
-	resize: none;
-}
-
-#floating-panel {
-	position: absolute;
-	top: 10px;
-	left: 25%;
-	z-index: 5;
-	background-color: #fff;
-	padding: 5px;
-	border: 1px solid #999;
-	text-align: center;
-	font-family: 'Roboto', 'sans-serif';
-	line-height: 30px;
-	padding-left: 10px;
-}
-
 #login-title{
 	font: bold;
 	color: white;
@@ -103,18 +85,11 @@ textarea {
 	margin-bottom: 10px
 }
 
-/* .checkbox{
-    margin-left: 180px; 
-} */
 
 .login-btn{
-    /* margin-left: 125px;  */
 	text-align: center;
 }
 
-/* .btn-url{
-	color:rgb(0, 150, 255);
-} */
 
 .btn-url:hover{
 	color:rgb(0, 0, 255);
@@ -365,7 +340,6 @@ $('#show_password').click(function(){
 								$.removeCookie("rememberMe");
 							}
 
-							//html還沒做
 							if (loginLevel == "member") {
 								console.log("M");
 								window.location.href = "MemberProfile";
@@ -375,8 +349,6 @@ $('#show_password').click(function(){
 							}
 						} else {
 							alert("帳號還沒啟用");
-							//html還沒做
-							// window.location.href = "getEmailAgain.html";
 						}
 					}
 				}
