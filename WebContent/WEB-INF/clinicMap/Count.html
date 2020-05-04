@@ -72,6 +72,9 @@
 	#headerTop{
 		background-color: #C8083F;
 	}
+	#createData{
+		display: none;
+	}
 </style>
 </head>
 
@@ -531,6 +534,7 @@ $("#createData").click(function(){
 			success:function(data) {
 				var count = data.split(",");
 				console.log(count);
+				$("#allApp").html("總預約人數:"+count[0]);
 				var ctx = document.getElementById("chart").getContext("2d");
 				var chart = new Chart(ctx, {
 			   	 type: 'bar',
@@ -597,6 +601,7 @@ $("#createData").click(function(){
 			success:function(data) {
 				var count = data.split(",");
 				console.log(count);
+				$("#allApp").html("總預約人數:"+count[0]);
 				var ctx = document.getElementById("chart").getContext("2d");
 				var chart = new Chart(ctx, {
 			   	 type: 'bar',
