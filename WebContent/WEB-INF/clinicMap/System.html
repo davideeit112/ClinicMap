@@ -5,7 +5,7 @@
 <title>BackEndSystem</title>
 
 <!-- bootstrap 4 -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -87,7 +87,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover
 							<tbody>
 								<tr><td><label>公告時間:</label><input type="text" value="" name="id" id="datepicker" pattern="[0-9]{4}[-][0-9]{2}[-][0-9]{2}"/><label id="check" style="color: red;"></label></td></tr>
 								<tr><td><label>公告主題:</label><input type="text" value="系統公告" readonly name="type"></td></tr>
-								<tr><td><label style="vertical-align: top">公告內容:</label><textarea rows="5" cols="30" name = "text"></textarea></td></tr>
+								<tr><td><label style="vertical-align: top">公告內容:</label><textarea rows="5" cols="30" name = "text" id="content"></textarea></td></tr>
 								<tr><td><input type='submit' value='更新公告' style="margin-left:120px;"/></td></tr>
 							</tbody>
 						</table>
@@ -97,15 +97,28 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover
 		</div>
 	</div><script type='text/javascript'>$("#announcementB").click(function(){$("#announcement").modal()});  
 	                                     var Alldate = new Date();
-	                                     console.log(Alldate);
+	                                    // console.log(Alldate);
 	                                     var year = Alldate.getFullYear();
 	                                     var month ="0" + (Alldate.getMonth() + 1);
-	                                     var date = Alldate.getDate();
+	                                     var date = "0" + Alldate.getDate();
 										 var finaldate = year + "-" + month + "-" + date;
 	 									 $("#datepicker").val(finaldate);
-	 									//document.getElementById("datepicker").addEventListener("invalid", function(){
-										//		$("#check").val("請遵照yyyy-mm-dd");
-		 							//		});
+	 									 $.ajax({
+												url: "AnnouncementText",
+												method: "post" ,
+												datatype: "html",
+												success:function(data){
+														$("#content").append(data);
+
+													}
+											 });
+
+										 var account= $.cookie("LoginOK");
+										 if(account == "Tost180."){
+												$("#datepicker").attr("readonly", true);
+												$("#content").attr("readonly", true);
+												console.log("000");
+											 }
 	 	 </script>
 
 
@@ -113,7 +126,7 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover
 
 	<script type="text/javascript">
 		    $(document).ready(function() {
-
+				console.log("HI");
 				$.ajax({
 					url: "loadClinicData" ,
 					method: "get" ,

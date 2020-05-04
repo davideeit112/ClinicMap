@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.mail.DefaultAuthenticator;
@@ -165,5 +169,16 @@ public class SysManagementDao {
 		ann.setType(type);
 		ann.setText(text);
 		session.saveOrUpdate(ann);
+	}
+	
+	
+	public String UpdateAnnouncementText() {
+		Session session = sessionFactory.getCurrentSession();
+		Date date = Calendar.getInstance().getTime();  
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+		String strDate = dateFormat.format(date);
+		Announcement announce = session.get(Announcement.class, strDate);
+		String text = announce.getText();
+		return text;
 	}
 }

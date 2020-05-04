@@ -207,7 +207,7 @@
                         </li>
                         <li>
                            <a href="/clinicMap/xxx" class="d-flex">
-                              <p>嚙瞎嚙踝蕭</p>
+                              <p>專欄</p>
                            </a>
                         </li>
 
@@ -381,7 +381,7 @@
     			if(data[i].Evaluation==5){
     				$("#mes").append("<p id='demo2'>" + '<img src="images/chngstar.png" width="25">'+'<img src="images/chngstar.png" width="25">'+'<img src="images/chngstar.png" width="25">'+'<img src="images/chngstar.png" width="25">'+'<img src="images/chngstar.png" width="25">' + "</p>");
         		}
-    			$("#mes").append("<p id='demo3'>" + data[i].Message + "</p>");
+    			$("#mes").append("<p id='demo3'>" + (data[i].Message==undefined?"":data[i].Message) + "</p>");
     			
     			$("#mes").append("<p id='demo6'></p>");
     			value += data[i].Evaluation;
@@ -391,7 +391,7 @@
 				$(".feature-img").html("<img class='img-fluid' src='images/clinic" + data[i].clinicId + ".jpg' id='ph'>");
 			}
 
-			$("#count").append(data.length+" 嚙篁");
+			$("#count").append(data.length+" 則");
 			var avg = 0;
 			avg = value/data.length;
 			$("#avg").append(avg.toFixed(1));
@@ -429,19 +429,19 @@ $.ajax({
 		for (var i = 0; i < data.length; i++) {
 			if (clinicName == data[i].clinicName || clinicName == (" "+data[i].clinicName)){
 				$("#clname").html(data[i].clinicName);
-				$("#clinicPh").html("嚙緬嚙踝蕭: 02- "+data[i].clinicPhone);
-				$("#clavg").html("嚙踝蕭嚙踝蕭: "+data[i].ave+" /5");
-				$("#total").html("嚙範嚙踝蕭: "+data[i].total+" 嚙篁");
+				$("#clinicPh").html("電話: 02- "+data[i].clinicPhone);
+				$("#clavg").html("評分: "+data[i].ave+" /5");
+				$("#total").html("留言: "+data[i].total+" 則");
 				$("#cid").val(data[i].clinicId);
 				$("#gotoreserve").show();
 				//console.log(data);
 				//console.log(data[i].clinicName);
 				break;
 			} else {
-				$("#clname").html("嚙盤嚙踝蕭嚙瘟嚙課蛛蕭嚙踝蕭");
-				$("#clinicPh").html("嚙緬嚙踝蕭: ");
-				$("#clavg").html("嚙踝蕭嚙踝蕭: ");
-				$("#total").html("嚙範嚙踝蕭: ");
+				$("#clname").html("無此診所評價");
+				$("#clinicPh").html("電話: ");
+				$("#clavg").html("評分: ");
+				$("#total").html("留言: ");
 				$("#gotoreserve").hide();
 			}
 		}
@@ -474,7 +474,7 @@ $.ajax({
 			if(data[i].Evaluation==5){
 				$("#topmsg").append("<p id='demo2'>" + '<img src="images/chngstar.png" width="20">'+'<img src="images/chngstar.png" width="20">'+'<img src="images/chngstar.png" width="20">'+'<img src="images/chngstar.png" width="20">'+'<img src="images/chngstar.png" width="20">' + "</p>");
     		}
-			$("#topmsg").append("<p id='demo3'>" + data[i].Message + "</p>");
+			$("#topmsg").append("<p id='demo3'>" + (data[i].Message==undefined?"":data[i].Message) + "</p>");
 			$("#topmsg").append("<p id='demoline'></p>");
 		}
 		}
