@@ -1,4 +1,4 @@
-package clinicMap.register;
+﻿package clinicMap.register;
 
 import java.util.List;
 
@@ -180,7 +180,7 @@ public class MemberDAO {
 		String hqlStr = "";
 		
 		if(type.equals("member")) {
-			hqlStr = "from memberde where memberAccount = :account";
+			hqlStr = "from Memberde where memberAccount = :account";
 		}
 		if(type.equals("clinic")) {
 			hqlStr = "from Clinicchuder where clinicAccount = :account";
