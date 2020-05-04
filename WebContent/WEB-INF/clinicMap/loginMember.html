@@ -286,23 +286,22 @@ html, body {
 		}
 	});
 
+//========================================================================================
 // 先取得 #password1 及產生一個文字輸入框
-var $password = $('#pwd'), 
-	$passwordInput = $('<input type="text" name="' + $password.attr('pwd') + '" class="' + $password.attr('form-control') + '" />');
 
 // 當勾選顯示密碼框時
 $('#show_password').click(function(){
-	// 如果是勾選則...
+	let showPwd = $("#pwd");
 	if(this.checked){
-		// 用 $passwordInput 來取代 $password
-		// 並把 $passwordInput 的值設為 $password 的值
-		$password.replaceWith($passwordInput.val($password.val()));
+		// 如果是勾選 則顯示密碼
+		showPwd.attr("type", "text");
 	}else{
-		// 用 $password 來取代 $passwordInput
-		// 並把 $password 的值設為 $passwordInput 的值
-		$passwordInput.replaceWith($password.val($passwordInput.val()));
+		// 如果沒勾選 則回覆密碼樣式
+		showPwd.attr("type", "password");
 	}
 });
+	
+//=======================================================================================	
 	
 	//login button
 	$("#login").click(function () {
