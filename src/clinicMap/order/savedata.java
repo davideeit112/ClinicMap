@@ -94,18 +94,22 @@ public class savedata {
 	}
 
 	public int order(String clinicid, String memberid, String description) {
-		orderbean obean = new orderbean();
+		
 		java.util.Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
 		Session session = sessionfactory.getCurrentSession();
-		System.out.println(clinicid + " " + memberid);
+		orderbean obean = new orderbean();
 		obean.setAppointmentID(clinicid + "" + sdf.format(date));
-		System.out.println(clinicid + "" + sdf.format(date));
 		obean.setClinicID(Integer.parseInt(clinicid));
 		obean.setMemberID(Integer.parseInt(memberid));
-		obean.setAppointmentType("OT2");
+		Query<orderbean> query = session.createQuery("from orderbean where clinicID=:clinicid and memberID=:memberid",orderbean.class);
+
+		query.setParameter("clinicid", Integer.parseInt(clinicid));
+		query.setParameter("memberid", Integer.parseInt(memberid));
+	
+		if(query.list().size()<1) obean.setAppointmentType("OT2");
+		else obean.setAppointmentType("OT1");
 		obean.setAppointmentSickDescription(description);
-		System.out.println(description);
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd-hh:mm:ss");
 		String st = sdf2.format(date);
 

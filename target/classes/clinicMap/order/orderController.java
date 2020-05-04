@@ -151,8 +151,11 @@ public class orderController {
 		header.setContentType(MediaType.IMAGE_JPEG);
 		String savepath=request.getSession().getServletContext().getRealPath("/")+files.getOriginalFilename();
 		String filesname = files.getOriginalFilename();
+		File saveFile = new File(savepath);
+		files.transferTo(saveFile);
 		if(filesname!=null&& filesname.length()!=0) {
 			memberBean mbean = service.photoupload(memberId,savepath);
+			System.out.println("photo save");
 		} 
 		response.setContentType("text/html ;charset=UTF-8");
 
