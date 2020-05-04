@@ -23,12 +23,12 @@ public class memberBean {
 		this.memberAddress=memberAddress;
 		this.memberPhone=memberPhone;
 	}
-	public memberBean() {}
+	public memberBean() {
+	}
+	
 	@Id
 	@Column(name = "MemberID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-
 	public int getMemberID() {
 		return memberID;
 	}

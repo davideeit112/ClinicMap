@@ -30,6 +30,7 @@ public class sessionFactory implements Filter {
 			arg2.doFilter(arg0, arg1);
 			session.getTransaction().commit();
 		}catch(Exception e) {
+			System.out.println(e);
 			session.getTransaction().rollback();
 		}finally {
 			System.out.println("transaction closed");
