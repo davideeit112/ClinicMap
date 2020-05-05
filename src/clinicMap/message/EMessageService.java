@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import clinicMap.order.clinicBean;
-import clinicMap.order.memberBean;
 
 @Service
 public class EMessageService {
@@ -22,7 +21,7 @@ public class EMessageService {
 		return emsgdao.inputmessage(emessage);
 	}
 	
-	public List<memberBean> querymember() {
+	public List<memberBeans> querymember() {
 		return emsgdao.querymember();
 	}
 	

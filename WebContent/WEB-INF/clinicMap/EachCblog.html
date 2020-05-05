@@ -188,8 +188,8 @@
 						<input type="hidden" id="cid">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 20px">嚙踝蕭嚙踝蕭</button>
-						<button id="gotoreserve" type ="button" class="btn btn-default" data-dismiss="modal" onclick="clickgo()">嚙範嚙踝蕭</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 20px">關閉</button>
+						<button id="gotoreserve" type ="button" class="btn btn-default" data-dismiss="modal" onclick="clickgo()">查看</button>
 					</div>
 			</div>
 		</div>
@@ -357,6 +357,8 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 <script type="text/javascript">
+var clinicmsgID = document.cookie.split('=')[1];
+console.log(clinicmsgID);
 	$.ajax({
 		url:"/clinicMap/msg.do",
 		type:"POST",
@@ -365,6 +367,8 @@
 			function(data){
 			var value = 0;
 			for (var i = 0; i < data.length; i++) {
+				if (clinicmsgID==data[i].clinicId) {
+					console.log(data[i].clinicId);
     			$("#mes").append("<h2 id='demo1' style='display:inline;'>" + data[i].messageName + "</h2>&nbsp&nbsp&nbsp&nbsp<p style='display:inline;'>(" + data[i].evaluationTime + ")</p>");
     			if(data[i].Evaluation==1){
     				$("#mes").append("<p id='demo2'>" + '<img src="images/chngstar.png" width="25">' + "</p>");
@@ -385,18 +389,28 @@
     			
     			$("#mes").append("<p id='demo6'></p>");
     			value += data[i].Evaluation;
-    			$("#ph").html(data[i].clinicPhoto);
 				$("#name").html(data[i].clinicName);
 				$("#descript").html(data[i].ClinicDescription);
 				$(".feature-img").html("<img class='img-fluid' src='images/clinic" + data[i].clinicId + ".jpg' id='ph'>");
 			}
-
-			$("#count").append(data.length+" 則");
-			var avg = 0;
-			avg = value/data.length;
-			$("#avg").append(avg.toFixed(1));
+			}
 			}
 	});
+
+	$.ajax({
+		url:"/clinicMap/retotal.do",
+		type:"POST",
+		dataType:"json",
+		success:
+			function(data){
+				for (var i = 0; i < data.length; i++) {
+					if (clinicmsgID==data[i].clinicId){
+						$("#count").append(data[i].total);
+						$("#avg").append(data[i].ave);
+					}
+				}
+		}
+		});
 
 function goauto(){
     var availableTags;

@@ -1,4 +1,4 @@
-package clinicMap.order;
+ package clinicMap.message;
 
 import java.util.Date;
 
@@ -10,24 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
-
 @Component
 @Entity
-@Table(name = "member")
-public class memberBean {
-	public memberBean(int memberid, String memberemail, String memberPwd, int memberHeight, int memberWeight,
-			String memberAddress, String memberPhone) {
-		this.memberID = memberid;
-		this.memberPwd = memberPwd;
-		this.memberHeight=memberHeight;
-		this.memberAddress=memberAddress;
-		this.memberPhone=memberPhone;
-	}
-	public memberBean() {
-	}
-	
+@Table(name="member")
+public class memberBeans {
 	@Id
-	@Column(name = "MemberID")
+	@Column(name="MemberID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getMemberID() {
 		return memberID;
@@ -36,8 +24,7 @@ public class memberBean {
 	public void setMemberID(int memberID) {
 		this.memberID = memberID;
 	}
-
-	@Column(name = "MemberAccount")
+	@Column(name="MemberAccount")
 	public String getMemberAccount() {
 		return memberAccount;
 	}
@@ -45,17 +32,15 @@ public class memberBean {
 	public void setMemberAccount(String memberAccount) {
 		this.memberAccount = memberAccount;
 	}
-
-	@Column(name = "memberName")
-	public String getmemberName() {
+	@Column(name="memberName")
+	public String gememberName() {
 		return memberName;
 	}
 
 	public void setmemberName(String memberName) {
 		this.memberName = memberName;
 	}
-
-	@Column(name = "memberPwd")
+	@Column(name="memberPwd")
 	public String getMemberPwd() {
 		return memberPwd;
 	}
@@ -63,8 +48,7 @@ public class memberBean {
 	public void setMemberPwd(String memberPwd) {
 		this.memberPwd = memberPwd;
 	}
-
-	@Column(name = "memberBirth")
+	@Column(name="memberBirth")
 	public Date getMemberBirth() {
 		return memberBirth;
 	}
@@ -72,8 +56,7 @@ public class memberBean {
 	public void setMemberBirth(Date memberBirth) {
 		this.memberBirth = memberBirth;
 	}
-
-	@Column(name = "memberAddress")
+	@Column(name="memberAddress")
 	public String getMemberAddress() {
 		return memberAddress;
 	}
@@ -81,26 +64,23 @@ public class memberBean {
 	public void setMemberAddress(String memberAddress) {
 		this.memberAddress = memberAddress;
 	}
-
-	@Column(name = "memberHeight")
-	public int getMemberHeight() {
+	@Column(name="memberHeight")
+	public Integer getMemberHeight() {
 		return memberHeight;
 	}
 
-	public void setMemberHeight(int memberHeight) {
+	public void setMemberHeight(Integer memberHeight) {
 		this.memberHeight = memberHeight;
 	}
-
-	@Column(name = "memberWeight")
-	public int getMemberWeight() {
+	@Column(name="memberWeight")
+	public Integer getMemberWeight() {
 		return memberWeight;
 	}
 
-	public void setMemberWeight(int memberWeight) {
+	public void setMemberWeight(Integer memberWeight) {
 		this.memberWeight = memberWeight;
 	}
-
-	@Column(name = "memberPhone")
+	@Column(name="memberPhone")
 	public String getMemberPhone() {
 		return memberPhone;
 	}
@@ -108,8 +88,7 @@ public class memberBean {
 	public void setMemberPhone(String memberPhone) {
 		this.memberPhone = memberPhone;
 	}
-
-	@Column(name = "memberIdNumber")
+	@Column(name="memberIdNumber")
 	public String getMemberIdNumber() {
 		return memberIdNumber;
 	}
@@ -117,8 +96,7 @@ public class memberBean {
 	public void setMemberIdNumber(String memberIdNumber) {
 		this.memberIdNumber = memberIdNumber;
 	}
-
-	@Column(name = "memberGender")
+	@Column(name="memberGender")
 	public String getMemberGender() {
 		return memberGender;
 	}
@@ -126,8 +104,7 @@ public class memberBean {
 	public void setMemberGender(String memberGender) {
 		this.memberGender = memberGender;
 	}
-
-	@Column(name = "memberStatus")
+	@Column(name="memberStatus")
 	public String getMemberStatus() {
 		return memberStatus;
 	}
@@ -136,52 +113,22 @@ public class memberBean {
 		this.memberStatus = memberStatus;
 	}
 
-	@Column(name = "memberEmail")
-	public String getMemberemail() {
-		return memberemail;
-	}
-
-	public void setMemberemail(String memberemail) {
-		this.memberemail = memberemail;
-	}
-@Column(name="memberPhoto")
-	public byte[] getmemberPhoto() {
-		return memberPhoto;
-	}
-	public void setmemberPhoto(byte[] memberPhoto) {
-		this.memberPhoto = memberPhoto;
-	}
-
 	private int memberID;
 	private String memberAccount;
 	private String memberName;
 	private String memberPwd;
 	private Date memberBirth;
 	private String memberAddress;
-	private int memberHeight;
-	private int memberWeight;
+	private Integer memberHeight;
+
+	private Integer memberWeight;
+
 	private String memberPhone;
-	private String memberemail;
+
 	private String memberIdNumber;
 
 	private String memberGender;
-	private byte[] memberPhoto;
+
 	private String memberStatus;
-	private String memberVerifiedCode;
-	private Long memberRegisterDeadline;
-	@Column(name = "memberVerifiedCode")
-	public String getMemberVerifiedCode() {
-		return memberVerifiedCode;
-	}
-	public void setMemberVerifiedCode(String memberVerifiedCode) {
-		this.memberVerifiedCode = memberVerifiedCode;
-	}
-	@Column(name="memberRegisterDeadline")
-	public Long getMemberRegisterDeadline() {
-		return memberRegisterDeadline;
-	}
-	public void setMemberRegisterDeadline(Long memberRegisterDeadline) {
-		this.memberRegisterDeadline = memberRegisterDeadline;
-	}
 
 }
