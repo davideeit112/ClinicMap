@@ -70,7 +70,7 @@ public class ActionController {
 					}
 				}else {
 					Clinicchuder clinic = (Clinicchuder)testReturn;
-					if(clinic.getClinicStatus().equals("CS2")) {
+					if(clinic.getClinicStatus().equals("CS2") || clinic.getClinicStatus().equals("CS3")) {
 						checkstatus = true;
 						
 						//建立cookie
