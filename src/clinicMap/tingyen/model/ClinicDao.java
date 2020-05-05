@@ -18,7 +18,7 @@ public class ClinicDao implements IClinicDao {
 		Clinic cBean=null;
 		
 		Session session = sessionFactory.getCurrentSession();
-		Clinic cBean = session.get(Clinic.class, clinicID);
+		cBean = session.get(Clinic.class, clinicID);
 		cBean.setClinicName(clinicName);
 		cBean.setClinicAccount(clinicAccount);
 		cBean.setClinicPwd(clinicPwd);

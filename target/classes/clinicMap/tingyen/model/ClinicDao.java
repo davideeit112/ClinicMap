@@ -15,7 +15,7 @@ public class ClinicDao implements IClinicDao {
 			String clinicPwd,String clinicAddress,String clinicDescription,byte[] clinicPhoto,
 			byte[] clinicLicense, String clinicEmail,String clinicPhone,String clinicClass,
 			String clinicType,String clinicStatus) {
-		
+		Clinic cBean=null;
 		
 		Session session = sessionFactory.getCurrentSession();
 		cBean = session.get(Clinic.class, clinicID);
@@ -33,9 +33,10 @@ public class ClinicDao implements IClinicDao {
 		cBean.setClinicStatus(clinicStatus);
 		session.save(cBean);
 
+	
 		
 		return cBean;
-
+	
 		
 	}
 
