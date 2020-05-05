@@ -449,12 +449,11 @@ html, body {
 					data:{'clinicid':clinicid,'memberid':$.cookie('memberID'),'description':$('#description'+clinicid).val()},
 					success:function(data){
 						
-						alert("你的預約號碼為："+data+"現在跳轉至租車畫面")
+						alert("你的預約號碼為："+data+"如需租車請到會員系統預約")
 						peopleNumber(clinicid)
 						$("#orderbutton").empty()
 						$.cookie('clinicid',clinicid,{expires:1}) 
 						$("#orderbutton").html('<button class="genric-btn success">已預約</button>')
-						location.href="/clinicMap/guest";
 						
 					/* 	$("cancelbutton").empty()
 						$("cancelbutton").html('<button class="genric-btn success" onclick="cancel('+$.cookie('memberid')+')">取消預約</button>')

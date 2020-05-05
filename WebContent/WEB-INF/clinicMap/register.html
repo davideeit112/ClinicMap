@@ -203,8 +203,7 @@ textarea {
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="/clinicMap/googleMap/"><img src="/clinicMap/assets/img/logo/logo.png"
-										alt=""></a>
+									<a href="/clinicMap/googleMap/"><img src="/clinicMap/assets/img/logo/logo.png" alt=""></a>
 								</div>
 							</div>
 							<div class="col-xl-10 col-lg-10 col-md-10">
@@ -308,7 +307,7 @@ textarea {
                 <div class="mt-10">
                     <h3 class="mb-30">
                         <font class='must'>*</font>會員姓名：
-                    </h3><input type='text' name='memberName' id='memberName' placeholder='至少2個字，只能輸入中文'
+                    </h3><input type='text' name='memberName' id='memberNameRegister' placeholder='至少2個字，只能輸入中文'
                         class="single-input-accent"> <label id="mNameCorrect" class="correctImg"></label>
                         <div class='errMsg' id='nameErrMsg'></div>
                     <!-- <br /><label class='errMsg' id='nameErrMsg'></label> -->
@@ -582,8 +581,8 @@ textarea {
                     }
 
                     if (!checkName) {
-                        $("#memberName").addClass("need2edit");
-                        ($("#memberName").val() == "") ? $("#nameErrMsg").html("此欄位不能空白") : $("#nameErrMsg").html("需要修改");
+                        $("#memberNameRegister").addClass("need2edit");
+                        ($("#memberNameRegister").val() == "") ? $("#nameErrMsg").html("此欄位不能空白") : $("#nameErrMsg").html("需要修改");
                     }
 
                     if (!checkPwd) {
@@ -666,6 +665,7 @@ textarea {
             let selectFile = $("#memberPhoto").get(0).files[0];
             let formdata = new FormData();
             formdata.append("mAccount", $("#memberAccount").val());
+            console.log(formdata);
             // console.log("selectFile:" + selectFile);
             let urlStr;
 
@@ -696,7 +696,7 @@ textarea {
             $("#memberHeight").val("180");
             $("#memberWeight").val("80");
             $("#memberPhone").val("0911234678");
-            $("#memberName").val("說你好");
+            $("#memberNameRegister").val("說你好");
             // checkAccount = true, checkName = true, checkPwd = true, checkPwdAgain = true, checkBirth = true, checkAddress = true,
             // checkHeight = true, checkWeight = true, checkPhone = true, checkIdNum = true, checkGender = true, checkEmail = true;
 
@@ -820,7 +820,7 @@ textarea {
         });
 
         //會員姓名
-        $("#memberName").blur(function () {
+        $("#memberNameRegister").blur(function () {
             // let patternParamE = '[a-zA-Z]';
             let patternParamC = '^[\u4e00-\u9fff]+$'; //中文的驗證
             // let patternParam = '^[\u4e00-\u9fffa-zA-Z]+$'; //只能中、英文的驗證，不能"空白"、"數字"
@@ -829,20 +829,20 @@ textarea {
             let msgCorrect = "";
             checkName = false;
 
-            if ($("#memberName").val() != "") {
-                if (!pattern.test($("#memberName").val())) {
+            if ($("#memberNameRegister").val() != "") {
+                if (!pattern.test($("#memberNameRegister").val())) {
                     msg = "只能輸入中文";
-                } else if ($("#memberName").val().length < 2) {
+                } else if ($("#memberNameRegister").val().length < 2) {
                     msg = "最少2個字";
                 } else {
                     //不為空白，且格式正確
                     checkName = true;
-                    $("#memberName").removeClass("need2edit");
+                    $("#memberNameRegister").removeClass("need2edit");
                     msgCorrect = "<img src='images/correct.jpg'>";
                 }
             }
             $("#nameErrMsg").html(msg);
-            $("#mPwdCorrect").html(msgCorrect);
+            $("#mNameCorrect").html(msgCorrect);
         });
 
         //會員密碼
