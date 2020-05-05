@@ -301,9 +301,9 @@ public class ActionController {
 	}
 	
 	public void sendEmail(String action, String email, String code) {
-		String from = "johnnyproject.test@gmail.com";
-	    final String username = "johnnyproject.test";
-	    final String password = "uexcrypqlhywruhf";
+		String from = "clinicofmap@gmail.com";
+	    final String username = "clinicofmap";
+	    final String password = "clinicmapemail";
 	    String host = "smtp.gmail.com";
 	    
 	    Properties props = new Properties();
@@ -352,6 +352,7 @@ public class ActionController {
 			   message.setContent(content, "text/html;charset=UTF-8");
 
 			   // Send message
+			   System.out.println("send before");
 			   Transport.send(message);
 			   System.out.println("Sent message successfully....");
 

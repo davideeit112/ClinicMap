@@ -117,7 +117,7 @@ public class SysManagementDao {
 			String activeUrl = "http://localhost/clinicMap/changeStatus?clinicID=" + clinicID;
 			em.setHtmlMsg("點擊鏈接激活信箱:" + activeUrl);
 			em.setTextMsg("測試");
-			em.addTo("clinicguest0508@gmail.com");
+			em.addTo("clinicMapguest0508@gmail.com");
 			em.send();
 			System.out.println("Email send successfully");
 

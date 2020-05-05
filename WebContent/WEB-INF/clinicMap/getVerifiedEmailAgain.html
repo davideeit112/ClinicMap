@@ -120,7 +120,7 @@
             success: function (exist) {
               checkAccount = eval(exist);
               $("#accountMsg").html(
-                checkAccount ? "<img src='correct.png'>" : "帳號不存在"
+                checkAccount ? "<img src='images/correct.jpg'>" : "帳號不存在"
               );
             },
           });
@@ -139,7 +139,7 @@
             success: function (exist) {
               checkEmail = eval(exist);
               $("#emailMsg").html(
-                checkEmail ? "<img src='correct.png'>" : "email不存在"
+                checkEmail ? "<img src='images/correct.jpg'>" : "email不存在"
               );
             },
           });
@@ -170,7 +170,7 @@
             checkAccount = false;
             checkEmail = false;
             alert("已經寄送新的驗證信");
-            window.location.href = "loginMember.html";
+            window.location.href = "loginIn";
           } else {
             alert("資料有誤，請檢查");
           }
