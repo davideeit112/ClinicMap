@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import clinicMap.order.clinicBean;
-import clinicMap.order.memberBean;
 import clinicMap.tingyen.model.Appointment;
 import clinicMap.tingyen.model.AppointmentStatus;
 
@@ -53,10 +52,10 @@ public class EMessageDao {
 		return list;
 	}
 	
-	public List<memberBean> querymember() {
+	public List<memberBeans> querymember() {
 		Session session = sessionfactory.getCurrentSession();
-		Query<memberBean> query = session.createQuery("from memberBean", memberBean.class);
-		List<memberBean> list = query.list();
+		Query<memberBeans> query = session.createQuery("from memberBeans", memberBeans.class);
+		List<memberBeans> list = query.list();
 		return list;
 	}
 	

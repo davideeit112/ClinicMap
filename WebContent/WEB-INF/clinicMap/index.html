@@ -23,7 +23,9 @@
 <link rel="stylesheet" href="../assets/css/slick.css">
 <link rel="stylesheet" href="../assets/css/nice-select.css">
 <link rel="stylesheet" href="../assets/css/style.css">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
 .button {
     display: inline-block;
@@ -63,6 +65,31 @@
 .favourite-place .single-place .place-cap {
     padding: 28px 40px;
     border: 3px solid #f0f1f2;
+    
+ @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');					
+            	.modal-title{
+            		margin-left: 350px;
+            		font-family: 'Noto Sans TC', sans-serif;
+            	}
+            	#posts{
+            		text-align: center;
+            		margin-left: 85px;
+            		font-family: 'Noto Sans TC', sans-serif;
+            	}
+            	#posts th{
+            		padding-left: 50px;
+            		padding-right: 50px;
+            	}
+            	#posts td{
+            		padding-left: 50px;
+            		padding-right: 50px;
+            	}
+            	#posts tr:hover{
+            		background-color: #A8E1E2;
+            	}
+            	#posts th{
+            		padding-bottom: 10px;
+            	}
 }
 </style>
 
@@ -71,6 +98,50 @@
 </head>
 
 <body>
+  <div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">公告</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>         
+        </div>
+        <div class="modal-body">
+          <table id="posts">
+          	<tr id=""><th>公告編號</th><th>公告類別</th><th>公告內容</th><tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+<script>
+	$(function(){
+		$("#myModal").modal();
+	});
+	$.ajax({
+		url:"posting.do", 
+		type:"GET",
+		dataType:"json",
+		success:function(beanList) {
+			console.log(beanList);
+			console.log(beanList[1].announcementText);
+			for(var i in beanList){
+				$("#posts").append("<tr><td>"+beanList[i].ID+"</td><td>"+beanList[i].announcementType + 
+					"</td><td>" + beanList[i].announcementText+"</td></tr>");
+			}
+		}
+	});
+</script>
+
 	<!-- Preloader Start -->
 	<div id="preloader-active">
 		<div

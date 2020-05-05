@@ -143,18 +143,10 @@ html, body {
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="googleMap/">Home</a></li>
-											<li id="order"><a href="../orderSystem">order</a></li>
-											<li><a href="../ClinicComment">HospitalComment</a></li>
-											<li><a href="blog.html">Blog</a>
-												<ul class="submenu">
-													<li><a href="blog.html">Blog</a></li>
-													<li><a href="single-blog.html">Blog Details</a></li>
-												</ul></li>
-											<li><a href="#">Pages</a>
-												<ul class="submenu">
-													<li><a href="elements.html">Element</a></li>
-												</ul></li>
+											<li><a href="/clinicMap/googleMap/">Home</a></li>
+											<li id="order"><a href="/clinicMap/orderSystem">order</a></li>
+											<li><a href="/clinicMap/hospitalComment">HospitalComment</a></li>
+											<li><a href="/clinicMap/rssget/">news</a>
 											<li><a href="contact.html">Contact Us</a></li>
 										</ul>
 									</nav>
@@ -460,9 +452,10 @@ html, body {
 						alert("你的預約號碼為："+data+"現在跳轉至租車畫面")
 						peopleNumber(clinicid)
 						$("#orderbutton").empty()
-						$.cookie('clinicid',clinicid,{expires:1})
+						$.cookie('clinicid',clinicid,{expires:1}) 
 						$("#orderbutton").html('<button class="genric-btn success">已預約</button>')
 						location.href="/clinicMap/guest";
+						
 					/* 	$("cancelbutton").empty()
 						$("cancelbutton").html('<button class="genric-btn success" onclick="cancel('+$.cookie('memberid')+')">取消預約</button>')
 				 */		}

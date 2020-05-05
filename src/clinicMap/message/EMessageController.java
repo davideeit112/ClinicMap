@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import clinicMap.order.clinicBean;
-import clinicMap.order.memberBean;
 
 @Controller
 public class EMessageController {
@@ -43,7 +43,6 @@ public class EMessageController {
 					JSONObject obj = new JSONObject(rbean);
 					obj.put("clinicPhone", cbean.getClinicphone());
 					obj.put("clinicName", cbean.getClinicName());
-					obj.put("clinicPhoto", cbean.getClinicPhoto());
 					jarray.put(obj);
 				}
 			}
@@ -53,7 +52,7 @@ public class EMessageController {
 		out.print(jarray);
 	}
 
-	@RequestMapping(path = "/allboard.do", method = RequestMethod.GET)
+	@RequestMapping(path = "/allboard", method = RequestMethod.GET)
 	public String allboard() {
 		return "AllBoard";
 	}
@@ -84,9 +83,9 @@ public class EMessageController {
 			for (clinicBean cbean : list2) {
 				if (rbean.getClinicID() == cbean.getClinicId()) {
 					JSONObject obj = new JSONObject(rbean);
+					obj.put("clinicId", cbean.getClinicId());
 					obj.put("clinicPhone", cbean.getClinicphone());
 					obj.put("clinicName", cbean.getClinicName());
-					obj.put("clinicPhoto", cbean.getClinicPhoto());
 					jarray.put(obj);
 				}
 			}
@@ -122,29 +121,35 @@ public class EMessageController {
 	}
 	
 	@RequestMapping(path = "/blog.{clinicID}", method = RequestMethod.GET)
-	public String startall(HttpServletResponse res, HttpServletRequest req, @PathVariable int clinicID) throws IOException {
+	public String startall(HttpServletResponse res, HttpServletRequest req, @PathVariable String clinicID) throws IOException {
 		PrintWriter out = res.getWriter();
 //		System.out.println("clinicID..............." + clinicID + "........................");
 		out.print(clinicID);
-		HttpSession session = req.getSession();
-		session.setAttribute("clinicID", clinicID);
-//		System.out.println("clinicID2222..........." + clinicID + "........................");
+//		HttpSession session = req.getSession();
+//		session.setAttribute("clinicID", clinicID);
+		Cookie cid = new Cookie("clinicmsgID", clinicID);
+		cid.setMaxAge(-1); 
+		cid.setPath("/clinicMap");
+		res.addCookie(cid);
 		return "EachCblog";
 	}
 	
 	@RequestMapping(path = "/msg.do", method = RequestMethod.POST)
 	public void queryclinic1msg(HttpServletResponse res, HttpServletRequest req) throws IOException {
-		HttpSession session = req.getSession();
-		int clinicID = (int) session.getAttribute("clinicID");
-//		System.out.println("clinicID3333..........." + clinicID + "........................");
+//		HttpSession session = req.getSession();
+//		int clinicID = (int) session.getAttribute("clinicID");
+		System.out.println("clinicID3333...................................");
 		List<EMessage> list = emsgservice.queryitem();
-		List<memberBean> list2 = emsgservice.querymember();
+		System.out.println("list.........."+list.size());
+		List<memberBeans> list2 = emsgservice.querymember();
+		System.out.println("list.........."+list2.size());
 		List<clinicBean> list3 = emsgservice.queryclinic();
+		System.out.println("list.........."+list3.size());
 		JSONArray jarray = new JSONArray();
 		for (EMessage ebean  : list) {
-			for (memberBean mbean : list2) {
+			for (memberBeans mbean : list2) {
 				for (clinicBean cbean : list3) {
-					if (ebean.getClinicID() == clinicID) {
+//					if (ebean.getClinicID() == clinicID) {
 					JSONObject obj1 = new JSONObject();
 					if (ebean.getMemberID() == mbean.getMemberID() && ebean.getClinicID() == cbean.getClinicId()) {
 						obj1.put("clinicId", cbean.getClinicId());
@@ -159,7 +164,7 @@ public class EMessageController {
 						obj1.put("messageName", mbean.getMemberAccount());
 						jarray.put(obj1);
 					}
-					}
+//					}
 //				System.out.print(cbean.getClinicId());
 				}
 			}
@@ -198,12 +203,12 @@ public class EMessageController {
 	@RequestMapping(path = "/msgtop3.do", method = RequestMethod.POST)
 	public void querymsgtop3(HttpServletResponse res) throws IOException {
 		List<EMessage> list = emsgservice.querymsg();
-		List<memberBean> list2 = emsgservice.querymember();
+		List<memberBeans> list2 = emsgservice.querymember();
 		List<clinicBean> list3 = emsgservice.queryclinic();
 		JSONArray jarray = new JSONArray();
 		System.out.println("1.");
 		for (EMessage ebean : list) {
-			for (memberBean mbean : list2) {
+			for (memberBeans mbean : list2) {
 				for (clinicBean cbean : list3) {
 					JSONObject obj1 = new JSONObject();
 					if (ebean.getMemberID() == mbean.getMemberID() && ebean.getClinicID() == cbean.getClinicId()) {

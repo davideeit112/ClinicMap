@@ -5,6 +5,20 @@
 
 <title>使用者端</title>
 
+<!-- CSS here -->
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="../assets/css/flaticon.css">
+<link rel="stylesheet" href="../assets/css/slicknav.css">
+<link rel="stylesheet" href="../assets/css/animate.min.css">
+<link rel="stylesheet" href="../assets/css/magnific-popup.css">
+<link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="../assets/css/themify-icons.css">
+<link rel="stylesheet" href="../assets/css/slick.css">
+<link rel="stylesheet" href="../assets/css/nice-select.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+
 <style type="text/css">
 html, body {
 	height: 100%;
@@ -36,8 +50,8 @@ margin-top: 5px;
 .formap{
 top: 50%;
 left: 50%;
-padding-left: 27px;
-padding-top: 25px;
+padding-left: auto;
+padding-top: 15px;
 margin-left: 285px;
 margin-top: 20px;
 margin-bottom: 20px;
@@ -61,6 +75,15 @@ width:130px;
 height:35px;
 }
 
+#map_canvas{
+
+margin: auto;
+
+
+
+
+}
+
 
 
 </style>
@@ -73,12 +96,85 @@ background-size:100% 100%;
 background-attachment: fixed;" >
 
 
+
+
+
+	<header>
+		<!-- Header Start -->
+		<div class="header-area">
+			<div class="main-header ">
+				<div class="header-top top-bg d-none d-lg-block">
+					<div class="container">
+						<div class="row justify-content-between align-items-center">
+							<div class="col-lg-8">
+								<div class="header-info-left">
+									<ul>
+										<li>clinic@gmail.com</li>
+										<li>02 6631 6666</li>
+										<li>find clinic for you</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="col-lg-4">
+								<div class="header-info-right f-right">
+									<ul class="header-social">
+										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
+										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
+										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="header-bottom  header-sticky">
+					<div class="container">
+						<div class="row align-items-center">
+							<!-- Logo -->
+							<div class="col-xl-2 col-lg-2 col-md-1">
+								<div class="logo">
+									<a href="../googleMap/"><img src="../assets/img/logo/logo.png"
+										alt=""></a>
+								</div>
+							</div>
+							<div class="col-xl-10 col-lg-10 col-md-10">
+								<!-- Main-menu -->
+								<div class="main-menu f-right d-none d-lg-block">
+									<nav>
+										<ul id="navigation">
+											<li><a href="/clinicMap/googleMap/">Home</a></li>
+											<li id="order"><a href="/clinicMap/orderSystem">order</a></li>
+											<li><a href="/clinicMap/hospitalComment">HospitalComment</a></li>
+											<li><a href="/clinicMap/rssget/">News</a></li>
+											
+											<li><a href="/clinicMap/contact.html">about Us</a></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- Mobile Menu -->
+							<div class="col-12">
+								<div class="mobile_menu d-block d-lg-none"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header>
+
+
+
+
+
     <div style="  background-size:100% 100%; background:rgba(255,255,255,0.3);text-align:center;box-shadow: 4px 0px 4px 0 rgba(0, 0, 0, 0.2), 4px 0px 4px 0 rgba(0, 0, 0, 0.19); ">
 	<div class="text-shadow"><h1>預約司機系統</h1></div>
 	<!--<input class="myButton" type="button" onclick="test()" value="司機確認"/>-->
 	<!--<input class="myButton" type="button" onclick="sub1()" value="啟動傳送目的地&自己位置&確認司機&價錢(確認申請)" />-->
-	<h2>本次的費用：</h2><div id="showprice"></div>
-	<h3>請先在地圖司機座標點選後，勾選並完成訂單申請繳費，即可開始確認司機目前位置，感謝您</h3>
+	<h2>本次的費用：</h2><div id="showprice" style="font-size: 35px"></div>
+	<div style="align-content: center;"><p style="display: inline;font-size: 25px;">請先在地圖上選擇司機 </p><img src='images/driver.png'><p style="display: inline;font-size: 25px;">，並完成付費流程，即可開始確認司機目前位置，感謝您</p></div>
 	<input class="myButton" type="button" onclick="timework()" value="開始確認司機位置"  id="submit" style="visibility: hidden;" />
 	<!-- 漸層色用   background:    linear-gradient(#ffd966, #ba6f06);-->
 	</div>
@@ -272,8 +368,7 @@ function submittest(){
 
 				var infowindow = new google.maps.InfoWindow({
 				    content: '<h1>'+name+'</h1>'+'  <form action="ToAdPayment" method="post">   <input  type="button"  class="markerstyle" id="'+name+'" onclick="sub1(this)"   value="確認申請&繳費" /> </form>'
-                 //<input type="radio" onclick="test()" value="'+name+'" name="valuefordriver">
-				    
+         				    
 				  });
 
 				  marker.addListener('click',function(){
@@ -357,17 +452,10 @@ function submittest(){
 
 //啟動傳送目的地&自己位置&確認司機&新增進入資料庫(確認申請)---------------------------------------------------------------------------------------------
 			function sub1(myObj) {
-				clearMarkers();// 這邊要先清除地圖上的標註
+				clearMarkers();// 這邊要先清除地圖上的標註			
 			
+				forname=myObj.id; //取得司機id
 			
-			//	$("input").click(function(){
-			//           console.log('測試的'+$(this).val());
-			  //         forname=$(this).val();
-			 //       
-			//      });
-				forname=myObj.id;
-
-				
 				if (navigator.geolocation) {
 
 					//不提供定位，或是發生其它錯誤

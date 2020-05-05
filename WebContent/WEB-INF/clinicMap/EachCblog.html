@@ -188,8 +188,8 @@
 						<input type="hidden" id="cid">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 20px">嚙踝蕭嚙踝蕭</button>
-						<button id="gotoreserve" type ="button" class="btn btn-default" data-dismiss="modal" onclick="clickgo()">嚙範嚙踝蕭</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 20px">關閉</button>
+						<button id="gotoreserve" type ="button" class="btn btn-default" data-dismiss="modal" onclick="clickgo()">查看</button>
 					</div>
 			</div>
 		</div>
@@ -207,7 +207,7 @@
                         </li>
                         <li>
                            <a href="/clinicMap/xxx" class="d-flex">
-                              <p>嚙瞎嚙踝蕭</p>
+                              <p>專欄</p>
                            </a>
                         </li>
 
@@ -357,6 +357,8 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 <script type="text/javascript">
+var clinicmsgID = document.cookie.split('=')[1];
+console.log(clinicmsgID);
 	$.ajax({
 		url:"/clinicMap/msg.do",
 		type:"POST",
@@ -365,6 +367,8 @@
 			function(data){
 			var value = 0;
 			for (var i = 0; i < data.length; i++) {
+				if (clinicmsgID==data[i].clinicId) {
+					console.log(data[i].clinicId);
     			$("#mes").append("<h2 id='demo1' style='display:inline;'>" + data[i].messageName + "</h2>&nbsp&nbsp&nbsp&nbsp<p style='display:inline;'>(" + data[i].evaluationTime + ")</p>");
     			if(data[i].Evaluation==1){
     				$("#mes").append("<p id='demo2'>" + '<img src="images/chngstar.png" width="25">' + "</p>");
@@ -381,22 +385,32 @@
     			if(data[i].Evaluation==5){
     				$("#mes").append("<p id='demo2'>" + '<img src="images/chngstar.png" width="25">'+'<img src="images/chngstar.png" width="25">'+'<img src="images/chngstar.png" width="25">'+'<img src="images/chngstar.png" width="25">'+'<img src="images/chngstar.png" width="25">' + "</p>");
         		}
-    			$("#mes").append("<p id='demo3'>" + data[i].Message + "</p>");
+    			$("#mes").append("<p id='demo3'>" + (data[i].Message==undefined?"":data[i].Message) + "</p>");
     			
     			$("#mes").append("<p id='demo6'></p>");
     			value += data[i].Evaluation;
-    			$("#ph").html(data[i].clinicPhoto);
 				$("#name").html(data[i].clinicName);
 				$("#descript").html(data[i].ClinicDescription);
 				$(".feature-img").html("<img class='img-fluid' src='images/clinic" + data[i].clinicId + ".jpg' id='ph'>");
 			}
-
-			$("#count").append(data.length+" 嚙篁");
-			var avg = 0;
-			avg = value/data.length;
-			$("#avg").append(avg.toFixed(1));
+			}
 			}
 	});
+
+	$.ajax({
+		url:"/clinicMap/retotal.do",
+		type:"POST",
+		dataType:"json",
+		success:
+			function(data){
+				for (var i = 0; i < data.length; i++) {
+					if (clinicmsgID==data[i].clinicId){
+						$("#count").append(data[i].total);
+						$("#avg").append(data[i].ave);
+					}
+				}
+		}
+		});
 
 function goauto(){
     var availableTags;
@@ -429,19 +443,19 @@ $.ajax({
 		for (var i = 0; i < data.length; i++) {
 			if (clinicName == data[i].clinicName || clinicName == (" "+data[i].clinicName)){
 				$("#clname").html(data[i].clinicName);
-				$("#clinicPh").html("嚙緬嚙踝蕭: 02- "+data[i].clinicPhone);
-				$("#clavg").html("嚙踝蕭嚙踝蕭: "+data[i].ave+" /5");
-				$("#total").html("嚙範嚙踝蕭: "+data[i].total+" 嚙篁");
+				$("#clinicPh").html("電話: 02- "+data[i].clinicPhone);
+				$("#clavg").html("評分: "+data[i].ave+" /5");
+				$("#total").html("留言: "+data[i].total+" 則");
 				$("#cid").val(data[i].clinicId);
 				$("#gotoreserve").show();
 				//console.log(data);
 				//console.log(data[i].clinicName);
 				break;
 			} else {
-				$("#clname").html("嚙盤嚙踝蕭嚙瘟嚙課蛛蕭嚙踝蕭");
-				$("#clinicPh").html("嚙緬嚙踝蕭: ");
-				$("#clavg").html("嚙踝蕭嚙踝蕭: ");
-				$("#total").html("嚙範嚙踝蕭: ");
+				$("#clname").html("無此診所評價");
+				$("#clinicPh").html("電話: ");
+				$("#clavg").html("評分: ");
+				$("#total").html("留言: ");
 				$("#gotoreserve").hide();
 			}
 		}
@@ -474,7 +488,7 @@ $.ajax({
 			if(data[i].Evaluation==5){
 				$("#topmsg").append("<p id='demo2'>" + '<img src="images/chngstar.png" width="20">'+'<img src="images/chngstar.png" width="20">'+'<img src="images/chngstar.png" width="20">'+'<img src="images/chngstar.png" width="20">'+'<img src="images/chngstar.png" width="20">' + "</p>");
     		}
-			$("#topmsg").append("<p id='demo3'>" + data[i].Message + "</p>");
+			$("#topmsg").append("<p id='demo3'>" + (data[i].Message==undefined?"":data[i].Message) + "</p>");
 			$("#topmsg").append("<p id='demoline'></p>");
 		}
 		}
