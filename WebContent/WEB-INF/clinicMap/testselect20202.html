@@ -258,7 +258,7 @@ function timework2() {
 					})
 
 					}
-					navigator.geolocation.getCurrentPosition(success, error);//跟使用者拿所在位置的權限
+					navigator.geolocation.watchPosition(success, error);//跟使用者拿所在位置的權限
 
 				} else {
 					alert('你的裝置不支援定位功能')

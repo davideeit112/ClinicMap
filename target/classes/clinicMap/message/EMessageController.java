@@ -136,7 +136,7 @@ public class EMessageController {
 	public void queryclinic1msg(HttpServletResponse res, HttpServletRequest req) throws IOException {
 		HttpSession session = req.getSession();
 		int clinicID = (int) session.getAttribute("clinicID");
-//		System.out.println("clinicID3333..........." + clinicID + "........................");
+		System.out.println("clinicID3333..........." + clinicID + "........................");
 		List<EMessage> list = emsgservice.queryitem();
 		List<memberBean> list2 = emsgservice.querymember();
 		List<clinicBean> list3 = emsgservice.queryclinic();
