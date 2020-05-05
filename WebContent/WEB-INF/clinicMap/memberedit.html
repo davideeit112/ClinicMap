@@ -297,7 +297,7 @@ textarea {
 					+data[i].orderlist[j].AppointmentNumber
 					if(data[i].orderlist[j].AppointmentStatus=="OS1")
 						{
-						txt+="<hr><td>預約<hr><td><button class='genric-btn default circle arrow'  data-toggle='modal' data-target='#mycancel' onclick='AppointmentIDget("+data[i].orderlist[j].AppointmentID+")'>取消</button><hr> "
+						txt+="<hr><td>預約<hr><td><button class='genric-btn default circle arrow'  data-toggle='modal' data-target='#mycancel' onclick='AppointmentIDget("+data[i].orderlist[j].AppointmentID+")'>取消</button><hr><td><a href='/clinicMap/guest'>預約租車</a> "
 						}//onclick='cancel("+data[i].orderlist[j].AppointmentID+")'
 					else if(data[i].orderlist[j].AppointmentStatus=="OS5"){
 						txt+="<hr><td>已取消<hr>"
