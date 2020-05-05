@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import clinicMap.order.clinicBean;
+import clinicMap.order.memberBean;
 
 @Controller
 public class EMessageController {
@@ -47,6 +48,7 @@ public class EMessageController {
 				}
 			}
 		}
+		
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		out.print(jarray);
@@ -138,16 +140,16 @@ public class EMessageController {
 	public void queryclinic1msg(HttpServletResponse res, HttpServletRequest req) throws IOException {
 //		HttpSession session = req.getSession();
 //		int clinicID = (int) session.getAttribute("clinicID");
-		System.out.println("clinicID3333...................................");
+		try{System.out.println("clinicID3333...................................");
 		List<EMessage> list = emsgservice.queryitem();
 		System.out.println("list.........."+list.size());
-		List<memberBeans> list2 = emsgservice.querymember();
+		List<memberBean> list2 = emsgservice.querymember();
 		System.out.println("list.........."+list2.size());
 		List<clinicBean> list3 = emsgservice.queryclinic();
 		System.out.println("list.........."+list3.size());
 		JSONArray jarray = new JSONArray();
 		for (EMessage ebean  : list) {
-			for (memberBeans mbean : list2) {
+			for (memberBean mbean : list2) {
 				for (clinicBean cbean : list3) {
 //					if (ebean.getClinicID() == clinicID) {
 					JSONObject obj1 = new JSONObject();
@@ -172,7 +174,10 @@ public class EMessageController {
 		res.setContentType("text/html;charset=UTF-8");
 		System.out.print("-----------ok-------------------");
 		PrintWriter out = res.getWriter();
-		out.print(jarray);
+		out.print(jarray);}
+		catch(Exception e ) {
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping(path = "/order.do", method = RequestMethod.GET)
@@ -203,12 +208,12 @@ public class EMessageController {
 	@RequestMapping(path = "/msgtop3.do", method = RequestMethod.POST)
 	public void querymsgtop3(HttpServletResponse res) throws IOException {
 		List<EMessage> list = emsgservice.querymsg();
-		List<memberBeans> list2 = emsgservice.querymember();
+		List<memberBean> list2 = emsgservice.querymember();
 		List<clinicBean> list3 = emsgservice.queryclinic();
 		JSONArray jarray = new JSONArray();
 		System.out.println("1.");
 		for (EMessage ebean : list) {
-			for (memberBeans mbean : list2) {
+			for (memberBean mbean : list2) {
 				for (clinicBean cbean : list3) {
 					JSONObject obj1 = new JSONObject();
 					if (ebean.getMemberID() == mbean.getMemberID() && ebean.getClinicID() == cbean.getClinicId()) {
