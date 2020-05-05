@@ -13,22 +13,29 @@
 <!-- Place favicon.ico in the root directory -->
 
 <!-- CSS here -->
-<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="./assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="./assets/css/flaticon.css">
-<link rel="stylesheet" href="./assets/css/slicknav.css">
-<link rel="stylesheet" href="./assets/css/animate.min.css">
-<link rel="stylesheet" href="./assets/css/magnific-popup.css">
-<link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
-<link rel="stylesheet" href="./assets/css/themify-icons.css">
-<link rel="stylesheet" href="./assets/css/slick.css">
-<link rel="stylesheet" href="./assets/css/nice-select.css">
-<link rel="stylesheet" href="./assets/css/style.css">
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/css/slicknav.css">
+<link rel="stylesheet" href="assets/css/animate.min.css">
+<link rel="stylesheet" href="assets/css/magnific-popup.css">
+<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="assets/css/themify-icons.css">
+<link rel="stylesheet" href="assets/css/slick.css">
+<link rel="stylesheet" href="assets/css/nice-select.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+
+<style>
+	#pnh{
+		color:orange;
+	}
+</style>
+
 </head>
 
 <body>
 	<!-- Preloader Start -->
-		<div id="preloader-active">
+	<div id="preloader-active">
 		<div
 			class="preloader d-flex align-items-center justify-content-center">
 			<div class="preloader-inner position-relative">
@@ -39,29 +46,30 @@
 			</div>
 		</div>
 	</div>
-	<!-- Preloader Start -->
+	<!-- Preloader Start-->
 	<header>
-      <!-- Header Start -->
-     <div class="header-area">
-          <div class="main-header ">
-              <div class="header-top top-bg d-none d-lg-block">
-                 <div class="container">
-                  <div class="row justify-content-between align-items-center">
-                      <div class="col-lg-8">
-                          <div class="header-info-left">
-                              <ul>                          
-                                  <li>needhelp@gotrip.com</li>
-                                  <li>666 569 025077</li>
-                                  <li>broklyn street new york</li>
-                              </ul>
-                          </div>
-                      </div>
-                    <div class="col-lg-4">
+		<!-- Header Start -->
+		<div class="header-area">
+			<div class="main-header ">
+				<div class="header-top top-bg d-none d-lg-block">
+					<div class="container">
+						<div class="row justify-content-between align-items-center">
+							<div class="col-lg-8">
+								<div class="header-info-left">
+									<ul>
+										<li>needhelp@gotrip.com</li>
+										<li>666 569 025077</li>
+										<li>broklyn street new york</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-4">
 								<div class="header-info-right f-right">
 									<ul class="header-social">
-										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
-										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
-										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
+										<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+										<li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+										<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+										<li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
 									</ul>
 								</div>
 							</div>
@@ -74,7 +82,7 @@
 							<!-- Logo -->
 							<div class="col-xl-2 col-lg-2 col-md-1">
 								<div class="logo">
-									<a href="/clinicMap/googleMap/"><img src="/clinicMap/assets/img/logo/logo.png"
+									<a href="index.html"><img src="assets/img/logo/logo.png"
 										alt=""></a>
 								</div>
 							</div>
@@ -83,12 +91,19 @@
 								<div class="main-menu f-right d-none d-lg-block">
 									<nav>
 										<ul id="navigation">
-											<li><a href="/clinicMap/googleMap/">Home</a></li>
-											<li id="order"><a href="/clinicMap/orderSystem">order</a></li>
-											<li><a href="/clinicMap/hospitalComment">HospitalComment</a></li>
-											<li><a href="/clinicMap/rssget/">News</a></li>
-											
-											<li><a href="/clinicMap/contact.html">about Us</a></li>
+											<li><a href="index.html">Home</a></li>
+											<li><a href="about.html">About US</a></li>
+											<li><a href="packages.html">Package</a></li>
+											<li><a href="blog.html">Blog</a>
+												<ul class="submenu">
+													<li><a href="blog.html">Blog</a></li>
+													<li><a href="single-blog.html">Blog Details</a></li>
+												</ul></li>
+											<li><a href="#">Pages</a>
+												<ul class="submenu">
+													<li><a href="elements.html">Element</a></li>
+												</ul></li>
+											<li><a href="contact.html">Contact Us</a></li>
 										</ul>
 									</nav>
 								</div>
@@ -125,8 +140,9 @@
 	<section class="blog_area single-post-area section-padding">
 		<div class="container">
 			<div class="row">
-				<div >
-					<div class="single-post">
+			<div class="col-lg-8 mb-5 mb-lg-0">
+					<div class="blog_left_sidebar">
+						<div class="single-post">
 						
 						<div class="blog_details">
 							<h2 id="title"></h2>
@@ -140,11 +156,36 @@
 			                <div id="link">
 			                	參考資料:
 			                </div>
+			                <br />
+			                <a href="blog.html">&lt&lt上一頁</a>
 
 						</div>
 					</div>
 
+
+					</div>
 				</div>
+				<div class="col-lg-4">
+					<div class="blog_right_sidebar">
+						<aside class="single_sidebar_widget search_widget">
+
+							<div class="form-group">
+								<div class="input-group mb-3">
+									
+									<div  id="pn">
+										
+									</div>
+									<div id="pn2"></div>
+								</div>
+							</div>
+
+							
+						</aside>
+
+					</div>
+
+				</div>
+				
 				
 			</div>
 		</div>
@@ -249,95 +290,79 @@
 	<!-- JS here -->
 
 	<!-- All JS Custom Plugins Link Here here -->
-	
-		<!-- All JS Custom Plugins Link Here here -->
-        <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-		
-		<!-- Jquery, Popper, Bootstrap -->
-		<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="./assets/js/popper.min.js"></script>
-        <script src="./assets/js/bootstrap.min.js"></script>
-	    <!-- Jquery Mobile Menu -->
-        <script src="./assets/js/jquery.slicknav.min.js"></script>
+	<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 
-		<!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="./assets/js/owl.carousel.min.js"></script>
-        <script src="./assets/js/slick.min.js"></script>
+	<!-- Jquery, Popper, Bootstrap -->
+	<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="./assets/js/popper.min.js"></script>
+	<script src="./assets/js/bootstrap.min.js"></script>
+	<!-- Jquery Mobile Menu -->
+	<script src="./assets/js/jquery.slicknav.min.js"></script>
 
-		<!-- One Page, Animated-HeadLin -->
-        <script src="./assets/js/wow.min.js"></script>
-		<script src="./assets/js/animated.headline.js"></script>
-		
-		<!-- Scrollup, nice-select, sticky -->
-        <script src="./assets/js/jquery.scrollUp.min.js"></script>
-        <script src="./assets/js/jquery.nice-select.min.js"></script>
-		<script src="./assets/js/jquery.sticky.js"></script>
-        <script src="./assets/js/jquery.magnific-popup.js"></script>
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script src="./assets/js/owl.carousel.min.js"></script>
+	<script src="./assets/js/slick.min.js"></script>
+	<!-- Date Picker -->
+	<script src="./assets/js/gijgo.min.js"></script>
+	<!-- One Page, Animated-HeadLin -->
+	<script src="./assets/js/wow.min.js"></script>
+	<script src="./assets/js/animated.headline.js"></script>
+	<script src="./assets/js/jquery.magnific-popup.js"></script>
 
-        <!-- contact js -->
-        <script src="./assets/js/contact.js"></script>
-        <script src="./assets/js/jquery.form.js"></script>
-        <script src="./assets/js/jquery.validate.min.js"></script>
-        <script src="./assets/js/mail-script.js"></script>
-        <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-        
-		<!-- Jquery Plugins, main Jquery -->	
-        <script src="./assets/js/plugins.js"></script>
-        <script src="./assets/js/main.js"></script>
-        <script src="./assets/js/getUrlParam.js"></script>
+	<!-- Scrollup, nice-select, sticky -->
+	<script src="./assets/js/jquery.scrollUp.min.js"></script>
+	<script src="./assets/js/jquery.nice-select.min.js"></script>
+	<script src="./assets/js/jquery.sticky.js"></script>
+
+	<!-- contact js -->
+	<script src="./assets/js/contact.js"></script>
+	<script src="./assets/js/jquery.form.js"></script>
+	<script src="./assets/js/jquery.validate.min.js"></script>
+	<script src="./assets/js/mail-script.js"></script>
+	<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script src="./assets/js/plugins.js"></script>
+	<script src="./assets/js/main.js"></script>
+	<script src="./assets/js/getUrlParam.js"></script>
+
 	<script type="text/javascript">
     	var a = UrlParam.paramValues("blog");
-
+		var b = Number(a)+1;
+		var c = Number(a)-1;
+		console.log(b);
+		console.log(c);
 		
 	      $.ajax({
 				url:"rsslist",
 				type:"POST",
 				dataType:"json",
 				success:function(data){
-					//console.log(data);
-						
+					console.log(data);
+					console.log(data[0].size);
 					$("#title").append(data[a].title);
 					$("#descrip").append(data[a].descrip);
 					$("#deptname").append(data[a].deptname);
 					$("#link").append("<a href="+data[a].link+" target='_blank'>"+data[a].link+"</a>");
 					$("#date").append(data[a].date);
+
+					if(a==0){
+						$("#pn").append("下一篇：<br /><a id='pnh' target='_blank' href='single-blog.html?blog="+b+"'>"+data[b].title+"</a>");
+						}
+					else{
+						if(b==data[a].size){
+							$("#pn").append("上一篇：<br /><a id='pnh' target='_blank' href='single-blog.html?blog="+c+"'>"+data[c].title+"</a><br /><br />");
+							$("#pn").append("這是最後一篇!");
+							}
+						else{
+							$("#pn").append("上一篇：<br /><a id='pnh' target='_blank' href='single-blog.html?blog="+c+"'>"+data[c].title+"</a><br /><br />");
+							$("#pn").append("下一篇：<br /><a id='pnh' target='_blank' href='single-blog.html?blog="+b+"'>"+data[b].title+"</a>");
+							}
+						}
 					
 				}
 			})
       </script>
-       <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script>
-if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
-{
-	
-	$("#loginIn").show()
-	$("#loginOut").hide()
-	$("#order").hide()
-	$("#member").hide()
-}else if($.cookie('memberID')!=undefined){
-	console.log("hi")
-	$("#loginIn").hide()
-	$("#loginOut").show()
-	$("#order").show()
-	$("#member").show()
-	$("#memberName").text($.cookie("account"))
-	console.log($.cookie("account"))
-}else{
-	$("#loginIn").hide()
-	$("#loginOut").show()
-	$("#member").show()
-	
-}
-function loginout(){
-	$.removeCookie('memberID')
-	$.removeCookie('clinicID')
-	location.reload();
-}
-$("#loginOut").click(function(){
-	$.cookie('memberID','',{expires: -1,path:"/clinicMap"})
-	$.cookie('clinicID','',{expires: -1,path:"/clinicMap"})
-	location.href="googleMap/"
-})
-</script>
+
 </body>
 </html>
