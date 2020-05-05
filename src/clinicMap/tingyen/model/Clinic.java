@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -40,6 +41,15 @@ public class Clinic {
 	private String clinicType;
 	@Column(name = "clinicStatus")
 	private String clinicStatus;
+	@Column(name = "clinicTime")
+	@Transient
+	private String clinicTime;
+	@Column(name = "cliniclat")
+	@Transient
+	private String cliniclat;
+	@Column(name = "cliniclng")
+	@Transient
+	private String cliniclng;
 
 	public int getClinicID() {
 		return clinicID;
@@ -143,6 +153,30 @@ public class Clinic {
 
 	public void setClinicStatus(String clinicStatus) {
 		this.clinicStatus = clinicStatus;
+	}
+
+	public String getClinicTime() {
+		return clinicTime;
+	}
+
+	public void setClinicTime(String clinicTime) {
+		this.clinicTime = clinicTime;
+	}
+
+	public String getCliniclat() {
+		return cliniclat;
+	}
+
+	public void setCliniclat(String cliniclat) {
+		this.cliniclat = cliniclat;
+	}
+
+	public String getCliniclng() {
+		return cliniclng;
+	}
+
+	public void setCliniclng(String cliniclng) {
+		this.cliniclng = cliniclng;
 	}
 
 }
