@@ -58,8 +58,7 @@ public class EMessage {
 	public void setClinicID(int clinicID) {
 		this.clinicID = clinicID;
 	}
-
-	@Column(name = "APPOINTMENTID")
+	@Column(name = "AppointmentID")
 	public String getAppointmentID() {
 		return appointmentID;
 	}

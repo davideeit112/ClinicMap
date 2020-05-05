@@ -114,10 +114,10 @@ public class SysManagementDao {
 		try {
 			em.setFrom("clinicofmap@gmail.com");
 			em.setSubject("ClinicMapEmailAuthenticate");
-			String activeUrl = "http://localhost:8080/clinicMap/changeStatus?clinicID=" + clinicID;
+			String activeUrl = "http://localhost/clinicMap/changeStatus?clinicID=" + clinicID;
 			em.setHtmlMsg("點擊鏈接激活信箱:" + activeUrl);
 			em.setTextMsg("測試");
-			em.addTo("warcraft0320@gmail.com");
+			em.addTo("clinicguest0508@gmail.com");
 			em.send();
 			System.out.println("Email send successfully");
 
