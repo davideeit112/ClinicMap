@@ -266,7 +266,7 @@ public class ActionController {
 	public void uploadPhotoNone(@RequestParam("mAccount") String mAccount, HttpServletResponse response) {
 		try {
 			System.out.println("photo empty");
-			InputStream is1 = new FileInputStream("../../../WebContent/WEB-INF/clinicMap/images/memberDefaultPhoto.jpg");
+			InputStream is1 = new FileInputStream("C:\\DataSourse\\clinicMap\\WebContent\\WEB-INF\\clinicMap\\images\\memberDefaultPhoto.jpg");
 			byte[] photo = new byte[is1.available()];
 			is1.read(photo);
 			is1.close();
@@ -329,7 +329,7 @@ public class ActionController {
 				  message.setSubject("ClinicMap Account Verified");
 				  content = "<html><head>"
 //				  		+ "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js\"></script>"
-					   		+ "</head><body><a href='http://localhost:8080/clinicMap/verifiedEmail?code=" + code + "'>click to verified</a>"
+					   		+ "</head><body><a href='http://localhost/clinicMap/verifiedEmail?code=" + code + "'>click to verified</a>"
 //					   				+ "<script>$(function(){\r\n" + 
 //					   				"            $.get({\r\n" + 
 //					   				"                url:\"../verifiedEmail\",\r\n" + 
