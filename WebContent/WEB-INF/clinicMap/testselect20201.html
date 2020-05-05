@@ -49,10 +49,10 @@ margin-top: 5px;
 
 .formap{
 top: 50%;
-left: 50%;
+margin:auto;
 padding-left: auto;
 padding-top: 15px;
-margin-left: 285px;
+
 margin-top: 20px;
 margin-bottom: 20px;
 }
@@ -89,7 +89,7 @@ margin: auto;
 </style>
 
 </head>
-<body style=" background-image:url('images/taxiforground.jpg'); background-repeat:no-repeat ;
+<body style=" background-image:url('../assets/img/taxiforground.jpg'); background-repeat:no-repeat ;
 
 background-size:100% 100%; 
 
@@ -174,7 +174,7 @@ background-attachment: fixed;" >
 	<!--<input class="myButton" type="button" onclick="test()" value="司機確認"/>-->
 	<!--<input class="myButton" type="button" onclick="sub1()" value="啟動傳送目的地&自己位置&確認司機&價錢(確認申請)" />-->
 	<h2>本次的費用：</h2><div id="showprice" style="font-size: 35px"></div>
-	<div style="align-content: center;"><p style="display: inline;font-size: 25px;">請先在地圖上選擇司機 </p><img src='images/driver.png'><p style="display: inline;font-size: 25px;">，並完成付費流程，即可開始確認司機目前位置，感謝您</p></div>
+	<div style="align-content: center;"><p style="display: inline;font-size: 25px;">請先在地圖上選擇司機 </p><img src='../images/driver.png'><p style="display: inline;font-size: 25px;">，並完成付費流程，即可開始確認司機目前位置，感謝您</p></div>
 	<input class="myButton" type="button" onclick="timework()" value="開始確認司機位置"  id="submit" style="visibility: hidden;" />
 	<!-- 漸層色用   background:    linear-gradient(#ffd966, #ba6f06);-->
 	</div>
@@ -224,7 +224,7 @@ background-attachment: fixed;" >
 
 
 				$.ajax({
-					url:"cliniclnglat",
+					url:"/clinicMap/cliniclnglat",
 					dataType:"json",
 					data:{"clinicid":$.cookie("clinicid")},
 					type:"post",
@@ -255,7 +255,7 @@ background-attachment: fixed;" >
 //-----------------------------------------------標記司機位置
 				$.ajax({
 					type : "POST",				
-					url : "showfordriver", 
+					url : "../showfordriver", 
 					dataType : "json",
 					success : function(checkboxdata) {
 						
@@ -340,7 +340,7 @@ function submittest(){
 					},
 					map : map,
 					title : name,
-					icon : 'images/driver.png',
+					icon : '../images/driver.png',
 
 					animation : google.maps.Animation.DROP
 				//彈跳畫面
@@ -360,7 +360,7 @@ function submittest(){
 					},
 					map : map,
 					title : name,
-					icon : 'images/driver.png',
+					icon : '../images/driver.png',
 				
 				//彈跳畫面
 				});
@@ -681,6 +681,42 @@ function sub2() {
 			}
 //清除路線後繪製路線-----------------------------------------------------------------------------------------------------------------------
 		</script>
+		<script>
+if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
+{
+	location.href='googleMap'
+	$("#loginIn").show()
+	$("#loginOut").hide()
+	$("#order").hide()
+	$("#member").hide()
+}else if($.cookie('memberID')!=undefined){
+	console.log("hi")
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+	console.log($.cookie("account"))
+}else if($.cookie('clinicID'!=undefined)){
+	location.href="clinicProfile"
+}
+else{
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#member").show()
+	
+}
+function loginout(){
+	$.removeCookie('memberID')
+	$.removeCookie('clinicID')
+	location.reload();
+}
+$("#loginOut").click(function(){
+	$.cookie('memberID','',{expires: -1,path:"/clinicMap"})
+	$.cookie('clinicID','',{expires: -1,path:"/clinicMap"})
+	location.href="googleMap/"
+})
+</script>
 </body>
 
 

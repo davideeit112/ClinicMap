@@ -82,7 +82,8 @@ public class RssListController {
 			jobj.put("week", d2[0]);
 			jobj.put("day", d2[2]);
 			jobj.put("des", des4[0]);
-			jobj.put("pages", 4+list.size()/5);
+			jobj.put("pages", (list.size()+4)/5);
+			jobj.put("size", list.size());
 
 			array.put(jobj);
 		}
@@ -160,6 +161,7 @@ public class RssListController {
 				jobj.put("day", d2[2]);
 				jobj.put("des", des4[0]);
 				jobj.put("id", i.getId());
+				jobj.put("size", list.size());
 
 				array.put(jobj);
 			}
@@ -239,6 +241,7 @@ public class RssListController {
 			jobj.put("day", d2[2]);
 			jobj.put("des", des4[0]);
 			jobj.put("id", list.get(p).getId());
+			jobj.put("size", list.size());
 
 			array.put(jobj);
 		}
@@ -247,6 +250,9 @@ public class RssListController {
 		PrintWriter out = response.getWriter();
 		out.print(array);
 	}
+
+	
+	
 }
 
 

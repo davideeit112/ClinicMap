@@ -132,7 +132,7 @@ textarea {
 									<ul class="header-social">
 										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
 										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
-										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
+										<li id='loginOut'><a href="/clinicMap/loginIn">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
 									</ul>
 								</div>
 							</div>
@@ -199,28 +199,28 @@ textarea {
 			</div>
 			<div class="mt-10">
 					<h3 class="mb-30">會員密碼</h3><input type="password" id="memberPwd" name="memberPwd"
-					placeholder="pwd" class="single-input">
+					placeholder="pwd" style="background-color: pink" class="single-input">
 			</div>
 
 			<div class="mt-10">
 					<h3 class="mb-30">Email</h3> <input type="email" id="memberemail" name="memberemail"
-					placeholder="email" class="single-input">
+					placeholder="email" style="background-color: pink" class="single-input">
 			</div>
 			<div class="mt-10">
 				<h3 class="mb-30">身高</h3> <input type="text" id="memberHeight" name="memberHeight"
-					placeholder="height" class="single-input">
+					placeholder="height" style="background-color: pink" class="single-input">
 			</div>
 			<div class="mt-10">
 					<h3 class="mb-30">體重</h3><input type="text" id="memberWeight" name="memberWeight"
-					placeholder="memberWeight" class="single-input">
+					placeholder="memberWeight" style="background-color: pink" class="single-input">
 			</div>
 			<div class="mt-10">
 					<h3 class="mb-30">會員地址</h3><input type="text" id="memberAddress" name="memberAddress"
-					placeholder="address" class="single-input">
+					placeholder="address" style="background-color: pink" class="single-input">
 			</div>
 			<div class="mt-10">
 					<h3 class="mb-30">會員手機</h3> <input type="text" id="memberPhone" name="memberPhone"
-					placeholder="memberPhone" class="single-input">
+					placeholder="memberPhone" style="background-color: pink" class="single-input">
 			</div>
 			<div class="readonly">
 					<h3 class="mb-30">性別</h3><input type="text" id="memberGender" name="memberGender"
@@ -265,7 +265,7 @@ textarea {
 	dataType:"json",
 	success:function(data){
 		
-		var txt="<tr align='center'><th>預約編號<hr><th>預約診所<hr><th>預約時間<hr><th>預約號碼<hr><th>預約狀態<hr>"
+		var txt="<tr align='center'><th>預約編號<hr><th>預約診所<hr><th>預約時間<hr><th>預約號碼<hr><th>預約狀態<hr><th>取消<hr><th>租車<hr>"
 		for (var i =0;i<data.length;i++){
 			var name=arrayBufferToBase64(data[i].memberPhoto)
 			if(name!=undefined){
@@ -297,7 +297,7 @@ textarea {
 					+data[i].orderlist[j].AppointmentNumber
 					if(data[i].orderlist[j].AppointmentStatus=="OS1")
 						{
-						txt+="<hr><td>預約<hr><td><button class='genric-btn default circle arrow'  data-toggle='modal' data-target='#mycancel' onclick='AppointmentIDget("+data[i].orderlist[j].AppointmentID+")'>取消</button><hr><td><a href='/clinicMap/guest'>預約租車</a> "
+						txt+="<hr><td>預約<hr><td><button class='genric-btn default circle arrow'  data-toggle='modal' data-target='#mycancel' onclick='AppointmentIDget("+data[i].orderlist[j].AppointmentID+")'>取消</button><hr><td><a class='genric-btn default circle arrow' href='/clinicMap/guest/'>預約租車</a><hr> "
 						}//onclick='cancel("+data[i].orderlist[j].AppointmentID+")'
 					else if(data[i].orderlist[j].AppointmentStatus=="OS5"){
 						txt+="<hr><td>已取消<hr>"

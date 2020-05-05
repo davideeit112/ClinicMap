@@ -65,6 +65,7 @@
 .favourite-place .single-place .place-cap {
     padding: 28px 40px;
     border: 3px solid #f0f1f2;
+    }
     
  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');					
             	.modal-title{
@@ -90,7 +91,7 @@
             	#posts th{
             		padding-bottom: 10px;
             	}
-}
+
 </style>
 
 
@@ -102,7 +103,7 @@
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
-    
+     	
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -124,22 +125,21 @@
   
 </div>
 <script>
-	$(function(){
-		$("#myModal").modal();
-	});
 	$.ajax({
-		url:"posting.do", 
+		url:"/clinicMap/posting.do", 
 		type:"GET",
 		dataType:"json",
 		success:function(beanList) {
 			console.log(beanList);
-			console.log(beanList[1].announcementText);
+			console.log(beanList[0].announcementText);
 			for(var i in beanList){
 				$("#posts").append("<tr><td>"+beanList[i].ID+"</td><td>"+beanList[i].announcementType + 
 					"</td><td>" + beanList[i].announcementText+"</td></tr>");
+				console.log(i)
 			}
 		}
 	});
+	$("#myModal").modal();
 </script>
 
 	<!-- Preloader Start -->
@@ -803,7 +803,7 @@ $.ajax({
 		function(data){
 			for (var i = 0; i < 3; i++) {
 				$("#allclinic").append("<div class='col-xl-4 col-lg-4 col-md-6'><div class='single-place mb-30'>"
-									+"<div class='place-img'><img class='clinicimg' src='images/clinic"+ data[i].clinicID +".jpg''></div>"
+									+"<div class='place-img'><img class='clinicimg' src='../images/clinic"+ data[i].clinicID +".jpg''></div>"
 									+"<div class='place-cap'><div class='place-cap-top'><span><i class='fas fa-star'>&nbsp"+ data[i].ave +"</i>"
 									+"<span id='avg1'></span></span><h3><a href='/clinicMap/blog."+ data[i].clinicID +"'>"+ data[i].clinicName +"</a></h3>"
 									+"<p class='dolor'><span>02- "+ data[i].clinicPhone +"</span></p></div>"
