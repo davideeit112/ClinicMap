@@ -197,7 +197,6 @@ public class ClinicController {
 			@RequestParam(name = "clinicClass")String clinicClass,
 			@RequestParam(name = "clinicType")String clinicType, 
 			@RequestParam(name = "clinicStatus")String clinicStatus,HttpServletRequest request) throws IOException {
-
 			HttpHeaders header=new HttpHeaders();
 			header.setContentType(MediaType.IMAGE_JPEG);
 			String clinicPhotoPath = request.getSession().getServletContext().getRealPath("/")+clinicPhotoFile.getOriginalFilename();	
@@ -207,7 +206,6 @@ public class ClinicController {
 			byte[] clinicPhoto=new byte[is1.available()];
 			is1.read(clinicPhoto);
 			is1.close();
-
 			HttpHeaders header1=new HttpHeaders();
 			header1.setContentType(MediaType.IMAGE_JPEG);
 			String clinicLicensePath = request.getSession().getServletContext().getRealPath("/")+clinicLicenseFile.getOriginalFilename();	
@@ -217,9 +215,11 @@ public class ClinicController {
 			byte[] clinicLicense=new byte[is2.available()];
 			is2.read(clinicLicense);
 			is2.close();
+			String clinicstatus;
+		if (clinicStatus=="已認證")clinicstatus="CS2";
+		else clinicstatus="CS0";
 		
-		
-		cService.updateClinicProfile(Integer.valueOf(clinicID), clinicName, clinicAccount, clinicPwd, clinicAddress, clinicDescription, clinicPhoto, clinicLicense, clinicEmail, clinicPhone, clinicClass, clinicType, clinicStatus);
+		cService.updateClinicProfile(Integer.valueOf(clinicID), clinicName, clinicAccount, clinicPwd, clinicAddress, clinicDescription, clinicPhoto, clinicLicense, clinicEmail, clinicPhone, clinicClass, clinicType, clinicstatus);
 		return "ClinicProfile";
 	}
 	

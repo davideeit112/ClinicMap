@@ -59,7 +59,7 @@
     background: linear-gradient(to bottom, #998f00, #d4b800);
 }
 .place-img{
-	width:380px;
+	width:370px;
 	height: 200px;
 }
 .favourite-place .single-place .place-cap {
@@ -202,7 +202,7 @@
 											<li><a href="/clinicMap/googleMap/">Home</a></li>
 											<li id="order"><a href="/clinicMap/orderSystem">order</a></li>
 											<li><a href="/clinicMap/hospitalComment">HospitalComment</a></li>
-											<li><a href="/clinicMap/rssget/">News</a></li>
+											<li><a href="/clinicMap/rssget">News</a></li>
 											
 											<li><a href="/clinicMap/contact.html">about Us</a></li>
 										</ul>
@@ -590,7 +590,7 @@
 	$("#like").text(selectval);
 	$.ajax({
 		type : "POST",				
-		url : "checkboxvalues?selectval=" + selectval, 
+		url : "../checkboxvalues?selectval=" + selectval, 
 		dataType : "json",
 
 		success : function(checkboxdata) {

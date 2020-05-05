@@ -54,10 +54,6 @@ public class EMessageController {
 		out.print(jarray);
 	}
 
-	@RequestMapping(path = "/allboard", method = RequestMethod.GET)
-	public String allboard() {
-		return "AllBoard";
-	}
 
 	@RequestMapping(path = "/allclinic.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public void queryallclinic(HttpServletResponse res) throws IOException {
@@ -237,6 +233,6 @@ public class EMessageController {
 	////網址列////
 	@RequestMapping(path="/hospitalComment",method = RequestMethod.GET)
 	public String  comment() {
-		return "EachCblog";
+		return "AllBoard";
 	}
 }

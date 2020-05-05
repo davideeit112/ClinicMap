@@ -415,7 +415,7 @@ function submittest(){
 
 					  
 					function callback(response, status) {
-						var dis=response.rows[0].elements[0].distance.value
+						var dis=response.rows[0].elements[0].distance.value;
 						console.log('總距離是'+dis+'公尺');   //這邊設定是公尺
 						var price = (100 + dis*0.02);
 						pricetotal=Math.round(price);
