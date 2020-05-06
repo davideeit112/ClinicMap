@@ -161,25 +161,27 @@ public class ActionController {
 	
 	@RequestMapping(path = "forgetPwdPage", method = RequestMethod.POST)
 	public void forgetPwd(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
-		//產生tempCode 的初始資料
-//		String codeData = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
-//		String tempPwd = ""; //8位數暫時密碼
-//		
-//		while(tempPwd.length()<8) {
-//			tempPwd += codeData.charAt((int)((Math.random()*70)+1));
-//		}
-		
-		String tempPwd = "abc123";
-		mDao.setTempPwd(account, tempPwd);
-		sendEmail("forget", email, tempPwd);
-		
-		//下面的兩種方法選一個，否則會無限迴圈寄暫時密碼
 		try {
-			response.getWriter().print("");
-		} catch (IOException e) {
+			if(mDao.doubleCheckInfo(account, email)) {
+				//帳號 和 email屬於同一個人
+				
+				//產生tempCode 的初始資料
+				String codeData = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
+				String tempPwd = ""; //8位數暫時密碼
+				
+				while(tempPwd.length()<8) {
+					tempPwd += codeData.charAt((int)((Math.random()*70)+1));
+				}
+
+				mDao.setTempPwd(account, tempPwd);
+				sendEmail("forget", email, tempPwd);
+				response.getWriter().print(true);
+			}else {
+				response.getWriter().print(false);
+			}
+		}catch(IOException e) {
 			e.printStackTrace();
 		}
-//		return "login";
 	}
 	
 	@RequestMapping(path = "/isAccountExist", method = RequestMethod.POST)
@@ -212,18 +214,20 @@ public class ActionController {
 
 	@RequestMapping(path = "/getEmailAgainPage", method = RequestMethod.POST)
 	public void getEmailAgain(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
-
-		String codeAgain = uuidCode();
-		mDao.setActiveStatus(codeAgain, account);
-
-		//更改 deadline的時間
-		mDao.updateDeadline(account, new Date().getTime());
-			
-		//重新寄出驗證信的狀況
-		sendEmail("verified", email, codeAgain);
-			
 		try {
-			response.getWriter().print("");
+			if(mDao.doubleCheckInfo(account, email)) {
+				String codeAgain = uuidCode();
+				mDao.setActiveStatus(codeAgain, account);
+
+				//更改 deadline的時間
+				mDao.updateDeadline(account, new Date().getTime());
+					
+				//重新寄出驗證信的狀況
+				sendEmail("verified", email, codeAgain);
+				response.getWriter().print(true);
+			}else {
+				response.getWriter().print(false);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

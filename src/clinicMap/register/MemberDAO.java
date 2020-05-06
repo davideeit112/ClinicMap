@@ -211,4 +211,16 @@ public class MemberDAO {
 		query.setParameter("account", account);
 		query.executeUpdate();
 	}
+
+	public boolean doubleCheckInfo(String account, String email) {
+		Session session = sessionFactory.getCurrentSession();
+		String hqlStr = "from Memberde where memberAccount = :account and memberEmail = :email";
+		Query query = session.createQuery(hqlStr);
+		query.setParameter("account", account);
+		query.setParameter("email", email);
+		if(query.uniqueResult()!= null) {
+			return true;
+		}
+		return false;
+	}
 }
