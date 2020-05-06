@@ -162,13 +162,14 @@ public class ActionController {
 	@RequestMapping(path = "forgetPwdPage", method = RequestMethod.POST)
 	public void forgetPwd(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
 		//產生tempCode 的初始資料
-		String codeData = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
-		String tempPwd = ""; //8位數暫時密碼
+//		String codeData = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
+//		String tempPwd = ""; //8位數暫時密碼
+//		
+//		while(tempPwd.length()<8) {
+//			tempPwd += codeData.charAt((int)((Math.random()*70)+1));
+//		}
 		
-		while(tempPwd.length()<8) {
-			tempPwd += codeData.charAt((int)((Math.random()*70)+1));
-		}
-		
+		String tempPwd = "abc123";
 		mDao.setTempPwd(account, tempPwd);
 		sendEmail("forget", email, tempPwd);
 		

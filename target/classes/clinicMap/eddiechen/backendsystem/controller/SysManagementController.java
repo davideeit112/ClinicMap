@@ -357,7 +357,7 @@ public class SysManagementController {
 	@RequestMapping(path = "/changeStatus", method = RequestMethod.GET)
 	public String changeStatus(HttpServletRequest req, int clinicID) {
 		sysService.changeStatus2(clinicID);
-		return "ClinicProfile";
+		return "loginMember";
 	}
 	
 	@RequestMapping(path="/Logout", method = RequestMethod.POST)

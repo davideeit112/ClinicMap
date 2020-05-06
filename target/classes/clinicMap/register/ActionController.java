@@ -137,7 +137,7 @@ public class ActionController {
 	}
 	
 	@RequestMapping(path = "/verifiedEmail", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
-	public @ResponseBody String emailVerified(@RequestParam("code") String code) {
+	public String emailVerified(@RequestParam("code") String code) {
 		
 		//之後再改成 Y/N 啟動成功，丟到不同頁面???
 		Memberde member = mDao.getInfoWithCode(code);
@@ -153,22 +153,23 @@ public class ActionController {
 			//時間內註冊成功
 			if(now-deadLine<=timeLimit) {
 				mDao.setActiveStatus(code);
-				return "Verified Success";
+				return "emailVerifiedSuccess";
 			}
 		}
-		return "verified out of time, please get verified emai again";
+		return "emailVerifiedFailed";
 	}
 	
 	@RequestMapping(path = "forgetPwdPage", method = RequestMethod.POST)
 	public void forgetPwd(@RequestParam("account") String account, @RequestParam("email") String email, HttpServletResponse response) {
 		//產生tempCode 的初始資料
-		String codeData = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
-		String tempPwd = ""; //8位數暫時密碼
+//		String codeData = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
+//		String tempPwd = ""; //8位數暫時密碼
+//		
+//		while(tempPwd.length()<8) {
+//			tempPwd += codeData.charAt((int)((Math.random()*70)+1));
+//		}
 		
-		while(tempPwd.length()<8) {
-			tempPwd += codeData.charAt((int)((Math.random()*70)+1));
-		}
-		
+		String tempPwd = "abc123";
 		mDao.setTempPwd(account, tempPwd);
 		sendEmail("forget", email, tempPwd);
 		
@@ -329,7 +330,7 @@ public class ActionController {
 				  message.setSubject("ClinicMap Account Verified");
 				  content = "<html><head>"
 //				  		+ "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js\"></script>"
-					   		+ "</head><body><a href='http://localhost/clinicMap/verifiedEmail?code=" + code + "'>click to verified</a>"
+					   		+ "</head><body><a href='http://localhost/clinicMap/verifiedEmail?code=" + code + "'>點擊驗證</a>"
 //					   				+ "<script>$(function(){\r\n" + 
 //					   				"            $.get({\r\n" + 
 //					   				"                url:\"../verifiedEmail\",\r\n" + 
@@ -376,5 +377,15 @@ public class ActionController {
 	@RequestMapping(path="/getEmail")
 	public String getVerifiedEmailAgain() {
 		return "getVerifiedEmailAgain";
+	}
+
+	@RequestMapping(path="/emailResultS")
+	public String emailResultSuccess() {
+		return "emailVerifiedSuccess";
+	}
+	
+	@RequestMapping(path="/emailResultF")
+	public String emailResultFailed() {
+		return "emailVerifiedFailed";
 	}
 }

@@ -698,14 +698,17 @@ textarea {
             $("#memberWeight").val("80");
             $("#memberPhone").val("0911234678");
             $("#memberNameRegister").val("說你好");
-            // checkAccount = true, checkName = true, checkPwd = true, checkPwdAgain = true, checkBirth = true, checkAddress = true,
-            // checkHeight = true, checkWeight = true, checkPhone = true, checkIdNum = true, checkGender = true, checkEmail = true;
+            $("#memberIdNumber").val("K123456789");
+            $("#memberAccount").val("DemoAccount");
+            
+            checkAccount = true, checkName = true, checkPwd = true, checkPwdAgain = true, checkBirth = true, checkAddress = true,
+            checkHeight = true, checkWeight = true, checkPhone = true, checkIdNum = true, checkGender = true, checkEmail = true;
 
-            // $("#mAccCorrect").html("<img src='images/correct.jpg'>");
+            $("#mAccCorrect").html("<img src='images/correct.jpg'>");
             $("#mPwdCorrect").html("<img src='images/correct.jpg'>");
             $("#mPwdCheckCorrect").html("<img src='images/correct.jpg'>");
             $("#mNameCorrect").html("<img src='images/correct.jpg'>");
-            // $("#mIdNumCorrect").html("<img src='images/correct.jpg'>");
+            $("#mIdNumCorrect").html("<img src='images/correct.jpg'>");
             $("#mPhoneCorrect").html("<img src='images/correct.jpg'>");
             $("#mEmailCorrect").html("<img src='images/correct.jpg'>");
             $("#mAddressCorrect").html("<img src='images/correct.jpg'>");
@@ -714,7 +717,8 @@ textarea {
             $("#mWeightCorrect").html("<img src='images/correct.jpg'>");
 
             $("#cEmailCorrect").html("<img src='images/correct.jpg'>");
-
+			$("input").removeClass("need2edit");
+			$(".errMsg").html("");
         }
         //-------------------------------------
 

@@ -76,4 +76,10 @@ public class RssToDB {
 	public String blogdetail() {
 		return "single-blog";
 	}
+	
+	@RequestMapping(path="/rss",method = RequestMethod.GET)
+	public String blog() {
+		return "blog";
+	}
+
 }

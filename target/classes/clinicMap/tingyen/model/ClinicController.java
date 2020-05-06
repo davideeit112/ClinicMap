@@ -133,7 +133,7 @@ public class ClinicController {
 		List<Appointment> beanList = aService.queryAllAppointment(cookie.getValue(), today);
 
 		for (Appointment aBean : beanList) {
-			if (aBean.getAppointmentNumber() - currentNumber == 3 && aBean.getAppointmentStatus() != "OS5") {
+			if (aBean.getAppointmentNumber() - currentNumber <= 3 && aBean.getAppointmentStatus() != "OS5") {
 				Member mBean = mService.queryMemberById(aBean.getMemberID());				
 				String to = mBean.getMemberEmail();	//user email
 				String from = "clinicofmap@gmail.com";	//developer email

@@ -38,7 +38,7 @@ public class orderController {
 		List<clinicBean> list = service.query();
 		JSONArray arry = new JSONArray();
 		for (clinicBean cbean : list) {
-			if(cbean.getClinicStatus().equals("CS2")) {
+			if(cbean.getClinicStatus().equals("CS2")||cbean.getClinicStatus().equals("CS3")) {
 			JSONObject jobj = new JSONObject();
 			jobj.put("clinicaddress", cbean.getClinicAddress());
 			jobj.put("clinicId", cbean.getClinicId());

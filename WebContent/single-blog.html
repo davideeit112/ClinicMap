@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Travel HTML-5 Template</title>
+<title>即時新聞</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <link rel="manifest" href="site.webmanifest"> -->
@@ -100,12 +100,12 @@
 	<div class="slider-area ">
 		<!-- Mobile Menu -->
 		<div class="single-slider slider-height2 d-flex align-items-center"
-			data-background="./assets/img/hero/contact_hero.jpg">
+			data-background="/clinicMap/assets/img/hero/about.jpg">
 			<div class="container">
 				<div class="row">
 					<div class="col-xl-12">
 						<div class="hero-cap text-center">
-							<h2>Single Blog</h2>
+							<h2>即時新聞</h2>
 						</div>
 					</div>
 				</div>
@@ -134,7 +134,7 @@
 			                	參考資料:
 			                </div>
 			                <br />
-			                <a href="blog.html">&lt&lt上一頁</a>
+			                <a href="rss">&lt&lt上一頁</a>
 
 						</div>
 					</div>
@@ -323,16 +323,16 @@
 					$("#date").append(data[a].date);
 
 					if(a==0){
-						$("#pn").append("下一篇：<br /><a id='pnh' target='_blank' href='single-blog.html?blog="+b+"'>"+data[b].title+"</a>");
+						$("#pn").append("下一篇：<br /><a id='pnh' href='single-blog.html?blog="+b+"'>"+data[b].title+"</a>");
 						}
 					else{
 						if(b==data[a].size){
-							$("#pn").append("上一篇：<br /><a id='pnh' target='_blank' href='single-blog.html?blog="+c+"'>"+data[c].title+"</a><br /><br />");
+							$("#pn").append("上一篇：<br /><a id='pnh' href='single-blog.html?blog="+c+"'>"+data[c].title+"</a><br /><br />");
 							$("#pn").append("這是最後一篇!");
 							}
 						else{
-							$("#pn").append("上一篇：<br /><a id='pnh' target='_blank' href='single-blog.html?blog="+c+"'>"+data[c].title+"</a><br /><br />");
-							$("#pn").append("下一篇：<br /><a id='pnh' target='_blank' href='single-blog.html?blog="+b+"'>"+data[b].title+"</a>");
+							$("#pn").append("上一篇：<br /><a id='pnh' href='single-blog.html?blog="+c+"'>"+data[c].title+"</a><br /><br />");
+							$("#pn").append("下一篇：<br /><a id='pnh' href='single-blog.html?blog="+b+"'>"+data[b].title+"</a>");
 							}
 						}
 					

@@ -70,7 +70,7 @@ public class EMessageDao {
 	
 	public List<EMessage> queryitem() {
 		Session session = sessionfactory.getCurrentSession();
-		Query<EMessage> query = session.createQuery("from EMessage order by clinicID", EMessage.class);
+		Query<EMessage> query = session.createQuery("from EMessage order by evaluationTime desc", EMessage.class);
 		List<EMessage> list = query.list();
 //		System.out.println(list);
 		return list;
