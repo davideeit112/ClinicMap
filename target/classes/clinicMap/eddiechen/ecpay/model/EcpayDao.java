@@ -48,7 +48,7 @@ public class EcpayDao {
 		obj.setTradeDesc("test Description");
 		obj.setItemName("ClinicMap廣告贊助");
 		obj.setReturnURL("http://211.23.128.214:5000");
-		obj.setClientBackURL("http://clinicmap.tk/changeStatusAfterPay?id=" + uuid/*clinicID*/);
+		obj.setClientBackURL("http://clinicmap.tk/clinicMap/changeStatusAfterPay?id=" + uuid/*clinicID*/);
 //		obj.setOrderResultURL("http://localhost:8080/SpringAllForOne/Test.jsp");
 		obj.setNeedExtraPaidInfo("N");
 		String form = all.aioCheckOut(obj, null);
