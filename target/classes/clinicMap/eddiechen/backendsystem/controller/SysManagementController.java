@@ -355,9 +355,11 @@ public class SysManagementController {
 	}
 
 	@RequestMapping(path = "/changeStatus", method = RequestMethod.GET)
-	public String changeStatus(HttpServletRequest req, int clinicID) {
+	public ModelAndView changeStatus(HttpServletRequest req, int clinicID) {
 		sysService.changeStatus2(clinicID);
-		return "ClinicProfile";
+		String url = "http://clinicmap.tk/clinicMap/loginIn";
+		
+		return new ModelAndView("redirect:" + url);
 	}
 	
 	@RequestMapping(path="/Logout", method = RequestMethod.POST)

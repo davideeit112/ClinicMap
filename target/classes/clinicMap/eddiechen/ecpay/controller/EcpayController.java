@@ -51,7 +51,7 @@ public class EcpayController {
 
 		EcpayService.changeStatus(1001/*clinicID*/);
 		
-		return "loginMember";
+		return "ClinicProfile";
 	}
 	
 	@RequestMapping(path = "/TexiPayment", method = RequestMethod.GET)
