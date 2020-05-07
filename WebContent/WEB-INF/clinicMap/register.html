@@ -574,7 +574,8 @@ textarea {
                     window.location.href = "loginIn";
                 } else {
                     alert("資料有誤");
-
+                  //將畫面置頂到註冊身份的位置
+                    $(window).scrollTop(214);
                     if (!checkAccount) {
                         $("#memberAccount").addClass("need2edit");
                         ($("#memberAccount").val() == "") ? $("#accountErrMsgM").html("此欄位不能空白") : $("#accountErrMsg").html("需要修改");
@@ -635,7 +636,7 @@ textarea {
                     $.ajax({
                         url: "clinicRegisterPage",
                         type: "post",
-                        data: { //$("#clinic").serializeArray(),  ???
+                        data: { 
                             "clinicAccount": $("#clinicAccount").val(),
                             "clinicEmail": $("#clinicEmail").val()
                         },
@@ -692,12 +693,13 @@ textarea {
             $("#clinicEmail").val("clinicmapguest0508@gmail.com");
             $("#memberPwd").val("123456@W");
             $("#memberPwdCheck").val("123456@W");
-            $("#memberBirth").val("2020/04/22");
+            $("#memberBirth").val("2020/05/08");
             $("#memberAddress").val("106台北市大安區復興南路一段390號2樓");
             $("#memberHeight").val("180");
             $("#memberWeight").val("80");
             $("#memberPhone").val("0911234678");
             $("#memberNameRegister").val("說你好");
+            $("#clinicAccount").val("3501023199");
             $("#memberIdNumber").val("K123456789");
             $("#memberAccount").val("DemoAccount");
             
@@ -719,6 +721,7 @@ textarea {
             $("#cEmailCorrect").html("<img src='images/correct.jpg'>");
 			$("input").removeClass("need2edit");
 			$(".errMsg").html("");
+			$("#cAccCorrect").html("<img src='images/correct.jpg'>");
         }
         //-------------------------------------
 

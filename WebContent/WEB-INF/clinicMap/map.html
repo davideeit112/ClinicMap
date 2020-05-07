@@ -184,20 +184,7 @@ html, body {
   </button>
   <div id="pagedown" class="dropdown-menu" style="overflow: scroll;height: 300px">
     <a class="dropdown-item" href="#"  onclick=pageclick(1,50)>page1</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(2,50)>page2</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(3,50)>page3</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(4,50)>page4</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(5,50)>page5</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(6,50)>page6</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(7,50)>page7</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(8,50)>page8</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(9,50)>page9</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(10,50)>page10</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(11,50)>page11</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(12,50)>page12</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(13,50)>page13</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(14,50)>page14</a>
-    <a class="dropdown-item" href="#"  onclick=pageclick(15,50)>page15</a>
+
   </div>
 	</div>
 	<br>
@@ -300,14 +287,14 @@ html, body {
 	if(show==true){
 		$("#map").hide()
 		$("#text").hide()
-		$("#list").show(2000)
-		$("#listchose").show(2000);
-		$("#listchose1").show(2000);
+		$("#list").show(1000)
+		$("#listchose").show(500);
+		$("#listchose1").show(500);
 		$("#mapshow").html("地圖顯示")
 		show=false
 	}else{
-			$("#map").show(2000)
-			$("#text").show(2000);
+			$("#map").show(1000)
+			$("#text").show(1000);
 			$("#list").hide();
 			$("#listchose").hide();
 			$("#listchose1").hide();
@@ -363,7 +350,23 @@ html, body {
 				var clinicphone=data[i].clinicPhone
 				var cliniclat=data[i].cliniclat
 				var cliniclng=data[i].cliniclng
-				var clinictype=data[i].clinicType
+				var clinictype=null
+				console.log(data[i].clinicType)
+				if(data[i].clinicType==1001){
+					clinictype='中醫一般科'
+				}else if(data[i].clinicType==1002){
+					clinictype='職業醫學科'
+				}else if(data[i].clinicType==1003){
+					clinictype='西醫一般科'
+				}else if(data[i].clinicType==1004){
+					clinictype='牙醫一般科'
+				}else if(data[i].clinicType==1005){
+					clinictype='口腔顎面外科'
+				}else if(data[i].clinicType==1006){
+					clinictype='內科'
+				}else{
+					clinictype='家庭醫科'
+					}
 				if(i<50){
 				listtxt+="<tr><td align='center'>"+name+"<td align='center'>"+address+"<td align='center'>"+clinicphone+'<td align="center"><input type="text" id="description'+clinicId+'">'
 				if($.cookie('clinicid')==undefined){
@@ -617,7 +620,7 @@ if($.cookie('memberID')==undefined)
 	$("#loginOut").hide()
 	$("#order").hide()
 	$("#member").hide()
-	location.href="loginSystem/"
+	location.href="loginIn"
 }else{
 	$("#loginIn").hide()
 	$("#loginOut").show()
