@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Verified Email Again</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap");
+      * {
+        font-family: "Noto Sans TC", sans-serif;
+      }
+      .vermail-wrapper {
+        position: absolute; left:35%; top: 20%;
+        border-radius: 20px;
+        width: 500px;
+        height: 330px;
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 10px black;
+      }
+      .vermail {
+        padding-top: 20px;
+        margin-left: 30px;
+      }
+      .functions {
+        text-align: center;
+        margin-left: 80px;
+        margin-top: 15px;
+      }
+      .description{
+        text-align: center;
+      }
+      .links{
+            text-align: center;
+        }
+      .login-btn{
+            margin-left: 200px; 
+      }
+      a{
+        color:white;
+        }
+      h3{
+        text-align: center;
+        color: purple;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="vermail-wrapper" id="vermail-wrapper">
+    </br>  
+    <h3>沒收到驗證信/驗證信過期?</h3>
+    <p class="description">
+        請輸入申請會員時填寫的帳號與email信箱<br />
+        在收到驗證信後，請盡快進行驗證<br />
+    </p>
+
+    <table class="vermail">
+      <form>
+        <tr>
+          <td>請輸入帳號：</td>
+          <td>
+            <input type="text" name="getAgain_account" id="getAgain_account" />
+          </td>
+          <td id="accountMsg" class="errMsg"></td>
+        </tr>
+        <tr>
+          <td>請輸入email:</td>
+          <td>
+            <input type="email" name="getAgain_email" id="getAgain_email" />
+          </td>
+          <td id="emailMsg" class="errMsg"></td>
+        </tr>
+      </form>
+      <tr>
+        <td></td>
+        <td colspan="2">
+        </br>
+        <div class="login-btn">
+          <button id="sendVEmailAgain" class="btn btn-primary">重發驗證信</button>
+
+        </div>
+        </td>
+      </tr>
+
+      <tr class="links">
+        <td colspan="5">
+
+          </br>
+            <a href="loginIn">重新登入</a>
+            <a>&emsp;</a>
+            <a href="googleMap/">回首頁</a>
+        </td>
+    </tr>
+    </table>
+    </div>
+
+    <script>
+      var loginLevel = $("input[name=loginLevel]:checked").val();
+      $("body").css("background-image","url(assets/img/service/memberLoginC.jpg)");
+      
+      var checkAccount = false,
+        checkEmail = false;
+
+      $("#getAgain_account").blur(function () {
+        let account = $("#getAgain_account").val();
+        if (account == "") {
+          $("#accountMsg").html("");
+        } else {
+          $.ajax({
+            url: "isAccountExist",
+            type: "post",
+            data: {
+              loginLevel: "member",
+              account: account,
+            },
+            success: function (exist) {
+              checkAccount = eval(exist);
+              $("#accountMsg").html(
+                checkAccount ? "<img src='images/correct.jpg'>" : "帳號不存在"
+              );
+            },
+          });
+        }
+      });
+
+      $("#getAgain_email").blur(function () {
+        let email = $("#getAgain_email").val();
+        if (email == "") {
+          $("#emailMsg").html("");
+        } else {
+          $.ajax({
+            url: "isEmailExist",
+            type: "post",
+            data: { email: email },
+            success: function (exist) {
+              checkEmail = eval(exist);
+              $("#emailMsg").html(
+                checkEmail ? "<img src='images/correct.jpg'>" : "email不存在"
+              );
+            },
+          });
+        }
+      });
+
+      $("#sendVEmailAgain").click(function () {
+        let account = $("#getAgain_account").val();
+        let email = $("#getAgain_email").val();
+
+        if (account == "" || email == "") {
+          //做些錯誤提示
+          alert("帳號和信箱都要填喔");
+        } else {
+          //都有填
+          //檢查，然後寄送
+        	if (checkAccount && checkEmail) {
+          	  checkAccount = false;
+              checkEmail = false;
+
+              $.ajax({
+                url: "getEmailAgainPage",
+                type: "post",
+                data: {
+                  account: account,
+                  email: email,
+                },
+                success: function(result){
+                	  if(eval(result)){
+                		  alert("已經寄送新的驗證信");
+                          window.location.href = "loginIn";
+                   	  }else {
+                   		    alert("帳號與信箱 不是同一人");
+                      }
+                    }
+              });
+              
+          } else {
+            alert("資料有誤，請檢查");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Driver Login</title>
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/css/slicknav.css">
+<link rel="stylesheet" href="assets/css/animate.min.css">
+<link rel="stylesheet" href="assets/css/magnific-popup.css">
+<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="assets/css/themify-icons.css">
+<link rel="stylesheet" href="assets/css/slick.css">
+<link rel="stylesheet" href="assets/css/nice-select.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<style type="text/css">
+.login-wrapper {
+	/* margin-left: 40%;
+	margin-top:15%; */
+	margin: 80px auto;
+	border-radius: 20px;
+	width: 400px;
+	height: 300px;
+	background-color: rgba(255, 255, 255, 0.2);
+	box-shadow: 0 0 10px black;
+}
+
+.login {
+	padding-top: 20px;
+	margin-left: 30px;
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 20px 10px;
+	margin: auto;
+}
+
+h3 {
+	text-align: center;
+}
+
+body {
+
+   background-image:url('images/taxiforground.jpg'); 
+   background-repeat:no-repeat ;
+   background-size:100% 100%; 
+  background-attachment: fixed;
+}
+</style>
+</head>
+<body>
+	<div class="login-wrapper">
+		<form class="login">
+			<h3>司機登入</h3>
+			<table>
+				<tr>
+					<td class="widget_title">帳號：</td>
+					<td><input class="form-control ui-autocomplete-input"
+						type="text" id="driveraccount" name="driveraccount"></td>
+				</tr>
+				<tr>
+					<td class="widget_title">密碼：</td>
+					<td><input class="form-control ui-autocomplete-input"
+						type="password" id="driverpassword" name="driverpassword"></td>
+				</tr>
+			</table>
+		</form>
+		<table>
+			<tr>
+				<td></td>
+				<td align="center"><button type="submit" class="genric-btn warning-border radius" onclick="btn()">登入</button></td>
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+function btn() {
+    if ($("#driveraccount").val() == "" || $("#driverpassword").val() == "") {
+        alert("請輸入帳號密碼");
+	} else {
+        $.ajax({
+            url: "dlogin.do",
+            type: "post",
+            data: {
+                "driveraccount": $("#driveraccount").val(),
+                "driverpassword": $("#driverpassword").val()
+            },
+            success: function (data) {
+              //console.log("he");
+                if (data==0) {
+                    alert("帳號密碼錯誤");
+                } else {
+                	window.location.href = "/clinicMap/driver"; 
+                }
+            }
+        })
+	} 
+}
+</script>
+</body>
+</html>

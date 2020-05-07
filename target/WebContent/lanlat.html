@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLb-8YJfW7kBJxh9Pw_FJZ0oM0gGzdnuE&callback=initMap&libraries=geometry">
+</script>
+</head>
+<body>
+
+</body>
+
+<script type="text/javascript">
+var json=""
+$.ajax({
+	url:"mapshow",
+	type:"post",
+	success:function (data){
+	jdata=JSON.parse(data)
+	var i=0
+	var number=[]
+	var geocoder=new google.maps.Geocoder()
+	for(var j=0;j<1;j++){
+	var address=jdata[j].clinicaddress
+	var clinicId=jdata[j].clinicId
+		number.push(clinicId)
+		console.log(j)
+	
+		geocoder.geocode({
+		'address':address},function(date,status){
+
+			if(status==='OK'){
+				
+				json+=clinicId+","+(date[0].geometry.location+"")+","
+				i++
+				console.log(i)
+					console.log("+++"+json)
+					$.ajax({
+						url:"addlnglat",
+						type:"post",
+						data:{"data":json},
+						success:function(data){
+						
+							}
+					})
+			
+					}
+
+				
+		})
+	}
+				
+	
+	
+
+ setInterval(function(){
+		location.reload()
+	 },2000)
+
+		
+	}})
+	</script>
+
+
+
+</html>

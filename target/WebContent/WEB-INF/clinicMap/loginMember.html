@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>MemberProfiles</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon"
+	href="assets/img/favicon.ico">
+
+<!-- CSS here -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/css/flaticon.css">
+<link rel="stylesheet" href="assets/css/slicknav.css">
+<link rel="stylesheet" href="assets/css/animate.min.css">
+<link rel="stylesheet" href="assets/css/magnific-popup.css">
+<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="assets/css/themify-icons.css">
+<link rel="stylesheet" href="assets/css/slick.css">
+<link rel="stylesheet" href="assets/css/nice-select.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>Geocoding Service</title>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+*{
+	font-family: 'Noto Sans TC', sans-serif;
+}
+	
+#myModalLabel {
+	text-align: center;
+}
+textarea {
+	background-color: #F8F8F8;
+	resize: none;
+}
+td{
+width:200px;
+	padding-right: 20px
+}
+#best {
+	width: 80%;
+	margin: auto;
+	color: white;
+	margin-bottom: 5%
+}
+
+.readonly {
+	background-color: white;
+}
+
+div {
+	vertical-align: top;
+	margin-top: 10px;
+}
+
+#map {
+	display: inline-block;
+	height: 80%;
+	width: 50%;
+	margin-left: 5%;
+	margin-bottom: 5%
+}
+
+#text {
+	display: inline-table;
+	margin-left: 5%;
+	margin-top: 15%;
+	margin-left: 5%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#login-title{
+	font: bold;
+	color: white;
+	padding-top: 10px;
+	margin-bottom: 10px
+}
+
+
+.login-btn{
+	text-align: center;
+}
+
+
+.btn-url:hover{
+	color:rgb(0, 0, 255);
+	text-decoration: underline;
+}
+
+.links{
+    text-align: center;
+}
+
+</style>
+
+<script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+
+  <script src="https://cdn.bootcss.com/croppie/2.6.2/croppie.js"></script>
+  <script
+		src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  
+</head>
+<body>
+		<!-- Preloader Start -->
+	<div id="preloader-active">
+		<div
+			class="preloader d-flex align-items-center justify-content-center">
+			<div class="preloader-inner position-relative">
+				<div class="preloader-circle"></div>
+				<div class="preloader-img pere-text">
+					<img src="assets/img/logo/logo.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Preloader Start -->
+	<header>
+      <!-- Header Start -->
+     <div class="header-area">
+          <div class="main-header ">
+              <div class="header-top top-bg d-none d-lg-block">
+                 <div class="container">
+                  <div class="row justify-content-between align-items-center">
+                      <div class="col-lg-8">
+                          <div class="header-info-left">
+                              <ul>                          
+                                  <li>needhelp@gotrip.com</li>
+                                  <li>666 569 025077</li>
+                                  <li>broklyn street new york</li>
+                              </ul>
+                          </div>
+                      </div>
+                    <div class="col-lg-4">
+								<div class="header-info-right f-right">
+									<ul class="header-social">
+										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
+										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
+										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="header-bottom  header-sticky">
+					<div class="container">
+						<div class="row align-items-center">
+							<!-- Logo -->
+							<div class="col-xl-2 col-lg-2 col-md-1">
+								<div class="logo">
+									<a href="/clinicMap/googleMap/"><img src="/clinicMap/assets/img/logo/logo.png"
+										alt=""></a>
+								</div>
+							</div>
+							<div class="col-xl-10 col-lg-10 col-md-10">
+								<!-- Main-menu -->
+								<div class="main-menu f-right d-none d-lg-block">
+									<nav>
+										<ul id="navigation">
+											<li><a href="/clinicMap/googleMap/">Home</a></li>
+											<li id="order"><a href="/clinicMap/orderSystem">order</a></li>
+											<li><a href="/clinicMap/hospitalComment">HospitalComment</a></li>
+											<li><a href="/clinicMap/rssget/">News</a></li>
+											
+											<li><a href="/clinicMap/contact.html">about Us</a></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- Mobile Menu -->
+							<div class="col-12">
+								<div class="mobile_menu d-block d-lg-none"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header>
+	<main>
+	<div id="best" class="typography">
+		<h1 id="login-title">登入</h1>
+
+		<h3 id="login-title" class="mb-20">您的身分</h3>
+			<div>
+				<label><input type="radio" name="loginLevel" id="memberId" value="member" checked />個人會員</label>
+				<a>&emsp;</a>
+				<label><input type="radio" name="loginLevel" id="clinicId" value="clinic" />診所機構</label>
+			</div>
+
+		<h3 id="login-title" class="mb-10">帳號</h3> 
+			<div class="readonly">
+				<input type="text" id="account" name="account" placeholder="account" class="single-input">
+			</div>
+
+		<h3 id="login-title" class="mb-10">密碼</h3> 
+			<div class="readonly">
+				<input type="password" id="pwd" name="pwd" placeholder="password" class="single-input">
+			</div>
+
+		<div class="functions">
+            <div class="checkbox">
+				<label><input type="checkbox" name="show_password" id="show_password">顯示密碼</label>
+				<a>&emsp;</a>
+                <label><input type="checkbox" name="rm" id="rm">記住我的密碼</label>
+            </div>
+			
+			<div class="login-btn">
+				<button class="btn btn-primary" id="login">登入</button>
+				<a>&emsp;</a>
+				<button class="btn btn-warning" id="clear">清除</button>
+			</div>
+        </div>
+		<div class="links">
+            <tr >
+                <td>
+                    <a class="btn-url" href="/clinicMap/RegisterPage">尚未註冊?</a>
+                    <a>&emsp;</a>
+                    <a class="btn-url" href="/clinicMap/forgetpwd">忘記密碼?</a>
+                    <a>&emsp;</a>
+                    <a class="btn-url" href="/clinicMap/getEmail">重發驗證信?</a>
+                </td>
+            </tr>
+		</div>
+		<a>&emsp;</a>
+	</div>
+	</main>
+
+<script>
+	var loginLevel = $("input[name=loginLevel]:checked").val();
+	$("main").css("background-image","url(assets/img/service/memberLogin.jpg)");
+	// console.log(loginLevel);
+
+	$("input[name=loginLevel]").change(function () {
+		loginLevel = $("input[name=loginLevel]:checked").val();
+		// console.log(loginLevel);
+		if (loginLevel == "member") {
+
+					 $("main").css("background-image","url(assets/img/service/memberLogin.jpg)");
+
+			} else {
+
+					 $("main").css("background-image","url(assets/img/service/clinicLogin.jpg)");
+
+		}
+	});
+</script>
+
+<script>
+	var rm = true;
+	if ($.cookie("account") == null && $.cookie("rm") == null) {
+		console.log("no a");
+		rm = false;
+		$("#rm").prop("checked", false);
+	} else {
+		$("#rm").prop("checked", true);
+		$("#account").val($.cookie("account"));
+		$.ajax({
+			url: "getPwdForRm",
+			type: "post",
+			data: {
+				"loginLevel": $("input[name=loginLevel]:checked").val(),
+				"account": $("#account").val()
+			},
+			success: function (data) {
+				$("#pwd").val(data);
+			}
+		});
+	}
+
+	$("#rm").change(function () {
+		if (this.checked) {
+			rm = true;
+		} else {
+			rm = false;
+		}
+	});
+
+//========================================================================================
+// 先取得 #password1 及產生一個文字輸入框
+
+// 當勾選顯示密碼框時
+$('#show_password').click(function(){
+	let showPwd = $("#pwd");
+	if(this.checked){
+		// 如果是勾選 則顯示密碼
+		showPwd.attr("type", "text");
+	}else{
+		// 如果沒勾選 則回覆密碼樣式
+		showPwd.attr("type", "password");
+	}
+});
+	
+//=======================================================================================	
+	
+	//login button
+	$("#login").click(function () {
+		if ($("#account").val() == "" || $("#pwd").val() == "") {
+			alert("請輸入帳號密碼");
+		} else {
+			$.ajax({
+				url: "loginPage",
+				type: "post",
+				data: {
+					"loginLevel": $("input[name=loginLevel]:checked").val(),
+					"account": $("#account").val(),
+					"pwd": $("#pwd").val()
+				},
+				success: function (result) {
+					//如果只有輸入帳號，沒有密碼，要alert(要輸入密碼)
+					//然後才是下面的部分
+
+					let direct = result.split(",");
+					if (direct.length != 2) {
+						//沒找到帳密
+						alert("帳號或密碼不正確");
+					} else {
+						//有帳密，看啟用狀態
+						if (direct[1] == "true") {
+							alert("已啟用，歡迎登入");
+
+							//有勾rm，登入成功後，把資料存入cookie
+							if (rm) {
+								$.cookie("account", $("#account").val(), { expires: 360 });
+								$.cookie("rememberMe", true, { expires: 360 });
+							} else {
+								//把cookie清掉
+								$.removeCookie("account");
+								$.removeCookie("rememberMe");
+							}
+
+							if (loginLevel == "member") {
+								console.log("M");
+								window.location.href = "MemberProfile";
+							} else {
+								console.log("C");
+								window.location.href = "clinicProfile.html";
+							}
+						} else {
+							alert("帳號還沒啟用");
+						}
+					}
+				}
+			});
+		}
+	});
+
+	$("#clear").click(function () {
+		$("#account").val("");
+		$("#pwd").val("");
+	});
+</script>
+
+
+	<footer>
+		<!-- Footer Start-->
+		<div class="footer-area footer-padding footer-bg"
+			data-background="assets/img/service/footer_bg.jpg">
+			<div class="container">
+				<div class="row d-flex justify-content-between">
+					<div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+						<div class="single-footer-caption mb-50">
+							<div class="single-footer-caption mb-30">
+								<!-- logo -->
+								<div class="footer-logo">
+									<a href="index.html"><img
+										src="assets/img/logo/logo2_footer.png" alt=""></a>
+								</div>
+								<div class="footer-tittle">
+									<div class="footer-pera">
+										<p>Lorem iaspsum doldfor sit amvset, consectetur
+											adipisicing cvelit csed do eiusmod tempor incididucvccnt ut
+											labovre.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+						<div class="single-footer-caption mb-50">
+							<div class="footer-tittle">
+								<h4>Quick Links</h4>
+								<ul>
+									<li><a href="#">About</a></li>
+									<li><a href="#"> Offers & Discounts</a></li>
+									<li><a href="#"> Get Coupon</a></li>
+									<li><a href="#"> Contact Us</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+						<div class="single-footer-caption mb-50">
+							<div class="footer-tittle">
+								<h4>New Products</h4>
+								<ul>
+									<li><a href="#">Woman Cloth</a></li>
+									<li><a href="#">Fashion Accessories</a></li>
+									<li><a href="#"> Man Accessories</a></li>
+									<li><a href="#"> Rubber made Toys</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+						<div class="single-footer-caption mb-50">
+							<div class="footer-tittle">
+								<h4>Support</h4>
+								<ul>
+									<li><a href="#">Frequently Asked Questions</a></li>
+									<li><a href="#">Terms & Conditions</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+									<li><a href="#">Report a Payment Issue</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Footer bottom -->
+				<div class="row pt-padding">
+					<div class="col-xl-7 col-lg-7 col-md-7">
+						<div class="footer-copy-right">
+							<p>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								Copyright &copy;
+								<script>document.write(new Date().getFullYear());</script>
+								All rights reserved | This template is made with <i
+									class="ti-heart" aria-hidden="true"></i> by <a
+									href="https://colorlib.com" target="_blank">EEIT</a>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							</p>
+						</div>
+					</div>
+					<div class="col-xl-5 col-lg-5 col-md-5">
+						<!-- social -->
+						<div class="footer-social f-right">
+							<a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i
+								class="fab fa-facebook-f"></i></a> <a href="#"><i
+								class="fab fa-behance"></i></a> <a href="#"><i
+								class="fas fa-globe"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Footer End-->
+	</footer>
+
+	<!-- JS here -->
+
+	<!-- All JS Custom Plugins Link Here here -->
+	<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+
+	<!-- Jquery, Popper, Bootstrap -->
+	<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="./assets/js/popper.min.js"></script>
+	<script src="./assets/js/bootstrap.min.js"></script>
+	<!-- Jquery Mobile Menu -->
+	<script src="./assets/js/jquery.slicknav.min.js"></script>
+
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script src="./assets/js/owl.carousel.min.js"></script>
+	<script src="./assets/js/slick.min.js"></script>
+	<!-- One Page, Animated-HeadLin -->
+	<script src="./assets/js/wow.min.js"></script>
+	<script src="./assets/js/animated.headline.js"></script>
+	<script src="./assets/js/jquery.magnific-popup.js"></script>
+
+	<!-- Scrollup, nice-select, sticky -->
+	<script src="./assets/js/jquery.scrollUp.min.js"></script>
+	<script src="./assets/js/jquery.nice-select.min.js"></script>
+	<script src="./assets/js/jquery.sticky.js"></script>
+
+	<!-- contact js -->
+	<script src="./assets/js/contact.js"></script>
+	<script src="./assets/js/jquery.form.js"></script>
+	<script src="./assets/js/jquery.validate.min.js"></script>
+	<script src="./assets/js/mail-script.js"></script>
+	<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script src="./assets/js/plugins.js"></script>
+	<script src="./assets/js/main.js"></script>
+	
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
+if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
+{
+	
+	$("#loginIn").show()
+	$("#loginOut").hide()
+	$("#order").hide()
+	$("#member").hide()
+}else if($.cookie('memberID')!=undefined){
+	console.log("hi")
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+	console.log($.cookie("account"))
+}else{
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#member").show()
+	
+}
+function loginout(){
+	$.removeCookie('memberID')
+	$.removeCookie('clinicID')
+	location.reload();
+}
+$("#loginOut").click(function(){
+	$.cookie('memberID','',{expires: -1,path:"/clinicMap"})
+	$.cookie('clinicID','',{expires: -1,path:"/clinicMap"})
+	location.href="googleMap/"
+})
+</script>
+</body>
+</html>

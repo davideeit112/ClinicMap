@@ -1,0 +1,858 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+<meta charset="utf-8">
+<!-- <meta http-equiv="x-ua-compatible" content="ie=edge"> -->
+<title>ClinicMap</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="site.webmanifest">
+<link rel="shortcut icon" type="image/x-icon"
+	href="assets/img/favicon.ico">
+	
+	
+<!-- CSS here -->
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="../assets/css/flaticon.css">
+<link rel="stylesheet" href="../assets/css/slicknav.css">
+<link rel="stylesheet" href="../assets/css/animate.min.css">
+<link rel="stylesheet" href="../assets/css/magnific-popup.css">
+<link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="../assets/css/themify-icons.css">
+<link rel="stylesheet" href="../assets/css/slick.css">
+<link rel="stylesheet" href="../assets/css/nice-select.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+.button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0px 20px;
+    border: 1px solid #d9c85b;
+    border-radius: 6px;
+    background: #ffee00;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffee00), to(#d4b800));
+    background: -moz-linear-gradient(top, #ffee00, #d4b800);
+    background: linear-gradient(to bottom, #ffee00, #d4b800);
+    font: italic normal normal 20px courier new;
+    color: #594000;
+    text-decoration: none;
+}
+.button:hover,
+.button:focus {
+    border: 1px solid #fae669;
+    background: #ffff00;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffff00), to(#fedd00));
+    background: -moz-linear-gradient(top, #ffff00, #fedd00);
+    background: linear-gradient(to bottom, #ffff00, #fedd00);
+    color: #594000;
+    text-decoration: none;
+}
+.button:active {
+    background: #998f00;
+    background: -webkit-gradient(linear, left top, left bottom, from(#998f00), to(#d4b800));
+    background: -moz-linear-gradient(top, #998f00, #d4b800);
+    background: linear-gradient(to bottom, #998f00, #d4b800);
+}
+.place-img{
+	width:370px;
+	height: 200px;
+}
+.favourite-place .single-place .place-cap {
+    padding: 28px 40px;
+    border: 3px solid #f0f1f2;
+    }
+    
+ @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');					
+            	.modal-title{
+            		margin-left: 350px;
+            		font-family: 'Noto Sans TC', sans-serif;
+            	}
+            	#posts{
+            		text-align: center;
+            		margin-left: 85px;
+            		font-family: 'Noto Sans TC', sans-serif;
+            	}
+            	#posts th{
+            		padding-left: 50px;
+            		padding-right: 50px;
+            	}
+            	#posts td{
+            		padding-left: 50px;
+            		padding-right: 50px;
+            	}
+            	#posts tr:hover{
+            		background-color: #A8E1E2;
+            	}
+            	#posts th{
+            		padding-bottom: 10px;
+            	}
+
+</style>
+
+
+
+</head>
+
+<body>
+  <div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+     	
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">公告</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>         
+        </div>
+        <div class="modal-body">
+          <table id="posts">
+          	<tr id=""><th>公告編號</th><th>公告類別</th><th>公告內容</th><tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+<script>
+	$.ajax({
+		url:"/clinicMap/posting.do", 
+		type:"GET",
+		dataType:"json",
+		success:function(beanList) {
+			console.log(beanList);
+			console.log(beanList[0].announcementText);
+			for(var i in beanList){
+				$("#posts").append("<tr><td>"+beanList[i].ID+"</td><td>"+beanList[i].announcementType + 
+					"</td><td>" + beanList[i].announcementText+"</td></tr>");
+				console.log(i)
+			}
+		}
+	});
+	$("#myModal").modal();
+</script>
+
+	<!-- Preloader Start -->
+	<div id="preloader-active">
+		<div
+			class="preloader d-flex align-items-center justify-content-center">
+			<div class="preloader-inner position-relative">
+				<div class="preloader-circle"></div>
+				<div class="preloader-img pere-text">
+					<img src="../assets/img/logo/logo.png" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Preloader Start -->
+	<header>
+		<!-- Header Start -->
+		<div class="header-area">
+			<div class="main-header ">
+				<div class="header-top top-bg d-none d-lg-block">
+					<div class="container">
+						<div class="row justify-content-between align-items-center">
+							<div class="col-lg-8">
+								<div class="header-info-left">
+									<ul>
+										<li>clinic@gmail.com</li>
+										<li>02 6631 6666</li>
+										<li>find clinic for you</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="col-lg-4">
+								<div class="header-info-right f-right">
+									<ul class="header-social">
+										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
+										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
+										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="header-bottom  header-sticky">
+					<div class="container">
+						<div class="row align-items-center">
+							<!-- Logo -->
+							<div class="col-xl-2 col-lg-2 col-md-1">
+								<div class="logo">
+									<a href="../googleMap/"><img src="../assets/img/logo/logo.png"
+										alt=""></a>
+								</div>
+							</div>
+							<div class="col-xl-10 col-lg-10 col-md-10">
+								<!-- Main-menu -->
+								<div class="main-menu f-right d-none d-lg-block">
+									<nav>
+										<ul id="navigation">
+											<li><a href="/clinicMap/googleMap/">Home</a></li>
+											<li id="order"><a href="/clinicMap/orderSystem">order</a></li>
+											<li><a href="/clinicMap/hospitalComment">HospitalComment</a></li>
+											<li><a href="/clinicMap/rssget">News</a></li>
+											
+											<li><a href="/clinicMap/contact.html">about Us</a></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- Mobile Menu -->
+							<div class="col-12">
+								<div class="mobile_menu d-block d-lg-none"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header>
+
+	<main>
+
+		<!-- slider Area Start-->
+		<div class="slider-area ">
+			<!-- Mobile Menu -->
+			<div class="slider-active">
+				<div
+					class="single-slider hero-overly  slider-height d-flex align-items-center"
+					data-background="../assets/img/hero/clinic.jpg">
+					<div class="container">
+						<div class="row">
+							<div class="col-xl-9 col-lg-9 col-md-9">
+								<div class="hero__caption">
+									<h1>
+										Find Clinic <span>Near You</span>
+									</h1>
+									<p>what's kind clinic you want to find is near you ?</p>
+								</div>
+							</div>
+						</div>
+						<!-- Search Box -->
+						<div class="row">
+							<div class="col-xl-12">
+								<!-- form -->
+								<form action="#" class="search-box">
+									<div class="input-form mb-30">
+										<input type="text" name="message" id="message" />
+									</div>
+									<div class="select-form mb-30" >
+										<div class="select-itms" style="size:'3'">
+											<select name="YourWantType" id="YourWantType" >
+												<option value="1001">中醫一般科</option>
+												<option value="1002">職業醫學科</option>
+												<option value="1003">西醫一般科</option>
+												<option value="1004">牙醫一般科</option>
+												<option value="1005">口腔顎面外科</option>
+												<option value="1006">內科</option>
+												<option value="1007">外科</option>
+												<option value="1008">皮膚科</option>
+												<option value="1009">復健科</option>
+												<option value="1010">兒科</option>
+												<option value="1011">骨科</option>
+												<option value="1012">神經科</option>
+												<option value="1013">神經外科</option>
+												<option value="1014">泌尿科</option>
+												<option value="1015">精神科</option>
+												<option value="1016">麻醉科</option>
+												<option value="1017">放射診斷科</option>
+												<option value="1018">整形外科</option>
+												<option value="1019">婦產科</option>
+												<option value="1020">耳鼻喉科</option>
+												<option value="1021">眼科</option>
+												<option value="1022">急診醫學科</option>
+												<option value="1023">放射腫瘤科</option>
+												<option value="1024">職業醫學科</option>
+												<option value="1025">核子醫學科</option>
+												<option value="1026">解剖病理科</option>
+												<option value="1027">家庭醫學科</option>
+												<option value="1028">臨床病理科</option>
+												<option value="1029">齒顎矯正科</option>
+												<option value="1030">口腔病理科</option>
+											</select>
+										</div>
+									</div>
+									
+									<div></div>
+									<div></div>
+								</form>
+							<div class="search-form mb-30" style="margin-left: 20%;margin-top: 10px">
+										<input type="button" onclick="sub()" value="Search all"  class="button" style="width:215px;height: 50px"/>
+										<input type="button" onclick="sub2()" value="Search around"  class="button" style="width:215px;height: 50px"/>
+										<input type="button" id="submit_message" value="Search by input" onClick="messageGo()"  class="button" style="width:215px;height: 50px"/>   
+
+									</div>
+								<div id="map_canvas" style="width: 1169px;height: 600px;border-radius:10px;">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- slider Area End-->
+		<!-- Our Services Start -->
+		<div class="our-services servic-padding">
+			<div class="container">
+				<div class="row d-flex justify-contnet-center">
+					<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+						<div class="single-services text-center mb-30">
+							<div class="services-ion">
+								<span class="flaticon-tour"></span>
+							</div>
+							<div class="services-cap">
+								<h5>
+									全台 8000+以上配合 <br>診所
+								</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+						<div class="single-services text-center mb-30">
+							<div class="services-ion">
+								<span class="flaticon-pay"></span>
+							</div>
+							<div class="services-cap">
+								<h5>
+									100% 安全的<br>交易
+								</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+						<div class="single-services text-center mb-30">
+							<div class="services-ion">
+								<span class="flaticon-experience"></span>
+							</div>
+							<div class="services-cap">
+								<h5>
+									各種類別的<br>診所
+								</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+						<div class="single-services text-center mb-30">
+							<div class="services-ion">
+								<span class="flaticon-good"></span>
+							</div>
+							<div class="services-cap">
+								<h5>
+									98%的客戶 <br>滿意服務
+								</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Our Services End -->
+		<!-- Favourite Places Start -->
+		        <div class="favourite-place place-padding">
+            <div class="container">
+                <!-- Section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-tittle text-center">
+                            <span></span>
+                            <h2>熱門診所</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                
+                    <div class="row" id="allclinic">
+                    
+                    </div>
+                       
+                </div>
+            </div>
+        </div>
+		<!-- Favourite Places End -->
+		
+		<!-- Blog Area End -->
+
+	</main>
+	<footer>
+		<!-- Footer Start-->
+		<div class="footer-area footer-padding footer-bg"
+			data-background="../assets/img/service/footer_bg.jpg">
+			<div class="container">
+				<div class="row d-flex justify-content-between">
+					<div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+						<div class="single-footer-caption mb-50">
+							<div class="single-footer-caption mb-30">
+								<!-- logo -->
+								<div class="footer-logo">
+									<a href="index.html"><img
+										src="../assets/img/logo/logo2_footer.png" alt=""></a>
+								</div>
+								<div class="footer-tittle">
+									<div class="footer-pera">
+										<p>Lorem iaspsum doldfor sit amvset, consectetur
+											adipisicing cvelit csed do eiusmod tempor incididucvccnt ut
+											labovre.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+						<div class="single-footer-caption mb-50">
+							<div class="footer-tittle">
+								<h4>Quick Links</h4>
+								<ul>
+									<li><a href="#">About</a></li>
+									<li><a href="#"> Offers & Discounts</a></li>
+									<li><a href="#"> Get Coupon</a></li>
+									<li><a href="#"> Contact Us</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+						<div class="single-footer-caption mb-50">
+							<div class="footer-tittle">
+								<h4>New Products</h4>
+								<ul>
+									<li><a href="#">Woman Cloth</a></li>
+									<li><a href="#">Fashion Accessories</a></li>
+									<li><a href="#"> Man Accessories</a></li>
+									<li><a href="#"> Rubber made Toys</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+						<div class="single-footer-caption mb-50">
+							<div class="footer-tittle">
+								<h4>Support</h4>
+								<ul>
+									<li><a href="#">Frequently Asked Questions</a></li>
+									<li><a href="#">Terms & Conditions</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+									<li><a href="#">Report a Payment Issue</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Footer bottom -->
+				<div class="row pt-padding">
+					<div class="col-xl-7 col-lg-7 col-md-7">
+						<div class="footer-copy-right">
+							<p>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								Copyright &copy;
+								<script>document.write(new Date().getFullYear());</script>
+								All rights reserved | This template is made with <i
+									class="ti-heart" aria-hidden="true"></i> by <a
+									href="https://colorlib.com" target="_blank">Colorlib</a>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							</p>
+						</div>
+					</div>
+					<div class="col-xl-5 col-lg-5 col-md-5">
+						<!-- social -->
+						<div class="footer-social f-right">
+							<a href="#"><i class="fab fa-twitter"></i></a> <a href="#"><i
+								class="fab fa-facebook-f"></i></a> <a href="#"><i
+								class="fab fa-behance"></i></a> <a href="#"><i
+								class="fas fa-globe"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Footer End-->
+	</footer>
+
+	<!-- JS here -->
+<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+		 <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFbyqberG_1L9qz8rFMYDJGGep1iJPAIk&callback=initMap">
+  </script>
+	
+	<script>
+    var markers = []; 
+	var map
+
+
+//初始化地圖區-----------------------------------
+    function initMap() {     
+            map = new google.maps.Map(document.getElementById("map_canvas"),
+                {
+				zoom:16,
+				center:{lat:25.034010,lng:121.543469}   //目前鎖定資策會
+                 });
+        
+    }
+//初始化地圖區-----------------------------------
+
+
+	
+	
+//清除標記區---------------------------
+	function clearMarkers() {
+		  
+		    if(markers.length>0){
+		    	for (var i = 0; i < markers.length; i++) {
+		      markers[i].setMap(null);
+		    	}
+		    }else{
+			    console.log('目前沒有標記');
+			    }
+		    markers = [];
+		  }
+		 		
+//清除標記區---------------------------
+
+
+//增加標記-----------------------------
+    function addMarker(name,lat1,lng1) {  	   
+        	var marker=new google.maps.Marker({
+              position: {lat: lat1,lng: lng1},
+              map: map,
+              title:name,
+              icon:'../images/local0421.png',
+      
+              animation: google.maps.Animation.DROP //彈跳畫面
+            });
+        	markers.push(marker); //存到markers陣列裡 準備後面被全部刪除
+      }
+//增加標記-----------------------------
+
+
+
+
+	
+//定位區---------------------------
+     function sub2() {
+    clearMarkers();// 這邊要先清除地圖上的標註
+     if(navigator.geolocation) {
+
+       //不提供定位，或是發生其它錯誤
+     function error() {
+        alert('無法取得你的位置');
+       }
+  
+      //允許抓目前位置，回傳經緯度
+     function success(position) {
+
+    var marker = new google.maps.Marker({
+		map:map,
+		title:'自己的位置',
+		icon:'../images/self.png',
+		position:{lat:position.coords.latitude,lng:position.coords.longitude}
+   
+          });
+       markers.push(marker); //存到markers陣列裡 準備後面被全部刪除
+       var mylat=position.coords.latitude;
+       var mylng=position.coords.longitude;
+       formylocation(mylat,mylng);   //傳到計算距離的函式
+  }
+      
+      navigator.geolocation.getCurrentPosition(success, error);//跟使用者拿所在位置的權限
+
+} else {
+  alert('你的裝置不支援定位功能')
+}
+	
+	}
+//定位區---------------------------
+
+
+	 
+	 
+	 
+	 
+//給自己定位搜尋用--------------------------------
+	  //自己的定位存入origin陣列中	，等下方判斷距離使用
+	  function formylocation(mylat,mylng) {
+	  var origin = new google.maps.LatLng(mylat,mylng);
+
+   
+	 var selectval = $('#YourWantType').val();
+	$("#like").text(selectval);
+	$.ajax({
+		type : "POST",				
+		url : "../checkboxvalues?selectval=" + selectval, 
+		dataType : "json",
+
+		success : function(checkboxdata) {
+
+			
+			console.log(checkboxdata.length);	
+			for (var i = 0; i < checkboxdata.length; i++) {
+				
+				var lat1 =parseFloat(checkboxdata[i].clinicLat);
+				var lng1 =parseFloat(checkboxdata[i].clinicLng)	;		
+				var name =checkboxdata[i].clinicName;
+				var destination = new google.maps.LatLng(lat1,lng1);
+				var service = new google.maps.DistanceMatrixService();  //建立計算距離的函數
+
+				//開始計算距離
+				caldestination(origin,destination,lat1,lng1,name);
+				
+				console.log(checkboxdata[i].clinicLat);
+				console.log(checkboxdata[i].clinicLng);
+				console.log(checkboxdata[i].clinicName);
+				
+
+                //開始計算距離
+			
+				}
+
+				console.log('finish for my loction');
+
+		}
+	
+
+	})
+
+	 }
+
+
+//給自己定位搜尋用--------------------------------
+
+
+
+
+
+//計算距離區------------------------------------
+function  caldestination(origin,destination,lat1,lng1,name) {
+	var service = new google.maps.DistanceMatrixService();  //建立計算距離的函數
+	service.getDistanceMatrix(
+			  {
+			    origins: [origin],
+			    destinations: [destination],
+			    travelMode: 'WALKING',
+			    unitSystem: google.maps.UnitSystem.METRIC,
+			  }, callback);
+	  
+	function callback(response, status) {
+		console.log(lat1,lng1);
+		var dis=response.rows[0].elements[0].distance.value;
+		console.log(dis);
+      if(dis<=1000){  //這邊設定是公尺
+  	   console.log(lat1,lng1);
+  	   addMarker(name,lat1,lng1);
+  	   
+      }else{
+    console.log('此點超出範圍');
+          }
+		}
+
+}
+//計算距離區------------------------------------
+
+
+
+
+    
+    
+//送資料並標記-----------------------------------
+		function sub() {
+			clearMarkers();// 這邊要先清除地圖上的標註
+			var selectval = $('#YourWantType').val();
+			$("#like").text(selectval);
+			console.log(selectval)
+			$.ajax({
+				type : "POST",				
+				url : "../checkboxvalues", 
+				dataType : "json",
+				data:{"selectval":selectval},
+
+				success : function(checkboxdata) {
+
+				clearMarkers();
+				
+					for (var i = 0; i < checkboxdata.length; i++) {
+						console.log(checkboxdata[i].clinicLat);
+						console.log(checkboxdata[i].clinicLng);
+						console.log(checkboxdata[i].clinicName);
+
+						var lat1 =parseFloat(checkboxdata[i].clinicLat)
+						var lng1 =parseFloat(checkboxdata[i].clinicLng)
+					
+						var name =checkboxdata[i].clinicName
+						console.log(lat1);
+						console.log(lng1);
+					
+						addMarker(name,lat1,lng1)
+					
+						}
+
+						console.log('finish');
+	
+				}
+			
+
+			})
+
+		}
+//送資料並標記-----------------------------------
+
+
+//文字搜尋功能-----------------------------------
+function messageGo(){
+	 var message = $('#message').val(); 
+	 $("#like").text(message); 
+
+	 $.ajax({
+			type : "POST",				
+			url : "../selectmes?message=" + message, 
+			dataType : "json",
+
+			success : function(checkboxdata) {
+
+			clearMarkers();
+			
+				for (var i = 0; i < checkboxdata.length; i++) {
+					console.log(checkboxdata[i].clinicLat);
+					console.log(checkboxdata[i].clinicLng);
+					console.log(checkboxdata[i].clinicName);
+
+					var lat1 =parseFloat(checkboxdata[i].clinicLat)
+					var lng1 =parseFloat(checkboxdata[i].clinicLng)
+				
+					var name =checkboxdata[i].clinicName
+					console.log(lat1);
+					console.log(lng1);
+				
+					addMarker(name,lat1,lng1)
+				
+					}
+
+					console.log('finish');
+				
+
+			}
+		
+
+		})
+
+		
+}
+
+//文字搜尋功能-----------------------------------
+
+
+	</script>
+
+	<!-- All JS Custom Plugins Link Here here -->
+	<script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
+
+	<!-- Jquery, Popper, Bootstrap -->
+	<script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="../assets/js/popper.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<!-- Jquery Mobile Menu -->
+	<script src="../assets/js/jquery.slicknav.min.js"></script>
+
+	<!-- Jquery Slick , Owl-Carousel Plugins -->
+	<script src="../assets/js/owl.carousel.min.js"></script>
+	<script src="../assets/js/slick.min.js"></script>
+	<!-- One Page, Animated-HeadLin -->
+	<script src="../assets/js/wow.min.js"></script>
+	<script src="../assets/js/animated.headline.js"></script>
+	<script src="../assets/js/jquery.magnific-popup.js"></script>
+
+	<!-- Scrollup, nice-select, sticky -->
+	<script src="../assets/js/jquery.scrollUp.min.js"></script>
+	<script src="../assets/js/jquery.nice-select.min.js"></script>
+	<script src="../assets/js/jquery.sticky.js"></script>
+
+	<!-- contact js -->
+	<script src="../assets/js/contact.js"></script>
+	<script src="../assets/js/jquery.form.js"></script>
+	<script src="../assets/js/jquery.validate.min.js"></script>
+	<script src="../assets/js/mail-script.js"></script>
+	<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+
+	<!-- Jquery Plugins, main Jquery -->
+	<script src="../assets/js/plugins.js"></script>
+	<script src="../assets/js/main.js"></script>
+	<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<!-- <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script> -->
+	<!-- post script -->
+
+	<script type="text/javascript">
+	
+//留言前三診所----------------------------------- 
+
+$.ajax({
+	url:"/clinicMap/top3msgblog.do",
+	type:"POST",
+	dataType:"json",
+	success:
+		function(data){
+			for (var i = 0; i < 3; i++) {
+				$("#allclinic").append("<div class='col-xl-4 col-lg-4 col-md-6'><div class='single-place mb-30'>"
+									+"<div class='place-img'><img class='clinicimg' src='../images/clinic"+ data[i].clinicID +".jpg''></div>"
+									+"<div class='place-cap'><div class='place-cap-top'><span><i class='fas fa-star'>&nbsp"+ data[i].ave +"</i>"
+									+"<span id='avg1'></span></span><h3><a href='/clinicMap/blog."+ data[i].clinicID +"'>"+ data[i].clinicName +"</a></h3>"
+									+"<p class='dolor'><span>02- "+ data[i].clinicPhone +"</span></p></div>"
+									+"<div class='place-cap-bottom'><ul><li><i class='fa fa-user'>&nbsp&nbsp"+ data[i].total +"&nbsp則留言"+"</i></li>"
+									+"<li><i class='fas fa-map-marker-alt'>台北市 大安區</i></li></ul></div></div></div>");
+			}
+		}	
+});
+//留言前三診所-----------------------------------
+</script>
+
+	
+	<script type="text/javascript">
+	console.log($.cookie('memberID'))
+	console.log($.cookie('clinicID'))
+if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
+{
+	
+	$("#loginIn").show()
+	$("#loginOut").hide()
+	$("#order").hide()
+	$("#member").hide()
+}else if($.cookie('memberID')!=undefined){
+
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+}else if($.cookie('clinicID')!=undefined){
+	console.log("hello")
+	location.href="clinicProfile"
+}else{
+	console.log("helloq")
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#member").show()
+	
+}
+function loginout(){
+	$.removeCookie('memberID')
+	$.removeCookie('clinicID')
+	location.reload();
+}
+$("#loginOut").click(function(){
+	$.cookie('memberID','',{expires: -1,path:"/clinicMap"})
+	$.cookie('clinicID','',{expires: -1,path:"/clinicMap"})
+	location.reload()
+})
+</script>
+</body>
+</html>

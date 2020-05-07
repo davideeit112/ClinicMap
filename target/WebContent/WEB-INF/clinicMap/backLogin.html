@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<title>Login</title>
+<style>
+.Login {
+	margin-top: 50px;
+	margin-left: 250px;
+}
+
+.head {
+	margin: auto;
+	font-size: 45px;
+	width: 700px;
+	margin-top: 200px;
+	
+}
+
+.head img {
+	margin-left: 60px;
+}
+
+body {
+	background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url('eddiechen/images/clinic.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: #003060;
+	min-height:100%
+}
+
+#copyright{
+	margin:auto;
+	margin-top:315px;
+	padding-left:300px;
+}
+</style>
+
+</head>
+<body>
+
+	<p class="head">
+		BackEndSystem<img class="imgs" src="eddiechen/images/logo.png"
+			align="left" />
+	</p>
+
+	<div class="container">
+
+		<form action="checkLogin" class="Login" method="post">
+
+			<div class="form-group row">
+				<div class="col-7">
+					<label for="email">Account:</label> <input type="text"
+						class="form-control" placeholder="Enter account" name="sysAcc"
+						autocomplete="off"><label></label>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-7">
+					<label for="pwd">Password:</label> <input type="password"
+						class="form-control" placeholder="Enter password" name="sysPwd"
+						autocomplete="off">
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-info" style="margin-top: 30px">Submit</button>
+		</form>
+	</div>
+	<div class="col-xl-7 col-lg-7 col-md-7" id="copyright">
+		<div class="footer-copy-right">
+			<p>
+				Copyright &copy;
+				<script>document.write(new Date().getFullYear());</script>
+				All rights reserved by ClinicMap Inc. 
+			</p>
+		</div>
+	</div>
+
+	<script>
+
+	</script>
+</body>
+</html>

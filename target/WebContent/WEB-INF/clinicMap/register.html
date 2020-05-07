@@ -1,0 +1,1166 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Travel HTML-5 Template </title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- <link rel="manifest" href="site.webmanifest"> -->
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+	<!-- Place favicon.ico in the root directory -->
+
+	
+ <!-- CSS here -->
+   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+   <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+   <link rel="stylesheet" href="assets/css/slicknav.css">
+   <link rel="stylesheet" href="assets/css/animate.min.css">
+   <link rel="stylesheet" href="assets/css/magnific-popup.css">
+   <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+   <link rel="stylesheet" href="assets/css/themify-icons.css">
+   <link rel="stylesheet" href="assets/css/slick.css">
+   <link rel="stylesheet" href="assets/css/nice-select.css">
+   <link rel="stylesheet" href="assets/css/style.css">
+   <link rel="stylesheet" href="assets/css/responsive.css">
+
+<!-- ==================================================================================== -->
+<style>
+    /* (c) Copyright ZHONGYI Electronic Co. 1995 */
+    /* https://fonts.google.com/ */
+    @import url(//db.onlinewebfonts.com/c/b4a89f5837a3f561b244965550593f37?family=SimSun);
+    *{
+        font-family: simsun;
+    }
+
+    td{
+width:200px;
+}
+
+#best {
+	width: 60%;
+	margin: auto;
+	margin-bottom: 5%
+}
+
+.readonly {
+	background-color: white;
+}
+
+div {
+	vertical-align: top;
+	margin-top: 10px;
+}
+
+#map {
+	display: inline-block;
+	height: 80%;
+	width: 50%;
+	margin-left: 5%;
+	margin-bottom: 5%
+}
+
+#text {
+	display: inline-table;
+	margin-left: 5%;
+	margin-top: 15%;
+	margin-left: 5%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+textarea {
+	resize: none;
+}
+
+#floating-panel {
+	position: absolute;
+	top: 10px;
+	left: 25%;
+	z-index: 5;
+	background-color: #fff;
+	padding: 5px;
+	border: 1px solid #999;
+	text-align: center;
+	font-family: 'Roboto', 'sans-serif';
+	line-height: 30px;
+	padding-left: 10px;
+}
+
+/* ------------------自己加的----------------------- */
+        .typography {
+            font-family: simsun;
+        }
+
+        .errMsg {
+            color: red;
+            text-align: left;
+            height:15px;
+            margin-top:5px;
+        }
+
+        .must {
+            color: red;
+            font-weight: bold;
+        }
+
+        .need2edit {
+            background-color:yellow;
+        }
+
+        #pDiv {
+            width: 100px;
+            height: 100px;
+        }
+
+        button {
+            color:black;
+        }
+
+        .single-input-accent {
+            width:80%;
+            display: inline;
+        }
+
+        .single-input-accent:focus{
+            outline:none;
+            border:2px solid #21df1b;
+        }
+
+        h3.distinctLine {
+            border-bottom: 1.5px solid gray; 
+            padding-bottom: 5px;
+            width:90%;
+            font-weight: bold;
+        }
+
+        /* 欄位 外層的div */
+        .mt-10 {
+            height:120px;
+            margin-top:15px;
+            margin-bottom:30px;
+        }
+
+        /* 欄位 div內的 <h3> */
+        .mb-30 {
+            margin-bottom: 10px;
+        }
+
+</style>
+<!-- ==================================================================================== -->
+</head>
+
+<body>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/logo/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+   <header>
+      <!-- Header Start -->
+     <div class="header-area">
+          <div class="main-header ">
+              <div class="header-top top-bg d-none d-lg-block">
+                 <div class="container">
+                  <div class="row justify-content-between align-items-center">
+                      <div class="col-lg-8">
+                          <div class="header-info-left">
+                              <ul>                          
+                                  <li>needhelp@gotrip.com</li>
+                                  <li>666 569 025077</li>
+                                  <li>broklyn street new york</li>
+                              </ul>
+                          </div>
+                      </div>
+                    <div class="col-lg-4">
+								<div class="header-info-right f-right">
+									<ul class="header-social">
+										<li id='member'><a href="/clinicMap/MemberProfile" id="memberName"></a></li>
+										<li id='loginIn'><a href="/clinicMap/loginIn">Sign In <i class="fas fa-sign-in-alt"></i></a></li>
+										<li id='loginOut'><a href="#">Login Out <i class="fas fa-sign-out-alt"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="header-bottom  header-sticky">
+					<div class="container">
+						<div class="row align-items-center">
+							<!-- Logo -->
+							<div class="col-xl-2 col-lg-2 col-md-1">
+								<div class="logo">
+									<a href="/clinicMap/googleMap/"><img src="/clinicMap/assets/img/logo/logo.png" alt=""></a>
+								</div>
+							</div>
+							<div class="col-xl-10 col-lg-10 col-md-10">
+								<!-- Main-menu -->
+								<div class="main-menu f-right d-none d-lg-block">
+									<nav>
+										<ul id="navigation">
+											<li><a href="/clinicMap/googleMap/">Home</a></li>
+											<li id="order"><a href="/clinicMap/orderSystem">order</a></li>
+											<li><a href="/clinicMap/hospitalComment">HospitalComment</a></li>
+											<li><a href="/clinicMap/rssget/">News</a></li>
+											
+											<li><a href="/clinicMap/contact.html">about Us</a></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- Mobile Menu -->
+							<div class="col-12">
+								<div class="mobile_menu d-block d-lg-none"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header End -->
+	</header>
+    
+	
+        <!-- ================================================================================================================== -->
+        <div id="best" class="typography">
+        <div>
+            <h2 style="display: inline; font-weight: bold;">註冊身份:</h2>
+            <h3 style="display: inline; margin-left: 10px;">
+            <label><input type="radio" name="loginLevel" id="memberId" value="member" checked/>會員</label>
+            <label style="margin-left: 5px;"><input type="radio" name="loginLevel" id="clinicId" value="clinic"/>診所</label>
+            </h3>
+        </div>
+        
+
+        <form id="memberRegister">
+        <div id="registerM" style="display:block;">
+            <h5 class="mb-30"><font class='must'>*為必填欄位</font></h5>
+
+            <div id="memberBlock1">
+                <h3 class="distinctLine">會員帳密</h3>
+                <div class="mt-10" style="height:220px;">
+                    <h3 class="mt-30">會員照片：</h3>
+                    <div id='pDiv' style="margin-bottom: 5px;"><img id='photo' style="border: 1px solid gray;"/></div>
+                    <input type='file' name='memberPhoto' id='memberPhoto' class="single-input-accent">
+                    </div>
+    
+                    <div class="mt-10">
+                        <h3 class="mb-30">
+                            <font class='must'>*</font>會員帳號：
+                        </h3><input type='text' name='memberAccount' id='memberAccount' placeholder='只能輸入英文和數字'
+                            class="single-input-accent"> <label id="mAccCorrect" class="correctImg"></label>
+                            <div class='errMsg' id='accountErrMsgM'></div>
+                        <!-- <br /><label class='errMsg' id='accountErrMsgM'></label> -->
+                    </div>
+
+                    <div class="mt-10">
+                        <h3 class="mb-30">
+                            <font class='must'>*</font>會員密碼：
+                        </h3>
+                        <div>
+                        <input type='password' name='memberPwd' id='memberPwd' placeholder='至少6個字且必須包含英文字母、數字、特殊字元'
+                            class="single-input-accent"> 
+                            <label id="mPwdCorrect" class="correctImg"></label>
+                        </div>
+                        <div class='errMsg' id='pwdErrMsg'></div>
+                            
+
+                        <!-- <br /><label class='errMsg' id='pwdErrMsg'></label> -->
+                    </div>
+    
+                    <div class="mt-10">
+                        <h3 class="mb-30">
+                            <font class='must'>*</font>確認密碼：
+                        </h3><input type='password' name='memberPwdCheck' id='memberPwdCheck' placeholder='請再次輸入密碼'
+                            class="single-input-accent"> <label id="mPwdCheckCorrect" class="correctImg"></label>
+                            <div class='errMsg' id='pwdCheckErrMsg'></div>
+                        <!-- <br /><label class='errMsg' id='pwdCheckErrMsg'></label> -->
+                    </div>
+                </div>    
+
+                <div id="memberBlock2">
+                <h3 class="distinctLine">個人基本資料</h3>
+                <div class="mt-10" style="margin-bottom: 10px; height:70px;">
+                    <h3 class="mb-30" style="display: inline;">
+                        <font class='must'>*</font>性別：
+                    </h3>
+                    <h4 style="display: inline;">
+                        <label><input type='radio' name='memberGender' value='male' checked />男</label>
+                        <label style="margin-left: 5px;"><input type='radio' name='memberGender' value='female' />女</label>
+                    <!-- <br /><label class='errMsg' id='genderErrMsg'></label></h4> -->
+                    </h4>
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="mb-30">
+                        <font class='must'>*</font>會員姓名：
+                    </h3><input type='text' name='memberName' id='memberNameRegister' placeholder='至少2個字，只能輸入中文'
+                        class="single-input-accent"> <label id="mNameCorrect" class="correctImg"></label>
+                        <div class='errMsg' id='nameErrMsg'></div>
+                    <!-- <br /><label class='errMsg' id='nameErrMsg'></label> -->
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="mb-30">
+                        <font class='must'>*</font>會員身分證字號：
+                    </h3><input type='text' name='memberIdNumber' id='memberIdNumber' maxlength='10'
+                        placeholder='ex：A123456789' class="single-input-accent"> <label id="mIdNumCorrect" class="correctImg"></label>
+                        <div class='errMsg' id='IdNumErrMsg'></div>
+                    <!-- <br /><label class='errMsg' id='IdNumErrMsg'></label> -->
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="mb-30">
+                        <font class='must'>*</font>會員電話：
+                    </h3><input type='text' name='memberPhone' id='memberPhone' maxlength='10'
+                        placeholder='請輸入手機，格式：09xxxxxxxx' class="single-input-accent"> <label id="mPhoneCorrect" class="correctImg"></label>
+                        <div class='errMsg' id='phoneErrMsg'></div>
+                    <!-- <br /><label class='errMsg' id='phoneErrMsg'></label> -->
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="mb-30">
+                        <font class='must'>*</font>電子信箱：
+                    </h3><input type='email' name='memberEmail' id='memberEmail' class="single-input-accent"> <label id="mEmailCorrect" class="correctImg"></label>
+                    <div class='errMsg' id='emailErrMsgM'></div>
+                    <!-- <br /><label class='errMsg' id='emailErrMsgM'></label> -->
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="mb-30">
+                        <font class='must'>*</font>會員住址：
+                    </h3><input type='text' name='memberAddress' id='memberAddress' class="single-input-accent"> <label id="mAddressCorrect" class="correctImg"></label>
+                    <div class='errMsg' id='addressErrMsg'></div>
+                    <!-- <br /><label class='errMsg' id='addressErrMsg'></label> -->
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="mb-30">
+                        <font class='must'>*</font>會員生日：
+                    </h3><input type='text' name='memberBirth' id='memberBirth' placeholder='yyyy/MM/dd' class="single-input-accent"><label id="mBirthCorrect" class="correctImg"></label>
+                    <div class='errMsg' id='birthErrMsg'></div>
+                    <!-- <br /><label class='errMsg' id='birthErrMsg'></label> -->
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="mb-30">
+                        <font class='must'>*</font>會員身高(cm)：
+                    </h3><input type='text' name='memberHeight' id='memberHeight' maxlength='3' placeholder='請輸入整數'
+                        class="single-input-accent"> <label id="mHeightCorrect" class="correctImg"></label>
+                    <div class='errMsg' id='heightErrMsg'></div>
+                        <!-- <br /><label class='errMsg' id='heightErrMsg'></label> -->
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="mb-30" style="margin-top:0px">
+                        <font class='must'>*</font>會員體重(kg)：
+                    </h3><input type='text' name='memberWeight' id='memberWeight' maxlength='3' placeholder='請輸入整數'
+                        class="single-input-accent"> <label id="mWeightCorrect" class="correctImg"></label>
+                    <div class='errMsg' id='weightErrMsg'></div>
+                        <!-- <br /><label class='errMsg' id='weightErrMsg'></label> -->
+                </div>
+            </div>
+        </div>
+
+
+        <div id="registerC" style="display:none;">
+                <div class="mt-10">
+                    <h3 class="mb-30">診所機構代碼：</h3><input type='text' name='clinicAccount' id='clinicAccount'
+                        class="single-input-accent"> <label id="cAccCorrect" class="correctImg"></label>
+                        <div class='errMsg' id='accountErrMsgC'></div>
+                    <!-- <br /><label class='errMsg' id='accountErrMsgC'></label> -->
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="mb-30">診所電子信箱：</h3><input type='email' name='clinicEmail' id='clinicEmail'
+                        class="single-input-accent"> <label id="cEmailCorrect" class="correctImg"></label>
+                    <div class='errMsg' id='emailErrMsgC'></div>
+                        <!-- <br /><label class='errMsg' id='emailErrMsgC'></label> -->
+                </div>
+        </div>
+    </form>
+
+        <!-- ********************************************************************************************** -->
+<div>
+        <button id="register">註冊</button>
+        <button onclick="TestDemo1()">Demo1</button><br />
+    </div>
+
+</div>
+        <!-- ================================================================================================================== -->
+
+    
+	
+    
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding footer-bg" data-background="assets/img/service/footer_bg.jpg">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+                       <div class="single-footer-caption mb-50">
+                         <div class="single-footer-caption mb-30">
+                              <!-- logo -->
+                             <div class="footer-logo">
+                                 <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                             </div>
+                             <div class="footer-tittle">
+                                 <div class="footer-pera">
+                                     <p>Lorem iaspsum doldfor sit amvset, consectetur adipisicing cvelit csed do eiusmod tempor incididucvccnt ut labovre.</p>
+                                </div>
+                             </div>
+                         </div>
+                       </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Quick Links</h4>
+                                <ul>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#"> Offers & Discounts</a></li>
+                                    <li><a href="#"> Get Coupon</a></li>
+                                    <li><a href="#">  Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>New Products</h4>
+                                <ul>
+                                    <li><a href="#">Woman Cloth</a></li>
+                                    <li><a href="#">Fashion Accessories</a></li>
+                                    <li><a href="#"> Man Accessories</a></li>
+                                    <li><a href="#"> Rubber made Toys</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Support</h4>
+                                <ul>
+                                 <li><a href="#">Frequently Asked Questions</a></li>
+                                 <li><a href="#">Terms & Conditions</a></li>
+                                 <li><a href="#">Privacy Policy</a></li>
+                                 <li><a href="#">Privacy Policy</a></li>
+                                 <li><a href="#">Report a Payment Issue</a></li>
+                             </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer bottom -->
+                <div class="row pt-padding">
+                 <div class="col-xl-7 col-lg-7 col-md-7">
+                    <div class="footer-copy-right">
+                         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                 </div>
+                  <div class="col-xl-5 col-lg-5 col-md-5">
+                        <!-- social -->
+                        <div class="footer-social f-right">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-behance"></i></a>
+                            <a href="#"><i class="fas fa-globe"></i></a>
+                        </div>
+                 </div>
+             </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+<!-- JS here -->
+	
+		<!-- All JS Custom Plugins Link Here here -->
+        <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+		
+		<!-- Jquery, Popper, Bootstrap -->
+		<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+        <script src="./assets/js/popper.min.js"></script>
+        <script src="./assets/js/bootstrap.min.js"></script>
+	    <!-- Jquery Mobile Menu -->
+        <script src="./assets/js/jquery.slicknav.min.js"></script>
+
+		<!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="./assets/js/owl.carousel.min.js"></script>
+		<script src="./assets/js/slick.min.js"></script>
+		
+		<!-- One Page, Animated-HeadLin -->
+        <script src="./assets/js/wow.min.js"></script>
+		<script src="./assets/js/animated.headline.js"></script>
+		<script src="./assets/js/jquery.magnific-popup.js"></script>
+		
+		<!-- Scrollup, nice-select, sticky -->
+        <script src="./assets/js/jquery.scrollUp.min.js"></script>
+        <script src="./assets/js/jquery.nice-select.min.js"></script>
+		<script src="./assets/js/jquery.sticky.js"></script>
+        
+        <!-- contact js -->
+        <script src="./assets/js/contact.js"></script>
+        <script src="./assets/js/jquery.form.js"></script>
+        <script src="./assets/js/jquery.validate.min.js"></script>
+        <script src="./assets/js/mail-script.js"></script>
+        <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+        
+		<!-- Jquery Plugins, main Jquery -->	
+        <script src="./assets/js/plugins.js"></script>
+        <script src="./assets/js/main.js"></script>
+
+<!-- =================================================================================================== -->
+<!-- datePicker -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+    <script>
+        var checkAccount, checkName, checkPwd, checkPwdAgain, checkBirth, checkAddress,
+            checkHeight, checkWeight, checkPhone, checkIdNum, checkGender = true, checkEmail;
+
+        $("#photo").attr("src", "images/memberDefaultPhoto.jpg").width(100).height(100);
+        
+        $("input[name=loginLevel]").change(function () {
+            let loginLevel = $("input[name=loginLevel]:checked").val();
+            if (loginLevel == "member") {
+                $("#registerM").css("display", "block");
+                $("#registerC").css("display", "none");
+            } else {
+                $("#registerM").css("display", "none");
+                $("#registerC").css("display", "block");
+            }
+
+            //因為共用，所以切換時要重設
+            checkAccount = false, checkEmail = false;
+            //切換時，要把舊的資料清除
+            $("#registerM input").val("").removeClass("need2edit");
+            $("#registerC input").val("").removeClass("need2edit");
+            $(".errMsg").html("");
+            $(".correctImg").html("");
+        });
+
+        $("#register").click(function () {
+            if ($("input[name=loginLevel]:checked").val() == "member") {
+                if (checkAccount && checkName && checkPwd && checkPwdAgain && checkBirth
+                    && checkAddress && checkHeight && checkWeight && checkPhone && checkIdNum && checkGender && checkEmail) {
+                    $.ajax({
+                        url: "memberRegisterPage",
+                        type: "post",
+                        data: $("#memberRegister").serializeArray(),
+                        success: function (data) {
+                        },
+                        complete: savePhoto()
+                    });
+                    // savePhoto();
+                    alert("註冊成功，已送驗證信到您的信箱");
+                    window.location.href = "loginIn";
+                } else {
+                    alert("資料有誤");
+                  //將畫面置頂到註冊身份的位置
+                    $(window).scrollTop(214);
+                    if (!checkAccount) {
+                        $("#memberAccount").addClass("need2edit");
+                        ($("#memberAccount").val() == "") ? $("#accountErrMsgM").html("此欄位不能空白") : $("#accountErrMsg").html("需要修改");
+                    }
+
+                    if (!checkName) {
+                        $("#memberNameRegister").addClass("need2edit");
+                        ($("#memberNameRegister").val() == "") ? $("#nameErrMsg").html("此欄位不能空白") : $("#nameErrMsg").html("需要修改");
+                    }
+
+                    if (!checkPwd) {
+                        $("#memberPwd").addClass("need2edit");
+                        ($("#memberPwd").val() == "") ? $("#pwdErrMsg").html("此欄位不能空白") : $("#pwdErrMsg").html("需要修改");
+                    }
+
+                    if (!checkPwdAgain) {
+                        $("#memberPwdCheck").addClass("need2edit");
+                        ($("#memberPwdCheck").val() == "") ? $("#pwdCheckErrMsg").html("此欄位不能空白") : $("#pwdCheckErrMsg").html("需要修改");
+                    }
+
+                    if (!checkBirth) {
+                        $("#memberBirth").addClass("need2edit");
+                        ($("#memberBirth").val() == "") ? $("#birthErrMsg").html("此欄位不能空白") : $("#birthErrMsg").html("需要修改");
+                    }
+
+                    if (!checkAddress) {
+                        $("#memberAddress").addClass("need2edit");
+                        ($("#memberAddress").val() == "") ? $("#addressErrMsg").html("此欄位不能空白") : $("#addressErrMsg").html("需要修改");
+                    }
+
+                    if (!checkHeight) {
+                        $("#memberHeight").addClass("need2edit");
+                        ($("#memberHeight").val() == "") ? $("#heightErrMsg").html("此欄位不能空白") : $("#heightErrMsg").html("需要修改");
+                    }
+
+                    if (!checkWeight) {
+                        $("#memberWeight").addClass("need2edit");
+                        ($("#memberWeight").val() == "") ? $("#weightErrMsg").html("此欄位不能空白") : $("#weightErrMsg").html("需要修改");
+                    }
+
+                    if (!checkPhone) {
+                        $("#memberPhone").addClass("need2edit");
+                        ($("#memberPhone").val() == "") ? $("#phoneErrMsg").html("此欄位不能空白") : $("#phoneErrMsg").html("需要修改");
+                    }
+
+                    if (!checkIdNum) {
+                        $("#memberIdNumber").addClass("need2edit");
+                        ($("#memberIdNumber").val() == "") ? $("#IdNumErrMsg").html("此欄位不能空白") : $("#IdNumErrMsg").html("需要修改");
+                    }
+
+                    if (!checkEmail) {
+                        $("#memberEmail").addClass("need2edit");
+                        ($("#memberEmail").val() == "") ? $("#emailErrMsgM").html("此欄位不能空白") : $("#emailErrMsg").html("需要修改");
+                    }
+                }
+            } else {
+                if (checkAccount && checkEmail) {
+                    $.ajax({
+                        url: "clinicRegisterPage",
+                        type: "post",
+                        data: { 
+                            "clinicAccount": $("#clinicAccount").val(),
+                            "clinicEmail": $("#clinicEmail").val()
+                        },
+                        success: function (data) {
+                        }
+                    });
+                    alert("已完成註冊，請等候email通知");
+                    window.location.href = "loginIn";
+                } else {
+                    alert("資料有誤");
+                    if (!checkAccount) {
+                        $("#clinicAccount").addClass("need2edit");
+                        if ($("#clinicAccount").val() == "") { $("#accountErrMsgC").html("此欄位不能空白"); }
+                        else { $("#clinicAccount").addClass("need2edit"); $("#accountErrMsgC").html("需要修改"); }
+                    }
+                    if (!checkEmail) {
+                        $("#clinicEmail").addClass("need2edit");
+                        if ($("#clinicEmail").val() == "") { $("#emailErrMsgC").html("此欄位不能空白"); }
+                        else { $("#clinicEmail").addClass("need2edit"); $("#emailErrMsgC").html("需要修改"); }
+                    }
+                }
+            }
+        });
+
+
+
+        function savePhoto() {
+            let selectFile = $("#memberPhoto").get(0).files[0];
+            let formdata = new FormData();
+            formdata.append("mAccount", $("#memberAccount").val());
+            console.log(formdata);
+            // console.log("selectFile:" + selectFile);
+            let urlStr;
+
+            if (selectFile == undefined) {
+                urlStr = "testPhotoNone";
+            } else {
+                formdata.append("mPhoto", selectFile);
+                urlStr = "testPhoto";
+            }
+            $.ajax({
+                url: urlStr,
+                type: "post",
+                processData: false,
+                data: formdata,
+                contentType: false,
+                success: function () {
+                }
+            });
+        }
+
+        function TestDemo1() {
+            $("#memberEmail").val("clinicmapguest0508@gmail.com");
+            $("#clinicEmail").val("clinicmapguest0508@gmail.com");
+            $("#memberPwd").val("123456@W");
+            $("#memberPwdCheck").val("123456@W");
+            $("#memberBirth").val("2020/05/08");
+            $("#memberAddress").val("106台北市大安區復興南路一段390號2樓");
+            $("#memberHeight").val("180");
+            $("#memberWeight").val("80");
+            $("#memberPhone").val("0911234678");
+            $("#memberNameRegister").val("說你好");
+            $("#clinicAccount").val("3501023199");
+            $("#memberIdNumber").val("K123456789");
+            $("#memberAccount").val("DemoAccount");
+            
+            checkAccount = true, checkName = true, checkPwd = true, checkPwdAgain = true, checkBirth = true, checkAddress = true,
+            checkHeight = true, checkWeight = true, checkPhone = true, checkIdNum = true, checkGender = true, checkEmail = true;
+
+            $("#mAccCorrect").html("<img src='images/correct.jpg'>");
+            $("#mPwdCorrect").html("<img src='images/correct.jpg'>");
+            $("#mPwdCheckCorrect").html("<img src='images/correct.jpg'>");
+            $("#mNameCorrect").html("<img src='images/correct.jpg'>");
+            $("#mIdNumCorrect").html("<img src='images/correct.jpg'>");
+            $("#mPhoneCorrect").html("<img src='images/correct.jpg'>");
+            $("#mEmailCorrect").html("<img src='images/correct.jpg'>");
+            $("#mAddressCorrect").html("<img src='images/correct.jpg'>");
+            $("#mBirthCorrect").html("<img src='images/correct.jpg'>"); 
+            $("#mHeightCorrect").html("<img src='images/correct.jpg'>");
+            $("#mWeightCorrect").html("<img src='images/correct.jpg'>");
+
+            $("#cAccCorrect").html("<img src='images/correct.jpg'>");
+            $("#cEmailCorrect").html("<img src='images/correct.jpg'>");
+			$("input").removeClass("need2edit");
+			$(".errMsg").html("");
+			
+        }
+        //-------------------------------------
+
+        //檢查診所機構代碼是否存在
+        $("#clinicAccount").blur(function () {
+            let msg = "";
+            let msgCorrect = "";
+            checkAccount = false;
+
+            if ($("#clinicAccount").val() != "") {
+                $.ajax({
+                    url: "isAccountExist",
+                    type: "post",
+                    data: {
+                        "loginLevel": "clinic",
+                        "account": $("#clinicAccount").val()
+                    },
+                    success: function (repeat) {
+                        checkAccount = eval(repeat);
+                        if (checkAccount) { $("#clinicAccount").removeClass("need2edit"); msgCorrect = "<img src='images/correct.jpg'>";}
+                        else { msg = "無此機構代碼" }; //待check
+                    }
+                }).always(function () {
+                    $("#accountErrMsgC").html(msg);
+                    $("#cAccCorrect").html(msgCorrect);
+                });
+            }
+            $("#accountErrMsgC").html(msg);
+            $("#cAccCorrect").html(msgCorrect);
+        });
+
+        //檢查email格式??? 還是用 input="email" ???
+        $("#clinicEmail").blur(function () {
+            let patternParam = '^[a-zA-Z0-9]+[\.]*[a-zA-Z0-9]+@[a-z]+\.[a-z\.]+';
+            let pattern = new RegExp(patternParam);
+            checkEmail = false;
+            let msg = "";
+            let msgCorrect = "";
+
+            if ($("#clinicEmail").val() != "") {
+                if (!pattern.test($("#clinicEmail").val())) {
+                    msg = "格式錯誤";
+                } else {
+                    checkEmail = true;
+                    $("#clinicEmail").removeClass("need2edit");
+                    msgCorrect = "<img src='images/correct.jpg'>";
+                }
+            }
+            $("#emailErrMsgC").html(msg);
+            $("#cEmailCorrect").html(msgCorrect);
+        });
+
+
+
+        //會員照片
+        $("#memberPhoto").change(function (e) {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $("#photo").attr("src", e.target.result).width(100).height(100);
+                    // $("#pDiv").show();
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+        //會員帳號
+        $("#memberAccount").blur(function () {
+            let patternParam = '[a-zA-Z]+[a-zA-Z0-9]*'; //只能英文的驗證，不能"空白"、"數字"
+            let pattern = new RegExp(patternParam);
+            let msg = "";
+            let msgCorrect = "";
+            checkAccount = false;
+
+            if ($("#memberAccount").val() != "") {
+                if (!pattern.test($("#memberAccount").val())) {
+                    msg = "至少一個輸入英文和數字";
+                } else {
+                    $.ajax({
+                        url: "isAccountExist", //連結到spring做資料庫的 memberAccount的搜尋
+                        type: "post",
+                        data: {
+                            "loginLevel": "member",
+                            "account": $("#memberAccount").val()
+                        },
+                        success: function (repeat) {
+                            checkAccount = !eval(repeat);
+                            if (checkAccount) { $("#memberAccount").removeClass("need2edit"); msgCorrect = "<img src='images/correct.jpg'>";}
+                            else { msg = "帳號重複"; }
+                        }
+                    }).always(function () {//接在ajax之後，因為ajax最後做，所以會先執行外面的$("#accountErrMsg").html(msg);
+                        //所以當ajax做完後，東西沒辦法再丟出去顯示，所以要用.always去讓他不管如何都會做這件事
+                        //下面的 IdNum也要改成這樣
+                        $("#accountErrMsgM").html(msg);
+                        $("#mAccCorrect").html(msgCorrect);
+                    });
+                }
+            }
+            // $("#imageTest").attr("src", msg);
+            $("#accountErrMsgM").html(msg);
+            $("#mAccCorrect").html(msgCorrect);
+        });
+
+        //會員姓名
+        $("#memberNameRegister").blur(function () {
+            // let patternParamE = '[a-zA-Z]';
+            let patternParamC = '^[\u4e00-\u9fff]+$'; //中文的驗證
+            // let patternParam = '^[\u4e00-\u9fffa-zA-Z]+$'; //只能中、英文的驗證，不能"空白"、"數字"
+            let pattern = new RegExp(patternParamC);
+            let msg = "";
+            let msgCorrect = "";
+            checkName = false;
+
+            if ($("#memberNameRegister").val() != "") {
+                if (!pattern.test($("#memberNameRegister").val())) {
+                    msg = "只能輸入中文";
+                } else if ($("#memberNameRegister").val().length < 2) {
+                    msg = "最少2個字";
+                } else {
+                    //不為空白，且格式正確
+                    checkName = true;
+                    $("#memberNameRegister").removeClass("need2edit");
+                    msgCorrect = "<img src='images/correct.jpg'>";
+                }
+            }
+            $("#nameErrMsg").html(msg);
+            $("#mNameCorrect").html(msgCorrect);
+        });
+
+        //會員密碼
+        //檢查長度與格式
+        $("#memberPwd").blur(function () {
+            let patternParam = '.*[a-zA-Z]+.*[0-9]+.*[!@#$%^&*]+.*' + '|'
+                + '.*[a-zA-Z]+.*[!@#$%^&*]+.*[0-9]+.*' + '|'
+                + '.*[0-9]+.*[a-zA-Z]+.*[!@#$%^&*]+.*' + '|'
+                + '.*[0-9]+.*[!@#$%^&*]+.*[a-zA-Z]+.*' + '|'
+                + '.*[!@#$%^&*]+.*[a-zA-Z]+.*[0-9]+.*' + '|'
+                + '.*[!@#$%^&*]+.*[0-9]+.*[a-zA-Z]+.*';
+            let pattern = new RegExp(patternParam);
+            let msg = "";
+            let msgCorrect = "";
+            checkPwd = false;
+
+            if ($("#memberPwd").val() != "") {
+                if (!pattern.test($("#memberPwd").val()) || $("#memberPwd").val().length < 6) {
+                    msg = "密碼格式不合";
+                } else {
+                    checkPwd = true;
+                    $("#memberPwd").removeClass("need2edit");
+                    msgCorrect = "<img src='images/correct.jpg'>";
+                }
+            }
+            $("#pwdErrMsg").html(msg);
+            $("#mPwdCorrect").html(msgCorrect);
+        });
+
+        //確認密碼
+        $("#memberPwdCheck").keyup(function () {
+            let msg = "";
+            let msgCorrect = "";
+            checkPwdAgain = false;
+            if ($("#memberPwdCheck").val() != "") {
+                if ($("#memberPwd").val() != $("#memberPwdCheck").val()) {
+                    msg = "密碼不一致";
+                } else {
+                    checkPwdAgain = true;
+                    $("#memberPwdCheck").removeClass("need2edit");
+                    msgCorrect = "<img src='images/correct.jpg'>";
+                }
+            }
+            $("#pwdCheckErrMsg").html(msg);
+            $("#mPwdCheckCorrect").html(msgCorrect);
+        }).blur(function () {
+            let msg = "";
+            checkPwdAgain = false;
+
+            if ($("#memberPwdCheck").val() == "") {
+                if ($("#memberPwd").val() != "") { msg = "請確認密碼"; }
+            } else {
+                if ($("#memberPwd").val() != $("#memberPwdCheck").val()) { msg = "密碼不一致"; }
+                else {
+                    checkPwdAgain = true;
+                    $("#memberPwdCheck").removeClass("need2edit");
+                    msgCorrect = "<img src='images/correct.jpg'>";
+                }
+            }
+            $("#pwdCheckErrMsg").html(msg);
+            $("#mPwdCheckCorrect").html(msgCorrect);
+        });
+
+        //會員生日
+        //電腦打字時的格式 與 時間 的驗證
+        $("#memberBirth").change(function () {
+            let patternParam = '[0-9]{1,4}/[0-9]{1,2}/[0-9]{1,2}';
+            let pattern = new RegExp(patternParam);
+
+            let errMsg = "";
+            let msgCorrect = "";
+            checkBirth = false;
+
+            if ($("#memberBirth").val() != "") {
+                if (pattern.test($("#memberBirth").val())) {
+                    //檢查時間
+                    let dateAnalysis = $("#memberBirth").val().split("/");
+                    let year = parseInt(dateAnalysis[0]),
+                        month = parseInt(dateAnalysis[1]),
+                        day = parseInt(dateAnalysis[2]);
+
+                    if (day >= 1) {
+                        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+                            if (day > 31) { errMsg = "日期錯誤"; }
+                        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+                            if (day > 30) { errMsg = "日期錯誤"; }
+                        } else if (month == 2) {
+                            if (((year % 4) == 0 && (year % 100) != 0) || (year % 400) == 0) {
+                                if (day > 29) { errMsg = "日期錯誤"; }
+                            } else {
+                                if (day > 28) { errMsg = "日期錯誤"; }
+                            }
+                        } else { errMsg = "月份錯誤"; }
+                    } else { errMsg = "日期錯誤"; }
+                } else { //pattern的格式檢查
+                    errMsg = "格式不正確";
+                }
+                if (errMsg == "") { checkBirth = true; msgCorrect = "<img src='images/correct.jpg'>"; $("#memberBirth").removeClass("need2edit"); }
+            }
+            $("#birthErrMsg").html(errMsg);
+            $("#mBirthCorrect").html(msgCorrect);
+        });
+
+        //會員住址
+        //只要註冊時 不為空就好??
+        $("#memberAddress").blur(function () {
+            let msg = "";
+            let msgCorrect = "";
+            checkAddress = false;
+            if ($("#memberAddress").val() != "") {
+                checkAddress = true;
+                $("#memberAddress").removeClass("need2edit");
+                msgCorrect = "<img src='images/correct.jpg'>";
+            }
+            $("#addressErrMsg").html(msg);
+            $("#mAddressCorrect").html(msgCorrect);
+        });
+
+        //會員身高(cm)
+        // 在<input>內設定長度為3
+        $("#memberHeight").blur(function () {
+            let height = $("#memberHeight").val();
+            let msg = "";
+            let msgCorrect = "";
+            checkHeight = false;
+            let check = true;
+
+            if (height != "") {
+                for (i of height) {
+                    if (i < '0' || i > '9') {
+                        msg = "只能輸入整數數字";
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) {
+                    let h = parseInt(height);
+                    if (h <= 0 || h > 255) {
+                        msg = "請輸入1~255之間的數值";
+                    } else {
+                        checkHeight = true;
+                        $("#memberHeight").removeClass("need2edit");
+                        msgCorrect = "<img src='images/correct.jpg'>";
+                    }
+                }
+            }
+            $("#heightErrMsg").html(msg);
+            $("#mHeightCorrect").html(msgCorrect);
+        });
+
+        //會員體重(kg)
+        //直接先用 "取整數做"
+        // 在<input>內設定長度為3
+        $("#memberWeight").blur(function () {
+            let weight = $("#memberWeight").val();
+            let msg = "";
+            let msgCorrect = "";
+            checkWeight = false;
+            let check = true;
+
+            if (weight != "") {
+                for (i of weight) {
+                    if (i < '0' || i > '9') {
+                        msg = "只能輸入整數數字";
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) {
+                    let w = parseInt(weight);
+                    if (w <= 0 || w > 255) {
+                        msg = "請輸入1~255之間的數值";
+                    } else {
+                        checkWeight = true;
+                        $("#memberWeight").removeClass("need2edit");
+                        msgCorrect = "<img src='images/correct.jpg'>";
+                    }
+                }
+            }
+            $("#weightErrMsg").html(msg);
+            $("#mWeightCorrect").html(msgCorrect);
+        });
+
+        //會員電話
+        // 在<input>內設定長度為10
+        $("#memberPhone").blur(function () {
+            let patternParam = '[0]{1}[9]{1}[0-9]{8}';
+            let pattern = new RegExp(patternParam);
+            let msg = "";
+            let msgCorrect = "";
+            checkPhone = false;
+
+            if ($("#memberPhone").val() != "") {
+                if (!pattern.test($("#memberPhone").val())) {
+                    msg = "格式不正確";
+                } else {
+                    checkPhone = true;
+                    $("#memberPhone").removeClass("need2edit");
+                    msgCorrect = "<img src='images/correct.jpg'>";
+                }
+            }
+            $("#phoneErrMsg").html(msg);
+            $("#mPhoneCorrect").html(msgCorrect);
+        });
+
+        //身分證字號
+        //在<input>內設定長度為10
+        $("#memberIdNumber").blur(function () {
+            let patternParam = '^[a-zA-Z]{1}[1-2]{1}[0-9]{8}';
+            let pattern = new RegExp(patternParam);
+            let msg = "";
+            let msgCorrect = "";
+            checkIdNum = false;
+
+            if ($("#memberIdNumber").val() != "") {
+                if (!pattern.test($("#memberIdNumber").val())) {
+                    msg = "格式錯誤";
+                } else {
+                    $.ajax({
+                        url: "isIdNumExist",
+                        type: "post",
+                        data: { "IdNum": $("#memberIdNumber").val() },
+                        success: function (repeat) {
+                            checkIdNum = !eval(repeat);
+                            if (checkIdNum) { $("#memberIdNumber").removeClass("need2edit"); msgCorrect = "<img src='images/correct.jpg'>";}
+                            else { msg = "資料重覆"; }
+                        }
+                    }).always(function () {
+                        $("#IdNumErrMsg").html(msg);
+                        $("#mIdNumCorrect").html(msgCorrect);
+                    });
+                }
+            }
+            $("#IdNumErrMsg").html(msg);
+            $("#mIdNumCorrect").html(msgCorrect);
+        });
+
+        //性別
+        //改成radio，讀值就好
+        //test:
+        // $("input[name=memberGender]").change(function () {
+        //     gender = $("input[name=memberGender]:checked").val();
+        //     // checkGender = true;
+        // });
+
+        //電子信箱 ==> 改用 input type="email"取讓他檢查就好??，但是送出時的 "不能空白"要再檢查???
+        $("#memberEmail").blur(function () {
+            let patternParam = '^[a-zA-Z0-9]+[\.]*[a-zA-Z0-9]+@[a-z]+\.[a-z\.]+';
+            let pattern = new RegExp(patternParam);
+            checkEmail = false;
+            let msg = "";
+            let msgCorrect = "";
+
+            if ($("#memberEmail").val() != "") {
+                if (!pattern.test($("#memberEmail").val())) {
+                    msg = "格式錯誤";
+                } else {
+                    checkEmail = true;
+                    $("#memberEmail").removeClass("need2edit");
+                    msgCorrect = "<img src='images/correct.jpg'>";
+                }
+            }
+            $("#emailErrMsgM").html(msg);
+            $("#mEmailCorrect").html(msgCorrect);
+        });
+
+
+        //---------------------------------------------------------------------------------------------------
+        //設定datepicker
+        $("#memberBirth").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1920:2030",
+            dateFormat: "yy/mm/dd"
+        });
+
+        //----------------------------------
+        if($.cookie('memberID')==undefined && $.cookie('clinicID')==undefined)
+{
+	
+	$("#loginIn").show()
+	$("#loginOut").hide()
+	$("#order").hide()
+	$("#member").hide()
+}else if($.cookie('memberID')!=undefined){
+	console.log("hi")
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#order").show()
+	$("#member").show()
+	$("#memberName").text($.cookie("account"))
+	console.log($.cookie("account"))
+}else{
+	$("#loginIn").hide()
+	$("#loginOut").show()
+	$("#member").show()
+	
+}
+function loginout(){
+	$.removeCookie('memberID')
+	$.removeCookie('clinicID')
+	location.reload();
+}
+$("#loginOut").click(function(){
+	$.cookie('memberID','',{expires: -1,path:"/clinicMap"})
+	$.cookie('clinicID','',{expires: -1,path:"/clinicMap"})
+	location.href="googleMap/"
+})
+
+    </script>
+        
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>司機端</title>
+
+<style type="text/css">
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0                             
+}
+
+
+.myButton{
+background:    #FFDC35;
+border:        1px solid #e69138;
+border-radius: 7px;
+padding:       10px 45px;
+color:         #020202;
+display:       inline-block;
+font:          normal bold 18px/1 "Vollkorn", serif;
+text-align:    center;
+margin-top: 5px;
+
+}
+
+.divtop{
+  width:100%;
+　height:400px; 	
+  background-size:100% 100%;
+  margin-bottom:20px;
+}
+
+.formap{
+top: 50%;
+left: 50%;
+padding-left: 27px;
+padding-top: 25px;
+margin-left: 370px;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
+.text-shadow {
+    font-size: 20px;
+    color: #gray;
+    text-shadow: 2px 3px 2px rgb(163,163,163);
+    font-family: Courier New;
+    font-weight: bold;
+    padding: 2px;
+}
+
+</style>
+
+
+</head>
+<body onload='initMap()' style=" background-image:url('images/taxiforground.jpg'); background-repeat:no-repeat ;
+
+background-size:100% 100%; 
+
+background-attachment: fixed;">
+<button class="myButton" value="logout" onclick="logout()">登出</button>
+    <div style="  background-size:100% 100%; background:rgba(255,255,255,0.3);text-align:center;box-shadow: 4px 0px 4px 0 rgba(0, 0, 0, 0.2), 4px 0px 4px 0 rgba(0, 0, 0, 0.19); ">
+	<div class="text-shadow"><h1>司機接收系統</h1></div>
+	
+	<input class="myButton"  type="button" onclick="sub1()" value="目前自己的訂單查詢" />
+	<input class="myButton"  type="button" onclick="timework()" value="開始目標導航至客人位置" />
+	<input class="myButton"  type="button" onclick="timework2()" value="開始目標導航至目的地" />
+	<div  id="order"></div>
+	</div>
+	
+    <div  class="formap"  style="width: 1130px;height: 680px;background:rgba(0,0,0,0.3);border-radius:15px;">
+	<div   id="map_canvas"  style="width: 1100px;height: 650px;border-radius:10px;">
+   </div></div>
+
+
+<script
+ src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+		<script async defer
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFbyqberG_1L9qz8rFMYDJGGep1iJPAIk&callback=initMap">
+  </script>
+<script
+ src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<script>
+    var markers = []; 
+	var map ;
+	var directionsDisplay;
+	var directionsService;
+	//var driveridname='阿德外送';
+	var driveridname=$.cookie("drivername")
+	console.log(driveridname);
+    var positionidcheck;
+    var interval;
+
+
+
+//初始化地圖區-----------------------------------
+    function initMap() {     
+		
+            map = new google.maps.Map(document.getElementById("map_canvas"),
+                {
+				zoom:16,
+				center:{lat:25.034010,lng:121.543469}   //目前鎖定資策會
+			
+                 });
+       
+    }
+//初始化地圖區-----------------------------------
+
+
+
+//登出司機查單畫面回到登入------------------------------
+function logout() {
+ $.removeCookie("drivername");
+ window.location.href = "/clinicMap/driverlogin";
+}
+//登出司機查單畫面回到登入------------------------------
+
+
+
+//清除標記區---------------------------
+	function clearMarkers() {
+		  
+		    if(markers.length>0){
+		    	for (var i = 0; i < markers.length; i++) {
+		      markers[i].setMap(null);
+		    	}
+		    }else{
+			    console.log('目前沒有標記');
+			    }
+		    markers = [];
+		  }
+		 		
+//清除標記區---------------------------
+
+
+
+//時間計時器---------------------------
+function timework() {
+
+	interval=setInterval(function(){
+		console.log("我是第一個計時器");
+		sub3(); 
+		},3000);   //2000毫秒=2秒
+}
+
+function timework2() {
+	
+	clearInterval(interval);
+	setInterval(function(){
+		console.log("我是第二個計時器");
+		sub4(); 
+		},3000);   //2000毫秒=2秒
+}
+//時間計時器---------------------------
+
+
+
+//增加標記-----------------------------
+    function addMarker(name,lat1,lng1) {  	   
+        	var marker=new google.maps.Marker({
+              position: {lat: lat1,lng: lng1},
+              map: map,
+              title:name,
+              icon:'images/local0421.png',
+      
+              animation: google.maps.Animation.DROP //彈跳畫面
+            });
+        	markers.push(marker); //存到markers陣列裡 準備後面被全部刪除
+        
+      }
+//增加標記-----------------------------
+
+
+
+//查詢目前訂單並確認-----------------------------------
+		function sub1() {
+			console.log(driveridname);
+			$.ajax({
+				type : "POST",				
+				url : "selectorder?driveridname="+driveridname, 
+				dataType : "json",
+				success : function(checkboxdata) {
+
+				clearMarkers();
+							console.log(checkboxdata);
+					for (var i = 0; i < checkboxdata.length; i++) {
+						
+						console.log(checkboxdata[i].positionID)
+						console.log(checkboxdata[i].clinicName)
+						console.log(checkboxdata[i].guestlat)
+						console.log(checkboxdata[i].guestlng)
+						console.log(checkboxdata[i].destinationlat)
+						console.log(checkboxdata[i].destinationlng)
+						
+						
+						
+						var positionID =parseFloat(checkboxdata[i].positionID)						
+						var clinicName =checkboxdata[i].clinicName
+						var guestlat =parseFloat(checkboxdata[i].guestlat)
+						var guestlng =parseFloat(checkboxdata[i].guestlng)
+						var destinationlat =parseFloat(checkboxdata[i].destinationlat)
+						var destinationlng =parseFloat(checkboxdata[i].destinationlng)
+
+						$("#order").append(
+					            "<h2>訂單編號:"+positionID+"  診所名稱:"+clinicName+"   <button  class='myButton'  onclick='sub2("+positionID+")'>確認並傳送自己定位</button></h2></br>");
+						}
+
+						console.log('finish');
+	
+				}
+
+			})
+
+		}
+//查詢目前訂單並確認-----------------------------------
+
+
+
+//取得自己定位先存入---------------------------
+ function sub2(positionID) {
+	      positionidcheck = positionID;
+	     //var v=document.getElementById("choseorderid").value;
+	     console.log('我選定了'+positionidcheck);
+	 
+				clearMarkers();// 這邊要先清除地圖上的標註
+				if (navigator.geolocation) {
+
+					//不提供定位，或是發生其它錯誤
+					function error() {
+						alert('無法取得你的位置');
+					}
+
+					//允許抓目前位置，回傳經緯度
+					function success(position) {
+
+						var myorderid = positionidcheck;
+						var mylat = position.coords.latitude;
+						var mylng = position.coords.longitude;
+						console.log("待傳送的資料"+myorderid+mylat+mylng);
+						var driverlatlng = [];
+						driverlatlng.push(myorderid);
+						driverlatlng.push(mylat);
+						driverlatlng.push(mylng);
+
+						//存到資料庫
+						$.ajax({
+							type : "POST",
+							url : "updatedriver?driverlatlng=" + driverlatlng,
+							dataType : "json",
+							success : function(checkboxdata) {
+							console.log('finish');
+							}
+					})
+
+					}
+					navigator.geolocation.watchPosition(success, error);//跟使用者拿所在位置的權限
+
+				} else {
+					alert('你的裝置不支援定位功能')
+				}
+			}
+//取得自己定位區---------------------------
+
+
+
+
+
+
+//開始定位傳動到客人-------------------------------
+  function sub3() {
+	  //重新確認自己位置並存入資料庫
+		sub2(positionidcheck);
+		//查詢自己&客人位置
+
+		$.ajax({
+			type : "POST",
+			url : "selectall?positionidcheck=" + positionidcheck,
+			dataType : "json",
+			success : function(myiddata) {
+				console.log("事情做完了");
+				var lat1 = parseFloat(myiddata.guestlat)
+				var lng1 = parseFloat(myiddata.guestlng)
+				var lat2 = parseFloat(myiddata.driverlat)
+				var lng2 = parseFloat(myiddata.driverlng)
+				//var lat3 = parseFloat(myiddata[0].destinationlat)//目的地
+				//var lng3 = parseFloat(myiddata[0].destinationlng)//目的地
+				doworkgps(lat1, lng1, lat2, lng2);
+			}
+		})
+
+		//接續上面的程式，只是分開而已
+		function doworkgps(lat1, lng1, lat2, lng2) {
+			if (directionsDisplay != null) {
+				directionsDisplay.setMap(null);
+				directionsDisplay = null;
+			} else {
+
+			}
+			// 載入路線服務與路線顯示圖層
+			directionsService = new google.maps.DirectionsService();
+			directionsDisplay = new google.maps.DirectionsRenderer();
+			// 放置路線圖層  
+			directionsDisplay.setMap(map);
+			var mylat = lat1;
+			var mylng = lng1;
+			var driverlat = lat2;
+			var driverlng = lng2;
+			console.log('我的位置' + mylat + ',' + mylng);
+			// 路線相關設定
+			var route = {
+				origin : {      //自己位置
+					lat : mylat,
+					lng : mylng
+				},
+				destination : {  //司機位置
+					lat : driverlat,
+					lng : driverlng
+				}, 
+				travelMode : 'DRIVING'
+			};
+
+			// 繪製路線
+			directionsService.route(route, function(result, status) {
+				if (status == 'OK') {
+					// 回傳路線上每個步驟的細節
+
+					console.log(result.routes[0].legs[0].steps);
+					directionsDisplay.setDirections(result);
+				} else {
+					console.log(status);
+				}
+			});
+		}
+	}
+//開始定位傳動到客人-------------------------------
+
+
+
+
+
+//開始定位傳動到目的地-----------------------------
+  function sub4() {
+	  //重新確認自己位置並存入資料庫
+	   sub2(positionidcheck);
+		//查詢自己&目的地位置
+	$.ajax({
+			type : "POST",
+			url : "selectall?positionidcheck=" + positionidcheck,
+			dataType : "json",
+			success : function(myiddata) {
+				console.log("事情做完了");
+				//var lat1 = parseFloat(myiddata.guestlat)
+				//var lng1 = parseFloat(myiddata.guestlng)
+				var lat2 = parseFloat(myiddata.driverlat)
+				var lng2 = parseFloat(myiddata.driverlng)
+				var lat3 = parseFloat(myiddata.destinationlat)//目的地
+				var lng3 = parseFloat(myiddata.destinationlng)//目的地
+				doworkgps2(lat2, lng2, lat3, lng3);
+			}
+		})
+
+		//接續上面的程式，只是分開而已
+		function doworkgps2(lat2, lng2, lat3, lng3) {
+			if (directionsDisplay != null) {
+				directionsDisplay.setMap(null);
+				directionsDisplay = null;
+			} else {
+
+			}
+			// 載入路線服務與路線顯示圖層
+			directionsService = new google.maps.DirectionsService();
+			directionsDisplay = new google.maps.DirectionsRenderer();
+			// 放置路線圖層  
+			directionsDisplay.setMap(map);
+			var mylat = lat2;
+			var mylng = lng2;
+			var driverlat = lat3;
+			var driverlng = lng3;
+			console.log('我的位置' + mylat + ',' + mylng);
+			// 路線相關設定
+			var route = {
+				origin : {      //自己位置
+					lat : mylat,
+					lng : mylng
+				},
+				destination : {  //司機位置
+					lat : driverlat,
+					lng : driverlng
+				}, 
+				travelMode : 'DRIVING'
+			};
+
+			// 繪製路線
+			directionsService.route(route, function(result, status) {
+				if (status == 'OK') {
+					// 回傳路線上每個步驟的細節
+
+					console.log(result.routes[0].legs[0].steps);
+					directionsDisplay.setDirections(result);
+				} else {
+					console.log(status);
+				}
+			});
+		}
+	}
+//開始定位傳動到目的地-----------------------------
+
+
+</script>
+</body>
+
+
+
+
+</html>
