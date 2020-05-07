@@ -221,7 +221,6 @@ public class ActionController {
 
 				//更改 deadline的時間
 				mDao.updateDeadline(account, new Date().getTime());
-
 				//重新寄出驗證信的狀況
 				sendEmail("verified", email, codeAgain);
 				response.getWriter().print(true);
